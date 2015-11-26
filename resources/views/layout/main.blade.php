@@ -33,7 +33,7 @@
     @yield('content')
   </div>
 	<div class="footer_container">
-		<p>Copyright © <a href="#" class="terms">axiapro.net</a>. All rights reserved.</p>	
+		<p>Copyright © <a href="#" class="terms">celebgramme.com</a>. All rights reserved.</p>	
 	</div>
 </body>
 </html>

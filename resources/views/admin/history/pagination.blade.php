@@ -1,0 +1,1 @@
+{!! $tb_ranking->render() !!}

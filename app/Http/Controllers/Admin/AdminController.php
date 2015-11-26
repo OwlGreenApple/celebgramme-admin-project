@@ -3,12 +3,6 @@
 use Celebgramme\Http\Requests;
 use Celebgramme\Http\Controllers\Controller;
 
-use Celebgramme\Models\Suppliers;
-use Celebgramme\Models\Product_categories;
-use Celebgramme\Models\Packages;
-use Celebgramme\Models\Package_features;
-use Celebgramme\Models\Admin_logs_axs;
-use Celebgramme\Models\Product_metas;
 use Celebgramme\Models\Products;
 
 use Celebgramme\Http\Requests\ImageRequest;

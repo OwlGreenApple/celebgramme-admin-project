@@ -34,4 +34,16 @@ Route::group(['middleware' => 'auth'], function()
   Route::get('home', 'Admin\AdminController@index');
   Route::get('admin', 'Admin\AdminController@index');
   
+	Route::get('bpv-ranking', 'CronJobController@bpv_ranking');
+	Route::get('load-bpv-ranking', 'CronJobController@load_bpv_ranking');
+	Route::get('pagination-bpv-ranking', 'CronJobController@pagination_bpv_ranking');
+	Route::get('generate-bpv-ranking', 'CronJobController@generate_bpv_ranking');
+  
+	Route::get('payment', 'Admin\PaymentController@index');
+	Route::get('load-payment', 'Admin\PaymentController@load_firstpremi');
+	Route::get('pagination-payment', 'Admin\PaymentController@pagination_firstpremi');
+	Route::patch('update-payment/{konfirmasiId}', 'Admin\PaymentController@update_firstpremi');
+  Route::get('edit-payment', 'Admin\PaymentController@edit');
+  Route::post('update-confirm', 'Admin\PaymentController@update_confirm');
+  
 });
