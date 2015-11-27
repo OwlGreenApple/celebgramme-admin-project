@@ -1,5 +1,5 @@
 @extends('layout.main')
 
 @section('content')
-Hi, {{$admin->username}}
+Hi, {{$admin->fullname}}
 @endsection

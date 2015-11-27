@@ -1,1 +1,1 @@
-{!! $tb_ranking->render() !!}
+{!! $arr->render() !!}

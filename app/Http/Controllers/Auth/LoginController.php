@@ -47,7 +47,7 @@ class LoginController extends Controller
 	public function postLogin(loginRequest $request)
 	{
 		$remember = (Input::has('remember')) ? true : false;
-		if (Auth::attempt(['username' => $request->username, 'password' => $request->password], $remember)) {
+		if (Auth::attempt(['email' => $request->username, 'password' => $request->password, "type"=>"admin",], $remember)) {
 			if (isset($request->r)){
 				return redirect($request->r);
 			}

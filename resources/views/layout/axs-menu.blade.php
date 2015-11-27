@@ -13,7 +13,7 @@
                 History<span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="{{url('product-categories', $parameters = [], $secure = null)}}">Post History</a></li>
+                <li><a href="{{url('post', $parameters = [], $secure = null)}}">Post History</a></li>
               </ul>
           </li>
               <li><a href="{{url('auth/logout', $parameters = [], $secure = null)}}">Logout</a></li>

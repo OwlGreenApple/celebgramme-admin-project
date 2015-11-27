@@ -2,9 +2,9 @@
 
 @section('content')
   <div class="page-header">
-    <h1>Proses Ranking Member</h1>
+    <h1>History Posts</h1>
   </div>  
-  <p>Yang ditampilkan hanya member yang sudah mensponsori 2 orang atau lebih. 1 PNR = Rp {{number_format($configuration->pnr,0,'','.')}}</p>
+  <p></p>
   <div class="cover-input-group">
     <p>Filter tanggal 
     </p>
@@ -21,13 +21,10 @@
   </div>
   <div class="cover-input-group">
     <div class="input-group fl">
-      <input type="text" id="username" class="form-control" placeholder="username"> 
+      <input type="text" id="keyword" class="form-control" placeholder="keyword"> 
     </div>
     <div class="input-group fl">
       <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
-    </div>  
-    <div class="input-group fl">
-      <input type="button" value="Process" id="button-generate" data-loading-text="Loading..." class="btn btn-primary">
     </div>  
     <div class="none"></div>
   </div>
@@ -38,50 +35,18 @@
   <table class="table table-bordered">  
     <thead>
       <tr>
-        <th rowspan="3">No</th>
-        <th rowspan="3">Member ID</th>
-        <th rowspan="3">Sponsor</th>
-        <th colspan="6">LEFT PNR</th>
-        <th colspan="6">RIGHT PNR</th>
-        <th rowspan="3">Match<br>Aktif-2</th>
-        
-        <th rowspan="3">Flush</th>
-        <th rowspan="3">Rangking</th>
-        <th colspan="4">Carry<br>Forward</th>
-        <th rowspan="3">Bonus</th>
-        <th rowspan="3">Status</th>
-        <th rowspan="3">Ket</th>
-      </tr>
-      <tr>
-        <th colspan="4">Total Pending<br> Kiri</th>
-        <th colspan="2">Aktif-2+<br>Aktif-3</th>
-        <th colspan="4">Total Pending<br>Kanan</th>
-        <th colspan="2">Aktif-2+<br>Aktif-3</th>
-        <th colspan="2">Pending</th>
-        <th colspan="2">Aktif2+<br>Aktif3</th>
-      </tr>  
-      <tr>
-        <th>Prev</th>
-        <th>New</th>
-        <th>Trx-2</th>
-        <th>Total</th>
-        <th>Prev</th>
-        <th>Total</th>
-        <th>Prev</th>
-        <th>New</th>
-        <th>Trx-2</th>
-        <th>Total</th>
-        <th>Prev</th>
-        <th>Total</th>
-        <th>L</th>
-        <th>R</th>
-        <th>L</th>
-        <th>R</th>
+        <th>No. </th>
+        <th>URL Photo</th>
+        <th>Likes</th>
+        <th>Email user</th>
+        <th>Nama</th>
+        <th>Phone user</th>
+        <th>Status</th>
       </tr>      
     </thead>
     
     
-    <tbody id="content-bpv-ranking">
+    <tbody id="content">
     </tbody>
     
   </table>  
@@ -117,13 +82,13 @@
     function refresh_page(page)
     {
       $.ajax({                                      
-        url: '<?php echo url('load-bpv-ranking'); ?>',
+        url: '<?php echo url('load-post'); ?>',
         type: 'get',
         data: {
           page: page,
           from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
-          username : $("#username").val(),
+          search : $("#keyword").val(),
         },
         beforeSend: function()
         {
@@ -132,7 +97,7 @@
         dataType: 'text',
         success: function(result)
         {
-          $('#content-bpv-ranking').html(result);
+          $('#content').html(result);
           $("#div-loading").hide();
         }
       });
@@ -140,13 +105,13 @@
     function create_pagination(page)
     {
       $.ajax({
-        url: '<?php echo url('pagination-bpv-ranking'); ?>',
+        url: '<?php echo url('pagination-post'); ?>',
         type: 'get',
         data: {
           page : page,
           from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
-          username : $("#username").val(),
+          search : $("#keyword").val(),
         },
         beforeSend: function()
         {
@@ -221,10 +186,33 @@
         create_pagination(1);
         refresh_page(1);
       });
-      $('#button-generate').click(function(e){
-        e.preventDefault();
-        generate_bpv();
+      $( "body" ).on( "click", ".x-icon", function() {
+        temp = $(this);
+        $.ajax({                                      
+          url: '<?php echo url('update-post'); ?>/'+$(this).attr('data-id'),
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'patch',
+          data: {
+            _method : "PATCH",
+          },
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            if (result=='success') {
+              temp.removeClass('x-icon');
+              temp.addClass('checked-icon');
+            }
+            $("#div-loading").hide();
+          }
+        });
       });
+      
     });
   </script>		
   

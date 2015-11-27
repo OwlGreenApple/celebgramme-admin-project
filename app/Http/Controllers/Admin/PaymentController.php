@@ -3,7 +3,10 @@
 use Celebgramme\Http\Requests;
 use Celebgramme\Http\Controllers\Controller;
 
-use Celebgramme\Models\Products;
+use Celebgramme\Models\Order;
+use Celebgramme\Models\User;
+use Celebgramme\Models\Package;
+use Celebgramme\Models\PackageUser;
 
 use View,Auth,Request,DB,Carbon,Excel;
 
@@ -37,23 +40,25 @@ class PaymentController extends Controller {
 	public function load_payment()
   {
     if (Request::input('search')=="") {
-      $tb_konfirmasi_premi = Tb_konfirmasi_premi::where('created','>=',date("Y-m-d", intval(Request::input('from'))))
-                             ->where('created','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-                             ->orderBy('created', 'desc')->paginate(15);
+      $order = Order::join('users',"users.id","=","orders.user_id")
+               ->select("orders.*","users.fullname","users.phone_number","users.email")
+               ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+               ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+               ->orderBy('orders.created_at', 'desc')->paginate(15);
     } else {
-      $tb_konfirmasi_premi = Tb_konfirmasi_premi::where('created','>=',date("Y-m-d", intval(Request::input('from'))))
-                              ->where('created','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-                              ->where('username','=',Request::input('search'))
-                              ->orWhere('nama','like','%'.Request::input('search').'%')
-                              ->orWhere('nopolis','like','%'.Request::input('search').'%')
-                              ->orderBy('created', 'desc')->paginate(15);
+      $order = Order::join('users',"users.id","=","orders.user_id")
+               ->select("orders.*","users.fullname","users.phone_number","users.email")
+               ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+               ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+               ->orWhere('fullname','like','%'.Request::input('search').'%')
+               ->orderBy('orders.created_at', 'desc')->paginate(15);
     }
 
     $user = Auth::user();
     return view('admin.confirm.content')->with(
                 array(
                   'user'=>$user,
-                  'tb_konfirmasi_premi'=>$tb_konfirmasi_premi,
+                  'order'=>$order,
                   'page'=>Request::input('page'),
                 ));
   }
@@ -61,89 +66,58 @@ class PaymentController extends Controller {
 	public function pagination_payment()
   {
     if (Request::input('search')=="") {
-      $tb_konfirmasi_premi = Tb_konfirmasi_premi::where('created','>=',date("Y-m-d", intval(Request::input('from'))))
-                             ->where('created','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-                             ->orderBy('created', 'desc')->paginate(15);
+      $order = Order::join('users',"users.id","=","orders.user_id")
+               ->select("orders.*","users.fullname","users.phone_number","users.email")
+               ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+               ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+               ->orderBy('orders.created_at', 'desc')->paginate(15);
     } else {
-      $tb_konfirmasi_premi = Tb_konfirmasi_premi::where('created','>=',date("Y-m-d", intval(Request::input('from'))))
-                              ->where('created','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-                              ->where('username','=',Request::input('search'))
-                              ->orWhere('nama','like','%'.Request::input('search').'%')
-                              ->orWhere('nopolis','like','%'.Request::input('search').'%')
-                              ->orderBy('created', 'desc')->paginate(15);
+      $order = Order::join('users',"users.id","=","orders.user_id")
+               ->select("orders.*","users.fullname","users.phone_number","users.email")
+               ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+               ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+               ->orWhere('fullname','like','%'.Request::input('search').'%')
+               ->orderBy('orders.created_at', 'desc')->paginate(15);
     }
 
     return view('admin.confirm.pagination')->with(
                 array(
-                  'tb_konfirmasi_premi'=>$tb_konfirmasi_premi,
+                  'order'=>$order,
                 ));
   }
 
 	public function update_payment($konfirmasiId)
   {
-    // $req = $request->except('_method','_token','ex_nopolis','ex_username');
-    // Tb_konfirmasi_premi::find($konfirmasiId)->update(array('status'=>"1",));
-    $tb_konfirmasi_premi = Tb_konfirmasi_premi::find($konfirmasiId);
-    $tb_konfirmasi_premi->status = "1";
-    $tb_konfirmasi_premi->save();
+    $order = Order::find($konfirmasiId);
+    $order->order_status = "success";
+    $order->checked = true;
+    $order->save();
     
-    if ($tb_konfirmasi_premi->jumlah==100000) {
-      $member = Member::where("username","=",$tb_konfirmasi_premi->username)->first();
-      $member->warning_renewal = false;
-      $member->save();
+    $package = Package::find($order->package_id);
+    
+    $packageuser = new PackageUser;
+    $packageuser->package_id = $order->package_id;
+    $packageuser->user_id = $order->user_id;
+    $packageuser->save();
+    
+    $user = User::find($order->user_id);
+    $user->balance = $package->daily_likes;
+    
+    $dt = Carbon::createFromFormat('Y-m-d H:i:s', $user->valid_until);
+    if ($package->package_type=="day") {
+      $user->valid_until = $dt->addDays(1)->toDateTimeString();
+    }
+    if ($package->package_type=="week") {
+      $user->valid_until = $dt->addDays(7)->toDateTimeString();
+    }
+    if ($package->package_type=="month") {
+      $user->valid_until = $dt->addDays(30)->toDateTimeString();
     }
     
-    Admin_logs::log_activity('update ( nopolis : '.$tb_konfirmasi_premi->nopolis.')',array("status"=>"1",),'edit konfirmasi premi (status)',0);
+    $user->save();
+    
     return "success";
   }
 
-	public function edit()
-  {
-    $tb_konfirmasi_premi = Tb_konfirmasi_premi::find(Request::input("editId"));
-    $config_packages = Config_packages::where('showed','=',true)->get();
-    return view('admin.confirm._editConfirmModal')->with(
-                array(
-                  'tb_konfirmasi_premi'=>$tb_konfirmasi_premi,
-                  'config_packages'=>$config_packages,
-                ));
-  }
-
-	public function update_confirm()
-  {
-    $config_package = Config_packages::find(Request::input("jenisPremi"));
-
-    $tb_konfirmasi_premi = Tb_konfirmasi_premi::find(Request::input("idConfirm"));
-
-    $arrayOld = array (
-      "nohp" => $tb_konfirmasi_premi->nohp, 
-      "email" => $tb_konfirmasi_premi->email, 
-      "package_id" => $tb_konfirmasi_premi->config_package_id, 
-      "topup" => $tb_konfirmasi_premi->topup, 
-    );
-    $arrayNew = array (
-      "nohp" => Request::input("noHP"), 
-      "email" => Request::input("email"), 
-      "package_id" => Request::input("jenisPremi"), 
-      "topup" => Request::input("topup"), 
-    );
-    $diff = array_diff_assoc($arrayNew,$arrayOld);
-    Admin_logs::log_activity('update ( nopolis : '.$tb_konfirmasi_premi->nopolis.')',$diff,'edit konfirmasi premi (data)',0);
-    
-    $tb_konfirmasi_premi->email = Request::input("email");
-    $tb_konfirmasi_premi->nohp = Request::input("noHP");
-    $tb_konfirmasi_premi->config_package_id = Request::input("jenisPremi");
-    $tb_konfirmasi_premi->jenis_premi = $config_package->value;
-    $tb_konfirmasi_premi->topup = Request::input("topup");
-    $tb_konfirmasi_premi->jumlah = $config_package->value + Request::input("topup");
-    $tb_konfirmasi_premi->save();
-    
-    $arr['type']="success";
-    $arr['message']="Proses Edit berhasil dilakukan";
-    $arr['id'] = Request::input("idConfirm");
-    $arr['jumlah'] = number_format($config_package->value,0,'','.');
-    $arr['topup'] = number_format(Request::input("topup"),0,'','.');
-    $arr['total'] = number_format($config_package->value + Request::input("topup"),0,'','.');
-    return $arr;
-  }
   
 }

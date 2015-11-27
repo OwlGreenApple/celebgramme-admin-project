@@ -34,26 +34,17 @@
       <tr>
         <th>No.</th>
         <th>Tanggal Konfirmasi</th>
-        <th>NO Polis/SPAJ</th>
-        <th>Member ID</th>
-        <th>Nama Member</th>
+        <th>Nama</th>
         <th>No HP</th>
         <th>Email</th>
-        <th>Jenis Premi</th>
-        <th>Top up</th>
         <th>Jumlah</th>
-        <th>Nama Bank / No rek Asal</th>
-        <th>Nama Bank / No rek Tujuan</th>
         <th>Bukti Transfer</th>
         <th>Status</th>
-        <?php if ($user->level==1) { ?>
-          <th></th>
-        <?php } ?>
       </tr>      
     </thead>
     
     
-    <tbody id="content-firstpremi">
+    <tbody id="content">
     </tbody>
     
   </table>  
@@ -67,32 +58,6 @@
   </div>
   
   <script>
-     /*
-          edit button 'onclick' call this function
-          to open modal for edit purpose
-     */
-    
-    function callEditConfirm(confirmId){
-        $.ajax({
-          url: '<?php echo url("edit-confirm"); ?>',
-          type: 'get',
-          data: {
-            editId : confirmId,
-          },
-          beforeSend: function()
-          {
-              $("#div-loading").show();
-          },
-          dataType: 'text',
-          success: function(result)
-          {
-              $("#div-confirm").html(result);
-              $("#confirm-edit").modal();
-              $("#div-loading").hide();
-          }
-        });
-    }
-      
       
     $(function() {
       $("#from").datepicker({
@@ -121,7 +86,7 @@
     function refresh_page(page)
     {
       $.ajax({                                      
-        url: '<?php echo url('load-firstpremi'); ?>',
+        url: '<?php echo url('load-payment'); ?>',
         type: 'get',
         data: {
           search : $("#search-text").val(),
@@ -136,7 +101,7 @@
         dataType: 'text',
         success: function(result)
         {
-          $('#content-firstpremi').html(result);
+          $('#content').html(result);
           $("#div-loading").hide();
         }
       });
@@ -144,7 +109,7 @@
     function create_pagination()
     {
       $.ajax({
-        url: '<?php echo url('pagination-firstpremi'); ?>',
+        url: '<?php echo url('pagination-payment'); ?>',
         type: 'get',
         data: {
           search : $("#search-text").val(),
@@ -184,7 +149,7 @@
       $( "body" ).on( "click", ".x-icon", function() {
         temp = $(this);
         $.ajax({                                      
-          url: '<?php echo url('update-firstpremi'); ?>/'+$(this).attr('data-id'),
+          url: '<?php echo url('update-payment'); ?>/'+$(this).attr('data-id'),
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
