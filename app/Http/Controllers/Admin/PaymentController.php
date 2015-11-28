@@ -3,6 +3,9 @@
 use Celebgramme\Http\Requests;
 use Celebgramme\Http\Controllers\Controller;
 
+use Celebgramme\Helpers\GeneralHelper;
+
+use Celebgramme\Models\Invoice;
 use Celebgramme\Models\Order;
 use Celebgramme\Models\User;
 use Celebgramme\Models\Package;
@@ -111,10 +114,22 @@ class PaymentController extends Controller {
       $user->valid_until = $dt->addDays(7)->toDateTimeString();
     }
     if ($package->package_type=="month") {
-      $user->valid_until = $dt->addDays(30)->toDateTimeString();
+      $user->valid_until = $dt->addDays(28)->toDateTimeString();
     }
     
     $user->save();
+    
+    //create invoice
+    $invoice = new Invoice;
+
+		$dt = Carbon::now();
+		$str = 'ICLB'.$dt->format('ymdHi');
+    $invoice_number = GeneralHelper::autoGenerateID($invoice, 'no_invoice', $str, 3, '0');
+
+    $invoice->no_invoice = $invoice_number;
+    $invoice->total = $order->total;
+    $invoice->order_id = $order->id;
+    $invoice->save();
     
     return "success";
   }
