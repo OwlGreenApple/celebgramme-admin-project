@@ -11,7 +11,7 @@ use Celebgramme\Models\User;
 use Celebgramme\Models\Package;
 use Celebgramme\Models\PackageUser;
 
-use View,Auth,Request,DB,Carbon,Excel;
+use View,Auth,Request,DB,Carbon,Excel, Mail;
 
 class PaymentController extends Controller {
 
@@ -131,6 +131,23 @@ class PaymentController extends Controller {
     $invoice->order_id = $order->id;
     $invoice->save();
     
+    $shortcode = str_replace('ICLB', '', $invoice_number);
+    $emaildata = [
+        'no_invoice' => $shortcode,
+        'package' => $package,
+    ];
+    if ($order->order_type=="transfer_bank") {
+        $emaildata["order_type"] = "Transfer Bank";
+    }
+    if ($order->order_type=="VERITRANS") {
+        $emaildata["order_type"] = "Veritrans";
+    }
+    Mail::queue('emails.success-payment', $emaildata, function ($message) use ($user) {
+      $message->from('no-reply@celebgramme.com', 'Celebgramme');
+      $message->to($user->email);
+      $message->subject('Success Payment');
+    });
+
     return "success";
   }
 
