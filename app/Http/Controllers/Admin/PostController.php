@@ -93,6 +93,11 @@ class PostController extends Controller {
     $request = RequestModel::find($konfirmasiId);
     $request->status=true;
     $request->save();
+
+    $user = User::find($request->user_id);
+    $user->balance = $user->balance - $request->likes;
+    $user->save();
+    
     return "success";
   }
     
