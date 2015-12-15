@@ -22,8 +22,8 @@
     </div>
     <div class="input-group fl">
       <select class="form-control" id="confirmed-status">
-        <option value="0">Not Confirmed</option>
         <option value="1">Confirmed</option>
+        <option value="0">Not Confirmed</option>
         <option value="2">All</option>
       </select>
     </div>

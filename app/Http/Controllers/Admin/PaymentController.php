@@ -151,6 +151,10 @@ class PaymentController extends Controller {
     $user->balance = $package->daily_likes;
     
     $dt = Carbon::createFromFormat('Y-m-d H:i:s', $user->valid_until);
+    $dt2 = Carbon::now();
+    if ($dt2->gt($dt)) {
+      $dt = $dt2;
+    }
     if ($package->package_type=="day") {
       $user->valid_until = $dt->addDays(1)->toDateTimeString();
     }
