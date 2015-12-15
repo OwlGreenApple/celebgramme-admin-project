@@ -6,6 +6,7 @@
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{url('payment', $parameters = [], $secure = null)}}">Confirm Payment</a></li>
+                <li><a href="{{url('invoice', $parameters = [], $secure = null)}}">Invoice</a></li>
               </ul>
           </li>
           <li class='dropdown'>

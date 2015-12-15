@@ -44,4 +44,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-payment', 'Admin\PaymentController@pagination_payment');
 	Route::patch('update-payment/{konfirmasiId}', 'Admin\PaymentController@update_payment');
   
+	Route::get('invoice', 'Admin\InvoiceController@index');
+	Route::get('load-invoice', 'Admin\InvoiceController@load_invoice');
+	Route::get('pagination-invoice', 'Admin\InvoiceController@pagination_invoice');
 });

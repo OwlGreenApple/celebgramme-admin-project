@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="page-header">
-    <h1>Confirm payment</h1>
+    <h1>Invoice</h1>
   </div>  
   <div class="cover-input-group">
     <div class="input-group fl">
@@ -18,25 +18,8 @@
   </div>
   <div class="cover-input-group">
     <div class="input-group fl">
-      <label class="label-slicing">Confirmed by user : </label>
-    </div>
-    <div class="input-group fl">
-      <select class="form-control" id="confirmed-status">
-        <option value="1">Confirmed</option>
-        <option value="0">Not Confirmed</option>
-        <option value="2">All</option>
-      </select>
-    </div>
-    <div class="none"></div>
-  </div>
-  <div class="cover-input-group">
-    <div class="input-group fl">
-      <input type="text" id="search-text" class="form-control" placeholder="keyword"> 
-    </div>
-    <div class="input-group fl">
       <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
-    </div>  
-    <div class="none"></div>
+    </div>
   </div>
   
   <div class="alert alert-danger" id="alert">
@@ -45,14 +28,9 @@
   <table class="table table-bordered">  
     <thead>
       <tr>
-        <th>No.</th>
-        <th>Confirmed by user</th>
-        <th>Tanggal Konfirmasi</th>
+        <th>No. Invoice</th>
+        <th>Total</th>
         <th>Nama</th>
-        <th>Email</th>
-        <th>Jumlah</th>
-        <th>Bukti Transfer</th>
-        <th>Status</th>
       </tr>      
     </thead>
     
@@ -108,14 +86,12 @@
     function refresh_page(page)
     {
       $.ajax({                                      
-        url: '<?php echo url('load-payment'); ?>',
+        url: '<?php echo url('load-invoice'); ?>',
         type: 'get',
         data: {
-          search : $("#search-text").val(),
           page: page,
           from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
-          status:$("#confirmed-status").val(),
         },
         beforeSend: function()
         {
@@ -132,14 +108,11 @@
     function create_pagination()
     {
       $.ajax({
-        url: '<?php echo url('pagination-payment'); ?>',
+        url: '<?php echo url('pagination-invoice'); ?>',
         type: 'get',
         data: {
-          search : $("#search-text").val(),
           from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
-          username : $("#username").val(),
-          status:$("#confirmed-status").val(),
         },
         beforeSend: function()
         {
@@ -170,37 +143,7 @@
         create_pagination();
         refresh_page(1);
       });
-      $( "body" ).on( "click", ".x-icon", function() {
-        temp = $(this);
-        $.ajax({                                      
-          url: '<?php echo url('update-payment'); ?>/'+$(this).attr('data-id'),
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          type: 'patch',
-          data: {
-            _method : "PATCH",
-          },
-          beforeSend: function()
-          {
-            $("#div-loading").show();
-          },
-          dataType: 'text',
-          success: function(result)
-          {
-            if (result=='success') {
-              temp.removeClass('x-icon');
-              temp.addClass('checked-icon');
-            }
-            $("#div-loading").hide();
-          }
-        });
-      });
 
-      $( "body" ).on( "click", ".popup-newWindow", function() {
-        event.preventDefault();
-        window.open($(this).find("img").attr("src"), "popupWindow", "width=600,height=600,scrollbars=yes");
-      });
 
     });
   </script>		

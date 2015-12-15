@@ -22,9 +22,6 @@
         {{$arr->fullname}}
       </td>
       <td align="center">
-        {{$arr->phone_number}}
-      </td>
-      <td align="center">
         {{$arr->email}}
       </td>
       <td align="center" class="data-nohp">
