@@ -214,3 +214,6 @@ Footer
 .navbar-collapse.collapse{display:block;}
 .navbar{ position:relative!important; }
 .container{ position:relative; }
+
+.ui-widget-header { color :#000;}
+.label-slicing { margin-top:7px; }

@@ -18,6 +18,19 @@
   </div>
   <div class="cover-input-group">
     <div class="input-group fl">
+      <label class="label-slicing">Confirmed by user : </label>
+    </div>
+    <div class="input-group fl">
+      <select class="form-control" id="confirmed-status">
+        <option value="0">Not Confirmed</option>
+        <option value="1">Confirmed</option>
+        <option value="2">All</option>
+      </select>
+    </div>
+    <div class="none"></div>
+  </div>
+  <div class="cover-input-group">
+    <div class="input-group fl">
       <input type="text" id="search-text" class="form-control" placeholder="keyword"> 
     </div>
     <div class="input-group fl">
@@ -33,6 +46,7 @@
     <thead>
       <tr>
         <th>No.</th>
+        <th>Confirmed by user</th>
         <th>Tanggal Konfirmasi</th>
         <th>Nama</th>
         <th>No HP</th>
@@ -62,6 +76,9 @@
     $(function() {
       $("#from").datepicker({
         dateFormat: 'dd-mm-yy',
+        showWeek: true,
+        changeMonth: true,
+        changeYear: true,        
         onSelect: function(d) {
           var from = $('#from').datepicker('getDate');
           var to = $('#to').datepicker('getDate');
@@ -72,6 +89,9 @@
       });
       $("#to").datepicker({
         dateFormat: 'dd-mm-yy',
+        showWeek: true,
+        changeMonth: true,
+        changeYear: true,        
         onSelect: function(d) {
           var from = $('#store_order_list_fromdate').datepicker('getDate');
           var to = $('#store_order_list_todate').datepicker('getDate');
@@ -80,7 +100,10 @@
           }
         }
       });
-      $("#from").datepicker('setDate', new Date());
+      var d = new Date();
+      d.setDate(1);
+      d.setMonth(-1);
+      $("#from").datepicker('setDate', d);
       $("#to").datepicker('setDate', new Date());
     });
     function refresh_page(page)
@@ -93,6 +116,7 @@
           page: page,
           from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
+          status:$("#confirmed-status").val(),
         },
         beforeSend: function()
         {
@@ -116,6 +140,7 @@
           from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
           username : $("#username").val(),
+          status:$("#confirmed-status").val(),
         },
         beforeSend: function()
         {

@@ -11,7 +11,12 @@
         {{$i}}
       </td>
       <td align="center">
-        {{$arr->created_at}}
+        <?php  if ($arr->updated_at<>$arr->created_at)  { echo "Confirmed"; }
+        else  if ($arr->updated_at==$arr->created_at) { echo "Not Confirmed";  }
+        ?>
+      </td>
+      <td align="center">
+        <?php  if ($arr->updated_at<>$arr->created_at) echo $arr->updated_at; ?>
       </td>
       <td align="center">
         {{$arr->fullname}}

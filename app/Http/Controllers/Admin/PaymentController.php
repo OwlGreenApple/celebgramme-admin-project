@@ -42,19 +42,41 @@ class PaymentController extends Controller {
   
 	public function load_payment()
   {
+    if (Request::input('status')==0) { $temp_s = "="; }
+    if (Request::input('status')==1) { $temp_s = "<>"; }
     if (Request::input('search')=="") {
-      $order = Order::join('users',"users.id","=","orders.user_id")
-               ->select("orders.*","users.fullname","users.phone_number","users.email")
-               ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
-               ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-               ->orderBy('orders.created_at', 'desc')->paginate(15);
+      if (Request::input('status')==2) {
+        $order = Order::join('users',"users.id","=","orders.user_id")
+                 ->select("orders.*","users.fullname","users.phone_number","users.email")
+                 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+                 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+                 ->orderBy('orders.created_at', 'desc')->paginate(15);
+      }
+      if ( (Request::input('status')==1) || (Request::input('status')==0) ){
+        $order = Order::join('users',"users.id","=","orders.user_id")
+                 ->select("orders.*","users.fullname","users.phone_number","users.email")
+                 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+                 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+                 ->where('orders.image',$temp_s, "")
+                 ->orderBy('orders.created_at', 'desc')->paginate(15);
+      }
     } else {
-      $order = Order::join('users',"users.id","=","orders.user_id")
+      if (Request::input('status')==2) {
+        $order = Order::join('users',"users.id","=","orders.user_id")
                ->select("orders.*","users.fullname","users.phone_number","users.email")
                ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
                ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                ->orWhere('fullname','like','%'.Request::input('search').'%')
                ->orderBy('orders.created_at', 'desc')->paginate(15);
+      }
+      if ( (Request::input('status')==1) || (Request::input('status')==0) ){
+        $order = Order::join('users',"users.id","=","orders.user_id")
+                 ->select("orders.*","users.fullname","users.phone_number","users.email")
+                 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+                 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+                 ->where('orders.image',$temp_s,"")
+                 ->orderBy('orders.created_at', 'desc')->paginate(15);
+      }
     }
 
     $user = Auth::user();
@@ -68,19 +90,41 @@ class PaymentController extends Controller {
   
 	public function pagination_payment()
   {
+    if (Request::input('status')==1) { $temp_s = "<>"; }
+    if (Request::input('status')==0) { $temp_s = "="; }
     if (Request::input('search')=="") {
-      $order = Order::join('users',"users.id","=","orders.user_id")
-               ->select("orders.*","users.fullname","users.phone_number","users.email")
-               ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
-               ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-               ->orderBy('orders.created_at', 'desc')->paginate(15);
+      if (Request::input('status')==2) {
+        $order = Order::join('users',"users.id","=","orders.user_id")
+                 ->select("orders.*","users.fullname","users.phone_number","users.email")
+                 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+                 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+                 ->orderBy('orders.created_at', 'desc')->paginate(15);
+      }
+      if ( (Request::input('status')==1) || (Request::input('status')==0) ){
+        $order = Order::join('users',"users.id","=","orders.user_id")
+                 ->select("orders.*","users.fullname","users.phone_number","users.email")
+                 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+                 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+                 ->where('orders.created_at',$temp_s,'orders.updated_at')
+                 ->orderBy('orders.created_at', 'desc')->paginate(15);
+      }
     } else {
-      $order = Order::join('users',"users.id","=","orders.user_id")
+      if (Request::input('status')==2) {
+        $order = Order::join('users',"users.id","=","orders.user_id")
                ->select("orders.*","users.fullname","users.phone_number","users.email")
                ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
                ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                ->orWhere('fullname','like','%'.Request::input('search').'%')
                ->orderBy('orders.created_at', 'desc')->paginate(15);
+      }
+      if ( (Request::input('status')==1) || (Request::input('status')==0) ){
+        $order = Order::join('users',"users.id","=","orders.user_id")
+                 ->select("orders.*","users.fullname","users.phone_number","users.email")
+                 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+                 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+                 ->where('orders.created_at',$temp_s,'orders.updated_at')
+                 ->orderBy('orders.created_at', 'desc')->paginate(15);
+      }
     }
 
     return view('admin.confirm.pagination')->with(
