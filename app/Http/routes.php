@@ -14,10 +14,10 @@
 if(\App::environment() == "local"){
 	//D:\xampp\htdocs\general\images\products
 	define('UPLOADS_PATH', base_path().'/../htdocs/general/images/');
-	define('VIEW_IMG_PATH', '/general/images/');
+	define('VIEW_IMG_PATH', url('').'/../general/images/';
 }else{
 	define('UPLOADS_PATH', base_path().'/../public_html/general/images/');
-	define('VIEW_IMG_PATH', '/general/images/');
+	define('VIEW_IMG_PATH', url('').'/../general/images/';
 }
 /*--------- Login routes ---------*/
 Route::get('login', 'Auth\LoginController@getLogin');

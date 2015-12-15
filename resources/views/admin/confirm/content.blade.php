@@ -31,7 +31,7 @@
         {{number_format($arr->total,0,'','.')}}
       </td>
       <td align="center">
-        <a href="" class="popup-newWindow"><img src="{{UPLOADS_PATH.'confirm-payment/'.$arr->image}}" style="width:70px;"></a>
+        <a href="" class="popup-newWindow"><img src="{{VIEW_IMG_PATH.'confirm-payment/'.$arr->image}}" style="width:70px;"></a>
       </td>
       <td align="center">
         <?php if ($arr->checked) { ?>
