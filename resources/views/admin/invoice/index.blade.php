@@ -29,8 +29,8 @@
     <thead>
       <tr>
         <th>No. Invoice</th>
-        <th>Total</th>
         <th>Nama</th>
+        <th>Total</th>
       </tr>      
     </thead>
     
