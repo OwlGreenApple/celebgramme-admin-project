@@ -39,6 +39,10 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-post', 'Admin\PostController@pagination_post');
 	Route::patch('update-post/{konfirmasiId}', 'Admin\PostController@update_post');
   
+	Route::get('post-auto-manage', 'Admin\PostController@auto_manage');
+	Route::get('load-post-auto-manage', 'Admin\PostController@load_auto_manage');
+	Route::get('pagination-post-auto-manage', 'Admin\PostController@pagination_auto_manage');
+
 	Route::get('payment', 'Admin\PaymentController@index');
 	Route::get('load-payment', 'Admin\PaymentController@load_payment');
 	Route::get('pagination-payment', 'Admin\PaymentController@pagination_payment');

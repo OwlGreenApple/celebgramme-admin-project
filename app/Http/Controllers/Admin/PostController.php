@@ -5,6 +5,9 @@ use Celebgramme\Http\Controllers\Controller;
 
 use Celebgramme\Models\User;
 use Celebgramme\Models\RequestModel;
+use Celebgramme\Models\Post;
+use Celebgramme\Models\Setting;
+use Celebgramme\Models\LinkUserSetting;
 
 use View,Auth,Request,DB,Carbon;
 
@@ -100,5 +103,64 @@ class PostController extends Controller {
     
     return "success";
   }
+
+
+
+
+
+/*
+* AUTO MANAGE
+*
+*/
+
+
+  /**
+   * Show bpv ranking page.
+   *
+   * @return Response
+   */
+  public function auto_manage()
+  {
+    $user = Auth::user();
+    return View::make('admin.auto-manage.index')->with(
+                  array(
+                    'user'=>$user,
+                  ));
+  }
+
+  public function load_auto_manage()
+  {
+      $arr = Post::join("settings","settings.id","=","posts.setting_id")
+             ->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
+             //->join("users","users.id","=","link_users_settings.user_id")
+             ->select("posts.*","settings.insta_username")
+             ->where("posts.type","=","pending")
+             ->orderBy('posts.updated_at', 'desc')
+             ->paginate(15);
+
+    return view('admin.auto-manage.content')->with(
+                array(
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                ));
+  }
+  
+  public function pagination_auto_manage()
+  {
+      $arr = Post::join("settings","settings.id","=","posts.setting_id")
+             ->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
+             //->join("users","users.id","=","link_users_settings.user_id")
+             ->select("posts.*","settings.insta_username")
+             ->where("posts.type","=","pending")
+             ->orderBy('posts.updated_at', 'desc')
+             ->paginate(15);
     
+                              
+    return view('admin.auto-manage.pagination')->with(
+                array(
+                  'arr'=>$arr,
+                ));
+  }
+
+
 }

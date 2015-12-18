@@ -14,7 +14,8 @@
                 History<span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="{{url('post', $parameters = [], $secure = null)}}">Post History</a></li>
+                <li><a href="{{url('post', $parameters = [], $secure = null)}}">Post History Daily Likes</a></li>
+                <li><a href="{{url('post-auto-manage', $parameters = [], $secure = null)}}">Post History Auto Manage</a></li>
               </ul>
           </li>
               <li><a href="{{url('auth/logout', $parameters = [], $secure = null)}}">Logout</a></li>
