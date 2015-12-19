@@ -21,9 +21,6 @@
   </div>
   <div class="cover-input-group">
     <div class="input-group fl">
-      <input type="text" id="keyword" class="form-control" placeholder="keyword"> 
-    </div>
-    <div class="input-group fl">
       <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
     </div>  
     <div class="none"></div>
@@ -36,11 +33,9 @@
     <thead>
       <tr>
         <th>No. </th>
-        <th>URL Photo</th>
-        <th>Likes</th>
-        <th>Email user</th>
-        <th>Nama</th>
-        <th>Phone user</th>
+        <th>Insta username</th>
+        <th>Updates</th>
+        <th>Update terakhir</th>
         <th>Status</th>
       </tr>      
     </thead>
@@ -82,13 +77,12 @@
     function refresh_page(page)
     {
       $.ajax({                                      
-        url: '<?php echo url('load-post'); ?>',
+        url: '<?php echo url('load-post-auto-manage'); ?>',
         type: 'get',
         data: {
           page: page,
           from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
-          search : $("#keyword").val(),
         },
         beforeSend: function()
         {
@@ -105,13 +99,12 @@
     function create_pagination(page)
     {
       $.ajax({
-        url: '<?php echo url('pagination-post'); ?>',
+        url: '<?php echo url('pagination-post-auto-manage'); ?>',
         type: 'get',
         data: {
           page : page,
           from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
-          search : $("#keyword").val(),
         },
         beforeSend: function()
         {
@@ -153,7 +146,7 @@
       $( "body" ).on( "click", ".x-icon", function() {
         temp = $(this);
         $.ajax({                                      
-          url: '<?php echo url('update-post'); ?>/'+$(this).attr('data-id'),
+          url: '<?php echo url('update-auto-manage'); ?>/'+$(this).attr('data-id'),
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },

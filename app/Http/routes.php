@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('post-auto-manage', 'Admin\PostController@auto_manage');
 	Route::get('load-post-auto-manage', 'Admin\PostController@load_auto_manage');
 	Route::get('pagination-post-auto-manage', 'Admin\PostController@pagination_auto_manage');
+	Route::patch('update-auto-manage/{id}', 'Admin\PostController@update_auto_manage');
 
 	Route::get('payment', 'Admin\PaymentController@index');
 	Route::get('load-payment', 'Admin\PaymentController@load_payment');

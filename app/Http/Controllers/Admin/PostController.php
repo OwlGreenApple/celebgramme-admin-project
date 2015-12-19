@@ -163,4 +163,18 @@ class PostController extends Controller {
   }
 
 
+  public function update_auto_manage($id)
+  {
+    $post = Post::find($id);    
+    $post->type = "success";
+    $post->save();
+
+    $setting_temp = Setting::find($post->setting_id);
+    $setting_real = Setting::where("insta_username","=",$setting_temp->insta_username)->where("type","=","real")->first();
+    $arr_temp = $setting_temp->toArray();
+    unset($arr_temp['id']);unset($arr_temp['type']);
+    $setting_real->update($arr_temp);
+
+    return "success";
+  }
 }
