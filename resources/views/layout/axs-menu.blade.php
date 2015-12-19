@@ -18,6 +18,14 @@
                 <li><a href="{{url('post-auto-manage', $parameters = [], $secure = null)}}">Post History Auto Manage</a></li>
               </ul>
           </li>
+          <li class='dropdown'>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                Member<span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{{url('access-token', $parameters = [], $secure = null)}}">Access Token</a></li>
+              </ul>
+          </li>
               <li><a href="{{url('auth/logout', $parameters = [], $secure = null)}}">Logout</a></li>
         </ul>          
       </div><!--/.nav-collapse -->

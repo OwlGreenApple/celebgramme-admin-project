@@ -44,6 +44,11 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-post-auto-manage', 'Admin\PostController@pagination_auto_manage');
 	Route::patch('update-auto-manage/{id}', 'Admin\PostController@update_auto_manage');
 
+	Route::get('access-token', 'Admin\MemberController@access_token');
+	Route::get('load-access-token', 'Admin\MemberController@load_access_token');
+	Route::get('pagination-access-token', 'Admin\MemberController@pagination_access_token');
+	Route::post('update-access-token', 'Admin\MemberController@update_access_token');
+
 	Route::get('payment', 'Admin\PaymentController@index');
 	Route::get('load-payment', 'Admin\PaymentController@load_payment');
 	Route::get('pagination-payment', 'Admin\PaymentController@pagination_payment');
