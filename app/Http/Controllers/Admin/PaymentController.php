@@ -10,6 +10,7 @@ use Celebgramme\Models\Order;
 use Celebgramme\Models\User;
 use Celebgramme\Models\Package;
 use Celebgramme\Models\PackageUser;
+use Celebgramme\Models\Coupon;
 
 use View,Auth,Request,DB,Carbon,Excel, Mail;
 
@@ -198,6 +199,76 @@ class PaymentController extends Controller {
 
     return "success";
   }
+
+
+
+
+
+
+/*
+* Coupon
+*
+*/
+
+
+  /**
+   * Show Coupon page.
+   *
+   * @return Response
+   */
+  public function coupon()
+  {
+    $user = Auth::user();
+
+    return View::make('admin.coupon.index')->with(
+                  array(
+                    'user'=>$user,
+                  ));
+  }
+
+  public function load_coupon()
+  {
+    $arr = Coupon::paginate(15);
+
+    return view('admin.coupon.content')->with(
+                array(
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                ));
+  }
+  
+  public function pagination_coupon()
+  {
+    $arr = Coupon::paginate(15);
+    
+                              
+    return view('admin.coupon.pagination')->with(
+                array(
+                  'arr'=>$arr,
+                ));
+  }
+
+  public function process_coupon()
+  {
+    if (Request::input("id-coupon")=="new") {
+      $coupon = new Coupon;
+    } else {
+      $coupon = Coupon::find(Request::input("id-coupon"));
+    }
+    $coupon->coupon_code = Request::input("coupon_code");
+    $coupon->coupon_value = Request::input("coupon_value");
+    $coupon->valid_until = date("Y-m-d", intval(Request::input('valid_until')));
+    $coupon->save();
+
+    $arr['type'] = 'success';
+    $arr['id'] = Request::input("id-coupon");
+    return $arr;    
+  }
+
+
+
+
+
 
   
 }

@@ -49,6 +49,15 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-access-token', 'Admin\MemberController@pagination_access_token');
 	Route::post('update-access-token', 'Admin\MemberController@update_access_token');
 
+	Route::get('member-all', 'Admin\MemberController@member_all');
+	Route::get('load-member-all', 'Admin\MemberController@load_member_all');
+	Route::get('pagination-member-all', 'Admin\MemberController@pagination_member_all');
+
+	Route::get('coupon', 'Admin\PaymentController@coupon');
+	Route::get('load-coupon', 'Admin\PaymentController@load_coupon');
+	Route::get('pagination-coupon', 'Admin\PaymentController@pagination_coupon');
+	Route::post('process-coupon', 'Admin\PaymentController@process_coupon');
+
 	Route::get('payment', 'Admin\PaymentController@index');
 	Route::get('load-payment', 'Admin\PaymentController@load_payment');
 	Route::get('pagination-payment', 'Admin\PaymentController@pagination_payment');

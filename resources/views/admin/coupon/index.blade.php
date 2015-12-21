@@ -11,17 +11,29 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Instagram Access Token</h4>
+          <h4 class="modal-title">Coupon</h4>
         </div>
         <div class="modal-body">
-          <form enctype="multipart/form-data" id="form-credential">
+          <form enctype="multipart/form-data" id="form-coupon">
             <div class="form-group form-group-sm row">
-              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Access Token</label>
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Coupon Code</label>
               <div class="col-sm-8 col-md-6">
-                <input type="text" class="form-control" placeholder="User Access Token" name="access_token" id="access_token">
+                <input type="text" class="form-control" placeholder="Coupon code" name="coupon_code" id="coupon_code">
               </div>
-              <input type="hidden" id="setting-id" name="setting-id">
             </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Coupon value</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Coupon value" name="coupon_value" id="coupon_value">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Coupon Valid Until</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Coupon valid until" name="valid_until" id="valid_until">
+              </div>
+            </div>  
+            <input type="hidden" name="id-coupon" id="id-coupon">
           </form>
         </div>
         <div class="modal-footer">
@@ -36,10 +48,10 @@
 
 
   <div class="page-header">
-    <h1>Access Token</h1>
+    <h1>Coupon</h1>
   </div>  
   <!--
-  <p>buka new tab halaman instagram, lalu logout. setelah itu buka link ""</p>
+  <p></p>
   <div class="cover-input-group">
     <p>Filter tanggal 
     </p>
@@ -54,13 +66,13 @@
     </div>  
     <div class="none"></div>
   </div>
+  -->
   <div class="cover-input-group">
     <div class="input-group fl">
-      <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
+      <input type="button" value="Add" id="button-add" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModal" > 
     </div>  
     <div class="none"></div>
   </div>
-  -->
   <div class="alert alert-danger" id="alert">
     <strong>Oh snap!</strong> Change a few things up and try submitting again.
   </div>  
@@ -68,9 +80,9 @@
     <thead>
       <tr>
         <th>No. </th>
-        <th>Insta username</th>
-        <th>Insta password</th>
-        <th>Access Token</th>
+        <th>Coupon code</th>
+        <th>Coupon Value</th>
+        <th>Valid Until</th>
         <th></th>
       </tr>      
     </thead>
@@ -86,6 +98,10 @@
   
   <script>
     $(function() {
+      $("#valid_until").datepicker({
+        dateFormat: 'dd-mm-yy',
+      });
+
       $("#from").datepicker({
         dateFormat: 'dd-mm-yy',
         onSelect: function(d) {
@@ -112,7 +128,7 @@
     function refresh_page(page)
     {
       $.ajax({                                      
-        url: '<?php echo url('load-access-token'); ?>',
+        url: '<?php echo url('load-coupon'); ?>',
         type: 'get',
         data: {
           page: page,
@@ -134,7 +150,7 @@
     function create_pagination(page)
     {
       $.ajax({
-        url: '<?php echo url('pagination-access-token'); ?>',
+        url: '<?php echo url('pagination-coupon'); ?>',
         type: 'get',
         data: {
           page : page,
@@ -173,24 +189,26 @@
       $("#alert").hide();
       create_pagination(1);
       refresh_page(1);
-      // $('#button-search').click(function(e){
-      //   e.preventDefault();
-      //   create_pagination(1);
-      //   refresh_page(1);
-      // });
+      $('#button-add').click(function(e){
+        e.preventDefault();
+        $("#id-coupon").val("new");
+      });
       $( "body" ).on( "click", ".btn-update", function() {
-        $("#setting-id").val($(this).attr("data-id"));
-        $("#access_token").val("");
+        $("#id-coupon").val($(this).attr("data-id"));
+        $("#coupon_code").val($(this).attr("data-coupon-code"));
+        $("#coupon_value").val($(this).attr("data-coupon-value"));
+        $("#valid_until").val($(this).attr("data-valid-until"));
       });
       $( "body" ).on( "click", "#button-process", function() {
         temp = $(this);
+        $('#valid_until').val($('#valid_until').datepicker('getDate').getTime()/1000+(3600*24+1));
         $.ajax({                                      
-          url: '<?php echo url('update-access-token'); ?>',
+          url: '<?php echo url('process-coupon'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           type: 'post',
-          data: $("#form-credential").serialize(),
+          data: $("#form-coupon").serialize(),
           beforeSend: function()
           {
             $("#div-loading").show();
@@ -200,7 +218,8 @@
           {
             var data = jQuery.parseJSON(result);
             if(data.type=='success') {
-              $(".row"+data.id).find("#access-token").html(data.token);
+              create_pagination(1);
+              refresh_page(1);
             }
             $("#div-loading").hide();
           }

@@ -35,7 +35,7 @@ class MemberController extends Controller {
 
 
   /**
-   * Show bpv ranking page.
+   * Show access_token for instagram api.
    *
    * @return Response
    */
@@ -92,4 +92,66 @@ class MemberController extends Controller {
     $arr['id'] = Request::input('setting-id');
     return $arr;
   }
+
+
+
+
+
+
+
+/*
+* Member all
+*
+*/
+
+
+  /**
+   * Show Member all page.
+   *
+   * @return Response
+   */
+  public function member_all()
+  {
+    $user = Auth::user();
+    $arr = User::where("type","<>","admin")
+             ->select(DB::raw("sum(active_auto_manage) as total_time_manage"))
+             ->orderBy('id', 'desc')
+             ->get();
+    return View::make('admin.member-all.index')->with(
+                  array(
+                    'user'=>$user,
+                    'total_auto_manage'=>$arr[0]->total_time_manage,
+                  ));
+  }
+
+  public function load_member_all()
+  {
+      $arr = User::where("type","<>","admin")
+             ->orderBy('active_auto_manage', 'desc')
+             ->paginate(15);
+
+    return view('admin.member-all.content')->with(
+                array(
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                ));
+  }
+  
+  public function pagination_member_all()
+  {
+      $arr = User::where("type","<>","admin")
+             ->orderBy('active_auto_manage', 'desc')
+             ->paginate(15);
+    
+                              
+    return view('admin.member-all.pagination')->with(
+                array(
+                  'arr'=>$arr,
+                ));
+  }
+
+
+
+
+
 }

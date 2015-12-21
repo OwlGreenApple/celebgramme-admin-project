@@ -7,6 +7,7 @@
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{url('payment', $parameters = [], $secure = null)}}">Confirm Payment</a></li>
                 <li><a href="{{url('invoice', $parameters = [], $secure = null)}}">Invoice</a></li>
+                <li><a href="{{url('coupon', $parameters = [], $secure = null)}}">Coupon</a></li>
               </ul>
           </li>
           <li class='dropdown'>
@@ -23,6 +24,7 @@
                 Member<span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
+                <li><a href="{{url('member-all', $parameters = [], $secure = null)}}">All</a></li>
                 <li><a href="{{url('access-token', $parameters = [], $secure = null)}}">Access Token</a></li>
               </ul>
           </li>

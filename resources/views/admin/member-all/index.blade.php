@@ -36,10 +36,18 @@
 
 
   <div class="page-header">
-    <h1>Access Token</h1>
+    <h1>Member all</h1>
   </div>  
+  <p>Total waktu : 
+    <?php 
+        $days = floor($total_auto_manage / (60*60*24));
+        $hours = floor(($total_auto_manage / (60*60)) % 24);
+        $minutes = floor(($total_auto_manage / (60)) % 60);
+        $seconds = floor($total_auto_manage  % 60);
+        echo $days." days ".$hours." hours ".$minutes." minutes ".$seconds." seconds";
+    ?>
+  </p>
   <!--
-  <p>buka new tab halaman instagram, lalu logout. setelah itu buka link ""</p>
   <div class="cover-input-group">
     <p>Filter tanggal 
     </p>
@@ -68,10 +76,12 @@
     <thead>
       <tr>
         <th>No. </th>
-        <th>Insta username</th>
-        <th>Insta password</th>
-        <th>Access Token</th>
-        <th></th>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Balance Daily Likes</th>
+        <th>Valid until Daily Likes</th>
+        <th>Free trial Daily Likes</th>
+        <th>Times auto manage left</th>
       </tr>      
     </thead>
     
@@ -112,7 +122,7 @@
     function refresh_page(page)
     {
       $.ajax({                                      
-        url: '<?php echo url('load-access-token'); ?>',
+        url: '<?php echo url('load-member-all'); ?>',
         type: 'get',
         data: {
           page: page,
@@ -134,7 +144,7 @@
     function create_pagination(page)
     {
       $.ajax({
-        url: '<?php echo url('pagination-access-token'); ?>',
+        url: '<?php echo url('pagination-member-all'); ?>',
         type: 'get',
         data: {
           page : page,
