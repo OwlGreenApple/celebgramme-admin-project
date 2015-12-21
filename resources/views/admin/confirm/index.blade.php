@@ -51,6 +51,7 @@
         <th>Nama</th>
         <th>Email</th>
         <th>Jumlah</th>
+        <th>Coupon</th>
         <th>Bukti Transfer</th>
         <th>Status</th>
       </tr>      

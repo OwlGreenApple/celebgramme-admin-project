@@ -1,4 +1,5 @@
 <?php 
+  use Celebgramme\Models\Coupon;
   if ( ($order->count()==0) ) {
     echo "<tr><td colspan='15' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -26,6 +27,14 @@
       </td>
       <td align="center" class="data-nohp">
         {{number_format($arr->total,0,'','.')}}
+      </td>
+      <td align="center">
+        <?php 
+          $coupon = Coupon::find($arr->coupon_id);
+          if (!is_null($coupon)) {
+            echo $coupon->coupon_value;
+          } else echo "0";
+        ?>
       </td>
       <td align="center">
         <a href="" class="popup-newWindow"><img src="{{VIEW_IMG_PATH.'confirm-payment/'.$arr->image}}" style="width:70px;"></a>
