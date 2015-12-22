@@ -4,34 +4,71 @@
 
 
   <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade" id="myModalDailyLikes" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Instagram Access Token</h4>
+          <h4 class="modal-title">Give daily likes</h4>
         </div>
         <div class="modal-body">
-          <form enctype="multipart/form-data" id="form-credential">
+          <form enctype="multipart/form-data" id="form-give-daily">
             <div class="form-group form-group-sm row">
-              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Access Token</label>
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">likes per day</label>
               <div class="col-sm-8 col-md-6">
-                <input type="text" class="form-control" placeholder="User Access Token" name="access_token" id="access_token">
+                <input type="number" class="form-control" placeholder="Jumlah like per hari yang ditambahkan" name="daily-likes" id="daily-likes">
               </div>
-              <input type="hidden" id="setting-id" name="setting-id">
             </div>  
+            <!--
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Valid until</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Valid sampai tanggal" name="valid-until" id="valid-until">
+              </div>
+            </div>  
+          -->
+            <input type="hidden" class="user-id" name="user-id">
+            <input type="hidden" class="action" name="action">
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" id="button-process">Submit</button>
+          <button type="button" class="btn btn-default button-process" data-dismiss="modal" id="" data-check="daily">Submit</button>
         </div>
       </div>
       
     </div>
   </div>
 
+  <div class="modal fade" id="myModalAutoManage" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Give times (auto manage)</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-give-auto">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Times(day)</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="number" class="form-control" placeholder="Jumlah hari yang ditambahkan" name="active-days" id="active-days">
+              </div>
+              <input type="hidden" class="user-id" name="user-id">
+              <input type="hidden" class="action" name="action">
+            </div>  
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default button-process" data-dismiss="modal" id="" data-check="auto">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 
 
@@ -78,10 +115,11 @@
         <th>No. </th>
         <th>Email</th>
         <th>Name</th>
-        <th>Balance Daily Likes</th>
-        <th>Valid until Daily Likes</th>
-        <th>Free trial Daily Likes</th>
-        <th>Times auto manage left</th>
+        <th>Balance (Daily Likes)</th>
+        <th>Valid until (Daily Likes)</th>
+        <th>Free trial (Daily Likes)</th>
+        <th>Times left (auto manage)</th>
+        <th></th>
       </tr>      
     </thead>
     
@@ -96,6 +134,9 @@
   
   <script>
     $(function() {
+      // $("#valid_until").datepicker({
+      //   dateFormat: 'dd-mm-yy',
+      // });
       $("#from").datepicker({
         dateFormat: 'dd-mm-yy',
         onSelect: function(d) {
@@ -179,28 +220,14 @@
         }
       });
     }
-    $(document).ready(function(){
-      $("#alert").hide();
-      create_pagination(1);
-      refresh_page(1);
-      // $('#button-search').click(function(e){
-      //   e.preventDefault();
-      //   create_pagination(1);
-      //   refresh_page(1);
-      // });
-      $( "body" ).on( "click", ".btn-update", function() {
-        $("#setting-id").val($(this).attr("data-id"));
-        $("#access_token").val("");
-      });
-      $( "body" ).on( "click", "#button-process", function() {
-        temp = $(this);
+    function give_bonus(formVar){
         $.ajax({                                      
-          url: '<?php echo url('update-access-token'); ?>',
+          url: '<?php echo url('give-bonus'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           type: 'post',
-          data: $("#form-credential").serialize(),
+          data: formVar,
           beforeSend: function()
           {
             $("#div-loading").show();
@@ -210,11 +237,44 @@
           {
             var data = jQuery.parseJSON(result);
             if(data.type=='success') {
-              $(".row"+data.id).find("#access-token").html(data.token);
+              if(data.action=='auto') {
+                $(".row"+data.id).find(".total-auto-manage").html(data.view);
+              }
+              if(data.action=='daily') {
+                $(".row"+data.id).find(".total-balance").html(data.view);
+              }
             }
             $("#div-loading").hide();
           }
         });
+    }
+    $(document).ready(function(){
+      $("#alert").hide();
+      create_pagination(1);
+      refresh_page(1);
+      // $('#button-search').click(function(e){
+      //   e.preventDefault();
+      //   create_pagination(1);
+      //   refresh_page(1);
+      // });
+      $( "body" ).on( "click", ".btn-daily-like", function() {
+        $(".user-id").val($(this).attr("data-id"));
+        $(".action").val("daily");
+        $("#daily-likes").val("");
+        $("#valid-until").val("");
+      });
+      $( "body" ).on( "click", ".btn-auto-manage", function() {
+        $(".user-id").val($(this).attr("data-id"));
+        $(".action").val("auto");
+        $("#active-days").val("");
+      });
+      $( "body" ).on( "click", ".button-process", function() {
+        temp = $(this);
+        if (temp.attr("data-check")=="auto") { formVar = $("#form-give-auto").serialize(); }
+        if (temp.attr("data-check")=="daily") { formVar = $("#form-give-daily").serialize(); }
+        
+        
+        give_bonus(formVar);
       });
       
     });

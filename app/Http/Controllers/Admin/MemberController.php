@@ -150,6 +150,28 @@ class MemberController extends Controller {
                 ));
   }
 
+  public function give_bonus()
+  {
+    $arr["type"] = "success";
+    $arr["id"] = Request::input("user-id");
+    $arr["action"] = Request::input("action");
+    $user=User::find(Request::input("user-id"));
+    if (Request::input("action")=="auto") {
+      $user->active_auto_manage += (Request::input("active-days") * 86400);
+      $t = $user->active_auto_manage;
+      $days = floor($t / (60*60*24));
+      $hours = floor(($t / (60*60)) % 24);
+      $minutes = floor(($t / (60)) % 60);
+      $seconds = floor($t  % 60);
+      $arr["view"] = $days." days ".$hours." hours ".$minutes." minutes ".$seconds."seconds";
+    }
+    if (Request::input("action")=="daily") {
+      $user->balance += Request::input("daily-likes");
+      $arr["view"] = $user->balance;
+    }
+    $user->save();
+    return $arr;
+  }
 
 
 
