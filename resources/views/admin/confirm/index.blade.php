@@ -52,6 +52,8 @@
         <th>Email</th>
         <th>Jumlah</th>
         <th>Coupon</th>
+        <th>package daily likes</th>
+        <th>package auto manage</th>
         <th>Bukti Transfer</th>
         <th>Status</th>
       </tr>      

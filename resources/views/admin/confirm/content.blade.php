@@ -1,5 +1,6 @@
 <?php 
   use Celebgramme\Models\Coupon;
+  use Celebgramme\Models\Package;
   if ( ($order->count()==0) ) {
     echo "<tr><td colspan='15' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -34,6 +35,18 @@
           if (!is_null($coupon)) {
             echo $coupon->coupon_value;
           } else echo "0";
+        ?>
+      </td>
+      <td align="center">
+        <?php 
+          $package = Package::find($arr->package_id);
+          if (!is_null($package)) { echo $package->package_name;} else { echo "-";}
+        ?>
+      </td>
+      <td align="center">
+        <?php 
+          $package = Package::find($arr->package_manage_id);
+          if (!is_null($package)) { echo $package->package_name;} else { echo "-";}
         ?>
       </td>
       <td align="center">

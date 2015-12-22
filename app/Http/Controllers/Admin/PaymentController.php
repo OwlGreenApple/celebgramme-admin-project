@@ -141,33 +141,48 @@ class PaymentController extends Controller {
     $order->checked = true;
     $order->save();
     
-    $package = Package::find($order->package_id);
-    
-    $packageuser = new PackageUser;
-    $packageuser->package_id = $order->package_id;
-    $packageuser->user_id = $order->user_id;
-    $packageuser->save();
-    
     $user = User::find($order->user_id);
-    $user->balance = $package->daily_likes;
+      
+    // klo beli paket daily likes
+    $package = Package::find($order->package_id);
+    if (!is_null($package)) {
+      $packageuser = new PackageUser;
+      $packageuser->package_id = $order->package_id;
+      $packageuser->user_id = $order->user_id;
+      $packageuser->save();
+
+      $user->balance = $package->daily_likes;
+      
+      $dt = Carbon::createFromFormat('Y-m-d H:i:s', $user->valid_until);
+      $dt2 = Carbon::now();
+      if ($dt2->gt($dt)) {
+        $dt = $dt2;
+      }
+      if ($package->package_type=="day") {
+        $user->valid_until = $dt->addDays(1)->toDateTimeString();
+      }
+      if ($package->package_type=="week") {
+        $user->valid_until = $dt->addDays(7)->toDateTimeString();
+      }
+      if ($package->package_type=="month") {
+        $user->valid_until = $dt->addDays(28)->toDateTimeString();
+      }
+      $user->status_free_trial = 0;
+      $user->save();
+    }
     
-    $dt = Carbon::createFromFormat('Y-m-d H:i:s', $user->valid_until);
-    $dt2 = Carbon::now();
-    if ($dt2->gt($dt)) {
-      $dt = $dt2;
+    // klo beli paket auto manage
+    $package = Package::find($order->package_manage_id);
+    if (!is_null($package)) {
+      $packageuser = new PackageUser;
+      $packageuser->package_id = $order->package_manage_id;
+      $packageuser->user_id = $order->user_id;
+      $packageuser->save();
+
+      $user->active_auto_manage = $package->active_days * 86400;
+      $user->save();
     }
-    if ($package->package_type=="day") {
-      $user->valid_until = $dt->addDays(1)->toDateTimeString();
-    }
-    if ($package->package_type=="week") {
-      $user->valid_until = $dt->addDays(7)->toDateTimeString();
-    }
-    if ($package->package_type=="month") {
-      $user->valid_until = $dt->addDays(28)->toDateTimeString();
-    }
-    $user->status_free_trial = 0;
-    $user->save();
-    
+
     //create invoice
     $invoice = new Invoice;
 
