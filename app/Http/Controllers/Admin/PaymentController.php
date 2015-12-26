@@ -179,7 +179,7 @@ class PaymentController extends Controller {
       $packageuser->user_id = $order->user_id;
       $packageuser->save();
 
-      $user->active_auto_manage = $package->active_days * 86400;
+      $user->active_auto_manage += $package->active_days * 86400;
       $user->save();
     }
 
