@@ -184,7 +184,7 @@ class PostController extends Controller {
     $setting_temp->status = "stopped";
     $setting_temp->save();
 
-    $setting_real = Setting::where('insta_username','=',$setting_temp->insta_username)->where('status','=','real')->first();
+    $setting_real = Setting::where('insta_username','=',$setting_temp->insta_username)->where('type','=','real')->first();
     $setting_real->error_cred = true;
     $setting_real->status = "stopped";
     $setting_real->save();

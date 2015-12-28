@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('load-post-auto-manage', 'Admin\PostController@load_auto_manage');
 	Route::get('pagination-post-auto-manage', 'Admin\PostController@pagination_auto_manage');
 	Route::patch('update-auto-manage/{id}', 'Admin\PostController@update_auto_manage');
+	Route::patch('update-error-cred/{id}', 'Admin\PostController@update_error_cred');
 
 	Route::get('access-token', 'Admin\MemberController@access_token');
 	Route::get('load-access-token', 'Admin\MemberController@load_access_token');
