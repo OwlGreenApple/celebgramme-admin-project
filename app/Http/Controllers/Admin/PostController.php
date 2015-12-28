@@ -133,7 +133,7 @@ class PostController extends Controller {
       $arr = Post::join("settings","settings.id","=","posts.setting_id")
              ->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
              //->join("users","users.id","=","link_users_settings.user_id")
-             ->select("posts.*","settings.insta_username")
+             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
              ->where("posts.type","=","pending")
              ->orderBy('posts.updated_at', 'desc')
              ->paginate(15);
@@ -162,7 +162,6 @@ class PostController extends Controller {
                 ));
   }
 
-
   public function update_auto_manage($id)
   {
     $post = Post::find($id);    
@@ -177,4 +176,20 @@ class PostController extends Controller {
 
     return "success";
   }
+
+  public function update_error_cred($id)
+  {
+    $setting_temp = Setting::find($id);
+    $setting_temp->error_cred = true;
+    $setting_temp->status = "stopped";
+    $setting_temp->save();
+
+    $setting_real = Setting::where('insta_username','=',$setting_temp->insta_username)->where('status','=','real')->first();
+    $setting_real->error_cred = true;
+    $setting_real->status = "stopped";
+    $setting_real->save();
+
+    return "success";
+  }
+
 }

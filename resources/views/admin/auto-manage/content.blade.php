@@ -14,6 +14,16 @@
         {{$data_arr->insta_username}}
       </td>
       <td align="center">
+        {{$data_arr->insta_password}}
+      </td>
+      <td align="center">
+        <?php if ($data_arr->error_cred) { ?>
+          <i class="checked-icon"></i>
+        <?php } else { ?>
+          <i class="x-icon update-error" data-id="{{$data_arr->setting_id}}"></i>
+        <?php } ?>
+      </td>
+      <td align="center">
         {{$data_arr->description}}
       </td>
       <td align="center">
@@ -23,7 +33,7 @@
         <?php if ($data_arr->type=="success") { ?>
           <i class="checked-icon"></i>
         <?php } else { ?>
-          <i class="x-icon" data-id="{{$data_arr->id}}"></i>
+          <i class="x-icon update-status" data-id="{{$data_arr->id}}"></i>
         <?php } ?>
       </td>
     </tr>    

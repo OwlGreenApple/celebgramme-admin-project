@@ -34,6 +34,8 @@
       <tr>
         <th>No. </th>
         <th>Insta username</th>
+        <th>Insta password</th>
+        <th>Error Credential</th>
         <th>Updates</th>
         <th>Update terakhir</th>
         <th>Status</th>
@@ -143,7 +145,33 @@
         create_pagination(1);
         refresh_page(1);
       });
-      $( "body" ).on( "click", ".x-icon", function() {
+      $( "body" ).on( "click", ".update-error", function() {
+        temp = $(this);
+        $.ajax({                                      
+          url: '<?php echo url('update-error-cred'); ?>/'+$(this).attr('data-id'),
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'patch',
+          data: {
+            _method : "PATCH",
+          },
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            if (result=='success') {
+              temp.removeClass('x-icon');
+              temp.addClass('checked-icon');
+            }
+            $("#div-loading").hide();
+          }
+        });
+      });
+      $( "body" ).on( "click", ".update-status", function() {
         temp = $(this);
         $.ajax({                                      
           url: '<?php echo url('update-auto-manage'); ?>/'+$(this).attr('data-id'),
