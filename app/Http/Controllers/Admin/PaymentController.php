@@ -209,7 +209,7 @@ class PaymentController extends Controller {
     Mail::queue('emails.success-payment', $emaildata, function ($message) use ($user) {
       $message->from('no-reply@celebgramme.com', 'Celebgramme');
       $message->to($user->email);
-      $message->subject('Success Payment');
+      $message->subject('[Celebgramme] Success Payment');
     });
 
     return "success";

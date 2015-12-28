@@ -157,7 +157,10 @@ class MemberController extends Controller {
     $arr["action"] = Request::input("action");
     $user=User::find(Request::input("user-id"));
     if (Request::input("action")=="auto") {
-      $user->active_auto_manage += (Request::input("active-days") * 86400);
+      $user->active_auto_manage += (Request::input("active-days") * 86400) + (Request::input("active-hours") * 3600) + (Request::input("active-minutes") * 60);
+      if ($user->active_auto_manage < 0 ) {
+        $user->active_auto_manage = 0;
+      }
       $t = $user->active_auto_manage;
       $days = floor($t / (60*60*24));
       $hours = floor(($t / (60*60)) % 24);

@@ -16,7 +16,7 @@
         <div class="modal-body">
           <form enctype="multipart/form-data" id="form-give-daily">
             <div class="form-group form-group-sm row">
-              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">likes per day</label>
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">days</label>
               <div class="col-sm-8 col-md-6">
                 <input type="number" class="form-control" placeholder="Jumlah like per hari yang ditambahkan" name="daily-likes" id="daily-likes">
               </div>
@@ -57,9 +57,21 @@
               <div class="col-sm-8 col-md-6">
                 <input type="number" class="form-control" placeholder="Jumlah hari yang ditambahkan" name="active-days" id="active-days">
               </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Times(hour)</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="number" class="form-control" placeholder="Jumlah jam yang ditambahkan" name="active-hours" id="active-hours">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Times(minute)</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="number" class="form-control" placeholder="Jumlah menit yang ditambahkan" name="active-minutes" id="active-minutes">
+              </div>
+            </div>  
               <input type="hidden" class="user-id" name="user-id">
               <input type="hidden" class="action" name="action">
-            </div>  
           </form>
         </div>
         <div class="modal-footer">
