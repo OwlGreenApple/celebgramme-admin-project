@@ -9,7 +9,7 @@ use Celebgramme\Models\Post;
 use Celebgramme\Models\Setting;
 use Celebgramme\Models\LinkUserSetting;
 
-use View,Auth,Request,DB,Carbon;
+use View,Auth,Request,DB,Carbon,Mail,Validator;
 
 class MemberController extends Controller {
 
@@ -177,6 +177,51 @@ class MemberController extends Controller {
   }
 
 
+  public function add_member()
+  {
+    $arr["type"] = "success";
+    $arr["message"] = "Proses add member berhasil dilakukan";
+
+    $data = array (
+      "email" => Request::input("email"),
+    );
+    $validator = Validator::make($data, [
+      'email' => 'required|email|max:255|unique:users',
+    ]);
+    if ($validator->fails()){
+      $arr["type"] = "error";
+      $arr["message"] = "Email sudah terdaftar atau tidak valid";
+      return $arr;
+    }
+
+    $karakter= 'abcdefghjklmnpqrstuvwxyz123456789';
+    $string = '';
+    for ($i = 0; $i < 8 ; $i++) {
+      $pos = rand(0, strlen($karakter)-1);
+      $string .= $karakter{$pos};
+    }
+
+    $user = new User;
+    $user->email = Request::input("email");
+    $user->password = bcrypt($string);
+    $user->fullname = Request::input("fullname");
+    $user->type = "confirmed-email";
+    $user->active_auto_manage = Request::input("member-days") * 86400;
+    $user->save();
+
+    $emaildata = [
+        'user' => $user,
+        'password' => $string,
+    ];
+    Mail::queue('emails.create-user', $emaildata, function ($message) use ($user) {
+      $message->from('no-reply@celebgramme.com', 'Celebgramme');
+      $message->to($user->email);
+      $message->subject('[Celebgramme] Welcome to celebgramme.com');
+    });
+
+
+    return $arr;
+  }
 
 
 }

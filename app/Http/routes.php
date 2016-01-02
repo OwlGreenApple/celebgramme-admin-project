@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('load-member-all', 'Admin\MemberController@load_member_all');
 	Route::get('pagination-member-all', 'Admin\MemberController@pagination_member_all');
 	Route::post('give-bonus', 'Admin\MemberController@give_bonus');
+	Route::post('add-member', 'Admin\MemberController@add_member');
 
 	Route::get('coupon', 'Admin\PaymentController@coupon');
 	Route::get('load-coupon', 'Admin\PaymentController@load_coupon');

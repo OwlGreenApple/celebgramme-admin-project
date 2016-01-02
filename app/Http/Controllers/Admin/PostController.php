@@ -189,6 +189,16 @@ class PostController extends Controller {
     $setting_real->status = "stopped";
     $setting_real->save();
 
+    $emaildata = [
+        'user' => $user,
+        'password' => $string,
+    ];
+    Mail::queue('emails.error-cred', $emaildata, function ($message) use ($user) {
+      $message->from('no-reply@celebgramme.com', 'Celebgramme');
+      $message->to($user->email);
+      $message->subject('[Celebgramme] Welcome to celebgramme.com');
+    });
+
     return "success";
   }
 

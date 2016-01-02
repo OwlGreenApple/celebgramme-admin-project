@@ -142,6 +142,7 @@ class PaymentController extends Controller {
     $order->save();
     
     $user = User::find($order->user_id);
+    $user->status_auto_manage = "member";
       
     // klo beli paket daily likes
     $package = Package::find($order->package_id);

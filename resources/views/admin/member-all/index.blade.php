@@ -82,6 +82,46 @@
     </div>
   </div>
 
+  <div class="modal fade" id="myModalCreateMember" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Member</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-create-member">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Email</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Email" name="email" id="email">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Name</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Fullname" name="fullname" id="fullname">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">days</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="number" class="form-control" placeholder="Jumlah hari yang ditambahkan" name="member-days" id="member-days">
+              </div>
+            </div>  
+              <input type="hidden" class="user-id" name="user-id">
+              <input type="hidden" class="action" name="action">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-create-member" data-check="auto">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 
   <div class="page-header">
@@ -96,6 +136,11 @@
         echo $days." days ".$hours." hours ".$minutes." minutes ".$seconds." seconds";
     ?>
   </p>
+  <div class="cover-input-group">
+    <div class="input-group">
+      <input type="button" value="Add member" id="button-add-member" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalCreateMember" > 
+    </div>  
+  </div>  
   <!--
   <div class="cover-input-group">
     <p>Filter tanggal 
@@ -288,6 +333,44 @@
         
         give_bonus(formVar);
       });
+
+      $( "body" ).on( "click", "#btn-create-member", function() {
+
+        $.ajax({
+          url: '<?php echo url('add-member'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-create-member").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              create_pagination(1);
+              refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
+            }
+            $("#div-loading").hide();
+          }
+        });
+
+
+      });
+
+
+
       
     });
   </script>		
