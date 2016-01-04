@@ -184,6 +184,12 @@ class PaymentController extends Controller {
       $user->save();
     }
 
+		$coupon = Coupon::find($order->coupon_id);
+		$coupon_value = 0 ;
+		if (!is_null($coupon)) {
+			$coupon_value = $coupon->coupon_value;
+		}
+		
     //create invoice
     $invoice = new Invoice;
 
@@ -192,7 +198,7 @@ class PaymentController extends Controller {
     $invoice_number = GeneralHelper::autoGenerateID($invoice, 'no_invoice', $str, 3, '0');
 
     $invoice->no_invoice = $invoice_number;
-    $invoice->total = $order->total;
+    $invoice->total = $order->total - $coupon_value;
     $invoice->order_id = $order->id;
     $invoice->save();
     
@@ -200,6 +206,7 @@ class PaymentController extends Controller {
     $emaildata = [
         'no_invoice' => $shortcode,
         'package' => $package,
+        'invoice' => $invoice,
     ];
     if ($order->order_type=="transfer_bank") {
         $emaildata["order_type"] = "Transfer Bank";
