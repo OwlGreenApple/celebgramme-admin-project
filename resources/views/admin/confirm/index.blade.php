@@ -155,9 +155,17 @@
           
           $('#pagination a').click(function(e){
             e.preventDefault();
-            $('#pagination a').removeClass('active');
-            $('#pagination a[data-pageid='+$(this).attr('href')+']').addClass('active');
-            refresh_page($(this).attr('href'));
+            e.stopPropagation();
+            if ($(this).html() == "«") {
+              page -= 1; 
+            } else 
+            if ($(this).html() == "»") {
+              page += 1; 
+            } else {
+              page = parseInt($(this).html());
+            }
+            create_pagination(page);
+            refresh_page(page);
           });
           
           // $("#div-loading").hide();
