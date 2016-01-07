@@ -131,7 +131,7 @@ class PostController extends Controller {
   public function load_auto_manage()
   {
       $arr = Post::join("settings","settings.id","=","posts.setting_id")
-             ->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
+             //->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
              //->join("users","users.id","=","link_users_settings.user_id")
              ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
              ->where("posts.type","=","pending")
@@ -148,7 +148,7 @@ class PostController extends Controller {
   public function pagination_auto_manage()
   {
       $arr = Post::join("settings","settings.id","=","posts.setting_id")
-             ->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
+             //->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
              //->join("users","users.id","=","link_users_settings.user_id")
              ->select("posts.*","settings.insta_username")
              ->where("posts.type","=","pending")
