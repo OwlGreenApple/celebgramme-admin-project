@@ -198,6 +198,10 @@
         });
       });
       
+			$( "body" ).on( "click", ".see-all", function() {
+				$(this).siblings('ul').slideToggle();
+			});
+			
     });
   </script>		
   
