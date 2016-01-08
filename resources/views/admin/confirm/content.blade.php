@@ -1,6 +1,7 @@
 <?php 
   use Celebgramme\Models\Coupon;
   use Celebgramme\Models\Package;
+  use Celebgramme\Models\OrderMeta;
   if ( ($order->count()==0) ) {
     echo "<tr><td colspan='15' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -21,7 +22,13 @@
         <?php  if ($arr->updated_at<>$arr->created_at) echo $arr->updated_at; ?>
       </td>
       <td align="center">
-        {{$arr->fullname}}
+        {{OrderMeta::getMeta($arr->id,"nama bank") }}
+      </td>
+      <td align="center">
+        {{OrderMeta::getMeta($arr->id,"no rekening") }}
+      </td>
+      <td align="center">
+        {{OrderMeta::getMeta($arr->id,"nama pemilik rekening") }}
       </td>
       <td align="center">
         {{$arr->email}}

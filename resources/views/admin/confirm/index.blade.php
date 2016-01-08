@@ -48,7 +48,9 @@
         <th>No.</th>
         <th>Confirmed by user</th>
         <th>Tanggal Konfirmasi</th>
-        <th>Nama</th>
+        <th>Nama bank</th>
+        <th>No rekening</th>
+        <th>Nama pemilik rekening</th>
         <th>Email</th>
         <th>Jumlah</th>
         <th>Coupon</th>
