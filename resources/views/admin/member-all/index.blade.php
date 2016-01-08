@@ -137,32 +137,26 @@
     ?>
   </p>
   <div class="cover-input-group">
-    <div class="input-group">
-      <input type="button" value="Add member" id="button-add-member" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalCreateMember" > 
-    </div>  
-  </div>  
-  <!--
-  <div class="cover-input-group">
-    <p>Filter tanggal 
+    <p>Sort By
     </p>
     <div class="input-group fl">
-      <input type="text" id="from" class="form-control"> 
+      <select class="form-control" id="sort-by">
+				<option value="1"> Created </option>
+				<option value="2"> Auto Manage </option>
+      </select>
     </div>
-    <div class="input-group fl">
-      <p>hingga</p>
-    </div>
-    <div class="input-group fl">
-      <input type="text" id="to" class="form-control"> 
-    </div>  
     <div class="none"></div>
   </div>
   <div class="cover-input-group">
     <div class="input-group fl">
       <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
     </div>  
+    <div class="input-group fl">
+      <input type="button" value="Add member" id="button-add-member" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalCreateMember" > 
+    </div>  
     <div class="none"></div>
   </div>
-  -->
+	
   <div class="alert alert-danger" id="alert">
     <strong>Oh snap!</strong> Change a few things up and try submitting again.
   </div>  
@@ -176,6 +170,7 @@
         <th>Valid until (Daily Likes)</th>
         <th>Free trial (Daily Likes)</th>
         <th>Times left (auto manage)</th>
+        <th>Created</th>
         <th></th>
       </tr>      
     </thead>
@@ -224,6 +219,7 @@
         type: 'get',
         data: {
           page: page,
+          sort: $("#sort-by").val(),
           // from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           // to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
         },
@@ -246,6 +242,7 @@
         type: 'get',
         data: {
           page : page,
+          sort: $("#sort-by").val(),
           // from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           // to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
         },
@@ -309,11 +306,11 @@
       $("#alert").hide();
       create_pagination(1);
       refresh_page(1);
-      // $('#button-search').click(function(e){
-      //   e.preventDefault();
-      //   create_pagination(1);
-      //   refresh_page(1);
-      // });
+      $('#button-search').click(function(e){
+        e.preventDefault();
+        create_pagination(1);
+        refresh_page(1);
+      });
       $( "body" ).on( "click", ".btn-daily-like", function() {
         $(".user-id").val($(this).attr("data-id"));
         $(".action").val("daily");

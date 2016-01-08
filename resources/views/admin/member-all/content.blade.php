@@ -37,6 +37,9 @@
         ?>
       </td>
       <td align="center">
+				{{$data_arr->created_at}}
+      </td>
+      <td align="center">
         <input type="button" class="btn btn-info btn-daily-like" value="Give likes" data-toggle="modal" data-target="#myModalDailyLikes" data-id="{{$data_arr->id}}" >
         <input type="button" class="btn btn-info btn-auto-manage" value="Give times" data-toggle="modal" data-target="#myModalAutoManage" data-id="{{$data_arr->id}}" >
       </td>
