@@ -23,8 +23,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-    public $timestamps = false;
-    
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
