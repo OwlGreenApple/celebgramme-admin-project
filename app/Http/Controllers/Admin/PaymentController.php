@@ -207,6 +207,8 @@ class PaymentController extends Controller {
         'no_invoice' => $shortcode,
         'package' => $package,
         'invoice' => $invoice,
+        'order' => $order,
+        'coupon_value' => $coupon_value,
     ];
     if ($order->order_type=="transfer_bank") {
         $emaildata["order_type"] = "Transfer Bank";
