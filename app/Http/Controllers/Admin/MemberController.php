@@ -215,7 +215,7 @@ class MemberController extends Controller {
 
     $user = new User;
     $user->email = Request::input("email");
-    $user->password = bcrypt($string);
+    $user->password = $string;
     $user->fullname = Request::input("fullname");
     $user->type = "confirmed-email";
     $user->active_auto_manage = Request::input("member-days") * 86400;
