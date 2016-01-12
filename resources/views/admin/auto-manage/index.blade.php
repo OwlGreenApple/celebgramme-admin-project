@@ -50,6 +50,19 @@
   
   <nav id="pagination">
   </nav>  
+	
+  <div class="cover-input-group">
+    <div class="input-group fl">
+			<input type="text" class="form-control" placeholder="Keywords">
+    </div>  
+    <div class="input-group fl">
+			<input type="text" class="form-control">
+    </div>  
+    <div class="input-group fl">
+      <input type="button" value="Convert to excel" id="button-excel" data-loading-text="Loading..." class="btn btn-primary"> 
+    </div>  
+  </div>  
+	
   
   <script>
     $(function() {
