@@ -38,6 +38,7 @@
   <div class="alert alert-danger" id="alert">
     <strong>Oh snap!</strong> Change a few things up and try submitting again.
   </div>  
+	<p align="right">Total Setting Post yang perlu di update : {{$count_post}}</p>
   <table class="table table-bordered">  
     <thead>
       <tr>

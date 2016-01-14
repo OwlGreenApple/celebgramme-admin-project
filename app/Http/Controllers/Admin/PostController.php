@@ -122,9 +122,17 @@ class PostController extends Controller {
   public function auto_manage()
   {
     $user = Auth::user();
+		$count_post = Post::join("settings","settings.id","=","posts.setting_id")
+             //->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
+             //->join("users","users.id","=","link_users_settings.user_id")
+             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
+             ->where("posts.type","=","pending")
+             ->orderBy('posts.updated_at', 'asc')
+             ->count();
     return View::make('admin.auto-manage.index')->with(
                   array(
                     'user'=>$user,
+                    'count_post'=>$count_post,
                   ));
   }
 
@@ -135,7 +143,7 @@ class PostController extends Controller {
              //->join("users","users.id","=","link_users_settings.user_id")
              ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
              ->where("posts.type","=","pending")
-             ->orderBy('posts.updated_at', 'desc')
+             ->orderBy('posts.updated_at', 'asc')
              ->paginate(15);
 
     return view('admin.auto-manage.content')->with(
@@ -152,7 +160,7 @@ class PostController extends Controller {
              //->join("users","users.id","=","link_users_settings.user_id")
              ->select("posts.*","settings.insta_username")
              ->where("posts.type","=","pending")
-             ->orderBy('posts.updated_at', 'desc')
+             ->orderBy('posts.updated_at', 'asc')
              ->paginate(15);
     
                               

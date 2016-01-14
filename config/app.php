@@ -147,7 +147,7 @@ return [
         Celebgramme\Providers\EventServiceProvider::class,
         Celebgramme\Providers\RouteServiceProvider::class,
 
-				// Maatwebsite\Excel\ExcelServiceProvider::class,
+				Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -202,7 +202,7 @@ return [
         'Carbon' => 'Carbon\Carbon',
         'Image' => 'Intervention\Image\Facades\Image',
 				
-				// 'Excel' => 'Maatwebsite\Excel\Facades\Excel',				
+				'Excel' => 'Maatwebsite\Excel\Facades\Excel',				
 
     ],
 

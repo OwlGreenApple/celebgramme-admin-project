@@ -34,7 +34,7 @@
                 Package<span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="{{url('member-all', $parameters = [], $secure = null)}}">Package Auto Manage</a></li>
+                <li><a href="{{url('package-auto-manage', $parameters = [], $secure = null)}}">Package Auto Manage</a></li>
                 <li><a href="#">Package Daily Likes</a></li>
               </ul>
           </li>

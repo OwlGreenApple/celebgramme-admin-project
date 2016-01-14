@@ -51,11 +51,14 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-access-token', 'Admin\MemberController@pagination_access_token');
 	Route::post('update-access-token', 'Admin\MemberController@update_access_token');
 
+	/* Member */
 	Route::get('member-all', 'Admin\MemberController@member_all');
 	Route::get('load-member-all', 'Admin\MemberController@load_member_all');
 	Route::get('pagination-member-all', 'Admin\MemberController@pagination_member_all');
 	Route::post('give-bonus', 'Admin\MemberController@give_bonus');
 	Route::post('add-member', 'Admin\MemberController@add_member');
+	Route::post('edit-member', 'Admin\MemberController@edit_member');
+	Route::post('delete-member', 'Admin\MemberController@delete_member');
 
 	/* Coupon */
 	Route::get('coupon', 'Admin\PaymentController@coupon');
@@ -69,6 +72,13 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-order', 'Admin\PaymentController@pagination_order');
 	Route::post('add-order', 'Admin\PaymentController@add_order');
 	Route::post('delete-order', 'Admin\PaymentController@delete_order');
+	
+	/* Package auto manage */
+	Route::get('package-auto-manage', 'Admin\PackageController@package_auto_manage');
+	Route::get('load-package-auto-manage', 'Admin\PackageController@load_package_auto_manage');
+	Route::get('pagination-package-auto-manage', 'Admin\PackageController@pagination_package_auto_manage');
+	Route::post('add-package-auto-manage', 'Admin\PackageController@add_package');
+	Route::post('delete-package-auto-manage', 'Admin\PackageController@delete_package');
 	
 	/* Confirm Payment */
 	Route::get('payment', 'Admin\PaymentController@index');

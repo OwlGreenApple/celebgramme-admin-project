@@ -1,7 +1,7 @@
 <html>
 	<head>
     <meta name="csrf-token" content="{!! csrf_token() !!}" />
-		<title>Axiamarket - Login</title>
+		<title>Celebgramme - Login</title>
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/bootstrap-theme.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/sign-in.css') }}" rel="stylesheet">

@@ -305,10 +305,15 @@ class PaymentController extends Controller {
   public function order()
   {
     $user = Auth::user();
+		
+		$packages_affiliate = Package::
+													where("affiliate","=","1")
+													;
 
     return View::make('admin.order.index')->with(
                   array(
                     'user'=>$user,
+                    'packages_affiliate'=>$packages_affiliate,
                   ));
   }
 
@@ -337,14 +342,12 @@ class PaymentController extends Controller {
   public function add_order()
   {
     if (Request::input("id-coupon")=="new") {
-      $coupon = new Coupon;
+      $order = new Order;
+			$order->affiliate = 1;
     } else {
-      $coupon = Coupon::find(Request::input("id-coupon"));
+      $order = order::find(Request::input("id-order"));
     }
-    $coupon->coupon_code = Request::input("coupon_code");
-    $coupon->coupon_value = Request::input("coupon_value");
-    $coupon->valid_until = date("Y-m-d", intval(Request::input('valid_until')));
-    $coupon->save();
+		$order->save();
 
     $arr['type'] = 'success';
     $arr['id'] = Request::input("id-coupon");
@@ -353,15 +356,7 @@ class PaymentController extends Controller {
 
   public function delete_order()
   {
-    if (Request::input("id-coupon")=="new") {
-      $coupon = new Coupon;
-    } else {
-      $coupon = Coupon::find(Request::input("id-coupon"));
-    }
-    $coupon->coupon_code = Request::input("coupon_code");
-    $coupon->coupon_value = Request::input("coupon_value");
-    $coupon->valid_until = date("Y-m-d", intval(Request::input('valid_until')));
-    $coupon->save();
+		$order = Order::find(Request::input("id"))->delete();
 
     $arr['type'] = 'success';
     $arr['id'] = Request::input("id-coupon");

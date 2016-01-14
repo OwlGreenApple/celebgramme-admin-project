@@ -12,19 +12,13 @@
         {{$i}}
       </td>
       <td>
-        {{$data_arr->created_at}}
-      </td>
-      <td>
-        {{$data_arr->no_order}}
+        {{$data_arr->package_name}}
       </td>
       <td align="right">
-        {{number_format($data_arr->total,0,'','.')}}
+        {{number_format($data_arr->price,0,'','.')}}
       </td>
       <td>
-        <?php 
-          $package = Package::find($data_arr->package_manage_id);
-          if (!is_null($package)) { echo $package->package_name;} else { echo "-";}
-        ?>
+				{{$data_arr->active_days}}
       </td>
       <td>
 				<?php 
@@ -36,7 +30,7 @@
 				?>
       </td>
       <td align="center">
-				<button type="button" class="btn btn-warning btn-auto-manage" data-toggle="modal" data-target="#myModalAutoManage" data-id="{{$data_arr->id}}">
+	<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}" data-package-name="{{$data_arr->package_name}}" data-price="{{$data_arr->price}}" data-active-days="{{$data_arr->active_days}}" data-affiliate="{{$data_arr->affiliate}}">
 					<span class='glyphicon glyphicon-pencil'></span> 
 				</button>
 				<button type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#confirm-delete" data-id="{{$data_arr->id}}" >
