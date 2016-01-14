@@ -25,12 +25,20 @@
         <?php } ?>
       </td>
       <td align="center">
-        {{$data_arr->description}} <br>
+				<a href="#" class="see-update">lihat updates </a> |
 				<a href="#" class="see-all">lihat semua </a>
+				<ul style="display:none;" class="data-updates">
+					<?php 
+					$strings =  explode("|", substr($data_arr->description,12));
+					foreach ($strings as $string){
+					?>
+					<li> {{$string}} </li>
+					<?php } ?>
+				</ul>
 				<?php  
 					$setting = Setting::find($data_arr->setting_id);
 				?>
-				<ul style="display:none;">
+				<ul style="display:none;" class="data-all">
 					<li>Insta username : {{$setting->insta_username}}</li>
 					<li>Insta password : {{$setting->insta_password}}</li>
 					<li>Activity : {{$setting->activity}}</li>
@@ -49,6 +57,7 @@
 					<li>Dont follow private user : {{$setting->dont_follow_pu}}</li>
 					<li>Unfollow source : {{$setting->unfollow_source}}</li>
 					<li>Unfollow who dont follow me : {{$setting->unfollow_wdfm}}</li>
+					<li>Unfollow who usernames whitelist : {{$setting->usernames_whitelist}}</li>
 					<li>Status : {{$setting->status}}</li>
 				</ul>
       </td>

@@ -9,7 +9,7 @@ use Celebgramme\Models\Post;
 use Celebgramme\Models\Setting;
 use Celebgramme\Models\LinkUserSetting;
 
-use View,Auth,Request,DB,Carbon;
+use View,Auth,Request,DB,Carbon,Excel;
 
 class PostController extends Controller {
 
@@ -201,5 +201,20 @@ class PostController extends Controller {
 
     return "success";
   }
+
+  public function create_excel($string,$stringby)
+  {
+		$arr = explode(',', $string);
+		Excel::create('Filename', function($excel) use ($arr,$stringby) {
+      $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
+				foreach ($arr as $data) { 
+					$sheet->appendRow(array(
+							$data, $stringby
+					));
+				}
+      });
+
+		})->export('csv');		
+	}
 
 }

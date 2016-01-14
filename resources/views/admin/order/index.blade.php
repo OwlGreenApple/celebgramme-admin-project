@@ -1,17 +1,56 @@
 @extends('layout.main')
 
 @section('content')
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">ADD Order(Affiliate)</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-coupon">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Package</label>
+              <div class="col-sm-8 col-md-6">
+                <select class="form-control" name="select-auto-manage" id="select-auto-manage">
+									<option value="2">Veritrans</option>
+								</select>
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Metode Pembayaran</label>
+              <div class="col-sm-8 col-md-6">
+								<select class="form-control" name="payment-method">
+									<option value="1">Bank transfer</option>
+									<!--<option value="2">Veritrans</option>-->
+								</select>
+              </div>
+            </div>  
+            <input type="hidden" name="id-coupon" id="id-coupon">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="button-process">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
   <div class="page-header">
-    <h1>History Posts</h1>
+    <h1>Order</h1>
   </div>  
-  <p>	
-	* unfollow_wdfm = unfollow who dont follow me <br>
-	dont_follow_su = dont follow same user <br>
-	dont_follow_pu = dont follow private user <br>
-	dont_comment_su = dont comment same user <br>
-	usernames_whitelist = usernames unfollow whitelist
-	
-	</p>
+  <!--
+  <p></p>
   <div class="cover-input-group">
     <p>Filter tanggal 
     </p>
@@ -24,17 +63,15 @@
     <div class="input-group fl">
       <input type="text" id="to" class="form-control"> 
     </div>  
-    <div class="input-group fl">
-    </div>  
     <div class="none"></div>
   </div>
+  -->
   <div class="cover-input-group">
     <div class="input-group fl">
-      <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
+      <input type="button" value="Add" id="button-add" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModal" > 
     </div>  
     <div class="none"></div>
   </div>
-  
   <div class="alert alert-danger" id="alert">
     <strong>Oh snap!</strong> Change a few things up and try submitting again.
   </div>  
@@ -42,12 +79,12 @@
     <thead>
       <tr>
         <th>No. </th>
-        <th>Insta username</th>
-        <th>Insta password</th>
-        <th>Error Credential</th>
-        <th>Updates</th>
-        <th>Update terakhir</th>
-        <th>Status</th>
+        <th>Created</th>
+        <th>No. order</th>
+        <th>Total (Rp.)</th>
+        <th>Days auto manage</th>
+        <th>Affiliate</th>
+        <th></th>
       </tr>      
     </thead>
     
@@ -59,27 +96,13 @@
   
   <nav id="pagination">
   </nav>  
-	
-  <div class="cover-input-group">
-	  *buat copas ke keywords type (Relevant,)
-    <div class="input-group fl">
-    </div>  
-	</div>  
-  <div class="cover-input-group">
-    <div class="input-group fl">
-			<input type="text" class="form-control" placeholder="Keywords" id="keywords-excel">
-    </div>  
-    <div class="input-group fl">
-			<input type="text" class="form-control" id="keywords-by" placeholder="Keywords type">
-    </div>  
-    <div class="input-group fl">
-      <input type="button" value="Convert to excel" id="button-excel" data-loading-text="Loading..." class="btn btn-primary"> 
-    </div>  
-  </div>  
-	
   
   <script>
     $(function() {
+      $("#valid_until").datepicker({
+        dateFormat: 'dd-mm-yy',
+      });
+
       $("#from").datepicker({
         dateFormat: 'dd-mm-yy',
         onSelect: function(d) {
@@ -106,12 +129,12 @@
     function refresh_page(page)
     {
       $.ajax({                                      
-        url: '<?php echo url('load-post-auto-manage'); ?>',
+        url: '<?php echo url('load-order'); ?>',
         type: 'get',
         data: {
           page: page,
-          from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
-          to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
+          // from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
+          // to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
         },
         beforeSend: function()
         {
@@ -128,12 +151,12 @@
     function create_pagination(page)
     {
       $.ajax({
-        url: '<?php echo url('pagination-post-auto-manage'); ?>',
+        url: '<?php echo url('pagination-order'); ?>',
         type: 'get',
         data: {
           page : page,
-          from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
-          to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
+          // from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
+          // to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
         },
         beforeSend: function()
         {
@@ -167,26 +190,26 @@
       $("#alert").hide();
       create_pagination(1);
       refresh_page(1);
-      $('#button-excel').click(function(e){
+      $('#button-add').click(function(e){
         e.preventDefault();
-        window.location="<?php echo url('create-excel'); ?>/"+$("#keywords-excel").val()+"/"+$("#keywords-by").val();
+        $("#id-coupon").val("new");
       });
-      $('#button-search').click(function(e){
-        e.preventDefault();
-        create_pagination(1);
-        refresh_page(1);
+      $( "body" ).on( "click", ".btn-update", function() {
+        $("#id-coupon").val($(this).attr("data-id"));
+        $("#coupon_code").val($(this).attr("data-coupon-code"));
+        $("#coupon_value").val($(this).attr("data-coupon-value"));
+        $("#valid_until").val($(this).attr("data-valid-until"));
       });
-      $( "body" ).on( "click", ".update-error", function() {
+      $( "body" ).on( "click", "#button-process", function() {
         temp = $(this);
+        $('#valid_until').val($('#valid_until').datepicker('getDate').getTime()/1000+(3600*24+1));
         $.ajax({                                      
-          url: '<?php echo url('update-error-cred'); ?>/'+$(this).attr('data-id'),
+          url: '<?php echo url('process-coupon'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          type: 'patch',
-          data: {
-            _method : "PATCH",
-          },
+          type: 'post',
+          data: $("#form-coupon").serialize(),
           beforeSend: function()
           {
             $("#div-loading").show();
@@ -194,48 +217,16 @@
           dataType: 'text',
           success: function(result)
           {
-            if (result=='success') {
-              temp.removeClass('x-icon');
-              temp.addClass('checked-icon');
-            }
-            $("#div-loading").hide();
-          }
-        });
-      });
-      $( "body" ).on( "click", ".update-status", function() {
-        temp = $(this);
-        $.ajax({                                      
-          url: '<?php echo url('update-auto-manage'); ?>/'+$(this).attr('data-id'),
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          type: 'patch',
-          data: {
-            _method : "PATCH",
-          },
-          beforeSend: function()
-          {
-            $("#div-loading").show();
-          },
-          dataType: 'text',
-          success: function(result)
-          {
-            if (result=='success') {
-              temp.removeClass('x-icon');
-              temp.addClass('checked-icon');
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+              create_pagination(1);
+              refresh_page(1);
             }
             $("#div-loading").hide();
           }
         });
       });
       
-			$( "body" ).on( "click", ".see-update", function() {
-				$(this).siblings('.data-updates').slideToggle();
-			});
-			$( "body" ).on( "click", ".see-all", function() {
-				$(this).siblings('.data-all').slideToggle();
-			});
-			
     });
   </script>		
   

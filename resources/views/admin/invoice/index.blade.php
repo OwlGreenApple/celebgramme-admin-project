@@ -29,6 +29,7 @@
     <thead>
       <tr>
         <th>No. Invoice</th>
+        <th>Created</th>
         <th>Nama</th>
         <th>Total</th>
       </tr>      

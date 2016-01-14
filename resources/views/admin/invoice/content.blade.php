@@ -7,13 +7,16 @@
   foreach ($invoices as $arr) {
 ?>
     <tr id="tr-{{ $arr->id }}">
-      <td align="center">
+      <td>
         {{$arr->no_invoice}}
       </td>
-      <td align="center">
+      <td>
+        {{$arr->created_at}}
+      </td>
+      <td>
         {{$arr->fullname}}
       </td>
-      <td align="center" class="data-nohp">
+      <td align="right" class="data-nohp">
         {{number_format($arr->total,0,'','.')}}
       </td>
     </tr>    

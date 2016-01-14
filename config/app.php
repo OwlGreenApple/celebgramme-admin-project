@@ -147,6 +147,7 @@ return [
         Celebgramme\Providers\EventServiceProvider::class,
         Celebgramme\Providers\RouteServiceProvider::class,
 
+				Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -200,6 +201,8 @@ return [
 				'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Carbon' => 'Carbon\Carbon',
         'Image' => 'Intervention\Image\Facades\Image',
+				
+				'Excel' => 'Maatwebsite\Excel\Facades\Excel',				
 
     ],
 

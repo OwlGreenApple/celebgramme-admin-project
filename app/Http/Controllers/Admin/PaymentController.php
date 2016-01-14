@@ -291,7 +291,82 @@ class PaymentController extends Controller {
   }
 
 
+/*
+* Order
+*
+*/
 
+
+  /**
+   * Show Order page.
+   *
+   * @return Response
+   */
+  public function order()
+  {
+    $user = Auth::user();
+
+    return View::make('admin.order.index')->with(
+                  array(
+                    'user'=>$user,
+                  ));
+  }
+
+  public function load_order()
+  {
+    $arr = Order::paginate(15);
+
+    return view('admin.order.content')->with(
+                array(
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                ));
+  }
+  
+  public function pagination_order()
+  {
+    $arr = Order::paginate(15);
+    
+                              
+    return view('admin.order.pagination')->with(
+                array(
+                  'arr'=>$arr,
+                ));
+  }
+
+  public function add_order()
+  {
+    if (Request::input("id-coupon")=="new") {
+      $coupon = new Coupon;
+    } else {
+      $coupon = Coupon::find(Request::input("id-coupon"));
+    }
+    $coupon->coupon_code = Request::input("coupon_code");
+    $coupon->coupon_value = Request::input("coupon_value");
+    $coupon->valid_until = date("Y-m-d", intval(Request::input('valid_until')));
+    $coupon->save();
+
+    $arr['type'] = 'success';
+    $arr['id'] = Request::input("id-coupon");
+    return $arr;    
+  }
+
+  public function delete_order()
+  {
+    if (Request::input("id-coupon")=="new") {
+      $coupon = new Coupon;
+    } else {
+      $coupon = Coupon::find(Request::input("id-coupon"));
+    }
+    $coupon->coupon_code = Request::input("coupon_code");
+    $coupon->coupon_value = Request::input("coupon_value");
+    $coupon->valid_until = date("Y-m-d", intval(Request::input('valid_until')));
+    $coupon->save();
+
+    $arr['type'] = 'success';
+    $arr['id'] = Request::input("id-coupon");
+    return $arr;    
+  }
 
 
 

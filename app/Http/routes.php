@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-post', 'Admin\PostController@pagination_post');
 	Route::patch('update-post/{konfirmasiId}', 'Admin\PostController@update_post');
   
+	Route::get('create-excel/{string}/{stringby}', 'Admin\PostController@create_excel');
 	Route::get('post-auto-manage', 'Admin\PostController@auto_manage');
 	Route::get('load-post-auto-manage', 'Admin\PostController@load_auto_manage');
 	Route::get('pagination-post-auto-manage', 'Admin\PostController@pagination_auto_manage');
@@ -56,11 +57,20 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('give-bonus', 'Admin\MemberController@give_bonus');
 	Route::post('add-member', 'Admin\MemberController@add_member');
 
+	/* Coupon */
 	Route::get('coupon', 'Admin\PaymentController@coupon');
 	Route::get('load-coupon', 'Admin\PaymentController@load_coupon');
 	Route::get('pagination-coupon', 'Admin\PaymentController@pagination_coupon');
 	Route::post('process-coupon', 'Admin\PaymentController@process_coupon');
 
+	/* Order */
+	Route::get('order', 'Admin\PaymentController@order');
+	Route::get('load-order', 'Admin\PaymentController@load_order');
+	Route::get('pagination-order', 'Admin\PaymentController@pagination_order');
+	Route::post('add-order', 'Admin\PaymentController@add_order');
+	Route::post('delete-order', 'Admin\PaymentController@delete_order');
+	
+	/* Confirm Payment */
 	Route::get('payment', 'Admin\PaymentController@index');
 	Route::get('load-payment', 'Admin\PaymentController@load_payment');
 	Route::get('pagination-payment', 'Admin\PaymentController@pagination_payment');

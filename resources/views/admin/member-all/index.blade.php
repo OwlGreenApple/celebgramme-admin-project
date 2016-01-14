@@ -89,7 +89,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Member</h4>
+          <h4 class="modal-title">Add Member Affiliate</h4>
         </div>
         <div class="modal-body">
           <form enctype="multipart/form-data" id="form-create-member">
@@ -166,9 +166,11 @@
         <th>No. </th>
         <th>Email</th>
         <th>Name</th>
+				<!--
         <th>Balance (Daily Likes)</th>
         <th>Valid until (Daily Likes)</th>
         <th>Free trial (Daily Likes)</th>
+				-->
         <th>Times left (auto manage)</th>
         <th>Created</th>
         <th></th>

@@ -178,7 +178,7 @@ class MemberController extends Controller {
       $hours = floor(($t / (60*60)) % 24);
       $minutes = floor(($t / (60)) % 60);
       $seconds = floor($t  % 60);
-      $arr["view"] = $days." days ".$hours." hours ".$minutes." minutes ".$seconds."seconds";
+      $arr["view"] = $days."D ".$hours."H ".$minutes."M ".$seconds."S ";
     }
     if (Request::input("action")=="daily") {
       $user->balance += Request::input("daily-likes");
