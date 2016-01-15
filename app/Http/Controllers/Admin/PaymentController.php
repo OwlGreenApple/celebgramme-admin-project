@@ -319,7 +319,7 @@ class PaymentController extends Controller {
 
   public function load_order()
   {
-    $arr = Order::paginate(15);
+    $arr = Order::orderBy('id', 'desc')->paginate(15);
 
     return view('admin.order.content')->with(
                 array(
@@ -330,7 +330,7 @@ class PaymentController extends Controller {
   
   public function pagination_order()
   {
-    $arr = Order::paginate(15);
+    $arr = Order::orderBy('id', 'desc')->paginate(15);
     
                               
     return view('admin.order.pagination')->with(
@@ -414,6 +414,9 @@ class PaymentController extends Controller {
 				$package = Package::find($order->package_manage_id);
 				$user->active_auto_manage = $package->active_days * 86400;
 				$user->save();
+				
+				$order->user_id = $user->id;
+				$order->save();
 				
 				$emaildata = [
 						'user' => $user,

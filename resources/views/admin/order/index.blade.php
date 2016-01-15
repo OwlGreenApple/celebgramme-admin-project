@@ -35,7 +35,7 @@
 									<?php 
 									  if ($packages_affiliate->count()>0) {
 											foreach($packages_affiliate->get() as $package_affiliate){ ?>
-												<option value="{{$package_affiliate->id}}">{{$package_affiliate->package_name}}</option>
+												<option value="{{$package_affiliate->id}}">{{$package_affiliate->package_name." - Rp. ".number_format($package_affiliate->price,0,'','.')}}</option>
 									<?php 
 											}
 											
@@ -110,6 +110,8 @@
         <th>No. </th>
         <th>Created</th>
         <th>No. order</th>
+        <th>Email</th>
+        <th>Fullname</th>
         <th>Total (Rp.)</th>
         <th>Package name</th>
         <th>Affiliate</th>

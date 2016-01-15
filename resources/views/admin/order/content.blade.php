@@ -7,7 +7,13 @@
     //search by username
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
-?>
+			$email = ""; $fullname = "";
+			$user = User::find($data_arr->user_id);	
+			if (!is_null($user)) {
+				$email = $user->email; 
+				$fullname = $user->fullname;
+			}
+		?>
     <tr class="row{{$data_arr->id}}">
       <td>
         {{$i}}
@@ -17,6 +23,12 @@
       </td>
       <td>
         {{$data_arr->no_order}}
+      </td>
+      <td>
+        {{$email}}
+      </td>
+      <td>
+        {{$fullname}}
       </td>
       <td align="right">
         {{number_format($data_arr->total,0,'','.')}}
@@ -37,14 +49,6 @@
 				?>
       </td>
       <td align="center">
-				<?php 
-					$email = ""; $fullname = "";
-					$user = User::find($data_arr->user_id);	
-					if (!is_null($user)) {
-						$email = $user->email; 
-						$fullname = $user->fullname;
-					}
-				?>
 				<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}" data-total="{{$data_arr->total}}" data-affiliate="{{$data_arr->affiliate}}" data-package-manage-id="{{$data_arr->package_manage_id}}" data-email="{{$email}}" data-fullname="{{$fullname}}">
 					<span class='glyphicon glyphicon-pencil'></span> 
 				</button>
