@@ -197,6 +197,7 @@ class PostController extends Controller {
     $setting_real->status = "stopped";
     $setting_real->save();
 
+		$user = User::find($setting_temp->user_id);
     $emaildata = [
         'user' => $user,
         'password' => $string,
