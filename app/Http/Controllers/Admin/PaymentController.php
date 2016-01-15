@@ -373,7 +373,8 @@ class PaymentController extends Controller {
 			return $arr;
 		}
 		$order->package_manage_id = Request::input("select-auto-manage");
-		$order->total = Request::input("total");
+		$package = Package::find(Request::input("select-auto-manage"));
+		$order->total = $package->price;
 		
 		if (Request::input("payment-method")==1) {
 			$order->order_type = "transfer_bank";

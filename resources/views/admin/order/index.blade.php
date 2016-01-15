@@ -54,12 +54,6 @@
               </div>
             </div>  
             <div class="form-group form-group-sm row">
-              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">total (Rp.)</label>
-              <div class="col-sm-8 col-md-6">
-								<input type="number" class="form-control" placeholder="Total order" name="total" id="total">
-              </div>
-            </div>  
-            <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Affiliate</label>
               <div class="col-sm-8 col-md-6">
 								<input type="checkbox" name="affiliate-check" id="affiliate-check">
