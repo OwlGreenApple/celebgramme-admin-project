@@ -1,5 +1,6 @@
 <?php 
   use Celebgramme\Models\Package;
+  use Celebgramme\Models\User;
   if ( $arr->count()==0  ) {
     echo "<tr><td colspan='7' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -36,7 +37,10 @@
 				?>
       </td>
       <td align="center">
-				<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}" data-total="{{$data_arr->total}}" data-affiliate="{{$data_arr->affiliate}}" data-package-manage-id="{{$data_arr->package_manage_id}}">
+				<?php 
+					$user = User::find($data_arr->user_id);
+				?>
+				<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}" data-total="{{$data_arr->total}}" data-affiliate="{{$data_arr->affiliate}}" data-package-manage-id="{{$data_arr->package_manage_id}}" data-email="{{$user->email}}" data-fullname="{{$user->fullname}}">
 					<span class='glyphicon glyphicon-pencil'></span> 
 				</button>
 				<button type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#confirm-delete" data-id="{{$data_arr->id}}" >

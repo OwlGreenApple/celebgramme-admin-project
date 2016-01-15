@@ -12,7 +12,7 @@ use Celebgramme\Models\Package;
 use Celebgramme\Models\PackageUser;
 use Celebgramme\Models\Coupon;
 
-use View,Auth,Request,DB,Carbon,Excel, Mail;
+use View,Auth,Request,DB,Carbon,Excel, Mail, Validator;
 
 class PaymentController extends Controller {
 
@@ -343,16 +343,35 @@ class PaymentController extends Controller {
   {
 		$dt = Carbon::now();
 		if (Request::input("id-order")=="new") {
+			$arr["message"] = "Proses add order berhasil dilakukan";
+			$data = array (
+				"email" => Request::input("email"),
+			);
+			$validator = Validator::make($data, [
+				'email' => 'required|email|max:255|unique:users',
+			]);
+			if ($validator->fails()){
+				$arr["type"] = "error";
+				$arr["message"] = "Email sudah terdaftar atau tidak valid";
+				return $arr;
+			}
+			
       $order = new Order;
 			$str = 'OCLB'.$dt->format('ymdHi');
 			$order_number = GeneralHelper::autoGenerateID($order, 'no_order', $str, 3, '0');
 			$order->no_order = $order_number;
     } else {
+			$arr["message"] = "Proses edit order berhasil dilakukan";
       $order = order::find(Request::input("id-order"));
     }
 		$affiliate_check = Request::input("affiliate-check");
 		if (isset($affiliate_check)) { $order->affiliate = 1; } else { $order->affiliate = 0; }
 		
+		if (Request::input("select-auto-manage")=="None") {
+			$arr["type"] = "error";
+			$arr["message"] = "Silahkan pilih paket anda";
+			return $arr;
+		}
 		$order->package_manage_id = Request::input("select-auto-manage");
 		$order->total = Request::input("total");
 		
@@ -374,6 +393,37 @@ class PaymentController extends Controller {
 			} 
 			$invoice->total = $order->total;
 			$invoice->save();
+			
+			$user = User::where("email","=",Request::input("email"))->first();
+			if (is_null($user)) {
+				$user = new User;
+				$user->email = Request::input("email");
+			}
+			$user->fullname=Request::input("fullname");
+			if (Request::input("id-order")=="new") {
+				$karakter= 'abcdefghjklmnpqrstuvwxyz123456789';
+				$string = '';
+				for ($i = 0; $i < 8 ; $i++) {
+					$pos = rand(0, strlen($karakter)-1);
+					$string .= $karakter{$pos};
+				}
+				$user->password = $string;
+				$user->fullname = Request::input("fullname");
+				$user->type = "confirmed-email";
+				$package = Package::find($order->package_manage_id);
+				$user->active_auto_manage = $package->active_days * 86400;
+				$user->save();
+				
+				$emaildata = [
+						'user' => $user,
+						'password' => $string,
+				];
+				Mail::queue('emails.create-user', $emaildata, function ($message) use ($user) {
+					$message->from('no-reply@celebgramme.com', 'Celebgramme');
+					$message->to($user->email);
+					$message->subject('[Celebgramme] Welcome to celebgramme.com');
+				});
+			}
 		}
 		
     $arr['type'] = 'success';

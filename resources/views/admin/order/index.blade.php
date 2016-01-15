@@ -16,6 +16,18 @@
         <div class="modal-body">
           <form enctype="multipart/form-data" id="form-order">
             <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Email</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Email" name="email" id="email">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Name</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Fullname" name="fullname" id="fullname">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Package</label>
               <div class="col-sm-8 col-md-6">
                 <select class="form-control" name="select-auto-manage" id="select-auto-manage">
@@ -105,7 +117,7 @@
         <th>Created</th>
         <th>No. order</th>
         <th>Total (Rp.)</th>
-        <th>Days auto manage</th>
+        <th>Package name</th>
         <th>Affiliate</th>
         <th></th>
       </tr>      
@@ -220,6 +232,8 @@
         $("#id-order").val("new");
   			$('#affiliate-check').attr('checked', false);
 				$("#select-auto-manage").val("None");
+				$("#email").val("");
+				$("#fullname").val("");
       });
       $( "body" ).on( "click", ".btn-update", function() {
         $("#id-order").val($(this).attr("data-id"));
@@ -234,6 +248,8 @@
 				} else {
 					$('#affiliate-check').attr('checked', true);
 				}
+				$("#email").val($(this).attr("data-email"));
+				$("#fullname").val($(this).attr("data-fullname"));
       });
       $( "body" ).on( "click", "#button-process", function() {
         temp = $(this);
@@ -252,11 +268,18 @@
           success: function(result)
           {
             var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
             if(data.type=='success') {
               create_pagination(1);
               refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
             }
-            $("#div-loading").hide();
+						$("#div-loading").hide();
           }
         });
       });
