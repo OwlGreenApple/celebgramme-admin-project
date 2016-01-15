@@ -11,14 +11,15 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">ADD Order(Affiliate)</h4>
+          <h4 class="modal-title">ADD Order</h4>
         </div>
         <div class="modal-body">
-          <form enctype="multipart/form-data" id="form-coupon">
+          <form enctype="multipart/form-data" id="form-order">
             <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Package</label>
               <div class="col-sm-8 col-md-6">
                 <select class="form-control" name="select-auto-manage" id="select-auto-manage">
+									<option value="None">-- Select --</option>
 									<?php 
 									  if ($packages_affiliate->count()>0) {
 											foreach($packages_affiliate->get() as $package_affiliate){ ?>
@@ -38,6 +39,18 @@
 									<option value="1">Bank transfer</option>
 									<!--<option value="2">Veritrans</option>-->
 								</select>
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">total (Rp.)</label>
+              <div class="col-sm-8 col-md-6">
+								<input type="number" class="form-control" placeholder="Total order" name="total" id="total">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Affiliate</label>
+              <div class="col-sm-8 col-md-6">
+								<input type="checkbox" name="affiliate-check" id="affiliate-check">
               </div>
             </div>  
             <input type="hidden" name="id-order" id="id-order">
@@ -205,23 +218,32 @@
       $('#button-add').click(function(e){
         e.preventDefault();
         $("#id-order").val("new");
+  			$('#affiliate-check').attr('checked', false);
+				$("#select-auto-manage").val("None");
       });
       $( "body" ).on( "click", ".btn-update", function() {
-        $("#id-coupon").val($(this).attr("data-id"));
-        $("#coupon_code").val($(this).attr("data-coupon-code"));
-        $("#coupon_value").val($(this).attr("data-coupon-value"));
-        $("#valid_until").val($(this).attr("data-valid-until"));
+        $("#id-order").val($(this).attr("data-id"));
+				if ($(this).attr("data-package-manage-id") != 0 ) {
+					$("#select-auto-manage").val($(this).attr("data-package-manage-id"));
+				} else {
+					$("#select-auto-manage").val("None");
+				}
+        $("#total").val($(this).attr("data-total"));
+				if ( $(this).attr("data-affiliate") == "0") {
+					$('#affiliate-check').attr('checked', false);
+				} else {
+					$('#affiliate-check').attr('checked', true);
+				}
       });
       $( "body" ).on( "click", "#button-process", function() {
         temp = $(this);
-        $('#valid_until').val($('#valid_until').datepicker('getDate').getTime()/1000+(3600*24+1));
         $.ajax({                                      
-          url: '<?php echo url('process-coupon'); ?>',
+          url: '<?php echo url('add-order'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           type: 'post',
-          data: $("#form-coupon").serialize(),
+          data: $("#form-order").serialize(),
           beforeSend: function()
           {
             $("#div-loading").show();

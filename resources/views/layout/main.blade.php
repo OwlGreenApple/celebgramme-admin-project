@@ -35,5 +35,10 @@
 	<div class="footer_container">
 		<p>Copyright © <a href="#" class="terms">celebgramme.com</a>. All rights reserved.</p>	
 	</div>
+    <div id="div-loading">
+      <div class="loadmain"></div>
+      <div class="background-load"></div>
+    </div>
+	
 </body>
 </html>

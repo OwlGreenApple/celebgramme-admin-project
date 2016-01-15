@@ -106,11 +106,29 @@
               </div>
             </div>  
             <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Order</label>
+              <div class="col-sm-8 col-md-6">
+                <select class="form-control" name="select-order" id="select-order">
+									<?php 
+									  if ($orders->count()>0) {
+											foreach($orders->get() as $order){ ?>
+												<option value="{{$order->id}}">{{$order->no_order}} Rp. {{number_format($order->total,0,'','.')}}</option>
+									<?php 
+											}
+											
+										}
+									?>
+								</select>
+              </div>
+            </div>  
+						<!--
+            <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">days</label>
               <div class="col-sm-8 col-md-6">
                 <input type="number" class="form-control" placeholder="Jumlah hari yang ditambahkan" name="member-days" id="member-days">
               </div>
             </div>  
+						-->
               <input type="hidden" class="user-id" name="user-id">
               <input type="hidden" class="action" name="action">
           </form>
@@ -123,6 +141,64 @@
     </div>
   </div>
 
+  <div class="modal fade" id="myModalEditMember" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Member</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-edit-member">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Email</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Email" name="emailedit" id="emailedit">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Name</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Fullname" name="fullnameedit" id="fullnameedit">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">days</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="number" class="form-control" placeholder="Jumlah hari Auto Manage" name="member-days" id="member-days">
+              </div>
+            </div>  
+              <input type="hidden" class="user-id" name="user-id">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-edit-member" data-check="auto">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+	
+  <!-- Modal confirm delete-->
+	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+					<div class="modal-content">
+							<div class="modal-header">
+									Delete Order
+							</div>
+							<div class="modal-body">
+									Are you sure want to delete ?
+							</div>
+							<input type="hidden" id="id-member-delete">
+							<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+									<button type="button" data-dismiss="modal" class="btn btn-danger btn-ok" id="button-delete">Delete</button>
+							</div>
+					</div>
+			</div>
+	</div>	
 
   <div class="page-header">
     <h1>Member all</h1>
@@ -187,33 +263,6 @@
   </nav>  
   
   <script>
-    $(function() {
-      // $("#valid_until").datepicker({
-      //   dateFormat: 'dd-mm-yy',
-      // });
-      $("#from").datepicker({
-        dateFormat: 'dd-mm-yy',
-        onSelect: function(d) {
-          var from = $('#from').datepicker('getDate');
-          var to = $('#to').datepicker('getDate');
-          if (from.getTime() > to.getTime()){
-            $("#from").datepicker('setDate', to);
-          }
-        }
-      });
-      $("#to").datepicker({
-        dateFormat: 'dd-mm-yy',
-        onSelect: function(d) {
-          var from = $('#from').datepicker('getDate');
-          var to = $('#to').datepicker('getDate');
-          if (from.getTime() > to.getTime()){
-            $("#to").datepicker('setDate', from);
-          }
-        }
-      });
-      $("#from").datepicker('setDate', new Date());
-      $("#to").datepicker('setDate', new Date());
-    });
     function refresh_page(page)
     {
       $.ajax({                                      
@@ -313,6 +362,40 @@
         create_pagination(1);
         refresh_page(1);
       });
+      $( "body" ).on( "click", ".btn-update", function() {
+        $(".user-id").val($(this).attr("data-id"));
+        $("#emailedit").val($(this).attr("data-email"));
+        $("#fullnameedit").val($(this).attr("data-nama"));
+      });
+      $( "body" ).on( "click", ".btn-delete", function() {
+				$("#id-member-delete").val($(this).attr("data-id"));
+      });
+      $( "body" ).on( "click", "#button-delete", function() {
+        $.ajax({                                      
+          url: '<?php echo url('delete-member'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: {
+						id : $("#id-member-delete").val(),
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+              create_pagination(1);
+              refresh_page(1);
+            }
+            $("#div-loading").hide();
+          }
+        });
+      });
       $( "body" ).on( "click", ".btn-daily-like", function() {
         $(".user-id").val($(this).attr("data-id"));
         $(".action").val("daily");
@@ -357,6 +440,7 @@
               refresh_page(1);
               $("#alert").addClass("alert-success");
               $("#alert").removeClass("alert-danger");
+							$("#select-order option[value='"+data.orderid+"']").remove();
             } else if (data.type=='error') {
               $("#alert").addClass("alert-danger");
               $("#alert").removeClass("alert-success");
@@ -368,6 +452,40 @@
 
       });
 
+      $( "body" ).on( "click", "#btn-edit-member", function() {
+
+        $.ajax({
+          url: '<?php echo url('edit-member'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-edit-member").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              create_pagination(1);
+              refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
+            }
+            $("#div-loading").hide();
+          }
+        });
+
+
+      });
 
 
       

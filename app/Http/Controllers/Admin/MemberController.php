@@ -4,6 +4,8 @@ use Celebgramme\Http\Requests;
 use Celebgramme\Http\Controllers\Controller;
 
 use Celebgramme\Models\User;
+use Celebgramme\Models\Order;
+use Celebgramme\Models\Package;
 use Celebgramme\Models\RequestModel;
 use Celebgramme\Models\Post;
 use Celebgramme\Models\Setting;
@@ -117,9 +119,12 @@ class MemberController extends Controller {
              ->select(DB::raw("sum(active_auto_manage) as total_time_manage"))
              ->orderBy('id', 'desc')
              ->get();
+		$orders = Order::where("affiliate","=","1")->
+						 where("user_id","=","0");
     return View::make('admin.member-all.index')->with(
                   array(
                     'user'=>$user,
+                    'orders'=>$orders,
                     'total_auto_manage'=>$arr[0]->total_time_manage,
                   ));
   }
@@ -193,6 +198,7 @@ class MemberController extends Controller {
   {
     $arr["type"] = "success";
     $arr["message"] = "Proses add member berhasil dilakukan";
+    $arr["orderid"] = Request::input("select-order");
 
     $data = array (
       "email" => Request::input("email"),
@@ -218,7 +224,14 @@ class MemberController extends Controller {
     $user->password = $string;
     $user->fullname = Request::input("fullname");
     $user->type = "confirmed-email";
-    $user->active_auto_manage = Request::input("member-days") * 86400;
+    $user->save();
+		
+		$order = Order::find(Request::input("select-order"));
+		$order->user_id = $user->id;
+		$order->save();
+
+		$package = Package::find($order->package_manage_id);
+    $user->active_auto_manage = $package->active_days * 86400;
     $user->save();
 
     $emaildata = [
@@ -235,5 +248,41 @@ class MemberController extends Controller {
     return $arr;
   }
 
+  public function edit_member()
+  {
+    $arr["type"] = "success";
+    $arr["message"] = "Proses edit member berhasil dilakukan";
+		
+		$user = User::find(Request::input("user-id"));
+		if ($user->email<>Request::input("emailedit")) {
+			$data = array (
+				"email" => Request::input("emailedit"),
+			);
+			$validator = Validator::make($data, [
+				'email' => 'required|email|max:255|unique:users',
+			]);
+			if ($validator->fails()){
+				$arr["type"] = "error";
+				$arr["message"] = "Email sudah terdaftar atau tidak valid";
+				return $arr;
+			}
+		}
+		
+		$user->email = Request::input("emailedit");
+		$user->fullname = Request::input("fullnameedit");
+		$user->active_auto_manage = Request::input("member-days") * 86400;
+		$user->save();
+		
+    return $arr;
+	}
+	
+  public function delete_member()
+  {
+		$user = User::find(Request::input("id"))->delete();
+
+    $arr['type'] = 'success';
+    $arr['id'] = Request::input("id-coupon");
+    return $arr;    
+  }
 
 }

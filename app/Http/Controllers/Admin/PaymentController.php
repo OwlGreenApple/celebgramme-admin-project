@@ -307,7 +307,7 @@ class PaymentController extends Controller {
     $user = Auth::user();
 		
 		$packages_affiliate = Package::
-													where("affiliate","=","1")
+													where("package_group","=","auto-manage")
 													;
 
     return View::make('admin.order.index')->with(
@@ -341,16 +341,43 @@ class PaymentController extends Controller {
 
   public function add_order()
   {
-    if (Request::input("id-coupon")=="new") {
+		$dt = Carbon::now();
+		if (Request::input("id-order")=="new") {
       $order = new Order;
-			$order->affiliate = 1;
+			$str = 'OCLB'.$dt->format('ymdHi');
+			$order_number = GeneralHelper::autoGenerateID($order, 'no_order', $str, 3, '0');
+			$order->no_order = $order_number;
     } else {
       $order = order::find(Request::input("id-order"));
     }
+		$affiliate_check = Request::input("affiliate-check");
+		if (isset($affiliate_check)) { $order->affiliate = 1; } else { $order->affiliate = 0; }
+		
+		$order->package_manage_id = Request::input("select-auto-manage");
+		$order->total = Request::input("total");
+		
+		if (Request::input("payment-method")==1) {
+			$order->order_type = "transfer_bank";
+		}
 		$order->save();
 
+		if ($order->affiliate==1) {
+			$order->order_status = "success";
+			$invoice = Invoice::where("order_id","=",$order->id)->first();
+			if (is_null($invoice)){
+				$invoice = new Invoice;
+				$invoice->order_id = $order->id;
+
+				$str = 'ICLB'.$dt->format('ymdHi');
+				$invoice_number = GeneralHelper::autoGenerateID($invoice, 'no_invoice', $str, 3, '0');
+				$invoice->no_invoice = $invoice_number;
+			} 
+			$invoice->total = $order->total;
+			$invoice->save();
+		}
+		
     $arr['type'] = 'success';
-    $arr['id'] = Request::input("id-coupon");
+    $arr['id'] = Request::input("id-order");
     return $arr;    
   }
 
