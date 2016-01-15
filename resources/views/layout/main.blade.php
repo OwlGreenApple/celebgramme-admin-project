@@ -19,6 +19,11 @@
 	<script type="text/javascript" src="{{ asset('/js/jquery.dataTables.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/bootstrap.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/script.js') }}"></script>
+	<script>
+		$(document).ready(function(){
+			$("#div-loading").hide();
+		});
+	</script>
 </head>
 <body class="body_admin">
   <nav class="navbar navbar-inverse navbar-fixed-top">
