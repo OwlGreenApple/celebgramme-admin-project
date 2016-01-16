@@ -148,6 +148,7 @@ return [
         Celebgramme\Providers\RouteServiceProvider::class,
 
 				Maatwebsite\Excel\ExcelServiceProvider::class,
+				GeneaLabs\LaravelCaffeine\LaravelCaffeineServiceProvider::class,
     ],
 
     /*
