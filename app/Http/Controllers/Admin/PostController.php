@@ -138,6 +138,7 @@ class PostController extends Controller {
 
   public function load_auto_manage()
   {
+		if (Request::input('keyword') == "" ) {
       $arr = Post::join("settings","settings.id","=","posts.setting_id")
              //->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
              //->join("users","users.id","=","link_users_settings.user_id")
@@ -145,7 +146,14 @@ class PostController extends Controller {
              ->where("posts.type","=","pending")
              ->orderBy('posts.updated_at', 'asc')
              ->paginate(15);
-
+		} else {
+      $arr = Post::join("settings","settings.id","=","posts.setting_id")
+             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
+             ->where("posts.type","=","pending")
+						 ->where("settings.insta_username","like",Request::input('keyword')."%")
+             ->orderBy('posts.updated_at', 'asc')
+             ->paginate(15);
+		}
     return view('admin.auto-manage.content')->with(
                 array(
                   'arr'=>$arr,
@@ -155,15 +163,22 @@ class PostController extends Controller {
   
   public function pagination_auto_manage()
   {
+		if (Request::input('keyword') == "" ) {
       $arr = Post::join("settings","settings.id","=","posts.setting_id")
              //->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
              //->join("users","users.id","=","link_users_settings.user_id")
-             ->select("posts.*","settings.insta_username")
+             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
              ->where("posts.type","=","pending")
              ->orderBy('posts.updated_at', 'asc')
              ->paginate(15);
-    
-                              
+		} else {
+      $arr = Post::join("settings","settings.id","=","posts.setting_id")
+             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
+             ->where("posts.type","=","pending")
+						 ->where("settings.insta_username","like",Request::input('keyword')."%")
+             ->orderBy('posts.updated_at', 'asc')
+             ->paginate(15);
+		}
     return view('admin.auto-manage.pagination')->with(
                 array(
                   'arr'=>$arr,

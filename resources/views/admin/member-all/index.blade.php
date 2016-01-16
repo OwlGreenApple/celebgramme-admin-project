@@ -221,6 +221,9 @@
 				<option value="2"> Auto Manage </option>
       </select>
     </div>
+    <div class="input-group fl">
+			<input type="text" id="keyword-search" class="form-control" placeholder="Email">
+    </div>
     <div class="none"></div>
   </div>
   <div class="cover-input-group">
@@ -272,6 +275,7 @@
         data: {
           page: page,
           sort: $("#sort-by").val(),
+					keyword: $("#keyword-search").val(),
           // from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           // to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
         },
@@ -295,6 +299,7 @@
         data: {
           page : page,
           sort: $("#sort-by").val(),
+					keyword: $("#keyword-search").val(),
           // from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           // to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
         },

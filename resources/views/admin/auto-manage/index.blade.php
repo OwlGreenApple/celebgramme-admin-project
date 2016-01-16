@@ -25,7 +25,8 @@
       <input type="text" id="to" class="form-control"> 
     </div>  
     <div class="input-group fl">
-    </div>  
+			<input type="text" id="keyword-search" class="form-control" placeholder="insta username">
+		</div>  
     <div class="none"></div>
   </div>
   <div class="cover-input-group">
@@ -113,6 +114,7 @@
           page: page,
           from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
+					keyword: $("#keyword-search").val(),
         },
         beforeSend: function()
         {
@@ -135,6 +137,7 @@
           page : page,
           from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
+					keyword: $("#keyword-search").val(),
         },
         beforeSend: function()
         {

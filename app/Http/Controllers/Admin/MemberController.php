@@ -132,13 +132,27 @@ class MemberController extends Controller {
   public function load_member_all()
   {
 		if (Request::input('sort')==1) {
-      $arr = User::where("type","<>","admin")
-             ->orderBy('created_at', 'desc')
-             ->paginate(15);
+		  if (Request::input('keyword')=="") {
+				$arr = User::where("type","<>","admin")
+							 ->orderBy('created_at', 'desc')
+							 ->paginate(15);
+			} else {			
+				$arr = User::where("type","<>","admin")
+							 ->where("email",'like',Request::input('keyword')."%")
+							 ->orderBy('created_at', 'desc')
+							 ->paginate(15);
+			}
 		} else {
-      $arr = User::where("type","<>","admin")
-             ->orderBy('active_auto_manage', 'desc')
-             ->paginate(15);
+		  if (Request::input('keyword')=="") {
+				$arr = User::where("type","<>","admin")
+							 ->orderBy('active_auto_manage', 'desc')
+							 ->paginate(15);
+			} else {			
+				$arr = User::where("type","<>","admin")
+							 ->where("email",'like',Request::input('keyword')."%")
+							 ->orderBy('active_auto_manage', 'desc')
+							 ->paginate(15);
+			}
 		}
 
     return view('admin.member-all.content')->with(
@@ -151,13 +165,27 @@ class MemberController extends Controller {
   public function pagination_member_all()
   {
 		if (Request::input('sort')==1) {
-      $arr = User::where("type","<>","admin")
-             ->orderBy('created_at', 'desc')
-             ->paginate(15);
+		  if (Request::input('keyword')=="") {
+				$arr = User::where("type","<>","admin")
+							 ->orderBy('created_at', 'desc')
+							 ->paginate(15);
+			} else {			
+				$arr = User::where("type","<>","admin")
+							 ->where("email",'like',Request::input('keyword')."%")
+							 ->orderBy('created_at', 'desc')
+							 ->paginate(15);
+			}
 		} else {
-      $arr = User::where("type","<>","admin")
-             ->orderBy('active_auto_manage', 'desc')
-             ->paginate(15);
+		  if (Request::input('keyword')=="") {
+				$arr = User::where("type","<>","admin")
+							 ->orderBy('active_auto_manage', 'desc')
+							 ->paginate(15);
+			} else {			
+				$arr = User::where("type","<>","admin")
+							 ->where("email",'like',Request::input('keyword')."%")
+							 ->orderBy('active_auto_manage', 'desc')
+							 ->paginate(15);
+			}
 		}
     
                               
