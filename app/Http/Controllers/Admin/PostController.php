@@ -9,7 +9,7 @@ use Celebgramme\Models\Post;
 use Celebgramme\Models\Setting;
 use Celebgramme\Models\LinkUserSetting;
 
-use View,Auth,Request,DB,Carbon,Excel;
+use View,Auth,Request,DB,Carbon,Excel,Mail;
 
 class PostController extends Controller {
 
@@ -197,10 +197,9 @@ class PostController extends Controller {
     $setting_real->status = "stopped";
     $setting_real->save();
 
-		$user = User::find($setting_temp->user_id);
+		$user = User::find($setting_temp->last_user);
     $emaildata = [
         'user' => $user,
-        'password' => $string,
     ];
     Mail::queue('emails.error-cred', $emaildata, function ($message) use ($user) {
       $message->from('no-reply@celebgramme.com', 'Celebgramme');
