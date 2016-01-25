@@ -1,6 +1,38 @@
 @extends('layout.main')
 
 @section('content')
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-edit">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Follow liker filename</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Input follow liker filename" name="fl-filename" id="fl-filename">
+              </div>
+              <input type="hidden" id="setting-id" name="setting-id">
+            </div>  
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="button-edit-filename">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
   <div class="page-header">
     <h1>History Posts</h1>
   </div>  
@@ -46,6 +78,7 @@
         <th>No. </th>
         <th>Insta username</th>
         <th>Insta password</th>
+        <th>Filename(follow liker)</th>
         <th>Error Credential</th>
         <th>Updates</th>
         <th>Update terakhir</th>
@@ -239,6 +272,35 @@
 			$( "body" ).on( "click", ".see-all", function() {
 				$(this).siblings('.data-all').slideToggle();
 			});
+			
+      $( "body" ).on( "click", ".btn-fl-edit", function() {
+				$("#setting-id").val($(this).attr("data-id"));
+				$("#fl-filename").val($(this).attr("data-filename"));
+			});
+      $( "body" ).on( "click", "#button-edit-filename", function() {
+        temp = $(this);
+        $.ajax({                                      
+          url: '<?php echo url('update-fl-filename'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-edit").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+              $(".row"+data.id).find(".fl-filename").html(data.filename);
+            }
+            $("#div-loading").hide();
+          }
+        });
+      });
 			
     });
   </script>		

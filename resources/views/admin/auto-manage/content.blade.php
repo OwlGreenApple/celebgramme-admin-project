@@ -1,5 +1,6 @@
 <?php 
 	use Celebgramme\Models\Setting;
+	use Celebgramme\Models\SettingMeta; 
   if ( $arr->count()==0  ) {
     echo "<tr><td colspan='7' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -7,7 +8,7 @@
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
 ?>
-    <tr>
+    <tr class="row{{$data_arr->setting_id}}">
       <td>
         {{$i}}
       </td>
@@ -16,6 +17,19 @@
       </td>
       <td align="center">
         {{$data_arr->insta_password}}
+      </td>
+      <td align="center">
+				<p class="fl-filename">
+				<?php 
+					$filename = "";
+					if (SettingMeta::getMeta($data_arr->setting_id,"fl_filename") <> "0" ) {
+						$filename = SettingMeta::getMeta($data_arr->setting_id,"fl_filename");
+						echo $filename."";
+					}
+				?>
+				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-fl-edit" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->setting_id}}"
+				data-filename="{{$filename}}" style="cursor:pointer;">  </span>
+				</p>
       </td>
       <td align="center">
         <?php if ($data_arr->error_cred) { ?>

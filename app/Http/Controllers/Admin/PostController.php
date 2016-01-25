@@ -7,6 +7,7 @@ use Celebgramme\Models\User;
 use Celebgramme\Models\RequestModel;
 use Celebgramme\Models\Post;
 use Celebgramme\Models\Setting;
+use Celebgramme\Models\SettingMeta; 
 use Celebgramme\Models\LinkUserSetting;
 
 use View,Auth,Request,DB,Carbon,Excel,Mail;
@@ -200,6 +201,16 @@ class PostController extends Controller {
     return "success";
   }
 
+  public function update_fl_filename()
+  {
+		SettingMeta::createMeta("fl_filename",Request::input("fl-filename"),Request::input("setting-id"));
+		
+		$arr["id"] = Request::input("setting-id");
+		$arr["type"] = "success";
+		$arr["filename"] = Request::input("fl-filename");
+		return $arr;
+	}
+	
   public function update_error_cred($id)
   {
     $setting_temp = Setting::find($id);
