@@ -11,13 +11,21 @@
                 <li><a href="{{url('coupon', $parameters = [], $secure = null)}}">Coupon</a></li>
               </ul>
           </li>
+<?php 
+use Celebgramme\Models\Post;
+$count_post = Post::join("settings","settings.id","=","posts.setting_id")
+				 ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
+				 ->where("posts.type","=","pending")
+				 ->orderBy('posts.updated_at', 'asc')
+				 ->count();
+?>					
           <li class='dropdown'>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                History<span class="caret"></span>
+                History ({{$count_post}})<span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{url('post', $parameters = [], $secure = null)}}">Post History Daily Likes</a></li>
-                <li><a href="{{url('post-auto-manage', $parameters = [], $secure = null)}}">Post History Auto Manage</a></li>
+                <li><a href="{{url('post-auto-manage', $parameters = [], $secure = null)}}">Post History Auto Manage ({{$count_post}})</a></li>
               </ul>
           </li>
           <li class='dropdown'>
