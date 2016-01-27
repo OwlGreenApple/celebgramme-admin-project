@@ -21,6 +21,9 @@
 				{{$data_arr->active_days}}
       </td>
       <td>
+				{{$data_arr->max_account}}
+      </td>
+      <td>
 				<?php 
 				  if($data_arr->affiliate) {
 						echo "Yes";

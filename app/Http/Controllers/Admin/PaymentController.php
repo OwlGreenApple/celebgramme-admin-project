@@ -181,6 +181,7 @@ class PaymentController extends Controller {
       $packageuser->save();
 
       $user->active_auto_manage += $package->active_days * 86400;
+			$user->max_account = $package->max_account;
       $user->save();
     }
 
@@ -413,6 +414,7 @@ class PaymentController extends Controller {
 				$user->type = "confirmed-email";
 				$package = Package::find($order->package_manage_id);
 				$user->active_auto_manage = $package->active_days * 86400;
+				$user->max_account = $package->max_account;
 				$user->save();
 				
 				$order->user_id = $user->id;

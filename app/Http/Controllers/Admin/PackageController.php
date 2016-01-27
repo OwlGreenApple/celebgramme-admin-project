@@ -79,6 +79,7 @@ class PackageController extends Controller {
 		$package->package_name = Request::input("packagename");
 		$package->price = Request::input("price");
 		$package->active_days = Request::input("active-days");
+		$package->max_account = Request::input("max-account");
 		$affiliate_check = Request::input("affiliate-check");
 		if (isset($affiliate_check)) { $package->affiliate = 1; } else { $package->affiliate = 0; }
 		$package->package_group = "auto-manage";

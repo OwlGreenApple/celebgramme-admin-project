@@ -34,6 +34,12 @@
               </div>
             </div>  
             <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Max account</label>
+              <div class="col-sm-8 col-md-6">
+								<input type="number" class="form-control" placeholder="Max account instagram" name="max-account" id="max-account">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Affiliate</label>
               <div class="col-sm-8 col-md-6">
 								<input type="checkbox" name="affiliate-check" id="affiliate-check">
@@ -107,6 +113,7 @@
         <th>Package Name</th>
         <th>Price (Rp.)</th>
         <th>Active Days</th>
+        <th>Max account</th>
         <th>Affiliate</th>
         <th></th>
       </tr>      
