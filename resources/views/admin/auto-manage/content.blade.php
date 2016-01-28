@@ -2,7 +2,7 @@
 	use Celebgramme\Models\Setting;
 	use Celebgramme\Models\SettingMeta; 
   if ( $arr->count()==0  ) {
-    echo "<tr><td colspan='7' align='center'>Data tidak ada</td></tr>";
+    echo "<tr><td colspan='8' align='center'>Data tidak ada</td></tr>";
   } else {
     //search by username
   $i=($page-1)*15 + 1;
