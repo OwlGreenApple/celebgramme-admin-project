@@ -43,7 +43,7 @@
 				<a href="#" class="see-all">lihat semua </a>
 				<ul style="display:none;" class="data-updates">
 					<?php 
-					$strings =  explode("|", substr($data_arr->description,12));
+					$strings =  explode("~", substr($data_arr->description,12));
 					foreach ($strings as $string){
 					?>
 					<li> {{$string}} </li>
