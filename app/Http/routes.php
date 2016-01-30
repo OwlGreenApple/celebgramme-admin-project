@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function()
   Route::get('/', 'Admin\AdminController@index');
   Route::get('home', 'Admin\AdminController@index');
   Route::get('admin', 'Admin\AdminController@index');
+  Route::post('update-password', 'Admin\AdminController@update_password');
   
 	Route::get('post', 'Admin\PostController@index');
 	Route::get('load-post', 'Admin\PostController@load_post');
@@ -48,6 +49,10 @@ Route::group(['middleware' => 'auth'], function()
 	Route::patch('update-error-cred/{id}', 'Admin\PostController@update_error_cred');
 	Route::post('update-fl-filename', 'Admin\PostController@update_fl_filename');
 
+	/* Setting */
+	Route::get('setting', 'Admin\SettingController@index');
+	Route::get('load-setting', 'Admin\SettingController@load_setting');
+	Route::get('pagination-setting', 'Admin\SettingController@pagination_setting');
 
 	Route::get('access-token', 'Admin\MemberController@access_token');
 	Route::get('load-access-token', 'Admin\MemberController@load_access_token');

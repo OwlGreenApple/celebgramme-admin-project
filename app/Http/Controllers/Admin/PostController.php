@@ -116,7 +116,7 @@ class PostController extends Controller {
 
 
   /**
-   * Show bpv ranking page.
+   * Show auto manage page.
    *
    * @return Response
    */
@@ -238,7 +238,7 @@ class PostController extends Controller {
 
   public function create_excel($string,$stringby)
   {
-		$arr = explode(',', $string);
+		$arr = explode(';', $string);
 		Excel::create('Filename', function($excel) use ($arr,$stringby) {
       $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
 				foreach ($arr as $data) { 

@@ -26,6 +26,7 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{url('post', $parameters = [], $secure = null)}}">Post History Daily Likes</a></li>
                 <li><a href="{{url('post-auto-manage', $parameters = [], $secure = null)}}">Post History Auto Manage ({{$count_post}})</a></li>
+                <li><a href="{{url('setting', $parameters = [], $secure = null)}}">Setting IG Account All</a></li>
               </ul>
           </li>
           <li class='dropdown'>
@@ -46,6 +47,22 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
                 <li><a href="#">Package Daily Likes</a></li>
               </ul>
           </li>
-              <li><a href="{{url('auth/logout', $parameters = [], $secure = null)}}">Logout</a></li>
+          <li class='dropdown'>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                Helper Const<span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+								<li><a href="{{url('fl-name', $parameters = [], $secure = null)}}">Follow liker instance name</a></li>
+              </ul>
+          </li>
+          <li class='dropdown'>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                Account<span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#" data-target="#modalChangePassword" data-toggle="modal">Change Password</a></li>
+								<li><a href="{{url('auth/logout', $parameters = [], $secure = null)}}">Logout</a></li>
+              </ul>
+          </li>
         </ul>          
       </div><!--/.nav-collapse -->
