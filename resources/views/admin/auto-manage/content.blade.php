@@ -20,6 +20,7 @@
       </td>
       <td align="center">
 				<p class="fl-filename">
+				<span class="edit-fl-filename">
 				<?php 
 					$filename = "";
 					if (SettingMeta::getMeta($data_arr->setting_id,"fl_filename") <> "0" ) {
@@ -27,6 +28,7 @@
 						echo $filename."";
 					}
 				?>
+				</span>
 				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-fl-edit" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->setting_id}}"
 				data-filename="{{$filename}}" style="cursor:pointer;">  </span>
 				</p>

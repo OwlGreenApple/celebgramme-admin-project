@@ -3,6 +3,7 @@
 use Celebgramme\Http\Requests;
 use Celebgramme\Http\Controllers\Controller;
 
+use Celebgramme\Models\Meta;
 use Celebgramme\Models\User;
 use Celebgramme\Models\RequestModel;
 use Celebgramme\Models\Post;
@@ -33,9 +34,11 @@ class SettingController extends Controller {
 	public function index()
 	{
     $user = Auth::user();
+		$filenames = Meta::where("meta_name","=","fl_name")->get();
 		return View::make('admin.setting.index')->with(
                   array(
                     'user'=>$user,
+                    'filenames'=>$filenames,
                   ));
 	}
 

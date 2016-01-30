@@ -53,6 +53,14 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('setting', 'Admin\SettingController@index');
 	Route::get('load-setting', 'Admin\SettingController@load_setting');
 	Route::get('pagination-setting', 'Admin\SettingController@pagination_setting');
+	
+	/* Meta */
+	/* Follow liker name file list */
+	Route::get('fl-name', 'Admin\MetaController@fl_name');
+	Route::get('load-fl-name', 'Admin\MetaController@load_fl_name');
+	Route::get('pagination-fl-name', 'Admin\MetaController@pagination_fl_name');
+	Route::post('add-meta-fl', 'Admin\MetaController@add_fl');
+	Route::post('delete-meta-fl', 'Admin\MetaController@delete_fl');
 
 	Route::get('access-token', 'Admin\MemberController@access_token');
 	Route::get('load-access-token', 'Admin\MemberController@load_access_token');

@@ -17,7 +17,14 @@
             <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Follow liker filename</label>
               <div class="col-sm-8 col-md-6">
+								<select class="form-control" name="fl-filename" id="fl-filename">
+									@foreach ($filenames as $filename)
+										<option value="{{$filename->meta_value}}">{{$filename->meta_value}}</option>
+									@endforeach
+								</select>
+								<!--
                 <input type="text" class="form-control" placeholder="Input follow liker filename" name="fl-filename" id="fl-filename">
+								-->
               </div>
               <input type="hidden" id="setting-id" name="setting-id">
             </div>  
@@ -295,7 +302,8 @@
           {
             var data = jQuery.parseJSON(result);
             if(data.type=='success') {
-              $(".row"+data.id).find(".fl-filename").html(data.filename);
+              $(".row"+data.id).find(".fl-filename").find(".edit-fl-filename").html(data.filename);
+							$(".row"+data.id).find(".fl-filename").find(".glyphicon").attr("data-filename" , data.filename);
             }
             $("#div-loading").hide();
           }

@@ -34,7 +34,7 @@ class MetaController extends Controller {
 	public function fl_name()
 	{
     $user = Auth::user();
-		return View::make('admin.setting.index')->with(
+		return View::make('admin.fl-name-list.index')->with(
                   array(
                     'user'=>$user,
                   ));
@@ -42,27 +42,11 @@ class MetaController extends Controller {
 
   public function load_fl_name()
   {
-		if (Request::input('keyword')=="") {
-			$arr = Setting::where("type","=","temp")
-						 ->orderBy('id', 'asc')
-						 ->paginate(15);
-		} else {
-			$arr = Setting::leftJoin("setting_metas","setting_metas.setting_id","=","settings.id")
-						 ->select("settings.*")
-						 ->where("type","=","temp")
-						 ->where(function ($query){
-							 $query->where("insta_username","like","%".Request::input('keyword')."%")
-							 ->orWhere(function ($query2){
-								 $query2->where("meta_name","=","fl_filename")
-								 ->where("meta_value","=",Request::input('keyword'));
-							 });
-						 })
-						 ->groupBy("settings.id")
-						 ->orderBy('id', 'asc')
-						 ->paginate(15);
-		}
+		$arr = Meta::where("meta_name","=","fl_name")
+					 ->orderBy('id', 'asc')
+					 ->paginate(15);
     
-    return view('admin.setting.content')->with(
+    return view('admin.fl-name-list.content')->with(
                 array(
                   'arr'=>$arr,
                   'page'=>Request::input('page'),
@@ -71,45 +55,40 @@ class MetaController extends Controller {
   
 	public function pagination_fl_name()
   {
-		if (Request::input('keyword')=="") {
-			$arr = Setting::where("type","=","temp")
-						 ->orderBy('id', 'asc')
-						 ->paginate(15);
-		} else {
-			$arr = Setting::leftJoin("setting_metas","setting_metas.setting_id","=","settings.id")
-						 ->select("settings.*")
-						 ->where("type","=","temp")
-						 ->where(function ($query){
-							 $query->where("insta_username","like","%".Request::input('keyword')."%")
-							 ->orWhere(function ($query2){
-								 $query2->where("meta_name","=","fl_filename")
-								 ->where("meta_value","=",Request::input('keyword'));
-							 });
-						 })
-						 ->groupBy("settings.id")
-						 ->orderBy('id', 'asc')
-						 ->paginate(15);
-		}
+		$arr = Meta::where("meta_name","=","fl_name")
+					 ->orderBy('id', 'asc')
+					 ->paginate(15);
 
 
-    return view('admin.setting.pagination')->with(
+    return view('admin.fl-name-list.pagination')->with(
                 array(
                   'arr'=>$arr,
                 ));
   }
   
-	public function update_post($konfirmasiId)
+	public function add_fl()
   {
-    $request = RequestModel::find($konfirmasiId);
-    $request->status=true;
-    $request->save();
-
-    $user = User::find($request->user_id);
-    $user->balance = $user->balance - $request->likes;
-    $user->save();
+		if (Request::input("id_meta")=="new") {
+			$meta = new Meta;
+		} else {
+			$meta = Meta::find(Request::input("id_meta"));
+		}
+		$meta->meta_name= "fl_name";
+		$meta->meta_value= Request::input("data_value");
+		$meta->save();
     
-    return "success";
+		$arr["type"] = "success";
+    return $arr;
   }
+	
+	public function delete_fl()
+  {
+		$meta = Meta::find(Request::input("id"))->delete();
+
+    $arr['type'] = 'success';
+    $arr['id'] = Request::input("id-coupon");
+    return $arr;    
+	}
 
 
 }

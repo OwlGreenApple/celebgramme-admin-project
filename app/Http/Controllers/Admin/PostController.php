@@ -3,6 +3,7 @@
 use Celebgramme\Http\Requests;
 use Celebgramme\Http\Controllers\Controller;
 
+use Celebgramme\Models\Meta;
 use Celebgramme\Models\User;
 use Celebgramme\Models\RequestModel;
 use Celebgramme\Models\Post;
@@ -130,10 +131,12 @@ class PostController extends Controller {
              ->where("posts.type","=","pending")
              ->orderBy('posts.updated_at', 'asc')
              ->count();
+		$filenames = Meta::where("meta_name","=","fl_name")->get();
     return View::make('admin.auto-manage.index')->with(
                   array(
                     'user'=>$user,
                     'count_post'=>$count_post,
+                    'filenames'=>$filenames,
                   ));
   }
 
