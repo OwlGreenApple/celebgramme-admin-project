@@ -48,6 +48,10 @@ Route::group(['middleware' => 'auth'], function()
 	Route::patch('update-auto-manage/{id}', 'Admin\PostController@update_auto_manage');
 	Route::patch('update-error-cred/{id}', 'Admin\PostController@update_error_cred');
 	Route::post('update-fl-filename', 'Admin\PostController@update_fl_filename');
+	Route::get('download-all/{setting_id}', 'Admin\PostController@create_excel_all');
+	Route::get('download-hashtags/{setting_id}/{stringby}', 'Admin\PostController@create_excel_hashtags');
+	Route::get('download-usernames/{setting_id}/{stringby}', 'Admin\PostController@create_excel_usernames');
+	Route::get('download-comments/{setting_id}', 'Admin\PostController@create_excel_comments');
 
 	/* Setting */
 	Route::get('setting', 'Admin\SettingController@index');

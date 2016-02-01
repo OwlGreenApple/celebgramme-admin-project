@@ -229,11 +229,12 @@ class PostController extends Controller {
 		$user = User::find($setting_temp->last_user);
     $emaildata = [
         'user' => $user,
+        'insta_username' => $setting_temp->insta_username,
     ];
     Mail::queue('emails.error-cred', $emaildata, function ($message) use ($user) {
       $message->from('no-reply@celebgramme.com', 'Celebgramme');
       $message->to($user->email);
-      $message->subject('[Celebgramme] Welcome to celebgramme.com');
+      $message->subject('[Celebgramme] Error Login Instagram Account');
     });
 
     return "success";
@@ -251,7 +252,69 @@ class PostController extends Controller {
 				}
       });
 
-		})->export('csv');		
+		})->download('csv');
+	}
+	
+	public function create_excel_all($setting_id)
+	{
+
+	header('Content-type: application/octet-stream');
+header('Content-disposition: attachment; filename="test.txt"');
+	$file = 'people.txt';
+// The new person to add to the file
+$person = "John Smith\n";
+// Write the contents to the file, 
+// using the FILE_APPEND flag to append the content to the end of the file
+// and the LOCK_EX flag to prevent anyone else writing to the file at the same time
+file_put_contents($file, $person, FILE_APPEND | LOCK_EX);
+	}
+	
+	public function create_excel_hashtags($setting_id,$stringby)
+	{
+		$setting = Setting::find($setting_id);
+		$string = $setting->tags;
+		$arr = explode(';', $string);
+		Excel::create('Filename', function($excel) use ($arr,$stringby) {
+      $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
+				foreach ($arr as $data) { 
+					$sheet->appendRow(array(
+							$data, $stringby
+					));
+				}
+      });
+		})->download('csv');
+	}
+	
+	public function create_excel_usernames($setting_id,$stringby)
+	{
+		$setting = Setting::find($setting_id);
+		$string = $setting->username;
+		$arr = explode(';', $string);
+		Excel::create('Filename', function($excel) use ($arr,$stringby) {
+      $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
+				foreach ($arr as $data) { 
+					$sheet->appendRow(array(
+							$data, $stringby
+					));
+				}
+      });
+		})->download('csv');
+	}
+	
+	public function create_excel_comments($setting_id)
+	{
+		$setting = Setting::find($setting_id);
+		$string = $setting->comments;
+		$arr = explode(';', $string);
+		Excel::create('Filename', function($excel) use ($arr) {
+      $excel->sheet('keywords', function($sheet)use ($arr)  {
+				foreach ($arr as $data) { 
+					$sheet->appendRow(array(
+							$data
+					));
+				}
+      });
+		})->download('csv');
 	}
 
 }

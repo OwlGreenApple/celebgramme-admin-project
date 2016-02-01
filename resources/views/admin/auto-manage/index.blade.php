@@ -1,7 +1,6 @@
 @extends('layout.main')
 
 @section('content')
-
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -89,6 +88,10 @@
         <th>Error Credential</th>
         <th>Updates</th>
         <th>Update terakhir</th>
+        <th>Download All setting</th>
+        <th>Download Hashtags</th>
+        <th>Download Usernames</th>
+        <th>Download Comments</th>
         <th>Status</th>
       </tr>      
     </thead>
@@ -103,7 +106,7 @@
   </nav>  
 	
   <div class="cover-input-group">
-	  *buat copas ke keywords type (Relevant,)
+	  *buat copas ke keywords type (Relevant, Normal Search, User's Follower, User's Following, User's Photo)
     <div class="input-group fl">
     </div>  
 	</div>  
@@ -211,6 +214,20 @@
       $("#alert").hide();
       create_pagination(1);
       refresh_page(1);
+			
+			$( "body" ).on( "click", ".download-all", function() {
+				window.location="<?php echo url('download-all'); ?>/"+$(this).attr("data-id");
+      });
+			$( "body" ).on( "click", ".download-hashtags", function() {
+				window.location="<?php echo url('download-hashtags'); ?>/"+$(this).attr("data-id")+"/"+$(this).parent().find("select option:selected").html();
+      });
+			$( "body" ).on( "click", ".download-usernames", function() {
+				window.location="<?php echo url('download-usernames'); ?>/"+$(this).attr("data-id")+"/"+$(this).parent().find("select option:selected").html();
+      });
+			$( "body" ).on( "click", ".download-comments", function() {
+				window.location="<?php echo url('download-comments'); ?>/"+$(this).attr("data-id");
+      });
+			
       $('#button-excel').click(function(e){
         e.preventDefault();
         window.location="<?php echo url('create-excel'); ?>/"+$("#keywords-excel").val()+"/"+$("#keywords-by").val();
