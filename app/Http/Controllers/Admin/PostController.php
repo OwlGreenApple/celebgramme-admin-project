@@ -257,16 +257,34 @@ class PostController extends Controller {
 	
 	public function create_excel_all($setting_id)
 	{
-
-	header('Content-type: application/octet-stream');
-header('Content-disposition: attachment; filename="test.txt"');
-	$file = 'people.txt';
-// The new person to add to the file
-$person = "John Smith\n";
-// Write the contents to the file, 
-// using the FILE_APPEND flag to append the content to the end of the file
-// and the LOCK_EX flag to prevent anyone else writing to the file at the same time
-file_put_contents($file, $person, FILE_APPEND | LOCK_EX);
+		$setting = Setting::find($setting_id);
+		Excel::create('Filename', function($excel) use ($setting) {
+      $excel->sheet('keywords', function($sheet)use ($setting)  {
+					$sheet->appendRow(array( "insta username : ".$setting->insta_username ));
+					$sheet->appendRow(array( "insta password : ".$setting->insta_password ));
+					$sheet->appendRow(array( "Status follow unfollow : ".$setting->status_follow_unfollow ));
+					$sheet->appendRow(array( "Status Like : ".$setting->status_like ));
+					$sheet->appendRow(array( "Status Comment : ".$setting->status_comment ));
+					$sheet->appendRow(array( "Activity : ".$setting->activity ));
+					$sheet->appendRow(array( "Activity speed : ".$setting->activity_speed ));
+					$sheet->appendRow(array( "Comments : ".$setting->comments ));
+					$sheet->appendRow(array( "Tags : ".$setting->tags ));
+					$sheet->appendRow(array( "Username : ".$setting->username ));
+					$sheet->appendRow(array( "Media Source : ".$setting->media_source ));
+					$sheet->appendRow(array( "Media Age : ".$setting->media_age ));
+					$sheet->appendRow(array( "Media Type : ".$setting->media_type ));
+					$sheet->appendRow(array( "Min like media : ".$setting->min_likes_media ));
+					$sheet->appendRow(array( "Max like media : ".$setting->max_likes_media ));
+					$sheet->appendRow(array( "Dont comment same user : ".$setting->dont_comment_su ));
+					$sheet->appendRow(array( "Follow source : ".$setting->follow_source ));
+					$sheet->appendRow(array( "Dont follow same user : ".$setting->dont_follow_su ));
+					$sheet->appendRow(array( "Dont follow private user : ".$setting->dont_follow_pu ));
+					$sheet->appendRow(array( "Unfollow source : ".$setting->unfollow_source ));
+					$sheet->appendRow(array( "Unfollow who dont follow me : ".$setting->unfollow_wdfm ));
+					$sheet->appendRow(array( "Unfollow who usernames whitelist : ".$setting->usernames_whitelist ));
+					$sheet->appendRow(array( "Status : ".$setting->status ));
+      });
+		})->download('txt');
 	}
 	
 	public function create_excel_hashtags($setting_id,$stringby)

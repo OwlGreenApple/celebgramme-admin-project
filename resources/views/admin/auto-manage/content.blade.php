@@ -57,6 +57,9 @@
 				<ul style="display:none;" class="data-all">
 					<li><strong>Insta username : </strong>{{$setting->insta_username}}</li>
 					<li><strong>Insta password : </strong>{{$setting->insta_password}}</li>
+					<li><strong>Status follow unfollow  : </strong>{{$setting->status_follow_unfollow}}</li>
+					<li><strong>Status Like : </strong>{{$setting->status_like}}</li>
+					<li><strong>Status Comment : </strong>{{$setting->status_comment}}</li>
 					<li><strong>Activity : </strong>{{$setting->activity}}</li>
 					<li><strong>Activity speed : </strong>{{$setting->activity_speed}}</li>
 					<li><strong>Comments : </strong>{{$setting->comments}}</li>
@@ -81,18 +84,18 @@
         {{$data_arr->updated_at}}
       </td>
       <td align="center">
-        <span class="glyphicon glyphicon-save download-all" style="cursor:pointer;"></span>
+        <span class="glyphicon glyphicon-save download-all" style="cursor:pointer;" data-id="{{$data_arr->setting_id}}"></span>
       </td>
       <td align="center">
 				<select>
 					<option>Relevant</option>
-					<option>User's Photo</option>
+					<option>Normal Search</option>
 				</select>
         <span class="glyphicon glyphicon-save download-hashtags" style="cursor:pointer;" data-id="{{$data_arr->setting_id}}"></span>
       </td>
       <td align="center">
 				<select>
-					<option>Normal Search</option>
+					<option>User's Photo</option>
 					<option>User's Follower</option>
 					<option>User's Following</option>
 				</select>
