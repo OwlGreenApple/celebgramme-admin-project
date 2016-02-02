@@ -11,7 +11,7 @@ use Celebgramme\Models\Setting;
 use Celebgramme\Models\SettingMeta; 
 use Celebgramme\Models\LinkUserSetting;
 
-use View,Auth,Request,DB,Carbon,Excel,Mail;
+use View,Auth,Request,DB,Carbon,Excel,Mail,Input;
 
 class SettingController extends Controller {
 
@@ -35,10 +35,12 @@ class SettingController extends Controller {
 	{
     $user = Auth::user();
 		$filenames = Meta::where("meta_name","=","fl_name")->get();
+		$status_server = Meta::where("meta_name","=","status_server")->first()->meta_value;
 		return View::make('admin.setting.index')->with(
                   array(
                     'user'=>$user,
                     'filenames'=>$filenames,
+                    'status_server'=>$status_server,
                   ));
 	}
 
@@ -113,5 +115,13 @@ class SettingController extends Controller {
     return "success";
   }
 
+	public function update_status_server()
+  {
+		$meta = Meta::where('meta_name','=','status_server')->first();
+		$meta->meta_value = Input::get("statusServer");
+		$meta->save();
+		
+		return "success";
+	}
 
 }

@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('setting', 'Admin\SettingController@index');
 	Route::get('load-setting', 'Admin\SettingController@load_setting');
 	Route::get('pagination-setting', 'Admin\SettingController@pagination_setting');
+	Route::post('update-status-server', 'Admin\SettingController@update_status_server');
 	
 	/* Meta */
 	/* Follow liker name file list */

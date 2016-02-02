@@ -53,6 +53,22 @@
   <div class="page-header">
     <h1>ALL Setting IG account</h1>
   </div>  
+	<div class="row">
+		<div class="col-md-1">
+			<label>Server Status :</label>
+		</div>
+		<div class="col-md-2">
+			<select class="form-control" id="status-server">
+				<option value="normal" <?php if($status_server=="normal") { echo "selected"; } ?>>Normal</option>
+				<option value="delay" <?php if($status_server=="delay") { echo "selected"; } ?>>Delay</option>
+				<option value="maintenance" <?php if($status_server=="maintenance") { echo "selected"; } ?>>Maintenance</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<input type="button" value="Update" id="button-server" data-loading-text="Loading..." class="btn btn-primary"> 
+		</div>
+	</div>
+	<br>
   <p>	
 	* unfollow_wdfm = unfollow who dont follow me <br>
 	dont_follow_su = dont follow same user <br>
@@ -179,6 +195,32 @@
       $("#alert").hide();
       create_pagination(1);
       refresh_page(1);
+			
+      $('#button-server').click(function(e){
+        $.ajax({                                      
+          url: '<?php echo url('update-status-server'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: {
+            statusServer :$("#status-server").val(),
+          },
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            if (result=='success') {
+							alert("Status server berhasil diubah");
+            }
+            $("#div-loading").hide();
+          }
+        });
+      });
+			
       $('#button-excel').click(function(e){
         e.preventDefault();
         window.location="<?php echo url('create-excel'); ?>/"+$("#keywords-excel").val()+"/"+$("#keywords-by").val();
