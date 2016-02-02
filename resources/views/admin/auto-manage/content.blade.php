@@ -48,20 +48,37 @@
 					$strings =  explode("~", substr($data_arr->description,12));
 					foreach ($strings as $string){
 					?>
-					<li> {{$string}} </li>
+					<li> 
+						<?php 
+							$pieces = explode("=", $string );						
+							if (count($pieces)>1) {
+									echo "<strong>".$pieces[0]."</strong> : ".$pieces[1];
+							} 
+							// echo $string;
+						?>
+					</li>
 					<?php } ?>
 				</ul>
 				<?php  
 					$setting = Setting::find($data_arr->setting_id);
-				?>
+				?> <!-- merah =#ea0000   biru = #1212e8  hijau = #15ca26     -->
 				<ul style="display:none;" class="data-all">
+					<?php if ($setting->status=="started") { $colorstatus="1212e8"; } else if ($setting->status=="stopped") { $colorstatus="ea0000"; } ?>
+					<li><strong>Status : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status)}} </span> </strong> </li> 
 					<li><strong>Insta username : </strong>{{$setting->insta_username}}</li>
 					<li><strong>Insta password : </strong>{{$setting->insta_password}}</li>
-					<li><strong>Status follow unfollow  : </strong>{{$setting->status_follow_unfollow}}</li>
-					<li><strong>Status Like : </strong>{{$setting->status_like}}</li>
-					<li><strong>Status Comment : </strong>{{$setting->status_comment}}</li>
-					<li><strong>Activity : </strong>{{$setting->activity}}</li>
-					<li><strong>Activity speed : </strong>{{$setting->activity_speed}}</li>
+					
+					<?php if ($setting->status_follow_unfollow=="on") { $colorstatus="1212e8"; } else if ($setting->status_follow_unfollow=="off") { $colorstatus="ea0000"; } ?>
+					<li><strong>Status Follow  : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status_follow_unfollow)}} </span> </strong> </li> 
+					<?php if ($setting->status_like=="on") { $colorstatus="1212e8"; } else if ($setting->status_like=="off") { $colorstatus="ea0000"; } ?>
+					<li><strong>Status Like : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status_like)}} </span> </strong> </li> 
+					<?php if ($setting->status_comment=="on") { $colorstatus="1212e8"; } else if ($setting->status_comment=="off") { $colorstatus="ea0000"; } ?>
+					<li><strong>Status Comment : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status_comment)}} </span> </strong> </li> 
+					
+					<?php if ($setting->activity=="follow") { $colorstatus="1212e8"; } else if ($setting->activity=="unfollow") { $colorstatus="ea0000"; } ?>
+					<li><strong>Activity : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->activity)}} </span> </strong> </li> 
+					<?php if ($setting->activity_speed=="slow") { $colorstatus="ea0000"; } else if ($setting->activity_speed=="normal") { $colorstatus="15ca26"; } else if ($setting->activity_speed=="fast") { $colorstatus="1212e8"; } ?>
+					<li><strong>Activity speed : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->activity_speed)}} </span> </strong> </li> 
 					<li><strong>Comments : </strong>{{$setting->comments}}</li>
 					<li><strong>Tags : </strong>{{$setting->tags}}</li>
 					<li><strong>Username : </strong>{{$setting->username}}</li>
@@ -77,7 +94,6 @@
 					<li><strong>Unfollow source : </strong>{{$setting->unfollow_source}}</li>
 					<li><strong>Unfollow who dont follow me : </strong>{{$setting->unfollow_wdfm}}</li>
 					<li><strong>Unfollow who usernames whitelist : </strong>{{$setting->usernames_whitelist}}</li>
-					<li><strong>Status : </strong>{{$setting->status}}</li>
 				</ul>
       </td>
       <td align="center" style="width:100px;">

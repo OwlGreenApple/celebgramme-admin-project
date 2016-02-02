@@ -39,7 +39,7 @@
           <i class="x-icon update-error" data-id="{{$data_arr->id}}"></i>
         <?php } ?>
       </td>
-      <td align="center">
+      <td align="center" style="width:350px!important;">
 				<a href="#" class="see-all">lihat semua </a>
 				<ul style="display:none;" class="data-all">
 					<li>Insta username : {{$data_arr->insta_username}}</li>
