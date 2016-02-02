@@ -61,10 +61,11 @@
 				</ul>
 				<?php  
 					$setting = Setting::find($data_arr->setting_id);
+					$colorstatus = 000;
 				?> 
 				<!-- merah =#ea0000   biru = #1212e8  hijau = #15ca26     -->
 				<ul style="display:none;" class="data-all" style="width:350px!important;">
-					<?php if ($setting->status=="started") { $colorstatus="1212e8"; } else if ($setting->status=="stopped") { $colorstatus="ea0000"; } ?>
+					<?php if ($setting->status=="started") { $colorstatus="1212e8"; } else if ( ($setting->status=="stopped") || ($setting->status=="deleted") ){ $colorstatus="ea0000"; } ?>
 					<li class="wrap"><strong>Status : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status)}} </span> </strong> </li> 
 					<li class="wrap"><strong>Insta username : </strong>{{$setting->insta_username}}</li>
 					<li class="wrap"><strong>Insta password : </strong>{{$setting->insta_password}}</li>

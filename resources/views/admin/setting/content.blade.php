@@ -43,7 +43,9 @@
 				<a href="#" class="see-all">lihat semua </a>
 				<!-- merah =#ea0000   biru = #1212e8  hijau = #15ca26     -->
 				<ul style="display:none;" class="data-all" style="width:350px!important;">
-					<?php if ($data_arr->status=="started") { $colorstatus="1212e8"; } else if ($data_arr->status=="stopped") { $colorstatus="ea0000"; } ?>
+					<?php 
+					$colorstatus = 000;
+					if ($data_arr->status=="started") { $colorstatus="1212e8"; } else if ( ($data_arr->status=="stopped")||($data_arr->status=="deleted")) { $colorstatus="ea0000"; } ?>
 					<li class="wrap"><strong>Status : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->status)}} </span> </strong> </li> 
 					<li class="wrap"><strong>Insta username : </strong>{{$data_arr->insta_username}}</li>
 					<li class="wrap"><strong>Insta password : </strong>{{$data_arr->insta_password}}</li>
