@@ -41,27 +41,39 @@
       </td>
       <td align="center" style="width:350px!important;">
 				<a href="#" class="see-all">lihat semua </a>
-				<ul style="display:none;" class="data-all">
-					<li>Insta username : {{$data_arr->insta_username}}</li>
-					<li>Insta password : {{$data_arr->insta_password}}</li>
-					<li>Activity : {{$data_arr->activity}}</li>
-					<li>Comments : {{$data_arr->comments}}</li>
-					<li>Tags : {{$data_arr->tags}}</li>
-					<li>Username : {{$data_arr->username}}</li>
-					<li>Activity speed : {{$data_arr->activity_speed}}</li>
-					<li>Media source : {{$data_arr->media_source}}</li>
-					<li>Media age : {{$data_arr->media_age}}</li>
-					<li>Media type : {{$data_arr->media_type}}</li>
-					<li>Min likes media : {{$data_arr->min_likes_media}}</li>
-					<li>Max likes media : {{$data_arr->max_likes_media}}</li>
-					<li>Dont comment same user : {{$data_arr->dont_comment_su}}</li>
-					<li>Follow source : {{$data_arr->follow_source}}</li>
-					<li>Dont follow same user : {{$data_arr->dont_follow_su}}</li>
-					<li>Dont follow private user : {{$data_arr->dont_follow_pu}}</li>
-					<li>Unfollow source : {{$data_arr->unfollow_source}}</li>
-					<li>Unfollow who dont follow me : {{$data_arr->unfollow_wdfm}}</li>
-					<li>Unfollow who usernames whitelist : {{$data_arr->usernames_whitelist}}</li>
-					<li>Status : {{$data_arr->status}}</li>
+				<!-- merah =#ea0000   biru = #1212e8  hijau = #15ca26     -->
+				<ul style="display:none;" class="data-all" style="width:350px!important;">
+					<?php if ($data_arr->status=="started") { $colorstatus="1212e8"; } else if ($data_arr->status=="stopped") { $colorstatus="ea0000"; } ?>
+					<li class="wrap"><strong>Status : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->status)}} </span> </strong> </li> 
+					<li class="wrap"><strong>Insta username : </strong>{{$data_arr->insta_username}}</li>
+					<li class="wrap"><strong>Insta password : </strong>{{$data_arr->insta_password}}</li>
+					
+					<?php if ($data_arr->status_follow_unfollow=="on") { $colorstatus="1212e8"; } else if ($data_arr->status_follow_unfollow=="off") { $colorstatus="ea0000"; } ?>
+					<li class="wrap"><strong>Status Follow  : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->status_follow_unfollow)}} </span> </strong> </li> 
+					<?php if ($data_arr->status_like=="on") { $colorstatus="1212e8"; } else if ($data_arr->status_like=="off") { $colorstatus="ea0000"; } ?>
+					<li class="wrap"><strong>Status Like : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->status_like)}} </span> </strong> </li> 
+					<?php if ($data_arr->status_comment=="on") { $colorstatus="1212e8"; } else if ($data_arr->status_comment=="off") { $colorstatus="ea0000"; } ?>
+					<li class="wrap"><strong>Status Comment : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->status_comment)}} </span> </strong> </li> 
+					
+					<?php if ($data_arr->activity=="follow") { $colorstatus="1212e8"; } else if ($data_arr->activity=="unfollow") { $colorstatus="ea0000"; } ?>
+					<li class="wrap"><strong>Activity : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->activity)}} </span> </strong> </li> 
+					<?php if ($data_arr->activity_speed=="slow") { $colorstatus="ea0000"; } else if ($data_arr->activity_speed=="normal") { $colorstatus="15ca26"; } else if ($data_arr->activity_speed=="fast") { $colorstatus="1212e8"; } ?>
+					<li class="wrap"><strong>Activity speed : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->activity_speed)}} </span> </strong> </li> 
+					<li class="wrap"><strong>Comments : </strong>{{$data_arr->comments}}</li>
+					<li class="wrap"><strong>Tags : </strong>{{$data_arr->tags}}</li>
+					<li class="wrap"><strong>Username : </strong>{{$data_arr->username}}</li>
+					<li class="wrap"><strong>Media source : </strong>{{$data_arr->media_source}}</li>
+					<li class="wrap"><strong>Media age : </strong>{{$data_arr->media_age}}</li>
+					<li class="wrap"><strong>Media type : </strong>{{$data_arr->media_type}}</li>
+					<li class="wrap"><strong>Min likes media : </strong>{{$data_arr->min_likes_media}}</li>
+					<li class="wrap"><strong>Max likes media : </strong>{{$data_arr->max_likes_media}}</li>
+					<li class="wrap"><strong>Dont comment same user : </strong>{{$data_arr->dont_comment_su}}</li>
+					<li class="wrap"><strong>Follow source : </strong>{{$data_arr->follow_source}}</li>
+					<li class="wrap"><strong>Dont follow same user : </strong>{{$data_arr->dont_follow_su}}</li>
+					<li class="wrap"><strong>Dont follow private user : </strong>{{$data_arr->dont_follow_pu}}</li>
+					<li class="wrap"><strong>Unfollow source : </strong>{{$data_arr->unfollow_source}}</li>
+					<li class="wrap"><strong>Unfollow who dont follow me : </strong>{{$data_arr->unfollow_wdfm}}</li>
+					<li class="wrap"><strong>Unfollow who usernames whitelist : </strong>{{$data_arr->usernames_whitelist}}</li>
 				</ul>
       </td>
     </tr>    

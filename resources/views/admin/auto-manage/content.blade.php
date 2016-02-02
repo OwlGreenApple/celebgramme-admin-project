@@ -61,39 +61,40 @@
 				</ul>
 				<?php  
 					$setting = Setting::find($data_arr->setting_id);
-				?> <!-- merah =#ea0000   biru = #1212e8  hijau = #15ca26     -->
-				<ul style="display:none;" class="data-all">
+				?> 
+				<!-- merah =#ea0000   biru = #1212e8  hijau = #15ca26     -->
+				<ul style="display:none;" class="data-all" style="width:350px!important;">
 					<?php if ($setting->status=="started") { $colorstatus="1212e8"; } else if ($setting->status=="stopped") { $colorstatus="ea0000"; } ?>
-					<li><strong>Status : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status)}} </span> </strong> </li> 
-					<li><strong>Insta username : </strong>{{$setting->insta_username}}</li>
-					<li><strong>Insta password : </strong>{{$setting->insta_password}}</li>
+					<li class="wrap"><strong>Status : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status)}} </span> </strong> </li> 
+					<li class="wrap"><strong>Insta username : </strong>{{$setting->insta_username}}</li>
+					<li class="wrap"><strong>Insta password : </strong>{{$setting->insta_password}}</li>
 					
 					<?php if ($setting->status_follow_unfollow=="on") { $colorstatus="1212e8"; } else if ($setting->status_follow_unfollow=="off") { $colorstatus="ea0000"; } ?>
-					<li><strong>Status Follow  : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status_follow_unfollow)}} </span> </strong> </li> 
+					<li class="wrap"><strong>Status Follow  : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status_follow_unfollow)}} </span> </strong> </li> 
 					<?php if ($setting->status_like=="on") { $colorstatus="1212e8"; } else if ($setting->status_like=="off") { $colorstatus="ea0000"; } ?>
-					<li><strong>Status Like : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status_like)}} </span> </strong> </li> 
+					<li class="wrap"><strong>Status Like : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status_like)}} </span> </strong> </li> 
 					<?php if ($setting->status_comment=="on") { $colorstatus="1212e8"; } else if ($setting->status_comment=="off") { $colorstatus="ea0000"; } ?>
-					<li><strong>Status Comment : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status_comment)}} </span> </strong> </li> 
+					<li class="wrap"><strong>Status Comment : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status_comment)}} </span> </strong> </li> 
 					
 					<?php if ($setting->activity=="follow") { $colorstatus="1212e8"; } else if ($setting->activity=="unfollow") { $colorstatus="ea0000"; } ?>
-					<li><strong>Activity : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->activity)}} </span> </strong> </li> 
+					<li class="wrap"><strong>Activity : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->activity)}} </span> </strong> </li> 
 					<?php if ($setting->activity_speed=="slow") { $colorstatus="ea0000"; } else if ($setting->activity_speed=="normal") { $colorstatus="15ca26"; } else if ($setting->activity_speed=="fast") { $colorstatus="1212e8"; } ?>
-					<li><strong>Activity speed : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->activity_speed)}} </span> </strong> </li> 
-					<li><strong>Comments : </strong>{{$setting->comments}}</li>
-					<li><strong>Tags : </strong>{{$setting->tags}}</li>
-					<li><strong>Username : </strong>{{$setting->username}}</li>
-					<li><strong>Media source : </strong>{{$setting->media_source}}</li>
-					<li><strong>Media age : </strong>{{$setting->media_age}}</li>
-					<li><strong>Media type : </strong>{{$setting->media_type}}</li>
-					<li><strong>Min likes media : </strong>{{$setting->min_likes_media}}</li>
-					<li><strong>Max likes media : </strong>{{$setting->max_likes_media}}</li>
-					<li><strong>Dont comment same user : </strong>{{$setting->dont_comment_su}}</li>
-					<li><strong>Follow source : </strong>{{$setting->follow_source}}</li>
-					<li><strong>Dont follow same user : </strong>{{$setting->dont_follow_su}}</li>
-					<li><strong>Dont follow private user : </strong>{{$setting->dont_follow_pu}}</li>
-					<li><strong>Unfollow source : </strong>{{$setting->unfollow_source}}</li>
-					<li><strong>Unfollow who dont follow me : </strong>{{$setting->unfollow_wdfm}}</li>
-					<li><strong>Unfollow who usernames whitelist : </strong>{{$setting->usernames_whitelist}}</li>
+					<li class="wrap"><strong>Activity speed : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->activity_speed)}} </span> </strong> </li> 
+					<li class="wrap"><strong>Comments : </strong>{{$setting->comments}}</li>
+					<li class="wrap"><strong>Tags : </strong>{{$setting->tags}}</li>
+					<li class="wrap"><strong>Username : </strong>{{$setting->username}}</li>
+					<li class="wrap"><strong>Media source : </strong>{{$setting->media_source}}</li>
+					<li class="wrap"><strong>Media age : </strong>{{$setting->media_age}}</li>
+					<li class="wrap"><strong>Media type : </strong>{{$setting->media_type}}</li>
+					<li class="wrap"><strong>Min likes media : </strong>{{$setting->min_likes_media}}</li>
+					<li class="wrap"><strong>Max likes media : </strong>{{$setting->max_likes_media}}</li>
+					<li class="wrap"><strong>Dont comment same user : </strong>{{$setting->dont_comment_su}}</li>
+					<li class="wrap"><strong>Follow source : </strong>{{$setting->follow_source}}</li>
+					<li class="wrap"><strong>Dont follow same user : </strong>{{$setting->dont_follow_su}}</li>
+					<li class="wrap"><strong>Dont follow private user : </strong>{{$setting->dont_follow_pu}}</li>
+					<li class="wrap"><strong>Unfollow source : </strong>{{$setting->unfollow_source}}</li>
+					<li class="wrap"><strong>Unfollow who dont follow me : </strong>{{$setting->unfollow_wdfm}}</li>
+					<li class="wrap"><strong>Unfollow who usernames whitelist : </strong>{{$setting->usernames_whitelist}}</li>
 				</ul>
       </td>
       <td align="center" style="width:100px;">
