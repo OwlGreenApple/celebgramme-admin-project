@@ -268,7 +268,7 @@ class PostController extends Controller {
 					$sheet->appendRow(array( "Activity : ".$setting->activity ));
 					$sheet->appendRow(array( "Activity speed : ".$setting->activity_speed ));
 					$sheet->appendRow(array( "Comments : ".$setting->comments ));
-					$sheet->appendRow(array( "Tags : ".$setting->tags ));
+					$sheet->appendRow(array( "Hashtags : ".$setting->hashtags ));
 					$sheet->appendRow(array( "Username : ".$setting->username ));
 					$sheet->appendRow(array( "Media Source : ".$setting->media_source ));
 					$sheet->appendRow(array( "Media Age : ".$setting->media_age ));
@@ -290,7 +290,7 @@ class PostController extends Controller {
 	public function create_excel_hashtags($setting_id,$stringby)
 	{
 		$setting = Setting::find($setting_id);
-		$string = $setting->tags;
+		$string = $setting->hashtags;
 		$arr = explode(';', $string);
 		Excel::create('Filename', function($excel) use ($arr,$stringby) {
       $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
