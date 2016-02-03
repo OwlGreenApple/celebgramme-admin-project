@@ -82,7 +82,7 @@ class MemberController extends Controller {
   public function update_access_token()
   {
     $setting_temp = Setting::find(Request::input('setting-id'));
-    $setting_real = Setting::where("insta_username","=",$setting_temp->insta_username)->where("type","=","real")->first();
+    $setting_real = Setting::where("insta_user_id","=",$setting_temp->insta_user_id)->where("type","=","real")->first();
 
     $setting_temp->insta_access_token = Request::input('access_token');
     $setting_temp->save();

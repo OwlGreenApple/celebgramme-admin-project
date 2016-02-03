@@ -196,7 +196,7 @@ class PostController extends Controller {
     $post->save();
 
     $setting_temp = Setting::find($post->setting_id);
-    $setting_real = Setting::where("insta_username","=",$setting_temp->insta_username)->where("type","=","real")->first();
+    $setting_real = Setting::where("insta_user_id","=",$setting_temp->insta_user_id)->where("type","=","real")->first();
     $arr_temp = $setting_temp->toArray();
     unset($arr_temp['id']);unset($arr_temp['type']);
     $setting_real->update($arr_temp);
@@ -221,7 +221,7 @@ class PostController extends Controller {
     $setting_temp->status = "stopped";
     $setting_temp->save();
 
-    $setting_real = Setting::where('insta_username','=',$setting_temp->insta_username)->where('type','=','real')->first();
+    $setting_real = Setting::where('insta_user_id','=',$setting_temp->insta_user_id)->where('type','=','real')->first();
     $setting_real->error_cred = true;
     $setting_real->status = "stopped";
     $setting_real->save();
