@@ -1,6 +1,7 @@
 <?php 
 	use Celebgramme\Models\Setting;
 	use Celebgramme\Models\SettingMeta; 
+	use Celebgramme\Models\User;
   if ( $arr->count()==0  ) {
     echo "<tr><td colspan='8' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -17,6 +18,12 @@
       </td>
       <td align="center">
         {{$data_arr->insta_password}}
+      </td>
+      <td align="center">
+				<?php 
+					$user = User::find($data_arr->last_user);
+				?>
+        {{$user->fullname."(".$user->email.")"}}
       </td>
       <td align="center">
 				<p class="fl-filename">

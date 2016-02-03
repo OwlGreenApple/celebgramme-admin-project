@@ -146,7 +146,7 @@ class PostController extends Controller {
       $arr = Post::join("settings","settings.id","=","posts.setting_id")
              //->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
              //->join("users","users.id","=","link_users_settings.user_id")
-             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
+             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred","settings.last_user")
              ->where("posts.type","=","pending")
              ->orderBy('posts.updated_at', 'asc')
              ->paginate(15);

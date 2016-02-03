@@ -320,7 +320,15 @@ class PaymentController extends Controller {
 
   public function load_order()
   {
-    $arr = Order::orderBy('id', 'desc')->paginate(15);
+		if (Request::input('keyword') == "" ) {
+			$arr = Order::orderBy('id', 'desc')->paginate(15);
+		} else {
+			$arr = Order::leftJoin("users","users.id","=","orders.user_id")
+							->where("no_order","like","%".Request::input('keyword')."%")
+							->orWhere("email","like","%".Request::input('keyword')."%")
+							->orWhere("fullname","like","%".Request::input('keyword')."%")
+							->orderBy('orders.id', 'desc')->paginate(15);
+		}
 
     return view('admin.order.content')->with(
                 array(

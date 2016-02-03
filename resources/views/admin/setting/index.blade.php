@@ -99,6 +99,7 @@
         <th>No. </th>
         <th>Insta username</th>
         <th>Insta password</th>
+        <th>Fullname(email)</th>
         <th>Filename(follow liker)</th>
         <th>Error Credential</th>
         <th>Updates</th>

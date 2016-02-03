@@ -96,11 +96,20 @@
   </div>  
 
   <div class="cover-input-group">
+    <div class="col-sm-3 col-md-3" style="margin-left:-15px;">
+			<input type="text" id="keyword-search" class="form-control" placeholder="Email / Username / No. order">
+    </div>
+  </div>
+  <div class="cover-input-group">
     <div class="input-group fl">
-      <input type="button" value="Add" id="button-add" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModal" > 
+      <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
+    </div>  
+    <div class="input-group fl">
+			<input type="button" value="Add" id="button-add" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModal" > 		
     </div>  
     <div class="none"></div>
   </div>
+	
   <div class="alert alert-danger" id="alert">
     <strong>Oh snap!</strong> Change a few things up and try submitting again.
   </div>  
@@ -137,6 +146,7 @@
         type: 'get',
         data: {
           page: page,
+					keyword:$("#keyword-search").val(),
           // from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           // to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
         },
@@ -159,6 +169,7 @@
         type: 'get',
         data: {
           page : page,
+					keyword:$("#keyword-search").val(),
           // from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           // to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
         },
@@ -222,6 +233,10 @@
             $("#div-loading").hide();
           }
         });
+      });
+      $('#button-search').click(function(e){
+				create_pagination(1);
+				refresh_page(1);
       });
       $('#button-add').click(function(e){
         e.preventDefault();
