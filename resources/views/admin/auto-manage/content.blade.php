@@ -89,7 +89,7 @@
 					<?php if ($setting->activity_speed=="slow") { $colorstatus="ea0000"; } else if ($setting->activity_speed=="normal") { $colorstatus="15ca26"; } else if ($setting->activity_speed=="fast") { $colorstatus="1212e8"; } ?>
 					<li class="wrap"><strong>Activity speed : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->activity_speed)}} </span> </strong> </li> 
 					<li class="wrap"><strong>Comments : </strong>{{$setting->comments}}</li>
-					<li class="wrap"><strong>Tags : </strong>{{$setting->tags}}</li>
+					<li class="wrap"><strong>Tags : </strong>{{$setting->hashtags}}</li>
 					<li class="wrap"><strong>Username : </strong>{{$setting->username}}</li>
 					<li class="wrap"><strong>Media source : </strong>{{$setting->media_source}}</li>
 					<li class="wrap"><strong>Media age : </strong>{{$setting->media_age}}</li>

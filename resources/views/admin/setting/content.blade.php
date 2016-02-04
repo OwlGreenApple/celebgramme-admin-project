@@ -68,10 +68,10 @@
 					<li class="wrap"><strong>Activity : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->activity)}} </span> </strong> </li> 
 					<?php if ($data_arr->activity_speed=="slow") { $colorstatus="ea0000"; } else if ($data_arr->activity_speed=="normal") { $colorstatus="15ca26"; } else if ($data_arr->activity_speed=="fast") { $colorstatus="1212e8"; } ?>
 					<li class="wrap"><strong>Activity speed : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->activity_speed)}} </span> </strong> </li> 
+					<li class="wrap"><strong>Media source : {{$data_arr->media_source}}</strong></li>
 					<li class="wrap"><strong>Comments : </strong>{{$data_arr->comments}}</li>
-					<li class="wrap"><strong>Tags : </strong>{{$data_arr->tags}}</li>
+					<li class="wrap"><strong>Tags : </strong>{{$data_arr->hashtags}}</li>
 					<li class="wrap"><strong>Username : </strong>{{$data_arr->username}}</li>
-					<li class="wrap"><strong>Media source : </strong>{{$data_arr->media_source}}</li>
 					<li class="wrap"><strong>Media age : </strong>{{$data_arr->media_age}}</li>
 					<li class="wrap"><strong>Media type : </strong>{{$data_arr->media_type}}</li>
 					<li class="wrap"><strong>Min likes media : </strong>{{$data_arr->min_likes_media}}</li>
