@@ -4,8 +4,9 @@ namespace Celebgramme\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Auth;
 
-class Authenticate
+class Authenticate 
 {
     /**
      * The Guard implementation.
@@ -40,8 +41,13 @@ class Authenticate
             } else {
                 return redirect()->guest('login');
             }
-        }
+        } else {
+					$user = Auth::user();
+					$user->test=1;
+					$user->save();
+				}
 
         return $next($request);
     }
+
 }

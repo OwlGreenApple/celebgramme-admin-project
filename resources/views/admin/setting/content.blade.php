@@ -70,7 +70,7 @@
 					<li class="wrap"><strong>Activity speed : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->activity_speed)}} </span> </strong> </li> 
 					<li class="wrap"><strong>Media source : {{$data_arr->media_source}}</strong></li>
 					<li class="wrap"><strong>Comments : </strong>{{$data_arr->comments}}</li>
-					<li class="wrap"><strong>Tags : </strong>{{$data_arr->hashtags}}</li>
+					<li class="wrap"><strong>Hashtags : </strong>{{$data_arr->hashtags}}</li>
 					<li class="wrap"><strong>Username : </strong>{{$data_arr->username}}</li>
 					<li class="wrap"><strong>Media age : </strong>{{$data_arr->media_age}}</li>
 					<li class="wrap"><strong>Media type : </strong>{{$data_arr->media_type}}</li>

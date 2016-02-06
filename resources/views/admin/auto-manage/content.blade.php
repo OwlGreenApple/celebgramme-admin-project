@@ -50,21 +50,29 @@
       <td align="center" style="width:350px!important;">
 				<a href="#" class="see-update">lihat updates </a> |
 				<a href="#" class="see-all">lihat semua </a>
-				<ul style="display:none;" class="data-updates">
+				<ul style="display:none;" class="data-updates"> 
 					<?php 
 					$strings =  explode("~", substr($data_arr->description,12));
 					foreach ($strings as $string){
+							$pieces = explode("=", $string );	
+							if (count($pieces)>1) {
 					?>
 					<li> 
 						<?php 
-							$pieces = explode("=", $string );						
-							if (count($pieces)>1) {
-									echo "<strong>".$pieces[0]."</strong> : ".$pieces[1];
-							} 
+									$colorstatus="";
+									if ($pieces[0]=="status") {
+										if ($pieces[1]=="started"){ $colorstatus="1212e8"; } else if ( ($pieces[1]=="stopped") || ($pieces[1]=="deleted") ) { $colorstatus="ea0000"; }
+									}
+									if ($colorstatus=="") {
+										echo "<strong>".$pieces[0].": </strong> ".$pieces[1];
+									} else {
+										echo "<strong>".$pieces[0].": </strong> <span style='color:#".$colorstatus."'> ".$pieces[1]."</span>";
+									}
+							 
 							// echo $string;
 						?>
 					</li>
-					<?php } ?>
+					<?php } }?>
 				</ul>
 				<?php  
 					$setting = Setting::find($data_arr->setting_id);
@@ -88,10 +96,10 @@
 					<li class="wrap"><strong>Activity : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->activity)}} </span> </strong> </li> 
 					<?php if ($setting->activity_speed=="slow") { $colorstatus="ea0000"; } else if ($setting->activity_speed=="normal") { $colorstatus="15ca26"; } else if ($setting->activity_speed=="fast") { $colorstatus="1212e8"; } ?>
 					<li class="wrap"><strong>Activity speed : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->activity_speed)}} </span> </strong> </li> 
-					<li class="wrap"><strong>Comments : </strong>{{$setting->comments}}</li>
-					<li class="wrap"><strong>Tags : </strong>{{$setting->hashtags}}</li>
-					<li class="wrap"><strong>Username : </strong>{{$setting->username}}</li>
 					<li class="wrap"><strong>Media source : </strong>{{$setting->media_source}}</li>
+					<li class="wrap"><strong>Comments : </strong>{{$setting->comments}}</li>
+					<li class="wrap"><strong>Hashtags : </strong>{{$setting->hashtags}}</li>
+					<li class="wrap"><strong>Username : </strong>{{$setting->username}}</li>
 					<li class="wrap"><strong>Media age : </strong>{{$setting->media_age}}</li>
 					<li class="wrap"><strong>Media type : </strong>{{$setting->media_type}}</li>
 					<li class="wrap"><strong>Min likes media : </strong>{{$setting->min_likes_media}}</li>
