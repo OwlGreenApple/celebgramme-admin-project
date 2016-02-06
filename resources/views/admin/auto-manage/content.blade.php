@@ -61,7 +61,7 @@
 						<?php 
 									$colorstatus="";
 									if ($pieces[0]=="status ") {
-										if ($pieces[1]=="started"){ $colorstatus="1212e8"; } else if ( ($pieces[1]=="stopped") || ($pieces[1]=="deleted") ) { $colorstatus="ea0000"; }
+										if ($pieces[1]==" started"){ $colorstatus="1212e8"; } else if ( ($pieces[1]==" stopped") || ($pieces[1]==" deleted") ) { $colorstatus="ea0000"; }
 									}
 									if ($colorstatus=="") {
 										echo "<strong>".$pieces[0].": </strong> ".$pieces[1];
