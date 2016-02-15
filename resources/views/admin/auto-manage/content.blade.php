@@ -57,7 +57,7 @@
 							$pieces = explode("=", $string );	
 							if (count($pieces)>1) {
 					?>
-					<li> 
+					<li class="wrap"> 
 						<?php 
 									$colorstatus="";
 									// echo "<span>".$pieces[0]."</span>";
