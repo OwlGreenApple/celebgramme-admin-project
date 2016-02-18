@@ -105,6 +105,7 @@
         <th>Download Usernames</th>
         <th>Download Comments</th>
         <th>Status</th>
+        <th>Status admin taken</th>
       </tr>      
     </thead>
     
@@ -227,6 +228,12 @@
       create_pagination(1);
       refresh_page(1);
 			
+			setTimeout(function(){
+				 // window.location.reload(1);
+				create_pagination(1);
+				refresh_page(1);
+			}, 30000);			
+			
 			$( "body" ).on( "click", ".download-all", function() {
 				window.location="<?php echo url('download-all'); ?>/"+$(this).attr("data-id");
       });
@@ -296,6 +303,33 @@
             if (result=='success') {
               temp.removeClass('x-icon');
               temp.addClass('checked-icon');
+            }
+            $("#div-loading").hide();
+          }
+        });
+      });
+			
+      $( "body" ).on( "click", ".update-status-admin", function() {
+        temp = $(this);
+        $.ajax({                                      
+          url: '<?php echo url('update-status-admin'); ?>/'+$(this).attr('data-id'),
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'patch',
+          data: {
+            _method : "PATCH",
+          },
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            if (result=='success') {
+							create_pagination(1);
+							refresh_page(1);
             }
             $("#div-loading").hide();
           }

@@ -145,6 +145,16 @@
           <i class="x-icon update-status" data-id="{{$data_arr->id}}"></i>
         <?php } ?>
       </td>
+      <td align="center">
+        <?php if ($data_arr->status_admin==0) { ?>
+          <i class="x-icon update-status-admin" data-id="{{$data_arr->id}}"></i>
+        <?php } else { ?>
+          Taken by admin : 
+        <?php 
+					$admin = User::find($data_arr->status_admin);
+					echo $admin->fullname;
+				} ?>
+      </td>
     </tr>    
 
 <?php 

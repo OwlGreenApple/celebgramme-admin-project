@@ -204,6 +204,16 @@ class PostController extends Controller {
     return "success";
   }
 
+  public function update_status_admin($id)
+  {
+		$user = Auth::user();
+    $post = Post::find($id);    
+    $post->status_admin = $user->id;
+    $post->save();
+		
+    return "success";
+  }
+	
   public function update_fl_filename()
   {
 		SettingMeta::createMeta("fl_filename",Request::input("fl-filename"),Request::input("setting-id"));

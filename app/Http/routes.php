@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('download-hashtags/{setting_id}/{stringby}', 'Admin\PostController@create_excel_hashtags');
 	Route::get('download-usernames/{setting_id}/{stringby}', 'Admin\PostController@create_excel_usernames');
 	Route::get('download-comments/{setting_id}', 'Admin\PostController@create_excel_comments');
+	Route::patch('update-status-admin/{id}', 'Admin\PostController@update_status_admin');
 
 	/* Setting */
 	Route::get('setting', 'Admin\SettingController@index');
