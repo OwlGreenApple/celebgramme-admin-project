@@ -260,6 +260,7 @@ class MemberController extends Controller {
 
 		$package = Package::find($order->package_manage_id);
     $user->active_auto_manage = $package->active_days * 86400;
+    $user->max_account = $package->max_account;
     $user->save();
 
     $emaildata = [
