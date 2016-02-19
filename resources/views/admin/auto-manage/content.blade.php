@@ -22,8 +22,10 @@
       <td align="center">
 				<?php 
 					$user = User::find($data_arr->last_user);
+					if (!is_null($user)) {
+						echo $user->fullname."(".$user->email.")";
+					}
 				?>
-        {{$user->fullname."(".$user->email.")"}}
       </td>
       <td align="center">
 				<p class="fl-filename">
