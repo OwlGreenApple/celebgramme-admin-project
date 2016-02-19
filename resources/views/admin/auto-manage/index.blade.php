@@ -93,6 +93,7 @@
     <thead>
       <tr>
         <th>No. </th>
+        <th>Taken By username</th>
         <th>Insta username</th>
         <th>Insta password</th>
         <th>Fullname(Email)</th>
@@ -105,7 +106,6 @@
         <th>Download Usernames</th>
         <th>Download Comments</th>
         <th>Status</th>
-        <th>Status admin taken</th>
       </tr>      
     </thead>
     
