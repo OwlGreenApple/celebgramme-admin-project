@@ -53,6 +53,7 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
               </a>
               <ul class="dropdown-menu" role="menu">
 								<li><a href="{{url('fl-name', $parameters = [], $secure = null)}}">Follow liker instance name</a></li>
+								<li><a href="{{url('template-email', $parameters = [], $secure = null)}}">Templates Email</a></li>
               </ul>
           </li>
           <li class='dropdown'>

@@ -10,6 +10,7 @@ use Celebgramme\Models\Post;
 use Celebgramme\Models\Setting;
 use Celebgramme\Models\SettingMeta; 
 use Celebgramme\Models\LinkUserSetting;
+use Celebgramme\Models\TemplateEmail;
 
 use View,Auth,Request,DB,Carbon,Excel,Mail;
 
@@ -132,11 +133,13 @@ class PostController extends Controller {
              ->orderBy('posts.updated_at', 'asc')
              ->count();
 		$filenames = Meta::where("meta_name","=","fl_name")->get();
+		$template = TemplateEmail::all();
     return View::make('admin.auto-manage.index')->with(
                   array(
                     'user'=>$user,
                     'count_post'=>$count_post,
                     'filenames'=>$filenames,
+                    'templates'=>$template,
                   ));
   }
 
@@ -221,6 +224,38 @@ class PostController extends Controller {
 		$arr["id"] = Request::input("setting-id");
 		$arr["type"] = "success";
 		$arr["filename"] = Request::input("fl-filename");
+		return $arr;
+	}
+	
+  public function send_email_member()
+  {
+		$text = trim(Request::input("message-email")); // remove the last \n or whitespace character
+		$text = nl2br($text); // insert <br /> before \n 		
+		
+	  $email = Request::input("sender");
+		$title = Request::input("title-email");
+    $emaildata = [
+        'content' => $text,
+    ];
+    Mail::queue('emails.content', $emaildata, function ($message) use ($email,$title) {
+      $message->from('no-reply@celebgramme.com', 'Celebgramme');
+      $message->to($email);
+      $message->subject($title);
+    });
+
+		return "success";
+	}
+	
+  public function load_template_email()
+  {
+		$arr["type"]="success";
+		
+		$template = TemplateEmail::find(Request::input("id"));
+		
+		$arr["title"] = $template->title;
+		$message = str_replace("#igaccount",Request::input("nameigaccount"),$template->message);
+		$message = str_replace("#name",Request::input("name"),$message);
+		$arr["message"] = $message;
 		return $arr;
 	}
 	

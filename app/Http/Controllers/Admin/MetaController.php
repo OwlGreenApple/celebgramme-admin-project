@@ -10,6 +10,7 @@ use Celebgramme\Models\Post;
 use Celebgramme\Models\Setting;
 use Celebgramme\Models\SettingMeta; 
 use Celebgramme\Models\LinkUserSetting;
+use Celebgramme\Models\TemplateEmail;
 
 use View,Auth,Request,DB,Carbon,Excel,Mail;
 
@@ -86,9 +87,73 @@ class MetaController extends Controller {
 		$meta = Meta::find(Request::input("id"))->delete();
 
     $arr['type'] = 'success';
-    $arr['id'] = Request::input("id-coupon");
     return $arr;    
 	}
 
 
+	
+	
+	/**
+	 * Show templates email Page.
+	 *
+	 * @return Response
+	 */
+	public function template_email()
+	{
+    $user = Auth::user();
+		return View::make('admin.template-email-list.index')->with(
+                  array(
+                    'user'=>$user,
+                  ));
+	}
+
+  public function load_template_email()
+  {
+		$arr = TemplateEmail::orderBy('id', 'asc')
+					 ->paginate(15);
+    
+    return view('admin.template-email-list.content')->with(
+                array(
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                ));
+  }
+  
+	public function pagination_template_email()
+  {
+		$arr = TemplateEmail::orderBy('id', 'asc')
+					 ->paginate(15);
+
+
+    return view('admin.template-email-list.pagination')->with(
+                array(
+                  'arr'=>$arr,
+                ));
+  }
+  
+	public function add_template_email()
+  {
+		if (Request::input("id_template")=="new") {
+			$template = new TemplateEmail;
+		} else {
+			$template = TemplateEmail::find(Request::input("id_template"));
+		}
+		$template->name= Request::input("name_template");
+		$template->title= Request::input("title_template");
+		$template->message= Request::input("message_template");
+		$template->save();
+    
+		$arr["type"] = "success";
+    return $arr;
+  }
+	
+	public function delete_template_email()
+  {
+		$template = TemplateEmail::find(Request::input("id"))->delete();
+
+    $arr['type'] = 'success';
+    return $arr;    
+	}
+
+	
 }

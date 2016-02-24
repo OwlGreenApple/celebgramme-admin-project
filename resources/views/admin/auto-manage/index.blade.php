@@ -49,6 +49,54 @@
   </div>
 
 
+	
+  <!-- Modal Email to user-->
+  <div class="modal fade" id="myModalSendEmail" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Send Email</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-send-email">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Template</label>
+              <div class="col-sm-8 col-md-6">
+								<select class="form-control" id="select-send-email">
+								@foreach ($templates as $template)
+									<option value="{{$template->id}}">{{$template->name}}</option>
+								@endforeach
+								</select>
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Title</label>
+              <div class="col-sm-8 col-md-6">
+								<input type="text" class="form-control" name="title-email" id="title-email">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Message</label>
+              <div class="col-sm-8 col-md-6">
+								<textarea class="form-control" name="message-email" id="message-email" style="height:180px; width:270px;"></textarea>
+              </div>
+            </div>  
+						<input type="hidden" id="sender" name="sender">
+						<input type="hidden" id="fullname">
+						<input type="hidden" id="igaccount">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="button-send-email">Send</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+	
 
   <div class="page-header">
     <h1>History Posts</h1>
@@ -372,6 +420,62 @@
           }
         });
       });
+			$( "body" ).on( "click", ".btn-send-email", function() {
+				$("#sender").val($(this).attr("data-email"));
+				$("#fullname").val($(this).attr("data-fullname"));
+				$("#igaccount").val($(this).attr("data-igaccount"));
+				$('#select-send-email').change();
+      });
+      $( "body" ).on( "click", "#button-send-email", function() {
+        temp = $(this);
+        $.ajax({
+          url: '<?php echo url('send-email-member'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-send-email").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            if(result=='success') {
+            }
+            $("#div-loading").hide();
+          }
+        });
+      });
+
+			$('#select-send-email').on('change', function() {
+				// alert( this.value ); // or 
+				temp_id = this.value;
+        $.ajax({
+          url: "<?php echo url('load-template'); ?>",
+          type: 'get',
+          data: {
+						id :temp_id,
+						name:$("#fullname").val(),
+						igaccount:$("#igaccount").val(),
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+							$("#title-email").val(data.title);
+							$("#message-email").html(data.message);
+            }
+            $("#div-loading").hide();
+          }
+        });
+			});
 			
     });
   </script>		

@@ -53,6 +53,8 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('download-usernames/{setting_id}/{stringby}', 'Admin\PostController@create_excel_usernames');
 	Route::get('download-comments/{setting_id}', 'Admin\PostController@create_excel_comments');
 	Route::patch('update-status-admin/{id}', 'Admin\PostController@update_status_admin');
+	Route::post('send-email-member', 'Admin\PostController@send_email_member');
+	Route::get('load-template', 'Admin\PostController@load_template_email');
 
 	/* Setting */
 	Route::get('setting', 'Admin\SettingController@index');
@@ -67,6 +69,13 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-fl-name', 'Admin\MetaController@pagination_fl_name');
 	Route::post('add-meta-fl', 'Admin\MetaController@add_fl');
 	Route::post('delete-meta-fl', 'Admin\MetaController@delete_fl');
+
+	/* templates email list */
+	Route::get('template-email', 'Admin\MetaController@template_email');
+	Route::get('load-template-email', 'Admin\MetaController@load_template_email');
+	Route::get('pagination-template-email', 'Admin\MetaController@pagination_template_email');
+	Route::post('add-template-email', 'Admin\MetaController@add_template_email');
+	Route::post('delete-template-email', 'Admin\MetaController@delete_template_email');
 
 	Route::get('access-token', 'Admin\MemberController@access_token');
 	Route::get('load-access-token', 'Admin\MemberController@load_access_token');
