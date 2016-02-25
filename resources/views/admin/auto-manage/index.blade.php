@@ -85,8 +85,8 @@
               </div>
             </div>  
 						<input type="hidden" id="sender" name="sender">
-						<input type="hidden" id="fullname">
-						<input type="hidden" id="igaccount">
+						<input type="hidden" id="fullname" name="fullname">
+						<input type="hidden" id="igaccount" name="igaccount">
           </form>
         </div>
         <div class="modal-footer">

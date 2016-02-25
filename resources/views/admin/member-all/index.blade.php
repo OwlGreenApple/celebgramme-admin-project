@@ -180,6 +180,37 @@
       
     </div>
   </div>
+
+  <div class="modal fade" id="myModalEditLoginWebsta" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Login Webstame</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-edit-login-webstame">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Source using</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="radio" name="check-login" id="radio-login-websta" value="1">
+								<label for="radio-login-websta">login websta</label>
+                <input type="radio" name="check-login" id="radio-login-api" value="0">
+								<label for="radio-login-api">login api IG</label>
+              </div>
+            </div>  
+            <input type="hidden" class="user-id" name="user-id">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-edit-login-webstame" data-check="auto">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 	
   <!-- Modal confirm delete-->
 	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -493,6 +524,49 @@
 
       });
 
+      $( "body" ).on( "click", ".btn-check-login-websta", function() {
+        $(".user-id").val($(this).attr("data-id"));
+				if ($(this).attr("data-test")==1) {
+					$("#radio-login-websta").prop("checked", true);
+				}
+				if ($(this).attr("data-test")==0) {
+					$("#radio-login-api").prop("checked", true);
+				}
+      });
+      $( "body" ).on( "click", "#btn-edit-login-webstame", function() {
+
+        $.ajax({
+          url: '<?php echo url('edit-member-login-webstame'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-edit-login-webstame").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              create_pagination(1);
+              refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
+            }
+            $("#div-loading").hide();
+          }
+        });
+
+
+      });
 
       
     });

@@ -51,6 +51,7 @@
 				<button type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#confirm-delete" data-id="{{$data_arr->id}}" >
 					<span class='glyphicon glyphicon-remove'></span> 
 				</button>
+				<input type="button" class="btn btn-success btn-check-login-websta" data-toggle="modal" data-target="#myModalEditLoginWebsta" data-id="{{$data_arr->id}}" data-test="{{$data_arr->test}}" value="Login websta">
       </td>
     </tr>    
 

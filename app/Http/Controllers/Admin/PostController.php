@@ -229,6 +229,16 @@ class PostController extends Controller {
 	
   public function send_email_member()
   {
+    $setting_temp = Setting::where('insta_username','=',Request::input("igaccount"))->where('type','=','temp')->first();
+    $setting_temp->error_cred = true;
+    $setting_temp->status = "stopped";
+    $setting_temp->save();
+
+    $setting_real = Setting::where('insta_user_id','=',$setting_temp->insta_user_id)->where('type','=','real')->first();
+    $setting_real->error_cred = true;
+    $setting_real->status = "stopped";
+    $setting_real->save();
+
 		$text = trim(Request::input("message-email")); // remove the last \n or whitespace character
 		$text = nl2br($text); // insert <br /> before \n 		
 		
@@ -253,7 +263,7 @@ class PostController extends Controller {
 		$template = TemplateEmail::find(Request::input("id"));
 		
 		$arr["title"] = $template->title;
-		$message = str_replace("#igaccount",Request::input("nameigaccount"),$template->message);
+		$message = str_replace("#igaccount",Request::input("igaccount"),$template->message);
 		$message = str_replace("#name",Request::input("name"),$message);
 		$arr["message"] = $message;
 		return $arr;

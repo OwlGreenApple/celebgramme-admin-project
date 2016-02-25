@@ -305,6 +305,18 @@ class MemberController extends Controller {
     return $arr;
 	}
 	
+  public function edit_member_login_webstame()
+	{
+    $arr["type"] = "success";
+    $arr["message"] = "Proses edit member berhasil dilakukan";
+
+		$user = User::find(Request::input("user-id"));
+		$user->test = Request::input("check-login");
+		$user->save();
+
+    return $arr;
+	}
+
   public function delete_member()
   {
 		$user = User::find(Request::input("id"))->delete();
