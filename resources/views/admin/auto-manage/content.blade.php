@@ -2,8 +2,9 @@
 	use Celebgramme\Models\Setting;
 	use Celebgramme\Models\SettingMeta; 
 	use Celebgramme\Models\User;
+	use Celebgramme\Models\UserMeta;
   if ( $arr->count()==0  ) {
-    echo "<tr><td colspan='8' align='center'>Data tidak ada</td></tr>";
+    echo "<tr><td colspan='14' align='center'>Data tidak ada</td></tr>";
   } else {
     //search by username
   $i=($page-1)*15 + 1;
@@ -20,7 +21,8 @@
           Taken by admin : 
         <?php 
 					$admin = User::find($data_arr->status_admin);
-					echo $admin->fullname;
+					$color = UserMeta::getMeta($admin->id,"color");
+					echo "<strong><span style='color:".$color."'>".$admin->fullname."</span></strong>";
 				} ?>
       </td>
       <td align="center">
@@ -66,7 +68,13 @@
       <td align="center" style="width:350px!important;">
 				<a href="#" class="see-update">lihat updates </a> |
 				<a href="#" class="see-all">lihat semua </a>
+				<?php  
+					$setting = Setting::find($data_arr->setting_id);
+					$colorstatus = 000;
+				?> 
 				<ul style="display:none;" class="data-updates"> 
+					<?php //if ($setting->status=="started") { $colorstatus="1212e8"; } else if ( ($setting->status=="stopped") || ($setting->status=="deleted") ){ $colorstatus="ea0000"; } ?>
+					<!--<li class="wrap"><strong>Status : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status)}} </span> </strong> </li> -->
 					<?php 
 					$strings =  explode("~", substr($data_arr->description,12));
 					foreach ($strings as $string){
@@ -81,7 +89,13 @@
 										if ($pieces[1]==" started "){ $colorstatus="1212e8"; } else if ( ($pieces[1]==" stopped ") || ($pieces[1]==" deleted ") ) { $colorstatus="ea0000"; }
 									}
 									if ($colorstatus=="") {
-										echo "<strong>".$pieces[0].": </strong> ".$pieces[1];
+										if ($pieces[0]==" status_follow_unfollow ") {
+											if ($pieces[1]==" on "){ $str= "<span style='color:#1212e8'> ON - ".$pieces[1];	} 
+											else if ($pieces[1]==" off "){ $str= "<span style='color:#ea0000'> OFF ";	} 
+											echo "<strong>Activity: </strong> ".$str;
+										}else {
+											echo "<strong>".$pieces[0].": </strong> ".$pieces[1];
+										}
 									} else {
 										echo "<strong>".$pieces[0].": <span style='color:#".$colorstatus."'> ".strtoupper($pieces[1])."</span></strong> ";
 									}
@@ -91,10 +105,6 @@
 					</li>
 					<?php } }?>
 				</ul>
-				<?php  
-					$setting = Setting::find($data_arr->setting_id);
-					$colorstatus = 000;
-				?> 
 				<!-- merah =#ea0000   biru = #1212e8  hijau = #15ca26     -->
 				<ul style="display:none;" class="data-all" style="width:350px!important;">
 					<?php if ($setting->status=="started") { $colorstatus="1212e8"; } else if ( ($setting->status=="stopped") || ($setting->status=="deleted") ){ $colorstatus="ea0000"; } ?>
@@ -110,10 +120,21 @@
 					<li class="wrap"><strong>Status Comment : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status_comment)}} </span> </strong> </li> 
 					
 					<?php if ($setting->activity=="follow") { $colorstatus="1212e8"; } else if ($setting->activity=="unfollow") { $colorstatus="ea0000"; } ?>
-					<li class="wrap"><strong>Activity : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->activity)}} </span> </strong> </li> 
+					<li class="wrap"><strong>Activity : <span style="color:#{{$colorstatus}}"> 
+						<?php 
+							if ($setting->status_follow_unfollow=="on") {
+								echo "<span style='color:#1212e8'> ON - ".strtoupper($setting->activity); 
+							}else if ($setting->status_follow_unfollow=="off") { 
+								$colorstatus="ea0000";
+							?>
+								<span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status_follow_unfollow)}} </span>
+							<?php }
+						?>						
+					</span> </strong> </li> 
 					<?php if ($setting->activity_speed=="slow") { $colorstatus="ea0000"; } else if ($setting->activity_speed=="normal") { $colorstatus="15ca26"; } else if ($setting->activity_speed=="fast") { $colorstatus="1212e8"; } ?>
 					<li class="wrap"><strong>Activity speed : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->activity_speed)}} </span> </strong> </li> 
-					<li class="wrap"><strong>Media source : </strong>{{$setting->media_source}}</li>
+					<?php if ($setting->media_source=="hashtags") { $colorstatus="1212e8"; } else if ($setting->media_source=="username") { $colorstatus="ea0000"; }  ?>
+					<li class="wrap"><strong>Media source : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->media_source)}} </span> </strong> </li> 
 					<li class="wrap"><strong>Comments : </strong>{{$setting->comments}}</li>
 					<li class="wrap"><strong>Hashtags : </strong>{{$setting->hashtags}}</li>
 					<li class="wrap"><strong>Username : </strong>{{$setting->username}}</li>

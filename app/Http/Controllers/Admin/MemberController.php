@@ -10,6 +10,7 @@ use Celebgramme\Models\RequestModel;
 use Celebgramme\Models\Post;
 use Celebgramme\Models\Setting;
 use Celebgramme\Models\LinkUserSetting;
+use Celebgramme\Models\UserMeta;
 
 use View,Auth,Request,DB,Carbon,Mail,Validator;
 
@@ -326,4 +327,176 @@ class MemberController extends Controller {
     return $arr;    
   }
 
+  /**
+   * Show Admin all page.
+   *
+   * @return Response
+   */
+  public function admin()
+  {
+    $user = Auth::user();
+		$orders = Order::where("affiliate","=","1")->
+						 where("user_id","=","0");
+    return View::make('admin.admin-all.index')->with(
+                  array(
+                    'user'=>$user,
+                    'orders'=>$orders,
+                  ));
+  }
+
+  public function load_admin()
+  {
+		if (Request::input('sort')==1) {
+		  if (Request::input('keyword')=="") {
+				$arr = User::where("type","=","admin")
+							 ->orderBy('created_at', 'desc')
+							 ->paginate(15);
+			} else {			
+				$arr = User::where("type","=","admin")
+							 ->where("email",'like',Request::input('keyword')."%")
+							 ->orderBy('created_at', 'desc')
+							 ->paginate(15);
+			}
+		} else {
+		  if (Request::input('keyword')=="") {
+				$arr = User::where("type","=","admin")
+							 ->orderBy('active_auto_manage', 'desc')
+							 ->paginate(15);
+			} else {			
+				$arr = User::where("type","=","admin")
+							 ->where("email",'like',Request::input('keyword')."%")
+							 ->orderBy('active_auto_manage', 'desc')
+							 ->paginate(15);
+			}
+		}
+
+    return view('admin.admin-all.content')->with(
+                array(
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                ));
+  }
+  
+  public function pagination_admin()
+  {
+		if (Request::input('sort')==1) {
+		  if (Request::input('keyword')=="") {
+				$arr = User::where("type","=","admin")
+							 ->orderBy('created_at', 'desc')
+							 ->paginate(15);
+			} else {			
+				$arr = User::where("type","=","admin")
+							 ->where("email",'like',Request::input('keyword')."%")
+							 ->orderBy('created_at', 'desc')
+							 ->paginate(15);
+			}
+		} else {
+		  if (Request::input('keyword')=="") {
+				$arr = User::where("type","=","admin")
+							 ->orderBy('active_auto_manage', 'desc')
+							 ->paginate(15);
+			} else {			
+				$arr = User::where("type","=","admin")
+							 ->where("email",'like',Request::input('keyword')."%")
+							 ->orderBy('active_auto_manage', 'desc')
+							 ->paginate(15);
+			}
+		}
+    
+                              
+    return view('admin.admin-all.pagination')->with(
+                array(
+                  'arr'=>$arr,
+                ));
+  }
+
+  public function add_admin()
+  {
+    $arr["type"] = "success";
+    $arr["message"] = "Proses add member berhasil dilakukan";
+    $arr["orderid"] = Request::input("select-order");
+
+    $data = array (
+      "email" => Request::input("email"),
+    );
+    $validator = Validator::make($data, [
+      'email' => 'required|email|max:255|unique:users',
+    ]);
+    if ($validator->fails()){
+      $arr["type"] = "error";
+      $arr["message"] = "Email sudah terdaftar atau tidak valid";
+      return $arr;
+    }
+
+    $karakter= 'abcdefghjklmnpqrstuvwxyz123456789';
+    $string = '';
+    for ($i = 0; $i < 8 ; $i++) {
+      $pos = rand(0, strlen($karakter)-1);
+      $string .= $karakter{$pos};
+    }
+
+    $user = new User;
+    $user->email = Request::input("email");
+    $user->password = $string;
+    $user->fullname = Request::input("fullname");
+    $user->type = "admin";
+    $user->save();
+		
+    $user->active_auto_manage = 86400;
+    $user->max_account = 3;
+    $user->save();
+
+    $emaildata = [
+        'user' => $user,
+        'password' => $string,
+    ];
+    Mail::queue('emails.create-user', $emaildata, function ($message) use ($user) {
+      $message->from('no-reply@celebgramme.com', 'Celebgramme');
+      $message->to($user->email);
+      $message->subject('[Celebgramme] Welcome to celebgramme.com');
+    });
+
+
+    return $arr;
+  }
+
+  public function edit_admin()
+  {
+    $arr["type"] = "success";
+    $arr["message"] = "Proses edit member berhasil dilakukan";
+		
+		$user = User::find(Request::input("user-id"));
+		if ($user->email<>Request::input("emailedit")) {
+			$data = array (
+				"email" => Request::input("emailedit"),
+			);
+			$validator = Validator::make($data, [
+				'email' => 'required|email|max:255|unique:users',
+			]);
+			if ($validator->fails()){
+				$arr["type"] = "error";
+				$arr["message"] = "Email sudah terdaftar atau tidak valid";
+				return $arr;
+			}
+		}
+		
+		$user->email = Request::input("emailedit");
+		$user->fullname = Request::input("fullnameedit");
+		$user->active_auto_manage = Request::input("member-days") * 86400;
+		$user->save();
+		
+		$usermeta= UserMeta::createMeta("color",Request::input("member-color"),$user->id);
+		
+    return $arr;
+	}
+	
+  public function delete_admin()
+  {
+		$user = User::find(Request::input("id"))->delete();
+
+    $arr['type'] = 'success';
+    $arr['id'] = Request::input("id-coupon");
+    return $arr;    
+  }
+	
 }

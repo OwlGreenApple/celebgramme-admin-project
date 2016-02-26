@@ -10,6 +10,7 @@ use Celebgramme\Models\Post;
 use Celebgramme\Models\Setting;
 use Celebgramme\Models\SettingMeta; 
 use Celebgramme\Models\LinkUserSetting;
+use Celebgramme\Models\TemplateEmail;
 
 use View,Auth,Request,DB,Carbon,Excel,Mail,Input;
 
@@ -36,11 +37,13 @@ class SettingController extends Controller {
     $user = Auth::user();
 		$filenames = Meta::where("meta_name","=","fl_name")->get();
 		$status_server = Meta::where("meta_name","=","status_server")->first()->meta_value;
+		$template = TemplateEmail::all();
 		return View::make('admin.setting.index')->with(
                   array(
                     'user'=>$user,
                     'filenames'=>$filenames,
                     'status_server'=>$status_server,
+										'templates'=>$template,
                   ));
 	}
 

@@ -32,7 +32,6 @@ Route::group(['middleware' => 'auth'], function()
   
   Route::get('/', 'Admin\AdminController@index');
   Route::get('home', 'Admin\AdminController@index');
-  Route::get('admin', 'Admin\AdminController@index');
   Route::post('update-password', 'Admin\AdminController@update_password');
   
 	Route::get('post', 'Admin\PostController@index');
@@ -121,4 +120,13 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('invoice', 'Admin\InvoiceController@index');
 	Route::get('load-invoice', 'Admin\InvoiceController@load_invoice');
 	Route::get('pagination-invoice', 'Admin\InvoiceController@pagination_invoice');
+
+	/* Admin */
+	Route::get('admin', 'Admin\MemberController@admin');
+	Route::get('load-admin', 'Admin\MemberController@load_admin');
+	Route::get('pagination-admin', 'Admin\MemberController@pagination_admin');
+	Route::post('add-admin', 'Admin\MemberController@add_admin');
+	Route::post('edit-admin', 'Admin\MemberController@edit_admin');
+	Route::post('delete-admin', 'Admin\MemberController@delete_admin');
+	
 });

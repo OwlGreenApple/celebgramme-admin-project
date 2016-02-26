@@ -276,7 +276,7 @@
       create_pagination(1);
       refresh_page(1);
 			
-			setTimeout(function(){
+			var timeoutId = setTimeout(function(){
 				 // window.location.reload(1);
 				create_pagination(1);
 				refresh_page(1);
@@ -349,8 +349,10 @@
           success: function(result)
           {
             if (result=='success') {
-              temp.removeClass('x-icon');
-              temp.addClass('checked-icon');
+              // temp.removeClass('x-icon');
+              // temp.addClass('checked-icon');
+							create_pagination(1);
+							refresh_page(1);
             }
             $("#div-loading").hide();
           }
@@ -376,8 +378,10 @@
           success: function(result)
           {
             if (result=='success') {
-							create_pagination(1);
-							refresh_page(1);
+							// create_pagination(1);
+							// refresh_page(1);
+							clearTimeout(timeoutId);
+							temp.parent().html("Was taking");
             }
             $("#div-loading").hide();
           }

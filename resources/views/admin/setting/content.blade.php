@@ -22,11 +22,13 @@
 				<?php 
 					$user = User::find($data_arr->last_user);
 					if (!is_null($user)) {
-						echo $user->fullname."(".$user->email.")";
+						echo $user->fullname."(".$user->email.")";?><br>
+				<input type="button" value="Send email" data-loading-text="Loading..." class="btn btn-primary btn-send-email" data-toggle="modal" data-target="#myModalSendEmail" data-email="{{$user->email}}" data-fullname="{{$user->fullname}}" data-igaccount="{{$data_arr->insta_username}}"> 
+				<?php						
 					} else {
 						echo "Email account celebgramme deleted";
 					}
-				?>
+				?><br>
       </td>
       <td align="center">
 				<p class="fl-filename">
