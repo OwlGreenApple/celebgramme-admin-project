@@ -106,7 +106,8 @@
 	dont_follow_su = dont follow same user <br>
 	dont_follow_pu = dont follow private user <br>
 	dont_comment_su = dont comment same user <br>
-	usernames_whitelist = usernames unfollow whitelist
+	usernames_whitelist = usernames unfollow whitelist <br>
+	\\23.250.113.28\shared\CSV\CUSTOMERS
 	
 	</p>
   <div class="cover-input-group">

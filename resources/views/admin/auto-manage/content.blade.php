@@ -90,7 +90,7 @@
 									}
 									if ($colorstatus=="") {
 										if ($pieces[0]==" status_follow_unfollow ") {
-											if ($pieces[1]==" on "){ $str= "<span style='color:#1212e8'> ON - ".$pieces[1];	} 
+											if ($pieces[1]==" on "){ $str= "<span style='color:#1212e8'> ON - ".strtoupper($setting->activity);	} 
 											else if ($pieces[1]==" off "){ $str= "<span style='color:#ea0000'> OFF ";	} 
 											echo "<strong>Activity: </strong> ".$str;
 										}else {
