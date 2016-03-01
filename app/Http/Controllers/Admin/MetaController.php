@@ -28,7 +28,7 @@ class MetaController extends Controller {
 	}
 
 	/**
-	 * Show Follow liker list name Page.
+	 * Show Follow spiderman list name Page.
 	 *
 	 * @return Response
 	 */
