@@ -62,7 +62,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('update-status-server', 'Admin\SettingController@update_status_server');
 	
 	/* Meta */
-	/* Follow liker name file list */
+	/* Follow spiderman name file list */
 	Route::get('fl-name', 'Admin\MetaController@fl_name');
 	Route::get('load-fl-name', 'Admin\MetaController@load_fl_name');
 	Route::get('pagination-fl-name', 'Admin\MetaController@pagination_fl_name');

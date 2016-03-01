@@ -33,7 +33,7 @@
 									@endforeach
 								</select>
 								<!--
-                <input type="text" class="form-control" placeholder="Input follow liker filename" name="fl-filename" id="fl-filename">
+                <input type="text" class="form-control" placeholder="Input follow spiderman filename" name="fl-filename" id="fl-filename">
 								-->
               </div>
               <input type="hidden" id="setting-id" name="setting-id">
