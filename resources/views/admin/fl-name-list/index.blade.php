@@ -51,7 +51,7 @@
 	</div>	
 	
   <div class="page-header">
-    <h1>Follow liker name list</h1>
+    <h1>spiderman name list</h1>
   </div>  
 	
   <div class="cover-input-group">
