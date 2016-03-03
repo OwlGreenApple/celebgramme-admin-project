@@ -295,7 +295,7 @@ class PostController extends Controller {
     return "success";
   }
 
-  public function create_excel($string,$stringby)
+  public function create_excel($string,$stringby="")
   {
 		$arr = explode(';', $string);
 		Excel::create('Filename', function($excel) use ($arr,$stringby) {
