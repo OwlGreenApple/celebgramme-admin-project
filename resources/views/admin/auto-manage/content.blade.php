@@ -26,24 +26,6 @@
 				} ?>
       </td>
       <td align="center">
-        {{$data_arr->insta_username}}
-      </td>
-      <td align="center">
-        {{$data_arr->insta_password}}
-      </td>
-      <td align="center">
-				<?php 
-					$user = User::find($data_arr->last_user);
-					if (!is_null($user)) {
-						echo $user->fullname."(".$user->email.")";?>
-				<input type="button" value="Send email" data-loading-text="Loading..." class="btn btn-primary btn-send-email" data-toggle="modal" data-target="#myModalSendEmail" data-email="{{$user->email}}" data-fullname="{{$user->fullname}}" data-igaccount="{{$data_arr->insta_username}}"> 
-				<?php						
-					} else {
-						echo "Email account celebgramme deleted";
-					}
-				?><br>
-      </td>
-      <td align="center">
 				<p class="fl-filename">
 				<span class="edit-fl-filename">
 				<?php 
@@ -62,8 +44,26 @@
         <?php if ($data_arr->error_cred) { ?>
           <i class="checked-icon"></i>
         <?php } else { ?>
-          <i class="x-icon update-error" data-id="{{$data_arr->setting_id}}"></i>
+          <i class="x-icon update-error" data-toggle="modal" data-target="#confirm-dialog" data-id="{{$data_arr->setting_id}}"></i>
         <?php } ?>
+      </td>
+      <td align="center">
+        {{$data_arr->insta_username}}
+      </td>
+      <td align="center">
+        {{$data_arr->insta_password}}
+      </td>
+      <td align="center">
+				<?php 
+					$user = User::find($data_arr->last_user);
+					if (!is_null($user)) {
+						echo $user->fullname."(".$user->email.")";?>
+				<input type="button" value="Send email" data-loading-text="Loading..." class="btn btn-primary btn-send-email" data-toggle="modal" data-target="#myModalSendEmail" data-email="{{$user->email}}" data-fullname="{{$user->fullname}}" data-igaccount="{{$data_arr->insta_username}}"> 
+				<?php						
+					} else {
+						echo "Email account celebgramme deleted";
+					}
+				?><br>
       </td>
       <td align="center" style="width:350px!important;">
 				<a href="#" class="see-update">lihat updates </a> |
@@ -179,7 +179,7 @@
         <?php if ($data_arr->type=="success") { ?>
           <i class="checked-icon"></i>
         <?php } else { ?>
-          <i class="x-icon update-status" data-id="{{$data_arr->id}}"></i>
+          <i class="x-icon update-status" data-toggle="modal" data-target="#confirm-dialog" data-id="{{$data_arr->id}}"></i>
         <?php } ?>
       </td>
       

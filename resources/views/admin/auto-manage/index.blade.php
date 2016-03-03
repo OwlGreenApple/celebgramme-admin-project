@@ -12,6 +12,26 @@
 	}
 </style>
 
+  <!-- Modal confirmation-->
+	<div class="modal fade" id="confirm-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+					<div class="modal-content">
+							<div class="modal-header">
+									Confirmation Box
+							</div>
+							<div class="modal-body">
+									Are you sure want to this ?
+							</div>
+							<input type="hidden" id="id-order-delete">
+							<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+									<button type="button" data-dismiss="modal" class="btn btn-danger btn-ok" id="button-yes" data-action="">Yes</button>
+							</div>
+					</div>
+			</div>
+	</div>	
+
+
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -144,11 +164,11 @@
       <tr>
         <th>No. </th>
         <th>Taken By username</th>
+        <th>Filename(spiderman)</th>
+        <th>Error Credential</th>
         <th>Insta username</th>
         <th>Insta password</th>
         <th>Fullname(Email)</th>
-        <th>Filename(spiderman)</th>
-        <th>Error Credential</th>
         <th>Updates</th>
         <th>Update terakhir</th>
         <th>Download All setting</th>
@@ -311,59 +331,73 @@
         create_pagination(1);
         refresh_page(1);
       });
+
+      $('#button-yes').click(function(e){
+				if ($(this).attr('data-action')=="update-error") {
+					$.ajax({                                      
+						url: '<?php echo url('update-error-cred'); ?>/'+$(this).attr('data-id'),
+						headers: {
+								'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						},
+						type: 'patch',
+						data: {
+							_method : "PATCH",
+						},
+						beforeSend: function()
+						{
+							$("#div-loading").show();
+						},
+						dataType: 'text',
+						success: function(result)
+						{
+							if (result=='success') {
+								temp_update_error.removeClass('x-icon');
+								temp_update_error.addClass('checked-icon');
+							}
+							$("#div-loading").hide();
+						}
+					});
+					
+				}
+				if ($(this).attr('data-action')=="update-status") {
+					$.ajax({                                      
+						url: '<?php echo url('update-auto-manage'); ?>/'+$(this).attr('data-id'),
+						headers: {
+								'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						},
+						type: 'patch',
+						data: {
+							_method : "PATCH",
+						},
+						beforeSend: function()
+						{
+							$("#div-loading").show();
+						},
+						dataType: 'text',
+						success: function(result)
+						{
+							if (result=='success') {
+								// temp_update_status.removeClass('x-icon');
+								// temp_update_status.addClass('checked-icon');
+								create_pagination(1);
+								refresh_page(1);
+							}
+							$("#div-loading").hide();
+						}
+					});
+				}
+				
+      });
+			
       $( "body" ).on( "click", ".update-error", function() {
-        temp = $(this);
-        $.ajax({                                      
-          url: '<?php echo url('update-error-cred'); ?>/'+$(this).attr('data-id'),
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          type: 'patch',
-          data: {
-            _method : "PATCH",
-          },
-          beforeSend: function()
-          {
-            $("#div-loading").show();
-          },
-          dataType: 'text',
-          success: function(result)
-          {
-            if (result=='success') {
-              temp.removeClass('x-icon');
-              temp.addClass('checked-icon');
-            }
-            $("#div-loading").hide();
-          }
-        });
+				$("#button-yes").attr("data-action","update-error")
+				$("#button-yes").attr("data-id",$(this).attr('data-id'))
+        temp_update_error = $(this);
       });
       $( "body" ).on( "click", ".update-status", function() {
-        temp = $(this);
-        $.ajax({                                      
-          url: '<?php echo url('update-auto-manage'); ?>/'+$(this).attr('data-id'),
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          type: 'patch',
-          data: {
-            _method : "PATCH",
-          },
-          beforeSend: function()
-          {
-            $("#div-loading").show();
-          },
-          dataType: 'text',
-          success: function(result)
-          {
-            if (result=='success') {
-              // temp.removeClass('x-icon');
-              // temp.addClass('checked-icon');
-							create_pagination(1);
-							refresh_page(1);
-            }
-            $("#div-loading").hide();
-          }
-        });
+				$("#button-yes").attr("data-action","update-status")
+				$("#button-yes").attr("data-id",$(this).attr('data-id'))
+        temp_update_status = $(this);
       });
 			
       $( "body" ).on( "click", ".update-status-admin", function() {
@@ -489,6 +523,7 @@
           }
         });
 			});
+			
 			
     });
   </script>		
