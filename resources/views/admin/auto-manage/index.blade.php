@@ -299,7 +299,12 @@
 			
       $('#button-excel').click(function(e){
         e.preventDefault();
-        window.location="<?php echo url('create-excel'); ?>/"+$("#keywords-excel").val()+"/"+$("#keywords-by").val();
+				if ($("#keywords-by").val()=="") {
+					temp_str="-";
+				} else {
+					temp_str=$("#keywords-by").val();
+				}
+        window.location="<?php echo url('create-excel'); ?>/"+$("#keywords-excel").val()+"/"+temp_str;
       });
       $('#button-search').click(function(e){
         e.preventDefault();

@@ -295,15 +295,21 @@ class PostController extends Controller {
     return "success";
   }
 
-  public function create_excel($string,$stringby="")
+  public function create_excel($string,$stringby)
   {
 		$arr = explode(';', $string);
 		Excel::create('Filename', function($excel) use ($arr,$stringby) {
       $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
 				foreach ($arr as $data) { 
-					$sheet->appendRow(array(
-							$data, $stringby
-					));
+					if ($stringby=="-") {
+						$sheet->appendRow(array(
+								$data
+						));
+					} else {
+						$sheet->appendRow(array(
+								$data, $stringby
+						));
+					}
 				}
       });
 
