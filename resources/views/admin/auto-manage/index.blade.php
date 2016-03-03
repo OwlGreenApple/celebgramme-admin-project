@@ -390,10 +390,12 @@
         });
       });
       
-			$( "body" ).on( "click", ".see-update", function() {
+			$( "body" ).on( "click", ".see-update", function(e) {
+				e.preventDefault();
 				$(this).siblings('.data-updates').slideToggle();
 			});
-			$( "body" ).on( "click", ".see-all", function() {
+			$( "body" ).on( "click", ".see-all", function(e) {
+				e.preventDefault();
 				$(this).siblings('.data-all').slideToggle();
 			});
 			
