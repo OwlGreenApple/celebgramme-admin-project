@@ -148,7 +148,7 @@
 					<li class="wrap"><strong>Dont follow private user : </strong>{{$setting->dont_follow_pu}}</li>
 					<li class="wrap"><strong>Unfollow source : </strong>{{$setting->unfollow_source}}</li>
 					<li class="wrap"><strong>Unfollow who dont follow me : </strong>{{$setting->unfollow_wdfm}}</li>
-					<li class="wrap"><strong>Unfollow who usernames whitelist : </strong>{{$setting->usernames_whitelist}}</li>
+					<li class="wrap"><strong>Usernames whitelist : </strong>{{$setting->usernames_whitelist}}</li>
 				</ul>
       </td>
       <td align="center" style="width:100px;">

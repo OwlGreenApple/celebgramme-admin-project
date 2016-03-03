@@ -107,8 +107,8 @@
 	dont_follow_pu = dont follow private user <br>
 	dont_comment_su = dont comment same user <br>
 	usernames_whitelist = usernames unfollow whitelist <br>
-	C1 : \\23.250.113.28\shared\CSV\CUSTOMERS <br>
-	C2 : \\198.52.129.10\shared\CSV\CUSTOMERS
+	C1 : \\23.250.113.28\Users\Administrator\Documents\Follow Liker\import <br>
+	C2 : \\198.52.129.10\mydocuments\spiderman\import\shared
 	
 	</p>
   <div class="cover-input-group">
