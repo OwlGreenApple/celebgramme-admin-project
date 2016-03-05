@@ -128,7 +128,8 @@
 	dont_comment_su = dont comment same user <br>
 	usernames_whitelist = usernames unfollow whitelist <br>
 	C1 : \\23.250.113.28\Users\Administrator\Documents\Follow Liker\import <br>
-	C2 : \\198.52.129.10\mydocuments\spiderman\import\shared
+	C2 : \\198.52.129.10\Users\Administrator\Documents\Follow Liker\import\shared\
+	
 	
 	</p>
   <div class="cover-input-group">
@@ -158,7 +159,7 @@
   <div class="alert alert-danger" id="alert">
     <strong>Oh snap!</strong> Change a few things up and try submitting again.
   </div>  
-	<p align="right">Total Setting Post yang perlu di update : <span style="font-size:48px;font-weight:Bold;color:#c12e2a;">{{$count_post}}</span></p>
+	<p align="right">Total Setting Post yang perlu di update : <span style="font-size:48px;font-weight:Bold;color:#c12e2a;" id="update-post">{{$count_post}}</span></p>
   <table class="table table-bordered">  
     <thead>
       <tr>

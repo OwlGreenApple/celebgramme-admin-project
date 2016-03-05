@@ -161,10 +161,20 @@ class PostController extends Controller {
              ->orderBy('posts.updated_at', 'asc')
              ->paginate(15);
 		}
+		
+		$count_post = Post::join("settings","settings.id","=","posts.setting_id")
+             //->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
+             //->join("users","users.id","=","link_users_settings.user_id")
+             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
+             ->where("posts.type","=","pending")
+             ->orderBy('posts.updated_at', 'asc')
+             ->count();
+						 
     return view('admin.auto-manage.content')->with(
                 array(
                   'arr'=>$arr,
                   'page'=>Request::input('page'),
+                  'postUpdate'=>$count_post,
                 ));
   }
   
@@ -298,7 +308,7 @@ class PostController extends Controller {
   public function create_excel($string,$stringby)
   {
 		$arr = explode(';', $string);
-		Excel::create('Filename', function($excel) use ($arr,$stringby) {
+		Excel::create($stringby, function($excel) use ($arr,$stringby) {
       $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
 				foreach ($arr as $data) { 
 					if ($stringby=="-") {
@@ -353,7 +363,7 @@ class PostController extends Controller {
 		$setting = Setting::find($setting_id);
 		$string = $setting->hashtags;
 		$arr = explode(';', $string);
-		Excel::create('Filename', function($excel) use ($arr,$stringby) {
+		Excel::create($stringby, function($excel) use ($arr,$stringby) {
       $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
 				foreach ($arr as $data) { 
 					$sheet->appendRow(array(
@@ -369,7 +379,7 @@ class PostController extends Controller {
 		$setting = Setting::find($setting_id);
 		$string = $setting->username;
 		$arr = explode(';', $string);
-		Excel::create('Filename', function($excel) use ($arr,$stringby) {
+		Excel::create($stringby, function($excel) use ($arr,$stringby) {
       $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
 				foreach ($arr as $data) { 
 					$sheet->appendRow(array(
@@ -385,7 +395,7 @@ class PostController extends Controller {
 		$setting = Setting::find($setting_id);
 		$string = $setting->comments;
 		$arr = explode(';', $string);
-		Excel::create('Filename', function($excel) use ($arr) {
+		Excel::create($stringby, function($excel) use ($arr) {
       $excel->sheet('keywords', function($sheet)use ($arr)  {
 				foreach ($arr as $data) { 
 					$sheet->appendRow(array(

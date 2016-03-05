@@ -192,6 +192,7 @@
 ?>
 <script>
   $(document).ready(function(){
+		$("#update-post").html("<?php echo $postUpdate; ?>");
   });
 
 </script>		
