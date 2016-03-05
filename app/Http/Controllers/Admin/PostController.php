@@ -395,7 +395,7 @@ class PostController extends Controller {
 		$setting = Setting::find($setting_id);
 		$string = $setting->comments;
 		$arr = explode(';', $string);
-		Excel::create($stringby, function($excel) use ($arr) {
+		Excel::create("comment", function($excel) use ($arr) {
       $excel->sheet('keywords', function($sheet)use ($arr)  {
 				foreach ($arr as $data) { 
 					$sheet->appendRow(array(
