@@ -363,7 +363,7 @@ class PostController extends Controller {
 		$setting = Setting::find($setting_id);
 		$string = $setting->hashtags;
 		$arr = explode(';', $string);
-		Excel::create($stringby, function($excel) use ($arr,$stringby) {
+		Excel::create(date("F j, Y, g:i a")." ".$stringby, function($excel) use ($arr,$stringby) {
       $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
 				foreach ($arr as $data) { 
 					$sheet->appendRow(array(
@@ -379,7 +379,7 @@ class PostController extends Controller {
 		$setting = Setting::find($setting_id);
 		$string = $setting->username;
 		$arr = explode(';', $string);
-		Excel::create($stringby, function($excel) use ($arr,$stringby) {
+		Excel::create(date("F j, Y, g:i a")." ".$stringby, function($excel) use ($arr,$stringby) {
       $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
 				foreach ($arr as $data) { 
 					$sheet->appendRow(array(
@@ -395,7 +395,7 @@ class PostController extends Controller {
 		$setting = Setting::find($setting_id);
 		$string = $setting->comments;
 		$arr = explode(';', $string);
-		Excel::create("comment", function($excel) use ($arr) {
+		Excel::create(date("F j, Y, g:i a")." "."comment", function($excel) use ($arr) {
       $excel->sheet('keywords', function($sheet)use ($arr)  {
 				foreach ($arr as $data) { 
 					$sheet->appendRow(array(

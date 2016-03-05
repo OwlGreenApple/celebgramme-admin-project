@@ -166,13 +166,13 @@
         <th>No. </th>
         <th>Taken By username</th>
         <th>Filename(spiderman)</th>
-        <th>Error Credential</th>
+        <th>Password Error</th>
         <th>Insta username</th>
         <th>Insta password</th>
         <th>Fullname(Email)</th>
         <th>Updates</th>
         <th>Update terakhir</th>
-        <th>Download All setting</th>
+        <!--<th>Download All setting</th>-->
         <th>Download Hashtags</th>
         <th>Download Usernames</th>
         <th>Download Comments</th>
@@ -309,7 +309,7 @@
 				window.location="<?php echo url('download-all'); ?>/"+$(this).attr("data-id");
       });
 			$( "body" ).on( "click", ".download-hashtags", function() {
-				window.location="<?php echo url('download-hashtags'); ?>/"+$(this).attr("data-id")+"/"+$(this).parent().find("select option:selected").html();
+				window.location="<?php echo url('download-hashtags'); ?>/"+$(this).attr("data-id")+"/"+$(this).parent().find("select option:selected").attr("data-val");
       });
 			$( "body" ).on( "click", ".download-usernames", function() {
 				window.location="<?php echo url('download-usernames'); ?>/"+$(this).attr("data-id")+"/"+$(this).parent().find("select option:selected").html();

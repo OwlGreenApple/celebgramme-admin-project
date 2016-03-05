@@ -83,22 +83,34 @@
 					?>
 					<li class="wrap"> 
 						<?php 
-									$colorstatus="";
-									// echo "<span>".$pieces[0]."</span>";
-									if ($pieces[0]==" status ") {
+
+								if ($pieces[0]==" status_follow_unfollow ") {
+									if ($pieces[1]==" on "){ $str= "<span style='color:#1212e8'> ON - ".strtoupper($setting->activity);	} 
+									else if ($pieces[1]==" off "){ $str= "<span style='color:#ea0000'> OFF ";	} 
+									echo "<strong>Activity: ".$str."</strong> ";
+								} 
+									else if ($pieces[0]==" status ") {
+										$colorstatus="";
 										if ($pieces[1]==" started "){ $colorstatus="1212e8"; } else if ( ($pieces[1]==" stopped ") || ($pieces[1]==" deleted ") ) { $colorstatus="ea0000"; }
-									}
-									if ($colorstatus=="") {
-										if ($pieces[0]==" status_follow_unfollow ") {
-											if ($pieces[1]==" on "){ $str= "<span style='color:#1212e8'> ON - ".strtoupper($setting->activity);	} 
-											else if ($pieces[1]==" off "){ $str= "<span style='color:#ea0000'> OFF ";	} 
-											echo "<strong>Activity: </strong> ".$str;
-										}else {
-											echo "<strong>".$pieces[0].": </strong> ".$pieces[1];
-										}
-									} else {
 										echo "<strong>".$pieces[0].": <span style='color:#".$colorstatus."'> ".strtoupper($pieces[1])."</span></strong> ";
 									}
+									
+									else if ($pieces[0]==" status_like ") {
+										$colorstatus="";
+										if ($pieces[1]==" on "){ $colorstatus="1212e8"; } else if  ($pieces[1]==" off ") { $colorstatus="ea0000"; }
+										echo "<strong>".$pieces[0].": <span style='color:#".$colorstatus."'> ".strtoupper($pieces[1])."</span></strong> ";
+									}
+
+									else if ($pieces[0]==" status_comment ") {
+										$colorstatus="";
+										if ($pieces[1]==" on "){ $colorstatus="1212e8"; } else if  ($pieces[1]==" off ") { $colorstatus="ea0000"; }
+										echo "<strong>".$pieces[0].": <span style='color:#".$colorstatus."'> ".strtoupper($pieces[1])."</span></strong> ";
+									}
+									
+								else {
+									echo "<strong>".$pieces[0].": </strong> ".$pieces[1];
+								}
+						
 							 
 							// echo $string;
 						?>
@@ -153,14 +165,15 @@
       </td>
       <td align="center" style="width:100px;">
         {{$data_arr->updated_at}}
-      </td>
+      </td><!--
       <td align="center">
         <span class="glyphicon glyphicon-save download-all" style="cursor:pointer;" data-id="{{$data_arr->setting_id}}"></span>
       </td>
+			-->
       <td align="center">
 				<select>
-					<option>Relevant</option>
-					<option>Normal Search</option>
+					<option data-val="Normal Search">Follow # Normal Search</option>
+					<option data-val="Relevant">Like Comment # Relevant</option>
 				</select>
         <span class="glyphicon glyphicon-save download-hashtags" style="cursor:pointer;" data-id="{{$data_arr->setting_id}}"></span>
       </td>
