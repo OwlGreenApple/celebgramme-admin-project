@@ -141,6 +141,8 @@
   <div class="alert alert-danger" id="alert">
     <strong>Oh snap!</strong> Change a few things up and try submitting again.
   </div>  
+  <nav id="pagination1">
+  </nav>  
   <table class="table table-bordered">  
     <thead>
       <tr>
@@ -160,7 +162,7 @@
     
   </table>  
   
-  <nav id="pagination">
+  <nav id="pagination2">
   </nav>  
 	
   <div class="cover-input-group">
@@ -219,9 +221,25 @@
         dataType: 'text',
         success: function(result)
         {
-          $('#pagination').html(result);
+          $('#pagination1').html(result);
+          $('#pagination2').html(result);
           
-          $('#pagination a').click(function(e){
+          $('#pagination1 a').click(function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            if ($(this).html() == "«") {
+              page -= 1; 
+            } else 
+            if ($(this).html() == "»") {
+              page += 1; 
+            } else {
+              page = parseInt($(this).html());
+            }
+            create_pagination(page);
+            refresh_page(page);
+          });
+					
+          $('#pagination2 a').click(function(e){
             e.preventDefault();
             e.stopPropagation();
             if ($(this).html() == "«") {
