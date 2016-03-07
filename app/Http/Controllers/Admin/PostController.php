@@ -7,6 +7,7 @@ use Celebgramme\Models\Meta;
 use Celebgramme\Models\User;
 use Celebgramme\Models\RequestModel;
 use Celebgramme\Models\Post;
+use Celebgramme\Models\PostLog;
 use Celebgramme\Models\Setting;
 use Celebgramme\Models\SettingMeta; 
 use Celebgramme\Models\LinkUserSetting;
@@ -204,6 +205,7 @@ class PostController extends Controller {
 
   public function update_auto_manage($id)
   {
+		$user = Auth::user();
     $post = Post::find($id);    
     $post->type = "success";
     $post->save();
@@ -213,6 +215,15 @@ class PostController extends Controller {
     $arr_temp = $setting_temp->toArray();
     unset($arr_temp['id']);unset($arr_temp['type']);
     $setting_real->update($arr_temp);
+		
+		//log 
+		$dt = Carbon::now();
+    $postlog = new PostLog;
+    $postlog->insta_username = $setting_temp->insta_username;
+    $postlog->admin = $user->fullname;
+    $postlog->description = $post->description;
+    $postlog->created = $dt->toDateTimeString();
+    $postlog->save();
 
     return "success";
   }
@@ -363,7 +374,7 @@ class PostController extends Controller {
 		$setting = Setting::find($setting_id);
 		$string = $setting->hashtags;
 		$arr = explode(';', $string);
-		Excel::create(date("F j, Y, g:i a")." ".$stringby, function($excel) use ($arr,$stringby) {
+		Excel::create(date("F j, Y, g:i a")." ".$setting->insta_username." ".$stringby, function($excel) use ($arr,$stringby) {
       $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
 				foreach ($arr as $data) { 
 					$sheet->appendRow(array(
@@ -379,7 +390,7 @@ class PostController extends Controller {
 		$setting = Setting::find($setting_id);
 		$string = $setting->username;
 		$arr = explode(';', $string);
-		Excel::create(date("F j, Y, g:i a")." ".$stringby, function($excel) use ($arr,$stringby) {
+		Excel::create(date("F j, Y, g:i a")." ".$setting->insta_username." ".$stringby, function($excel) use ($arr,$stringby) {
       $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
 				foreach ($arr as $data) { 
 					$sheet->appendRow(array(
@@ -395,7 +406,7 @@ class PostController extends Controller {
 		$setting = Setting::find($setting_id);
 		$string = $setting->comments;
 		$arr = explode(';', $string);
-		Excel::create(date("F j, Y, g:i a")." "."comment", function($excel) use ($arr) {
+		Excel::create(date("F j, Y, g:i a")." ".$setting->insta_username." "."comment", function($excel) use ($arr) {
       $excel->sheet('keywords', function($sheet)use ($arr)  {
 				foreach ($arr as $data) { 
 					$sheet->appendRow(array(

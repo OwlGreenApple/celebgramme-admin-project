@@ -175,7 +175,7 @@
 					<option data-val="Normal Search">Follow # Normal Search</option>
 					<option data-val="Relevant">Like Comment # Relevant</option>
 				</select>
-        <span class="glyphicon glyphicon-save download-hashtags" style="cursor:pointer;" data-id="{{$data_arr->setting_id}}"></span>
+        <span class="glyphicon glyphicon-save download-hashtags" style="cursor:pointer;" data-id="{{$data_arr->setting_id}}" data-username="{{$data_arr->insta_username}}"></span>
       </td>
       <td align="center">
 				<select>
