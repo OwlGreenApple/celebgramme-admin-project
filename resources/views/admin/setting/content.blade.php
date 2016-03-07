@@ -9,6 +9,13 @@
   foreach ($arr as $data_arr) {
 ?>
     <tr class="row{{$data_arr->id}}">
+      <td align="center">
+        <?php if ($data_arr->error_cred) { ?>
+          <i class="checked-icon"></i>
+        <?php } else { ?>
+          <i class="x-icon update-error" data-id="{{$data_arr->id}}"></i>
+        <?php } ?>
+      </td>
       <td>
         {{$i}}
       </td>
@@ -44,13 +51,6 @@
 				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-fl-edit" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}"
 				data-filename="{{$filename}}" style="cursor:pointer;">  </span>
 				</p>
-      </td>
-      <td align="center">
-        <?php if ($data_arr->error_cred) { ?>
-          <i class="checked-icon"></i>
-        <?php } else { ?>
-          <i class="x-icon update-error" data-id="{{$data_arr->id}}"></i>
-        <?php } ?>
       </td>
       <td align="center" style="width:350px!important;">
 				<a href="#" class="see-all">lihat semua </a>
