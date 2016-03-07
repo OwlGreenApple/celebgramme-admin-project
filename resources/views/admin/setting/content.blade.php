@@ -91,6 +91,27 @@
 					<li class="wrap"><strong>Unfollow who usernames whitelist : </strong>{{$data_arr->usernames_whitelist}}</li>
 				</ul>
       </td>
+
+      <td align="center">
+				<select>
+					<option data-val="Normal Search">Follow # Normal Search</option>
+					<option data-val="Relevant">Like Comment # Relevant</option>
+				</select>
+        <span class="glyphicon glyphicon-save download-hashtags" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>
+      </td>
+      <td align="center">
+				<select>
+					<option>User's Photo</option>
+					<option>User's Follower</option>
+					<option>User's Following</option>
+				</select>
+        <span class="glyphicon glyphicon-save download-usernames" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>
+      </td>
+      <td align="center">
+        <span class="glyphicon glyphicon-save download-comments" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>
+      </td>
+			
+			
     </tr>    
 
 <?php 

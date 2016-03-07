@@ -153,6 +153,11 @@
         <th>Filename(follow liker)</th>
         <th>Error Credential</th>
         <th>Updates</th>
+				
+        <th>Download Hashtags</th>
+        <th>Download Usernames</th>
+        <th>Download Comments</th>
+				
       </tr>      
     </thead>
     
@@ -262,6 +267,17 @@
       $("#alert").hide();
       create_pagination(1);
       refresh_page(1);
+			
+			$( "body" ).on( "click", ".download-hashtags", function() {
+				window.location="<?php echo url('download-hashtags'); ?>/"+$(this).attr("data-id")+"/"+$(this).parent().find("select option:selected").attr("data-val");
+      });
+			$( "body" ).on( "click", ".download-usernames", function() {
+				window.location="<?php echo url('download-usernames'); ?>/"+$(this).attr("data-id")+"/"+$(this).parent().find("select option:selected").html();
+      });
+			$( "body" ).on( "click", ".download-comments", function() {
+				window.location="<?php echo url('download-comments'); ?>/"+$(this).attr("data-id");
+      });
+			
 			
       $('#button-server').click(function(e){
         $.ajax({                                      
