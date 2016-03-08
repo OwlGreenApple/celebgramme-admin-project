@@ -58,7 +58,7 @@
 					$user = User::find($data_arr->last_user);
 					if (!is_null($user)) {
 						echo $user->fullname."(".$user->email.")";?>
-				<input type="button" value="Send email" data-loading-text="Loading..." class="btn btn-primary btn-send-email" data-toggle="modal" data-target="#myModalSendEmail" data-email="{{$user->email}}" data-fullname="{{$user->fullname}}" data-igaccount="{{$data_arr->insta_username}}"> 
+				<input type="button" value="Send email" data-loading-text="Loading..." class="btn btn-primary btn-send-email" data-toggle="modal" data-target="#myModalSendEmail" data-email="{{$user->email}}" data-fullname="{{$user->fullname}}" data-igaccount="{{$data_arr->insta_username}}" data-settingid="{{$data_arr->setting_id}}"> 
 				<?php						
 					} else {
 						echo "Email account celebgramme deleted";

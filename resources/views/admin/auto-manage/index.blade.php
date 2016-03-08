@@ -107,6 +107,7 @@
 						<input type="hidden" id="sender" name="sender">
 						<input type="hidden" id="fullname" name="fullname">
 						<input type="hidden" id="igaccount" name="igaccount">
+						<input type="hidden" id="settingid" >
           </form>
         </div>
         <div class="modal-footer">
@@ -128,7 +129,7 @@
 	dont_comment_su = dont comment same user <br>
 	usernames_whitelist = usernames unfollow whitelist <br>
 	C1 : \\23.250.113.28\Users\Administrator\Documents\Follow Liker\import <br>
-	C2 : \\198.52.129.10\Users\Administrator\Documents\Follow Liker\import\shared\
+	C2 : \\198.52.129.10\Users\Administrator\Documents\Follow Liker\import
 	
 	
 	</p>
@@ -472,10 +473,10 @@
 				$("#sender").val($(this).attr("data-email"));
 				$("#fullname").val($(this).attr("data-fullname"));
 				$("#igaccount").val($(this).attr("data-igaccount"));
+				$("#settingid").val($(this).attr("data-settingid"));
 				$('#select-send-email').change();
       });
       $( "body" ).on( "click", "#button-send-email", function() {
-        temp = $(this);
         $.ajax({
           url: '<?php echo url('send-email-member'); ?>',
           headers: {
@@ -491,6 +492,8 @@
           success: function(result)
           {
             if(result=='success') {
+							$(".row"+$("#settingid").val()).find(".update-error").removeClass('x-icon');
+							$(".row"+$("#settingid").val()).find(".update-error").addClass('checked-icon');
             }
             $("#div-loading").hide();
           }
