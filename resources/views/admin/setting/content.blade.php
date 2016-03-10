@@ -89,7 +89,7 @@
 					<li class="wrap"><strong>Dont follow private user : </strong>{{$data_arr->dont_follow_pu}}</li>
 					<!--<li class="wrap"><strong>Unfollow source : </strong>{{$data_arr->unfollow_source}}</li>
 					<li class="wrap"><strong>Unfollow who dont follow me : </strong>{{$data_arr->unfollow_wdfm}}</li>-->
-					<li class="wrap"><strong>Unfollow who usernames whitelist : </strong>{{$data_arr->usernames_whitelist}}</li>
+					<li class="wrap"><strong>usernames whitelist : </strong>{{$data_arr->usernames_whitelist}}</li>
 				</ul>
       </td>
 
