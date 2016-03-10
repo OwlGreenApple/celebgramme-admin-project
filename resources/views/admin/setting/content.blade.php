@@ -74,7 +74,8 @@
 					<li class="wrap"><strong>Activity : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->activity)}} </span> </strong> </li> 
 					<?php if ($data_arr->activity_speed=="slow") { $colorstatus="ea0000"; } else if ($data_arr->activity_speed=="normal") { $colorstatus="15ca26"; } else if ($data_arr->activity_speed=="fast") { $colorstatus="1212e8"; } ?>
 					<li class="wrap"><strong>Activity speed : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->activity_speed)}} </span> </strong> </li> 
-					<li class="wrap"><strong>Media source : {{$data_arr->media_source}}</strong></li>
+					<?php if ($data_arr->follow_source=="hashtags") { $colorstatus="1212e8"; } else if ($data_arr->follow_source=="username") { $colorstatus="ea0000"; }  ?>
+					<li class="wrap"><strong>Follow source : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->follow_source)}} </span> </strong> </li> 
 					<li class="wrap"><strong>Comments : </strong>{{$data_arr->comments}}</li>
 					<li class="wrap"><strong>Hashtags : </strong>{{$data_arr->hashtags}}</li>
 					<li class="wrap"><strong>Username : </strong>{{$data_arr->username}}</li>
@@ -83,11 +84,11 @@
 					<li class="wrap"><strong>Min likes media : </strong>{{$data_arr->min_likes_media}}</li>
 					<li class="wrap"><strong>Max likes media : </strong>{{$data_arr->max_likes_media}}</li>
 					<li class="wrap"><strong>Dont comment same user : </strong>{{$data_arr->dont_comment_su}}</li>
-					<li class="wrap"><strong>Follow source : </strong>{{$data_arr->follow_source}}</li>
+					<!--<li class="wrap"><strong>Follow source : </strong>{{$data_arr->follow_source}}</li>-->
 					<li class="wrap"><strong>Dont follow same user : </strong>{{$data_arr->dont_follow_su}}</li>
 					<li class="wrap"><strong>Dont follow private user : </strong>{{$data_arr->dont_follow_pu}}</li>
-					<li class="wrap"><strong>Unfollow source : </strong>{{$data_arr->unfollow_source}}</li>
-					<li class="wrap"><strong>Unfollow who dont follow me : </strong>{{$data_arr->unfollow_wdfm}}</li>
+					<!--<li class="wrap"><strong>Unfollow source : </strong>{{$data_arr->unfollow_source}}</li>
+					<li class="wrap"><strong>Unfollow who dont follow me : </strong>{{$data_arr->unfollow_wdfm}}</li>-->
 					<li class="wrap"><strong>Unfollow who usernames whitelist : </strong>{{$data_arr->usernames_whitelist}}</li>
 				</ul>
       </td>
