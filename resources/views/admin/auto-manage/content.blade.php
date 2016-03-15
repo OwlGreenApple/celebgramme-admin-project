@@ -114,7 +114,7 @@
 									}
 									
 									else if ($pieces[0]==" hashtags ") {
-										echo "<strong>Follow Source: </strong>".str_replace("#","",$pieces[1]);
+										echo "<strong>Hashtags: </strong>".str_replace("#","",$pieces[1]);
 									}
 									
 								else {
@@ -158,7 +158,7 @@
 					<?php if ($setting->follow_source=="hashtags") { $colorstatus="1212e8"; } else if ($setting->follow_source=="username") { $colorstatus="ea0000"; }  ?>
 					<li class="wrap"><strong>Follow source : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->follow_source)}} </span> </strong> </li> 
 					<li class="wrap"><strong>Comments : </strong>{{$setting->comments}}</li>
-					<li class="wrap"><strong>Hashtags : </strong>{{str_replace("#","",$setting->hashtags);}}</li>
+					<li class="wrap"><strong>Hashtags : </strong>{{str_replace("#","",$setting->hashtags)}}</li>
 					<li class="wrap"><strong>Username : </strong>{{$setting->username}}</li>
 					<li class="wrap"><strong>Media age : </strong>{{$setting->media_age}}</li>
 					<li class="wrap"><strong>Media type : </strong>{{$setting->media_type}}</li>
