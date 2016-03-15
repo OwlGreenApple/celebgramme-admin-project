@@ -77,7 +77,7 @@
 					<?php if ($data_arr->follow_source=="hashtags") { $colorstatus="1212e8"; } else if ($data_arr->follow_source=="username") { $colorstatus="ea0000"; }  ?>
 					<li class="wrap"><strong>Follow source : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->follow_source)}} </span> </strong> </li> 
 					<li class="wrap"><strong>Comments : </strong>{{$data_arr->comments}}</li>
-					<li class="wrap"><strong>Hashtags : </strong>{{$data_arr->hashtags}}</li>
+					<li class="wrap"><strong>Hashtags : </strong>{{str_replace("#","",$data_arr->hashtags);}}</li>
 					<li class="wrap"><strong>Username : </strong>{{$data_arr->username}}</li>
 					<li class="wrap"><strong>Media age : </strong>{{$data_arr->media_age}}</li>
 					<li class="wrap"><strong>Media type : </strong>{{$data_arr->media_type}}</li>
