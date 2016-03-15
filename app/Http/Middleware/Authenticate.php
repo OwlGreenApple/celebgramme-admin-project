@@ -43,7 +43,6 @@ class Authenticate
             }
         } else {
 					$user = Auth::user();
-					$user->test=1;
 					$user->save();
 				}
 
