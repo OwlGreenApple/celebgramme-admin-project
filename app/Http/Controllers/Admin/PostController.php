@@ -444,8 +444,10 @@ class PostController extends Controller {
       $arr = PostLog
              ::where('created','>=',date("Y-m-d", intval(Request::input('from')))." 00:00:00")
              ->where('created','<=',date("Y-m-d", intval(Request::input('to')))." 23:59:59")
-             ->orWhere('insta_username','like','%'.Request::input('keyword').'%')
-             ->orWhere('admin','like','%'.Request::input('keyword').'%')
+						 ->where(function ($query){
+								$query->('insta_username','like','%'.Request::input('keyword').'%')
+								->('admin','like','%'.Request::input('keyword').'%');
+						 })
              ->orderBy('created', 'asc')
              ->paginate(15);
     }
@@ -469,8 +471,10 @@ class PostController extends Controller {
       $arr = PostLog
              ::where('created','>=',date("Y-m-d", intval(Request::input('from')))." 00:00:00")
              ->where('created','<=',date("Y-m-d", intval(Request::input('to')))." 23:59:59")
-             ->orWhere('insta_username','like','%'.Request::input('keyword').'%')
-             ->orWhere('admin','like','%'.Request::input('keyword').'%')
+						 ->where(function ($query){
+								$query->('insta_username','like','%'.Request::input('keyword').'%')
+								->('admin','like','%'.Request::input('keyword').'%');
+						 })
              ->orderBy('created', 'asc')
              ->paginate(15);
     }
