@@ -17,6 +17,18 @@
         {{$data_arr->coupon_value}}
       </td>
       <td align="center">
+        {{$data_arr->coupon_percent}}
+      </td>
+      <td align="center">
+        <?php 
+					if ($data_arr->package_id==0) {
+						echo "all";
+					} else {
+						
+					}
+				?>
+      </td>
+      <td align="center">
         {{$data_arr->valid_until}}
       </td>
       <td align="center">

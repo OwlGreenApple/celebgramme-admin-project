@@ -47,9 +47,7 @@
           <i class="x-icon update-error" data-toggle="modal" data-target="#confirm-dialog" data-id="{{$data_arr->setting_id}}"></i>
         <?php } ?>
       </td>
-      <td align="center">
-				<a href="{{url('setting/'.$data_arr->insta_username, $parameters = [], $secure = null)}}" target="_blank">{{$data_arr->insta_username}}</a>
-      </td>
+      <td align="center">{{$data_arr->insta_username}}</td>
       <td align="center">
         {{$data_arr->insta_password}}
       </td>

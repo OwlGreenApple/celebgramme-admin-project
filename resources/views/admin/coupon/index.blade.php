@@ -22,9 +22,26 @@
               </div>
             </div>  
             <div class="form-group form-group-sm row">
-              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Coupon value</label>
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Coupon Value</label>
               <div class="col-sm-8 col-md-6">
                 <input type="text" class="form-control" placeholder="Coupon value" name="coupon_value" id="coupon_value">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Coupon Percentage</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Coupon percent" name="coupon_percentage" id="coupon_percentage">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Package</label>
+              <div class="col-sm-8 col-md-6">
+                <select class="form-control">
+									<option value="0">all</option>
+									<?php foreach($packages as $package){ ?>
+										<option value="{{$package->id}}">{{$package->package_name." - Rp. ".number_format($package->price,0,'','.')}}</option>
+									<?php } ?>
+                </select>
               </div>
             </div>  
             <div class="form-group form-group-sm row">
@@ -82,6 +99,8 @@
         <th>No. </th>
         <th>Coupon code</th>
         <th>Coupon Value</th>
+        <th>Coupon Percentage</th>
+        <th>Coupon Package</th>
         <th>Valid Until</th>
         <th></th>
       </tr>      

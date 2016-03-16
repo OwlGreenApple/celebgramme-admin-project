@@ -245,10 +245,12 @@ class PaymentController extends Controller {
   public function coupon()
   {
     $user = Auth::user();
+		$packages = Package::where("package_group","=","auto-manage")->get();
 
     return View::make('admin.coupon.index')->with(
                   array(
                     'user'=>$user,
+                    'packages'=>$packages,
                   ));
   }
 
