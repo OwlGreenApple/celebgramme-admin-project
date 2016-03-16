@@ -112,6 +112,12 @@
 										if ($pieces[1]==" hashtags "){ $colorstatus="1212e8"; } else if  ($pieces[1]==" username ") { $colorstatus="ea0000"; }
 										echo "<strong>Follow Source: <span style='color:#".$colorstatus."'> ".strtoupper($pieces[1])."</span></strong> ";
 									}
+
+									else if ($pieces[0]==" activity_speed ") {
+										$colorstatus="";
+										if ($pieces[1]==" slow "){ $colorstatus="ea0000"; } else if  ($pieces[1]==" normal ") { $colorstatus="15ca26"; } else if  ($pieces[1]==" fast ") { $colorstatus="1212e8"; }
+										echo "<strong>Follow Source: <span style='color:#".$colorstatus."'> ".strtoupper($pieces[1])."</span></strong> ";
+									}
 									
 									else if ($pieces[0]==" hashtags ") {
 										echo "<strong>Hashtags: </strong>".str_replace("#","",$pieces[1]);
