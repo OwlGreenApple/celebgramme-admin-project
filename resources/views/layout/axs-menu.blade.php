@@ -27,6 +27,7 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
                 <li><a href="{{url('post', $parameters = [], $secure = null)}}">Post History Daily Likes</a></li>
                 <li><a href="{{url('post-auto-manage', $parameters = [], $secure = null)}}">Post History Auto Manage ({{$count_post}})</a></li>
                 <li><a href="{{url('setting', $parameters = [], $secure = null)}}">Setting IG Account All</a></li>
+                <li><a href="{{url('log-post', $parameters = [], $secure = null)}}">Logs Post Auto Manage</a></li>
               </ul>
           </li>
           <li class='dropdown'>

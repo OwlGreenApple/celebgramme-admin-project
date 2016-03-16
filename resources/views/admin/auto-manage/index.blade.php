@@ -133,6 +133,7 @@
 	
 	
 	</p>
+	<!--
   <div class="cover-input-group">
     <p>Filter tanggal 
     </p>
@@ -156,7 +157,7 @@
     </div>  
     <div class="none"></div>
   </div>
-  
+  -->
   <div class="alert alert-danger" id="alert">
     <strong>Oh snap!</strong> Change a few things up and try submitting again.
   </div>  
@@ -209,30 +210,30 @@
 	
   
   <script>
-    $(function() {
-      $("#from").datepicker({
-        dateFormat: 'dd-mm-yy',
-        onSelect: function(d) {
-          var from = $('#from').datepicker('getDate');
-          var to = $('#to').datepicker('getDate');
-          if (from.getTime() > to.getTime()){
-            $("#from").datepicker('setDate', to);
-          }
-        }
-      });
-      $("#to").datepicker({
-        dateFormat: 'dd-mm-yy',
-        onSelect: function(d) {
-          var from = $('#from').datepicker('getDate');
-          var to = $('#to').datepicker('getDate');
-          if (from.getTime() > to.getTime()){
-            $("#to").datepicker('setDate', from);
-          }
-        }
-      });
-      $("#from").datepicker('setDate', new Date());
-      $("#to").datepicker('setDate', new Date());
-    });
+    // $(function() {
+      // $("#from").datepicker({
+        // dateFormat: 'dd-mm-yy',
+        // onSelect: function(d) {
+          // var from = $('#from').datepicker('getDate');
+          // var to = $('#to').datepicker('getDate');
+          // if (from.getTime() > to.getTime()){
+            // $("#from").datepicker('setDate', to);
+          // }
+        // }
+      // });
+      // $("#to").datepicker({
+        // dateFormat: 'dd-mm-yy',
+        // onSelect: function(d) {
+          // var from = $('#from').datepicker('getDate');
+          // var to = $('#to').datepicker('getDate');
+          // if (from.getTime() > to.getTime()){
+            // $("#to").datepicker('setDate', from);
+          // }
+        // }
+      // });
+      // $("#from").datepicker('setDate', new Date());
+      // $("#to").datepicker('setDate', new Date());
+    // });
     function refresh_page(page)
     {
       $.ajax({                                      
@@ -240,8 +241,8 @@
         type: 'get',
         data: {
           page: page,
-          from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
-          to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
+          // from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
+          // to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
 					keyword: $("#keyword-search").val(),
         },
         beforeSend: function()
@@ -263,8 +264,8 @@
         type: 'get',
         data: {
           page : page,
-          from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
-          to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
+          // from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
+          // to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
 					keyword: $("#keyword-search").val(),
         },
         beforeSend: function()
@@ -328,11 +329,11 @@
 				}
         window.location="<?php echo url('create-excel'); ?>/"+$("#keywords-excel").val()+"/"+temp_str;
       });
-      $('#button-search').click(function(e){
-        e.preventDefault();
-        create_pagination(1);
-        refresh_page(1);
-      });
+      // $('#button-search').click(function(e){
+        // e.preventDefault();
+        // create_pagination(1);
+        // refresh_page(1);
+      // });
 
       $('#button-yes').click(function(e){
 				if ($(this).attr('data-action')=="update-error") {

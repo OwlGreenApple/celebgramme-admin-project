@@ -417,4 +417,67 @@ class PostController extends Controller {
 		})->download('csv');
 	}
 
+	
+	/**
+	 * Show bpv ranking page.
+	 *
+	 * @return Response
+	 */
+	public function log_post()
+	{
+    $user = Auth::user();
+		return View::make('admin.log-post.index')->with(
+                  array(
+                    'user'=>$user,
+                  ));
+	}
+
+  public function load_log_post()
+  {
+    if (Request::input('keyword')=="") {
+      $arr = PostLog
+             ::where('created','>=',date("Y-m-d", intval(Request::input('from')))." 00:00:00")
+             ->where('created','<=',date("Y-m-d", intval(Request::input('to')))." 23:59:59")
+             ->orderBy('created', 'asc')
+             ->paginate(15);
+    } else {
+      $arr = PostLog
+             ::where('created','>=',date("Y-m-d", intval(Request::input('from')))." 00:00:00")
+             ->where('created','<=',date("Y-m-d", intval(Request::input('to')))." 23:59:59")
+             ->orWhere('admin','like','%'.Request::input('keyword').'%')
+             ->orderBy('created', 'asc')
+             ->paginate(15);
+    }
+    
+    return view('admin.log-post.content')->with(
+                array(
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                ));
+  }
+  
+	public function pagination_log_post()
+  {
+    if (Request::input('keyword')=="") {
+      $arr = PostLog
+             ::where('created','>=',date("Y-m-d", intval(Request::input('from')))." 00:00:00")
+             ->where('created','<=',date("Y-m-d", intval(Request::input('to')))." 23:59:59")
+             ->orderBy('created', 'asc')
+             ->paginate(15);
+    } else {
+      $arr = PostLog
+             ::where('created','>=',date("Y-m-d", intval(Request::input('from')))." 00:00:00")
+             ->where('created','<=',date("Y-m-d", intval(Request::input('to')))." 23:59:59")
+             ->orWhere('admin','like','%'.Request::input('keyword').'%')
+             ->orderBy('created', 'asc')
+             ->paginate(15);
+    }
+    
+    return view('admin.log-post.pagination')->with(
+                array(
+                  'arr'=>$arr,
+                ));
+  }
+  
+	
 }

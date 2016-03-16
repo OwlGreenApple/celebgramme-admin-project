@@ -129,4 +129,10 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('edit-admin', 'Admin\MemberController@edit_admin');
 	Route::post('delete-admin', 'Admin\MemberController@delete_admin');
 	
+	/* Log Post */
+	Route::get('log-post', 'Admin\PostController@log_post');
+	Route::get('load-log-post', 'Admin\PostController@load_log_post');
+	Route::get('pagination-log-post', 'Admin\PostController@pagination_log_post');
+	
+	
 });
