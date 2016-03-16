@@ -32,7 +32,7 @@ class SettingController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($search="")
 	{
     $user = Auth::user();
 		$filenames = Meta::where("meta_name","=","fl_name")->get();
@@ -40,6 +40,7 @@ class SettingController extends Controller {
 		$template = TemplateEmail::all();
 		return View::make('admin.setting.index')->with(
                   array(
+                    'search'=>$search,
                     'user'=>$user,
                     'filenames'=>$filenames,
                     'status_server'=>$status_server,

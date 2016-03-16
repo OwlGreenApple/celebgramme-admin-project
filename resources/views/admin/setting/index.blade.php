@@ -127,7 +127,7 @@
 	</p>
   <div class="cover-input-group">
     <div class="input-group fl">
-			<input type="text" id="keyword-search" class="form-control" placeholder="insta username">
+			<input type="text" id="keyword-search" class="form-control" placeholder="insta username" value="{{$search}}">
 		</div>  
     <div class="none"></div>
   </div>

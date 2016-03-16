@@ -63,7 +63,7 @@
       <input type="text" id="to" class="form-control"> 
     </div>  
     <div class="input-group fl">
-			<input type="text" id="keyword-search" class="form-control" placeholder="insta username">
+			<input type="text" id="keyword-search" class="form-control" placeholder="insta username / admin name">
 		</div>  
     <div class="none"></div>
   </div>
@@ -81,8 +81,8 @@
     <thead>
       <tr>
         <th>No. </th>
-        <th>Taken By username</th>
-        <th>Insta username</th>
+        <th>Taken By Admin</th>
+        <th>Insta Username</th>
         <th>Update time</th>
         <th>Updates</th>
       </tr>      
