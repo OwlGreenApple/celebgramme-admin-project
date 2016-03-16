@@ -1,18 +1,16 @@
 <?php 
-	use Celebgramme\Models\Setting;
-	use Celebgramme\Models\SettingMeta; 
 	use Celebgramme\Models\User;
 	use Celebgramme\Models\UserMeta;
   if ( $arr->count()==0  ) {
-    echo "<tr><td colspan='14' align='center'>Data tidak ada</td></tr>";
+    echo "<tr><td colspan='5' align='center'>Data tidak ada</td></tr>";
   } else {
     //search by username
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
 ?>
-    <tr class="row{{$data_arr->setting_id}}">
+    <tr class="row{{$data_arr->id}}">
       <td>
-        {{$i}}
+        {{$i}}.
       </td>
       <td align="center">
         <?php 
@@ -25,7 +23,7 @@
         {{$data_arr->insta_username}}
       </td>
       <td align="center" style="width:350px!important;">
-				<a href="#" class="see-update">lihat updates </a> |
+				<a href="#" class="see-update">lihat updates </a>
 				<?php  
 					$colorstatus = 000;
 				?> 

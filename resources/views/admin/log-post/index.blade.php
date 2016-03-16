@@ -121,7 +121,9 @@
           }
         }
       });
-      $("#from").datepicker('setDate', new Date());
+			date = new Date();
+			date.setMonth(date.getMonth() , 1);
+      $("#from").datepicker('setDate', date);
       $("#to").datepicker('setDate', new Date());
     });
     function refresh_page(page)
