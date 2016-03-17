@@ -217,8 +217,8 @@
         $("#coupon_code").val($(this).attr("data-coupon-code"));
         $("#coupon_value").val($(this).attr("data-coupon-value"));
         $("#valid_until").val($(this).attr("data-valid-until"));
-        $("#coupon_percentage").val($(this).attr("data-valid-until"));
-        $("#valid_until").val($(this).attr("data-valid-until"));
+        $("#coupon_percentage").val($(this).attr("data-coupon-percent"));
+        $("#coupon_package_id").val($(this).attr("data-package-id"));
       });
       $( "body" ).on( "click", "#button-process", function() {
         temp = $(this);
