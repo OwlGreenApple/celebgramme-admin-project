@@ -286,6 +286,8 @@ class PaymentController extends Controller {
     $coupon->coupon_code = Request::input("coupon_code");
     $coupon->coupon_value = Request::input("coupon_value");
     $coupon->valid_until = date("Y-m-d", intval(Request::input('valid_until')));
+    $coupon->coupon_percent = Request::input("coupon_percentage");
+    $coupon->package_id = Request::input("coupon_package_id");
     $coupon->save();
 
     $arr['type'] = 'success';

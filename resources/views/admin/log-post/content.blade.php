@@ -64,7 +64,7 @@
 									else if ($pieces[0]==" activity_speed ") {
 										$colorstatus="";
 										if ($pieces[1]==" slow "){ $colorstatus="ea0000"; } else if  ($pieces[1]==" normal ") { $colorstatus="15ca26"; } else if  ($pieces[1]==" fast ") { $colorstatus="1212e8"; }
-										echo "<strong>Follow Source: <span style='color:#".$colorstatus."'> ".strtoupper($pieces[1])."</span></strong> ";
+										echo "<strong>Activity Speed: <span style='color:#".$colorstatus."'> ".strtoupper($pieces[1])."</span></strong> ";
 									}
 									
 									else if ($pieces[0]==" hashtags ") {

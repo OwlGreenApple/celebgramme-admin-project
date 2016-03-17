@@ -36,7 +36,7 @@
             <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Package</label>
               <div class="col-sm-8 col-md-6">
-                <select class="form-control">
+                <select class="form-control" name="coupon_package_id" id="coupon_package_id">
 									<option value="0">all</option>
 									<?php foreach($packages as $package){ ?>
 										<option value="{{$package->id}}">{{$package->package_name." - Rp. ".number_format($package->price,0,'','.')}}</option>
@@ -216,6 +216,8 @@
         $("#id-coupon").val($(this).attr("data-id"));
         $("#coupon_code").val($(this).attr("data-coupon-code"));
         $("#coupon_value").val($(this).attr("data-coupon-value"));
+        $("#valid_until").val($(this).attr("data-valid-until"));
+        $("#coupon_percentage").val($(this).attr("data-valid-until"));
         $("#valid_until").val($(this).attr("data-valid-until"));
       });
       $( "body" ).on( "click", "#button-process", function() {
