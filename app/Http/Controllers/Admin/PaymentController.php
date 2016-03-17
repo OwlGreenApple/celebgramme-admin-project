@@ -11,6 +11,7 @@ use Celebgramme\Models\User;
 use Celebgramme\Models\Package;
 use Celebgramme\Models\PackageUser;
 use Celebgramme\Models\Coupon;
+use Celebgramme\Models\Meta;
 
 use View,Auth,Request,DB,Carbon,Excel, Mail, Validator;
 
@@ -294,6 +295,17 @@ class PaymentController extends Controller {
     $arr['id'] = Request::input("id-coupon");
     return $arr;    
   }
+
+  public function process_setting_coupon()
+  {
+		$meta = Meta::createMeta("coupon_setting_days",Request::input("coupon_setting_days"));
+		$meta = Meta::createMeta("coupon_setting_value",Request::input("coupon_setting_value"));
+		$meta = Meta::createMeta("coupon_setting_percentage",Request::input("coupon_setting_percentage"));
+		$meta = Meta::createMeta("coupon_setting_package_id",Request::input("coupon_setting_package_id"));
+
+    $arr['type'] = 'success';
+    return $arr;    
+	}
 
 
 /*

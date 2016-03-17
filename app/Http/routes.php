@@ -97,6 +97,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('load-coupon', 'Admin\PaymentController@load_coupon');
 	Route::get('pagination-coupon', 'Admin\PaymentController@pagination_coupon');
 	Route::post('process-coupon', 'Admin\PaymentController@process_coupon');
+	Route::post('process-setting-coupon', 'Admin\PaymentController@process_setting_coupon');
 
 	/* Order */
 	Route::get('order', 'Admin\PaymentController@order');

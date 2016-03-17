@@ -62,6 +62,58 @@
   </div>
 
 
+  <!-- Modal -->
+  <div class="modal fade" id="myModalSetting" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Coupon Expired Notification</h4>
+        </div>
+        <div class="modal-body">
+					<?php 
+						use Celebgramme\Models\Meta;
+					?>
+          <form enctype="multipart/form-data" id="form-setting-coupon">					
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Days</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Days" name="coupon_setting_days" value="{{Meta::getMeta('coupon_setting_days')}}">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Coupon Value</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Coupon value" name="coupon_setting_value" value="{{Meta::getMeta('coupon_setting_value')}}">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Coupon Percentage</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Coupon percent" name="coupon_setting_percentage" value="{{Meta::getMeta('coupon_setting_percentage')}}">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Package</label>
+              <div class="col-sm-8 col-md-6">
+                <select class="form-control" name="coupon_setting_package_id" >
+									<option value="0">all</option>
+									<?php foreach($packages as $package){ ?>
+										<option value="{{$package->id}}" <?php if (Meta::getMeta("coupon_setting_package_id")==$package->id) { echo "selected"; }  ?>>{{$package->package_name." - Rp. ".number_format($package->price,0,'','.')}}</option>
+									<?php } ?>
+                </select>
+              </div>
+            </div>  
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="button-process-setting">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 
   <div class="page-header">
@@ -87,6 +139,9 @@
   <div class="cover-input-group">
     <div class="input-group fl">
       <input type="button" value="Add" id="button-add" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModal" > 
+    </div>  
+    <div class="input-group fl">
+      <input type="button" value="Setting" id="button-setting" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalSetting"> 
     </div>  
     <div class="none"></div>
   </div>
@@ -241,6 +296,28 @@
             if(data.type=='success') {
               create_pagination(1);
               refresh_page(1);
+            }
+            $("#div-loading").hide();
+          }
+        });
+      });
+      $( "body" ).on( "click", "#button-process-setting", function() {
+        $.ajax({                                      
+          url: '<?php echo url('process-setting-coupon'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-setting-coupon").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
             }
             $("#div-loading").hide();
           }
