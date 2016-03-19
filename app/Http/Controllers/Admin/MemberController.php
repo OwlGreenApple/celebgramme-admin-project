@@ -11,6 +11,7 @@ use Celebgramme\Models\Post;
 use Celebgramme\Models\Setting;
 use Celebgramme\Models\LinkUserSetting;
 use Celebgramme\Models\UserMeta;
+use Celebgramme\Models\UserLog;
 
 use View,Auth,Request,DB,Carbon,Mail,Validator;
 
@@ -198,6 +199,8 @@ class MemberController extends Controller {
 
   public function give_bonus()
   {
+		$dt = Carbon::now();
+		$admin = Auth::user();
     $arr["type"] = "success";
     $arr["id"] = Request::input("user-id");
     $arr["action"] = Request::input("action");
@@ -213,6 +216,13 @@ class MemberController extends Controller {
       $minutes = floor(($t / (60)) % 60);
       $seconds = floor($t  % 60);
       $arr["view"] = $days."D ".$hours."H ".$minutes."M ".$seconds."S ";
+			
+			$user_log = new UserLog;
+			$user_log->email = $user->email;
+			$user_log->admin = $admin->fullname;
+			$user_log->description = "give time to member. ".$days."D ".$hours."H ".$minutes."M ".$seconds."S ";
+			$user_log->created = $dt->toDateTimeString();
+			$user_log->save();
     }
     if (Request::input("action")=="daily") {
       $user->balance += Request::input("daily-likes");
@@ -280,6 +290,8 @@ class MemberController extends Controller {
 
   public function edit_member()
   {
+		$dt = Carbon::now();
+		$admin = Auth::user();
     $arr["type"] = "success";
     $arr["message"] = "Proses edit member berhasil dilakukan";
 		
@@ -302,6 +314,13 @@ class MemberController extends Controller {
 		$user->fullname = Request::input("fullnameedit");
 		$user->active_auto_manage = Request::input("member-days") * 86400;
 		$user->save();
+		
+		$user_log = new UserLog;
+		$user_log->email = $user->email;
+		$user_log->admin = $admin->fullname;
+		$user_log->description = "Edit Member. email : ".Request::input("emailedit").", fullname : ".Request::input("fullnameedit").", time : ".Request::input("member-days") * 86400 ."days";
+		$user_log->created = $dt->toDateTimeString();
+		$user_log->save();
 		
     return $arr;
 	}
