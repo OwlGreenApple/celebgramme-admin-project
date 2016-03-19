@@ -167,7 +167,7 @@
       <tr>
         <th>No. </th>
         <th>Taken By username</th>
-        <th>Filename(spiderman)</th>
+        <th>Filename (spiderman)</th>
         <th>Password Error</th>
         <th>Insta username</th>
         <th>Insta password</th>

@@ -150,8 +150,8 @@
         <th>Password Error</th>
         <th>Insta username</th>
         <th>Insta password</th>
-        <th>Fullname(email)</th>
-        <th>Filename(Spiderman)</th>
+        <th>Fullname (email)</th>
+        <th>Filename (Spiderman)</th>
         <th>Updates</th>
 				
         <th>Download Hashtags</th>

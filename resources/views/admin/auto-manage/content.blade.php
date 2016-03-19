@@ -3,6 +3,8 @@
 	use Celebgramme\Models\SettingMeta; 
 	use Celebgramme\Models\User;
 	use Celebgramme\Models\UserMeta;
+	// use Carbon;
+	$now = Carbon::now();
   if ( $arr->count()==0  ) {
     echo "<tr><td colspan='14' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -63,7 +65,8 @@
 					}
 				?><br>
       </td>
-      <td align="center" style="width:350px!important;">
+      <td align="center">
+				<div style="width:350px;">
 				<a href="#" class="see-update">lihat updates </a> |
 				<a href="#" class="see-all">lihat semua </a>
 				<?php  
@@ -176,9 +179,23 @@
 					<li class="wrap"><strong>Unfollow who dont follow me : </strong>{{$setting->unfollow_wdfm}}</li>-->
 					<li class="wrap"><strong>Usernames whitelist : </strong>{{$setting->usernames_whitelist}}</li>
 				</ul>
+				</div>
       </td>
-      <td align="center" style="width:100px;">
+      <td align="center">
+				<p style="width:120px;">
         {{$data_arr->updated_at}}
+				<br>
+				<?php 
+					$timevalue = $now->diffInSeconds($data_arr->updated_at);
+					
+					$t = $timevalue;
+					$days = floor($t / (60*60*24));
+					$hours = floor(($t / (60*60)) % 24);
+					$minutes = floor(($t / (60)) % 60);
+					$seconds = floor($t  % 60);
+					echo "<strong style='color:#1212e8;'>".$days."D ".$hours."H ".$minutes."M ".$seconds."S"."</strong>";
+				?>
+				</p>
       </td><!--
       <td align="center">
         <span class="glyphicon glyphicon-save download-all" style="cursor:pointer;" data-id="{{$data_arr->setting_id}}"></span>
