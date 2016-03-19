@@ -220,7 +220,7 @@ class MemberController extends Controller {
 			$user_log = new UserLog;
 			$user_log->email = $user->email;
 			$user_log->admin = $admin->fullname;
-			$user_log->description = "give time to member. ".$days."D ".$hours."H ".$minutes."M ".$seconds."S ";
+			$user_log->description = "give time to member. ".Request::input("active-days")."D ".Request::input("active-hours")."H ".Request::input("active-minutes")."M ";
 			$user_log->created = $dt->toDateTimeString();
 			$user_log->save();
     }
@@ -318,7 +318,7 @@ class MemberController extends Controller {
 		$user_log = new UserLog;
 		$user_log->email = $user->email;
 		$user_log->admin = $admin->fullname;
-		$user_log->description = "Edit Member. email : ".Request::input("emailedit").", fullname : ".Request::input("fullnameedit").", time : ".Request::input("member-days") * 86400 ."days";
+		$user_log->description = "Edit Member. email : ".Request::input("emailedit").", fullname : ".Request::input("fullnameedit").", time : ".Request::input("member-days") ."days";
 		$user_log->created = $dt->toDateTimeString();
 		$user_log->save();
 		
