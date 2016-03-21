@@ -316,10 +316,10 @@ class PostController extends Controller {
     return "success";
   }
 
-  public function create_excel($string,$stringby)
+  public function create_excel($string,$stringby,$username="No username")
   {
 		$arr = explode(';', $string);
-		Excel::create($stringby, function($excel) use ($arr,$stringby) {
+		Excel::create(date("F j, Y, g:i a")." ".$username." ".$stringby, function($excel) use ($arr,$stringby) {
       $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
 				foreach ($arr as $data) { 
 					if ($stringby=="-") {

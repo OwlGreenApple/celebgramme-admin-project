@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::patch('update-post/{konfirmasiId}', 'Admin\PostController@update_post');
   
 	/* Post auto manage */
-	Route::get('create-excel/{string}/{stringby}', 'Admin\PostController@create_excel');
+	Route::get('create-excel/{string}/{stringby}/{username}', 'Admin\PostController@create_excel');
 	Route::get('post-auto-manage', 'Admin\PostController@auto_manage');
 	Route::get('load-post-auto-manage', 'Admin\PostController@load_auto_manage');
 	Route::get('pagination-post-auto-manage', 'Admin\PostController@pagination_auto_manage');
@@ -91,6 +91,8 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('edit-member', 'Admin\MemberController@edit_member');
 	Route::post('delete-member', 'Admin\MemberController@delete_member');
 	Route::post('edit-member-login-webstame', 'Admin\MemberController@edit_member_login_webstame');
+	Route::get('home-page', 'Admin\MemberController@home_page');
+	Route::post('save-home-page', 'Admin\MemberController@save_home_page');
 
 	/* Coupon */
 	Route::get('coupon', 'Admin\PaymentController@coupon');

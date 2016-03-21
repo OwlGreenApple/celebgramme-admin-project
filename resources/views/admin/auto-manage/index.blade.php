@@ -204,6 +204,9 @@
 			<input type="text" class="form-control" id="keywords-by" placeholder="Keywords type">
     </div>  
     <div class="input-group fl">
+			<input type="text" class="form-control" id="keywords-username" placeholder="Username">
+    </div>  
+    <div class="input-group fl">
       <input type="button" value="Convert to excel" id="button-excel" data-loading-text="Loading..." class="btn btn-primary"> 
     </div>  
   </div>  
@@ -327,7 +330,7 @@
 				} else {
 					temp_str=$("#keywords-by").val();
 				}
-        window.location="<?php echo url('create-excel'); ?>/"+$("#keywords-excel").val()+"/"+temp_str;
+        window.location="<?php echo url('create-excel'); ?>/"+$("#keywords-excel").val()+"/"+temp_str+"/"+$("#keywords-username").val();
       });
       // $('#button-search').click(function(e){
         // e.preventDefault();

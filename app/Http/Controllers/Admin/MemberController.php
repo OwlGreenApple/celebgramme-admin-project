@@ -518,4 +518,34 @@ class MemberController extends Controller {
     return $arr;    
   }
 	
+  public function home_page()
+  {
+    $user = Auth::user();
+		$post = Post::where("type","=","home_page")->first();
+		if (is_null($post)) {
+			$post = new Post;
+			$post->type="home_page";
+			$post->save();
+		}
+		$content = $post->description;
+    return View::make('admin.member-all.home')->with(
+                  array(
+                    'user'=>$user,
+                    'content'=>$content,
+                  ));
+	}
+
+  public function save_home_page()
+  {
+		$arr["type"] = "success";
+		$arr["message"] = "Saved";
+
+		$post = Post::where("type","=","home_page")->first();
+		$post->description=Request::input("content");
+		$post->type="home_page";
+		$post->save();
+
+		return $arr;
+	}
+
 }

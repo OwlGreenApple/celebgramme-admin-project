@@ -37,6 +37,7 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{url('member-all', $parameters = [], $secure = null)}}">All</a></li>
                 <li><a href="{{url('access-token', $parameters = [], $secure = null)}}">Access Token</a></li>
+                <li><a href="{{url('home-page', $parameters = [], $secure = null)}}">Home Page</li></a>
               </ul>
           </li>
           <li class='dropdown'>
