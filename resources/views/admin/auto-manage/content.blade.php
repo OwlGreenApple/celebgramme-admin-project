@@ -203,15 +203,15 @@
 			-->
       <td align="center">
 				<select>
-					<option data-val="Normal Search">Follow # Normal Search</option>
 					<option data-val="Relevant">Like Comment # Relevant</option>
+					<option data-val="Normal Search">Follow # Normal Search</option>
 				</select>
         <span class="glyphicon glyphicon-save download-hashtags" style="cursor:pointer;" data-id="{{$data_arr->setting_id}}"></span>
       </td>
       <td align="center">
 				<select>
-					<option>User's Photo</option>
 					<option>User's Follower</option>
+					<option>User's Photo</option>
 					<option>User's Following</option>
 				</select>
         <span class="glyphicon glyphicon-save download-usernames" style="cursor:pointer;" data-id="{{$data_arr->setting_id}}"></span>
