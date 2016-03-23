@@ -49,7 +49,7 @@
           <i class="x-icon update-error" data-toggle="modal" data-target="#confirm-dialog" data-id="{{$data_arr->setting_id}}"></i>
         <?php } ?>
       </td>
-      <td align="center">{{$data_arr->insta_username}}</td>
+      <td align="center">{{strtolower($data_arr->insta_username)}}</td>
       <td align="center">
         {{$data_arr->insta_password}}
       </td>
