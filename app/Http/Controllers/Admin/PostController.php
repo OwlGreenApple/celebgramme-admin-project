@@ -126,6 +126,7 @@ class PostController extends Controller {
   public function auto_manage()
   {
     $user = Auth::user();
+    $admin = User::where("type","=","admin")->get();
 		$count_post = Post::join("settings","settings.id","=","posts.setting_id")
              //->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
              //->join("users","users.id","=","link_users_settings.user_id")
@@ -138,6 +139,7 @@ class PostController extends Controller {
     return View::make('admin.auto-manage.index')->with(
                   array(
                     'user'=>$user,
+                    'admin'=>$admin,
                     'count_post'=>$count_post,
                     'filenames'=>$filenames,
                     'templates'=>$template,

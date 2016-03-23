@@ -161,6 +161,20 @@
   <div class="alert alert-danger" id="alert">
     <strong>Oh snap!</strong> Change a few things up and try submitting again.
   </div>  
+	<p align="right">Online : <br>
+	<?php 
+		use Celebgramme\Models\SettingMeta; 
+		use Celebgramme\Models\UserMeta; 
+		
+		foreach($admin as $ad){
+			$usermeta = UserMeta::getMeta($user->id,"login");
+			$usercolor = UserMeta::getMeta($user->id,"color");
+			if ($usermeta=="yes"){
+				echo "<span style='font-size:28px;font-weight:Bold;color:#".$usercolor.";'>".$ad->fullname."<br>";
+			}
+		}
+	?>
+	</p>
 	<p align="right">Total Setting Post yang perlu di update : <span style="font-size:48px;font-weight:Bold;color:#c12e2a;" id="update-post">{{$count_post}}</span></p>
   <table class="table table-bordered">  
     <thead>

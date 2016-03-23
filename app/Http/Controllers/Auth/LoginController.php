@@ -4,6 +4,7 @@ namespace Celebgramme\Http\Controllers\Auth;
 
 use Celebgramme\Http\Controllers\Controller;
 use Celebgramme\Models\Customer;
+use Celebgramme\Models\UserMeta;
 use Illuminate\Http\Request;
 use Celebgramme\Http\Requests\LoginFormRequest as loginRequest;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +49,8 @@ class LoginController extends Controller
 	{
 		$remember = (Input::has('remember')) ? true : false;
 		if (Auth::attempt(['email' => $request->username, 'password' => $request->password, "type"=>"admin",], $remember)) {
+			$user = Auth::user();
+			$usermeta= UserMeta::createMeta("login","yes",$user->id);
 			if (isset($request->r)){
 				return redirect($request->r);
 			}
@@ -68,6 +71,8 @@ class LoginController extends Controller
 	 */
 	public function getLogout(Request $request)
 	{
+		$user = Auth::user();
+		$usermeta= UserMeta::createMeta("login","no",$user->id);
 		$request->session()->flush();
 		Auth::logout();
 		return Redirect('/login');
