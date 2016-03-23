@@ -167,8 +167,8 @@
 		use Celebgramme\Models\UserMeta; 
 		
 		foreach($admin as $ad){
-			$usermeta = UserMeta::getMeta($user->id,"login");
-			$usercolor = UserMeta::getMeta($user->id,"color");
+			$usermeta = UserMeta::getMeta($ad->id,"login");
+			$usercolor = UserMeta::getMeta($ad->id,"color");
 			if ($usermeta=="yes"){
 				echo "<span style='font-size:28px;font-weight:Bold;color:#".$usercolor.";'>".$ad->fullname."<br>";
 			}
