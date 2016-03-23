@@ -170,11 +170,11 @@
 			$usermeta = UserMeta::getMeta($ad->id,"login");
 			$usercolor = UserMeta::getMeta($ad->id,"color");
 			if ($usermeta=="yes"){
-				$online .= "<span style='font-size:28px;font-weight:Bold;color:".$usercolor.";'>".$ad->fullname."</span> ";
+				$online .= "<span style='font-weight:Bold;color:".$usercolor.";'>".$ad->fullname."</span> &nbsp";
 			}
 		}
 	?>
-	<p align="right">{{$online}} Total Setting Post yang perlu di update : <span style="font-size:48px;font-weight:Bold;color:#c12e2a;" id="update-post">{{$count_post}}</span></p>
+	<p align="right"><?php echo $online; ?> Total Setting Post yang perlu di update : <span style="font-size:48px;font-weight:Bold;color:#c12e2a;" id="update-post">{{$count_post}}</span></p>
   <table class="table table-bordered">  
     <thead>
       <tr>
