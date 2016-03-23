@@ -130,7 +130,9 @@
 	usernames_whitelist = usernames unfollow whitelist <br>
 	C1 : \\23.250.113.28\Users\Administrator\Documents\Follow Liker\import <br>
 	C2 : \\198.52.129.10\Users\Administrator\Documents\Follow Liker\import <br>
-	C3 : \\104.254.93.39\Users\Administrator\Documents\Follow Liker\import	
+	C3 : \\104.254.93.39\Users\Administrator\Documents\Follow Liker\import <br>
+	<br>	
+	<span style="color:#4fee57"><strong>*Online</strong></span> = Last seen < 10 minutes
 	
 	</p>
 	<!--
@@ -166,10 +168,15 @@
 		use Celebgramme\Models\SettingMeta; 
 		use Celebgramme\Models\UserMeta; 
 		
+		$now = Carbon::now();
+		
 		foreach($admin as $ad){
-			$usermeta = UserMeta::getMeta($ad->id,"login");
 			$usercolor = UserMeta::getMeta($ad->id,"color");
-			if ($usermeta=="yes"){
+			$last_seen = Carbon::createFromFormat('Y-m-d H:i:s', $ad->last_seen)->addMinutes(10);
+			// if ($ad->last_seen <= $now->addMinutes(10) ) {
+			if ($last_seen->gt($now)) {
+			// $usermeta = UserMeta::getMeta($ad->id,"login");
+			// if ($usermeta=="yes"){
 				$online .= "<span style='font-weight:Bold;color:".$usercolor.";'>".$ad->fullname."</span> &nbsp";
 			}
 		}

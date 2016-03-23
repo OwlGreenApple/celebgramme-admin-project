@@ -6,6 +6,9 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Auth;
 
+use Celebgramme\Models\User;
+use Carbon;
+
 class Authenticate 
 {
     /**
@@ -45,6 +48,11 @@ class Authenticate
 					$user = Auth::user();
 					$user->save();
 				}
+
+				$dt = Carbon::now();
+				$user = Auth::user();
+				$user->last_seen = $dt->toDateTimeString();
+				$user->save();
 
         return $next($request);
     }

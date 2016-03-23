@@ -67,6 +67,15 @@
       </td>
       <td align="center">
 				<div style="width:350px;">
+				
+				<?php 
+					$last_seen = Carbon::createFromFormat('Y-m-d H:i:s', $user->last_seen)->addMinutes(10);
+					if ($last_seen->gt($now)) {
+				// echo $user->last_seen."<br>";
+				// echo $online_time."<br>";
+				?>
+				<span style="color:#4fee57"><strong>Online</strong></span>
+				<?php } ?>
 				<a href="#" class="see-update">lihat updates </a> |
 				<a href="#" class="see-all">lihat semua </a>
 				<?php  
