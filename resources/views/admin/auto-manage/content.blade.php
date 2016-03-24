@@ -99,6 +99,12 @@
 									else if ($pieces[1]==" off "){ $str= "<span style='color:#ea0000'> OFF ";	} 
 									echo "<strong>Activity: ".$str."</strong> ";
 								} 
+									else if ($pieces[0]==" activity ") {
+										$colorstatus="";
+										if ($pieces[1]==" follow "){ $colorstatus="1212e8"; } else if  ($pieces[1]==" unfollow ") { $colorstatus="ea0000"; }
+										echo "<strong>".$pieces[0].": <span style='color:#".$colorstatus."'> ".strtoupper($pieces[1])."</span></strong> ";
+									}
+									
 									else if ($pieces[0]==" status ") {
 										$colorstatus="";
 										if ($pieces[1]==" started "){ $colorstatus="1212e8"; } else if ( ($pieces[1]==" stopped ") || ($pieces[1]==" deleted ") ) { $colorstatus="ea0000"; }
