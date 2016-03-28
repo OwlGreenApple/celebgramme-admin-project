@@ -11,7 +11,7 @@ Setelah mengganti password  <br>
 silahkan Login ke Celebgramme kembali disini <br>
 click to <a href="http://celebgramme.com/celebgramme"> ---> LOGIN <--- </a> <br>
 <br>
-EDIT user credential anda dengan Password yang Baru <br>
+EDIT username & password anda dengan data yang Baru <br>
 di bagian "Username Box"  ( bagian bawah ) <br>
 Click "START" dan Celebgramme kembali bekerja untuk anda. <br>
 <br>

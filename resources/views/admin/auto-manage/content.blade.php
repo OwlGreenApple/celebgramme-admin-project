@@ -29,15 +29,13 @@
       </td>
       <td align="center">
 				<p class="fl-filename">
-				<span class="edit-fl-filename">
-				<?php 
+				<span class="edit-fl-filename"><?php 
 					$filename = "";
 					if (SettingMeta::getMeta($data_arr->setting_id,"fl_filename") <> "0" ) {
 						$filename = SettingMeta::getMeta($data_arr->setting_id,"fl_filename");
 						echo $filename."";
 					}
-				?>
-				</span>
+				?></span>
 				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-fl-edit" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->setting_id}}"
 				data-filename="{{$filename}}" style="cursor:pointer;">  </span>
 				</p>
@@ -164,10 +162,10 @@
 					<li class="wrap"><strong>Status Comment : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status_comment)}} </span> </strong> </li> 
 					
 					<?php if ($setting->activity=="follow") { $colorstatus="1212e8"; } else if ($setting->activity=="unfollow") { $colorstatus="ea0000"; } ?>
-					<li class="wrap"><strong>Activity : <span style="color:#{{$colorstatus}}"> 
+					<li class="wrap"><strong>Activity : 
 						<?php 
 							if ($setting->status_follow_unfollow=="on") {
-								echo "<span style='color:#1212e8'> ON - ".strtoupper($setting->activity); 
+								echo "<span style='color:#1212e8'> ON </span>- <span style='color:#".$colorstatus."'>".strtoupper($setting->activity)."</span>"; 
 							}else if ($setting->status_follow_unfollow=="off") { 
 								$colorstatus="ea0000";
 							?>

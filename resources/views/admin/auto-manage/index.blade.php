@@ -390,31 +390,36 @@
 					
 				}
 				if ($(this).attr('data-action')=="update-status") {
-					$.ajax({                                      
-						url: '<?php echo url('update-auto-manage'); ?>/'+$(this).attr('data-id'),
-						headers: {
-								'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-						},
-						type: 'patch',
-						data: {
-							_method : "PATCH",
-						},
-						beforeSend: function()
-						{
-							$("#div-loading").show();
-						},
-						dataType: 'text',
-						success: function(result)
-						{
-							if (result=='success') {
-								// temp_update_status.removeClass('x-icon');
-								// temp_update_status.addClass('checked-icon');
-								create_pagination(1);
-								refresh_page(1);
+					console.log(temp_update_status.parent().parent().find(".edit-fl-filename").html());
+					if ( temp_update_status.parent().parent().find(".edit-fl-filename").html() == "" ) {
+						alert("filename tidak boleh kosong");
+					} else {
+						$.ajax({                                      
+							url: '<?php echo url('update-auto-manage'); ?>/'+$(this).attr('data-id'),
+							headers: {
+									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+							},
+							type: 'patch',
+							data: {
+								_method : "PATCH",
+							},
+							beforeSend: function()
+							{
+								$("#div-loading").show();
+							},
+							dataType: 'text',
+							success: function(result)
+							{
+								if (result=='success') {
+									// temp_update_status.removeClass('x-icon');
+									// temp_update_status.addClass('checked-icon');
+									create_pagination(1);
+									refresh_page(1);
+								}
+								$("#div-loading").hide();
 							}
-							$("#div-loading").hide();
-						}
-					});
+						});
+					}
 				}
 				
       });
