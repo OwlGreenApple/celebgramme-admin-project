@@ -15,8 +15,12 @@
       <td align="center">
         <?php 
 					$admin = User::where("fullname","=",$data_arr->admin)->first();
-					$color = UserMeta::getMeta($admin->id,"color");
-					echo "<strong><span style='color:".$color."'>".$admin->fullname."</span></strong>";
+					if (!is_null($admin)) {
+						$color = UserMeta::getMeta($admin->id,"color");
+						echo "<strong><span style='color:".$color."'>".$admin->fullname."</span></strong>";
+					} else {
+						echo "-";
+					}
 				?>
       </td>
       <td align="center">

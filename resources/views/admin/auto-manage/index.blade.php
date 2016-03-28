@@ -128,10 +128,14 @@
 	dont_follow_pu = dont follow private user <br>
 	dont_comment_su = dont comment same user <br>
 	usernames_whitelist = usernames unfollow whitelist <br>
-	C1 : \\23.250.113.28\Users\Administrator\Documents\Follow Liker\import <br>
+	C1 : \\86.106.18.85\Users\Administrator\Documents\Follow Liker\import <br>
 	C2 : \\198.52.129.10\Users\Administrator\Documents\Follow Liker\import <br>
 	C3 : \\104.254.93.39\Users\Administrator\Documents\Follow Liker\import <br>
 	<br>	
+	<strong>Refresh Page sebelum taken. Jangan lupa Masukkan Filename </strong>
+	<br>
+	<br>	
+	
 	<span style="color:#4fee57"><strong>*Online</strong></span> = Last seen < 10 minutes
 	
 	</p>
