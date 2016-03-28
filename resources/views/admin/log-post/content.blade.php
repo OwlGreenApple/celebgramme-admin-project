@@ -19,7 +19,7 @@
 						$color = UserMeta::getMeta($admin->id,"color");
 						echo "<strong><span style='color:".$color."'>".$admin->fullname."</span></strong>";
 					} else {
-						echo "<strong>".$admin->fullname."</strong>";
+						echo "<strong>".$data_arr->admin."</strong>";
 					}
 				?>
       </td>
