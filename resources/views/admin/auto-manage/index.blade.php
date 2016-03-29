@@ -122,18 +122,17 @@
   <div class="page-header">
     <h1>History Posts</h1>
   </div>  
-  <p>	
+  <p style="font-size:12px;">	
 	* unfollow_wdfm = unfollow who dont follow me <br>
 	dont_follow_su = dont follow same user <br>
 	dont_follow_pu = dont follow private user <br>
 	dont_comment_su = dont comment same user <br>
 	usernames_whitelist = usernames unfollow whitelist <br>
-	C1 : \\86.106.18.85\Users\Administrator\Documents\Follow Liker\import <br>
-	C2 : \\198.52.129.10\Users\Administrator\Documents\Follow Liker\import <br>
-	C3 : \\104.254.93.39\Users\Administrator\Documents\Follow Liker\import <br>
-	<br>	
-	<strong>Refresh Page sebelum taken. Jangan lupa Masukkan Filename </strong>
-	<br>
+	<strong>
+	<span style="color:#1212e8">C1 : \\86.106.18.85\Users\Administrator\Documents\Follow Liker\import </span><br>
+	<span style="color:#15ca26">C2 : \\86.106.19.60\Users\Administrator\Documents\Follow Liker\import </span><br>
+	<span style="color:#12b1e6">C3 : \\104.254.93.39\Users\Administrator\Documents\Follow Liker\import </span><br>
+	</strong>
 	<br>	
 	
 	<span style="color:#4fee57"><strong>*Online</strong></span> = Last seen < 10 minutes
@@ -185,7 +184,10 @@
 			}
 		}
 	?>
-	<p align="right"><?php echo $online; ?> Total Setting Post yang perlu di update : <span style="font-size:48px;font-weight:Bold;color:#c12e2a;" id="update-post">{{$count_post}}</span></p>
+	<div class="row">
+		<div class="col-md-7 col-sm-7 col-xs-7"><h4 style="margin-top:40px;">Refresh Page sebelum taken. Jangan lupa Masukkan Filename </h4></div>
+		<div class="col-md-5 col-sm-5 col-xs-5"><?php echo $online; ?> Total Setting Post yang perlu di update : <span style="font-size:48px;font-weight:Bold;color:#c12e2a;" id="update-post">{{$count_post}}</span></div>
+	</div>
   <table class="table table-bordered">  
     <thead>
       <tr>
