@@ -136,6 +136,26 @@
 									else if ($pieces[0]==" hashtags ") {
 										echo "<strong>Hashtags: </strong>".str_replace("#","",$pieces[1]);
 									}
+
+									else if ($pieces[0]==" unfollow_wdfm ") {
+										echo "<strong>Unfollow who dont follow me : </strong>".str_replace("#","",$pieces[1]);
+									}
+									
+									else if ($pieces[0]==" dont_follow_su ") {
+										echo "<strong>Dont follow same user : </strong>".str_replace("#","",$pieces[1]);
+									}
+									
+									else if ($pieces[0]==" dont_follow_pu ") {
+										echo "<strong>Dont follow private user  : </strong>".str_replace("#","",$pieces[1]);
+									}
+									
+									else if ($pieces[0]==" dont_comment_su ") {
+										echo "<strong>Dont comment same user  : </strong>".str_replace("#","",$pieces[1]);
+									}
+									
+									else if ($pieces[0]==" usernames_whitelist ") {
+										echo "<strong>Usernames unfollow whitelist  : </strong>".str_replace("#","",$pieces[1]);
+									}
 									
 								else {
 									echo "<strong>".$pieces[0].": </strong> ".$pieces[1];

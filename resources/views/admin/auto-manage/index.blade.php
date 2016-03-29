@@ -123,11 +123,6 @@
     <h1>History Posts</h1>
   </div>  
   <p style="font-size:12px;">	
-	* unfollow_wdfm = unfollow who dont follow me <br>
-	dont_follow_su = dont follow same user <br>
-	dont_follow_pu = dont follow private user <br>
-	dont_comment_su = dont comment same user <br>
-	usernames_whitelist = usernames unfollow whitelist <br>
 	<strong>
 	<span style="color:#1212e8">C1 : \\86.106.18.85\Users\Administrator\Documents\Follow Liker\import </span><br>
 	<span style="color:#15ca26">C2 : \\86.106.19.60\Users\Administrator\Documents\Follow Liker\import </span><br>
