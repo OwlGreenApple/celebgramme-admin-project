@@ -125,8 +125,8 @@
   <p style="font-size:12px;">	
 	<strong>
 	<span style="color:#1212e8">C1 : \\86.106.18.85\Users\Administrator\Documents\Follow Liker\import </span><br>
-	<span style="color:#15ca26">C2 : \\86.106.19.60\Users\Administrator\Documents\Follow Liker\import </span><br>
-	<span style="color:#12b1e6">C3 : \\104.254.93.39\Users\Administrator\Documents\Follow Liker\import </span><br>
+	<span style="">C2 : \\86.106.19.60\Users\Administrator\Documents\Follow Liker\import </span><br>
+	<span style="color:#420427">C3 : \\104.254.93.39\Users\Administrator\Documents\Follow Liker\import </span><br>
 	</strong>
 	<br>	
 	
@@ -552,6 +552,7 @@
             if(data.type=='success') {
 							$("#title-email").val(data.title);
 							$("#message-email").html(data.message);
+							$("#message-email").val(data.message);
             }
             $("#div-loading").hide();
           }

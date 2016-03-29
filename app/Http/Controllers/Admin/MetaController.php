@@ -76,6 +76,7 @@ class MetaController extends Controller {
 		}
 		$meta->meta_name= "fl_name";
 		$meta->meta_value= Request::input("data_value");
+		$meta->other_const= Request::input("file_color");
 		$meta->save();
     
 		$arr["type"] = "success";

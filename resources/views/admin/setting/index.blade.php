@@ -117,14 +117,6 @@
 		</div>
 	</div>
 	<br>
-  <p>	
-	* unfollow_wdfm = unfollow who dont follow me <br>
-	dont_follow_su = dont follow same user <br>
-	dont_follow_pu = dont follow private user <br>
-	dont_comment_su = dont comment same user <br>
-	usernames_whitelist = usernames unfollow whitelist
-	
-	</p>
   <div class="cover-input-group">
     <div class="input-group fl">
 			<input type="text" id="keyword-search" class="form-control" placeholder="insta username" value="{{$search}}">

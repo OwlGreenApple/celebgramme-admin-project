@@ -19,6 +19,12 @@
 								<input type="text" class="form-control" placeholder="Input data" name="data_value" id="data-value">
               </div>
             </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Color</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="color" id="file-color"  value="#ff0000" style="width:85%;" name="file_color">
+              </div>
+            </div>  
             <input type="hidden" name="id_meta" id="id-meta">
           </form>
         </div>
@@ -157,6 +163,7 @@
       $( "body" ).on( "click", ".btn-update", function() {
         $("#id-meta").val($(this).attr("data-id"));
         $("#data-value").val($(this).attr("data-value"));
+        $("#file-color").val($(this).attr("data-color"));
       });
 			
       $( "body" ).on( "click", "#button-process", function() {

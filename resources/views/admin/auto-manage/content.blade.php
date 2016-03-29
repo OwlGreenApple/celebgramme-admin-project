@@ -1,6 +1,7 @@
 <?php 
 	use Celebgramme\Models\Setting;
 	use Celebgramme\Models\SettingMeta; 
+	use Celebgramme\Models\Meta; 
 	use Celebgramme\Models\User;
 	use Celebgramme\Models\UserMeta;
 	// use Carbon;
@@ -29,13 +30,18 @@
       </td>
       <td align="center">
 				<p class="fl-filename">
-				<span class="edit-fl-filename"><?php 
+				<?php 
 					$filename = "";
+					$colorstatus = "#000";
 					if (SettingMeta::getMeta($data_arr->setting_id,"fl_filename") <> "0" ) {
 						$filename = SettingMeta::getMeta($data_arr->setting_id,"fl_filename");
-						echo $filename."";
+						$meta = Meta::where("meta_name","=","fl_name")->where("meta_value","=",$filename)->first();
+						if (!is_null($meta)) {
+							$colorstatus = $meta->other_const;
+						}
 					}
-				?></span>
+				?>
+				<span style='color:{{$colorstatus}}' class="edit-fl-filename"><?php echo $filename.""; ?></span>
 				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-fl-edit" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->setting_id}}"
 				data-filename="{{$filename}}" style="cursor:pointer;">  </span>
 				</p>
