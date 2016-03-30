@@ -39,14 +39,12 @@
   <div class="page-header">
     <h1>Admin Log Posts</h1>
   </div>  
-  <p>	
-	* unfollow_wdfm = unfollow who dont follow me <br>
-	dont_follow_su = dont follow same user <br>
-	dont_follow_pu = dont follow private user <br>
-	dont_comment_su = dont comment same user <br>
-	usernames_whitelist = usernames unfollow whitelist <br>
-	C1 : \\23.250.113.28\Users\Administrator\Documents\Follow Liker\import <br>
-	C2 : \\198.52.129.10\Users\Administrator\Documents\Follow Liker\import
+  <p style="font-size:12px;">	
+	<strong>
+	<span style="color:#35d51e">C1 : \\86.106.18.85\Users\Administrator\Documents\Follow Liker\import </span><br>
+	<span style="color:#a743c0">C2 : \\86.106.19.60\Users\Administrator\Documents\Follow Liker\import </span><br>
+	<span style="color:#1e80e1">C3 : \\86.106.19.61\Users\Administrator\Documents\Follow Liker\import </span><br>
+	</strong>
 	
 	
 	</p>
@@ -83,8 +81,9 @@
         <th>No. </th>
         <th>Taken By Admin</th>
         <th>Insta Username</th>
-        <th>Update time</th>
+        <th>Server</th>
         <th>Updates</th>
+        <th>Update time</th>
       </tr>      
     </thead>
     

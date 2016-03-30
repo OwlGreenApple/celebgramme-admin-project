@@ -225,6 +225,7 @@ class PostController extends Controller {
     $postlog->admin = $user->fullname;
     $postlog->description = $post->description;
     $postlog->created = $dt->toDateTimeString();
+    $postlog->server = SettingMeta::getMeta($post->setting_id,"fl_filename");
     $postlog->save();
 
     return "success";

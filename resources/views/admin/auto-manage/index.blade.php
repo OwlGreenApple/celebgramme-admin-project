@@ -124,9 +124,9 @@
   </div>  
   <p style="font-size:12px;">	
 	<strong>
-	<span style="color:#1212e8">C1 : \\86.106.18.85\Users\Administrator\Documents\Follow Liker\import </span><br>
-	<span style="">C2 : \\86.106.19.60\Users\Administrator\Documents\Follow Liker\import </span><br>
-	<span style="color:#420427">C3 : \\104.254.93.39\Users\Administrator\Documents\Follow Liker\import </span><br>
+	<span style="color:#35d51e">C1 : \\86.106.18.85\Users\Administrator\Documents\Follow Liker\import </span><br>
+	<span style="color:#a743c0">C2 : \\86.106.19.60\Users\Administrator\Documents\Follow Liker\import </span><br>
+	<span style="color:#1e80e1">C3 : \\86.106.19.61\Users\Administrator\Documents\Follow Liker\import </span><br>
 	</strong>
 	<br>	
 	
