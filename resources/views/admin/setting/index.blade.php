@@ -108,7 +108,7 @@
 		<div class="col-md-2">
 			<select class="form-control" id="status-server">
 				<option value="normal" <?php if($status_server=="normal") { echo "selected"; } ?>>Normal</option>
-				<option value="delay" <?php if($status_server=="delay") { echo "selected"; } ?>>Delay</option>
+				<option value="high" <?php if($status_server=="high") { echo "selected"; } ?>>High</option>
 				<option value="maintenance" <?php if($status_server=="maintenance") { echo "selected"; } ?>>Maintenance</option>
 			</select>
 		</div>
