@@ -121,6 +121,14 @@
     <div class="input-group fl">
 			<input type="text" id="keyword-search" class="form-control" placeholder="insta username" value="{{$search}}">
 		</div>  
+		<!--
+    <div class="input-group fl">
+			<select class="form-control" id="file-name">
+				<option value="all">All</option>
+				<option value="-">-</option>
+			</select>
+		</div>  
+		-->
     <div class="none"></div>
   </div>
   <div class="cover-input-group">
@@ -189,6 +197,7 @@
         data: {
           page: page,
 					keyword: $("#keyword-search").val(),
+					// filename: $("#file-name").val(),
         },
         beforeSend: function()
         {
@@ -210,6 +219,7 @@
         data: {
           page : page,
 					keyword: $("#keyword-search").val(),
+					// filename: $("#file-name").val(),
         },
         beforeSend: function()
         {

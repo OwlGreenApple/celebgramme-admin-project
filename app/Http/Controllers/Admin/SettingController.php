@@ -50,29 +50,58 @@ class SettingController extends Controller {
 
   public function load_setting()
   {
-		if (Request::input('keyword')=="") {
-			$arr = Setting::where("type","=","temp")
-						 ->orderBy('id', 'asc')
-						 ->paginate(15);
-		} else {
-			$arr = Setting::
-							leftJoin('setting_metas', function ($join) {
-									$join->on('settings.id', '=', 'setting_metas.setting_id');
-							})							
-						 ->leftJoin("users","users.id","=","settings.user_id")
-						 ->select("settings.*")
-						 ->where('setting_metas.meta_name', '=', "fl_filename")
-						 ->where("settings.type","=","temp")
-						 ->where(function ($query){
-							 $query->orWhere("insta_username","like","%".Request::input('keyword')."%")
-							 ->orWhere("meta_value","like","%".Request::input('keyword')."%")
-							 ->orWhere("users.email","like","%".Request::input('keyword')."%");
-						 })
-						 ->groupBy("settings.id")
-						 ->orderBy('id', 'asc')
-						 ->paginate(15);
+		// if (Request::input('filename')=="all") {
+			if (Request::input('keyword')=="") {
+				$arr = Setting::where("type","=","temp")
+							 ->orderBy('id', 'asc')
+							 ->paginate(15);
+			} else {
+				$arr = Setting::
+								leftJoin('setting_metas', function ($join) {
+										$join->on('settings.id', '=', 'setting_metas.setting_id');
+								})							
+							 ->leftJoin("users","users.id","=","settings.user_id")
+							 ->select("settings.*")
+							 ->where('setting_metas.meta_name', '=', "fl_filename")
+							 ->where("settings.type","=","temp")
+							 ->where(function ($query){
+								 $query->orWhere("insta_username","like","%".Request::input('keyword')."%")
+								 ->orWhere("meta_value","like","%".Request::input('keyword')."%")
+								 ->orWhere("users.email","like","%".Request::input('keyword')."%");
+							 })
+							 ->groupBy("settings.id")
+							 ->orderBy('id', 'asc')
+							 ->paginate(15);
+			}
+			/*
+		} else if (Request::input('filename')=="-") {
+			if (Request::input('keyword')=="") {
+				$arr = Setting::
+							 leftJoin("setting_metas","setting_metas.setting_id","=","settings.id")
+							 ->select("settings.*")
+							 ->where("settings.type","=","temp")
+							 ->where('setting_metas.meta_name', '=', "fl_filename")
+							 ->where("setting_metas.meta_value","=","-")
+							 ->orderBy('settings.id', 'asc')
+							 ->paginate(15);
+			} else {
+				$arr = Setting::
+							 leftJoin("setting_metas","setting_metas.setting_id","=","settings.id")
+							 ->leftJoin("users","users.id","=","settings.user_id")
+							 ->select("settings.*")
+							 ->where("settings.type","=","temp")
+							 ->where('setting_metas.meta_name', '=', "fl_filename")
+							 ->where("setting_metas.meta_value","=","-")
+							 ->where(function ($query){
+								 $query->orWhere("insta_username","like","%".Request::input('keyword')."%")
+								 ->orWhere("meta_value","like","%".Request::input('keyword')."%")
+								 ->orWhere("users.email","like","%".Request::input('keyword')."%");
+							 })
+							 ->orderBy('settings.id', 'asc')
+							 ->paginate(15);
+			}
 		}
-    
+    */
     return view('admin.setting.content')->with(
                 array(
                   'arr'=>$arr,
@@ -82,29 +111,58 @@ class SettingController extends Controller {
   
 	public function pagination_setting()
   {
-		if (Request::input('keyword')=="") {
-			$arr = Setting::where("type","=","temp")
-						 ->orderBy('id', 'asc')
-						 ->paginate(15);
-		} else {
-			$arr = Setting::
-							leftJoin('setting_metas', function ($join) {
-									$join->on('settings.id', '=', 'setting_metas.setting_id');
-							})							
-						 ->leftJoin("users","users.id","=","settings.user_id")
-						 ->select("settings.id")
-						 ->where('setting_metas.meta_name', '=', "fl_filename")
-						 ->where("settings.type","=","temp")
-						 ->where(function ($query){
-							 $query->orWhere("insta_username","like","%".Request::input('keyword')."%")
-							 ->orWhere("meta_value","like","%".Request::input('keyword')."%")
-							 ->orWhere("users.email","like","%".Request::input('keyword')."%");
-						 })
-						 ->groupBy("settings.id")
-						 ->orderBy('id', 'asc')
-						 ->paginate(15);
+		// if (Request::input('filename')=="all") {
+			if (Request::input('keyword')=="") {
+				$arr = Setting::where("type","=","temp")
+							 ->orderBy('id', 'asc')
+							 ->paginate(15);
+			} else {
+				$arr = Setting::
+								leftJoin('setting_metas', function ($join) {
+										$join->on('settings.id', '=', 'setting_metas.setting_id');
+								})							
+							 ->leftJoin("users","users.id","=","settings.user_id")
+							 ->select("settings.id")
+							 ->where('setting_metas.meta_name', '=', "fl_filename")
+							 ->where("settings.type","=","temp")
+							 ->where(function ($query){
+								 $query->orWhere("insta_username","like","%".Request::input('keyword')."%")
+								 ->orWhere("meta_value","like","%".Request::input('keyword')."%")
+								 ->orWhere("users.email","like","%".Request::input('keyword')."%");
+							 })
+							 ->groupBy("settings.id")
+							 ->orderBy('id', 'asc')
+							 ->paginate(15);
+			}
+			/*
+		} else if (Request::input('filename')=="-") {
+			if (Request::input('keyword')=="") {
+				$arr = Setting::
+							 leftJoin("setting_metas","setting_metas.setting_id","=","settings.id")
+							 ->select("settings.id")
+							 ->where("settings.type","=","temp")
+							 ->where('setting_metas.meta_name', '=', "fl_filename")
+							 ->where("setting_metas.meta_value","=","-")
+							 ->orderBy('settings.id', 'asc')
+							 ->paginate(15);
+			} else {
+				$arr = Setting::
+							 leftJoin("setting_metas","setting_metas.setting_id","=","settings.id")
+							 ->leftJoin("users","users.id","=","settings.user_id")
+							 ->select("settings.id")
+							 ->where("settings.type","=","temp")
+							 ->where('setting_metas.meta_name', '=', "fl_filename")
+							 ->where("setting_metas.meta_value","=","-")
+							 ->where(function ($query){
+								 $query->orWhere("insta_username","like","%".Request::input('keyword')."%")
+								 ->orWhere("meta_value","like","%".Request::input('keyword')."%")
+								 ->orWhere("users.email","like","%".Request::input('keyword')."%");
+							 })
+							 ->orderBy('settings.id', 'asc')
+							 ->paginate(15);
+			}
 		}
-
+*/
 
     return view('admin.setting.pagination')->with(
                 array(
