@@ -1,6 +1,6 @@
 <?php 
 	use Celebgramme\Models\SettingMeta; 
-	// use Celebgramme\Models\User;
+	use Celebgramme\Models\User;
   if ( $arr->count()==0  ) {
     echo "<tr><td colspan='8' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -27,14 +27,14 @@
       </td>
       <td align="center">
 				<?php 
-					// $user = User::find($data_arr->last_user);
-					// if (!is_null($user)) {
-						echo $data_arr->fullname."(".$data_arr->email.")";?><br>
-				<input type="button" value="Send email" data-loading-text="Loading..." class="btn btn-primary btn-send-email" data-toggle="modal" data-target="#myModalSendEmail" data-email="{{$data_arr->email}}" data-fullname="{{$data_arr->fullname}}" data-igaccount="{{$data_arr->insta_username}}"> 
+					$user = User::find($data_arr->last_user);
+					if (!is_null($user)) {
+						echo $user->fullname."(".$user->email.")";?><br>
+				<input type="button" value="Send email" data-loading-text="Loading..." class="btn btn-primary btn-send-email" data-toggle="modal" data-target="#myModalSendEmail" data-email="{{$user->email}}" data-fullname="{{$user->fullname}}" data-igaccount="{{$data_arr->insta_username}}"> 
 				<?php						
-					// } else {
-						// echo "Email account celebgramme deleted";
-					// }
+					} else {
+						echo "Email account celebgramme deleted";
+					}
 				?><br>
       </td>
       <td align="center">

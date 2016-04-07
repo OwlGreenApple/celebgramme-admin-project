@@ -51,14 +51,17 @@ class SettingController extends Controller {
   public function load_setting()
   {
 		if (Request::input('keyword')=="") {
-			$arr = Setting::where("settings.type","=","temp")->join("users","users.id","=","settings.user_id")
-						->select("settings.*","users.fullname","users.email")
+			$arr = Setting::where("type","=","temp")
 						 ->orderBy('id', 'asc')
 						 ->paginate(15);
 		} else {
-			$arr = Setting::leftJoin("setting_metas","setting_metas.setting_id","=","settings.id")
-						 ->join("users","users.id","=","settings.user_id")
-						 ->select("settings.*","users.fullname","users.email")
+			$arr = Setting::
+							leftJoin('setting_metas', function ($join) {
+									$join->on('settings.id', '=', 'setting_metas.setting_id')
+											 ->where('setting_metas.meta_name', '=', "fl_filename");
+							})							
+						 ->leftJoin("users","users.id","=","settings.user_id")
+						 ->select("settings.*")
 						 ->where("settings.type","=","temp")
 						 ->where(function ($query){
 							 $query->where("insta_username","like","%".Request::input('keyword')."%")
@@ -66,6 +69,7 @@ class SettingController extends Controller {
 								 $query2->where("meta_name","=","fl_filename")
 								 ->where("meta_value","like",Request::input('keyword')."%");
 							 })
+							 ->where("meta_value","like",Request::input('keyword')."%");
 							 ->orWhere("users.email","like","%".Request::input('keyword')."%");
 						 })
 						 ->groupBy("settings.id")
@@ -83,13 +87,16 @@ class SettingController extends Controller {
 	public function pagination_setting()
   {
 		if (Request::input('keyword')=="") {
-			$arr = Setting::where("settings.type","=","temp")->join("users","users.id","=","settings.user_id")
-						->select("settings.id")
+			$arr = Setting::where("type","=","temp")
 						 ->orderBy('id', 'asc')
 						 ->paginate(15);
 		} else {
-			$arr = Setting::leftJoin("setting_metas","setting_metas.setting_id","=","settings.id")
-						 ->join("users","users.id","=","settings.user_id")
+			$arr = Setting::
+							leftJoin('setting_metas', function ($join) {
+									$join->on('settings.id', '=', 'setting_metas.setting_id')
+											 ->where('setting_metas.meta_name', '=', "fl_filename");
+							})							
+						 ->leftJoin("users","users.id","=","settings.user_id")
 						 ->select("settings.id")
 						 ->where("settings.type","=","temp")
 						 ->where(function ($query){
