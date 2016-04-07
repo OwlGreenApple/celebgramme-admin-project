@@ -51,13 +51,14 @@ class SettingController extends Controller {
   public function load_setting()
   {
 		if (Request::input('keyword')=="") {
-			$arr = Setting::where("type","=","temp")
+			$arr = Setting::where("settings.type","=","temp")->join("users","users.id","=","settings.user_id")
+						->select("settings.*","users.fullname","users.email")
 						 ->orderBy('id', 'asc')
 						 ->paginate(15);
 		} else {
 			$arr = Setting::leftJoin("setting_metas","setting_metas.setting_id","=","settings.id")
-						 ->leftJoin("users","users.id","=","settings.user_id")
-						 ->select("settings.*")
+						 ->join("users","users.id","=","settings.user_id")
+						 ->select("settings.*","users.fullname","users.email")
 						 ->where("settings.type","=","temp")
 						 ->where(function ($query){
 							 $query->where("insta_username","like","%".Request::input('keyword')."%")
@@ -82,13 +83,14 @@ class SettingController extends Controller {
 	public function pagination_setting()
   {
 		if (Request::input('keyword')=="") {
-			$arr = Setting::where("type","=","temp")
+			$arr = Setting::where("settings.type","=","temp")->join("users","users.id","=","settings.user_id")
+						->select("settings.id")
 						 ->orderBy('id', 'asc')
 						 ->paginate(15);
 		} else {
 			$arr = Setting::leftJoin("setting_metas","setting_metas.setting_id","=","settings.id")
-						 ->leftJoin("users","users.id","=","settings.user_id")
-						 ->select("settings.*")
+						 ->join("users","users.id","=","settings.user_id")
+						 ->select("settings.id")
 						 ->where("settings.type","=","temp")
 						 ->where(function ($query){
 							 $query->where("insta_username","like","%".Request::input('keyword')."%")
