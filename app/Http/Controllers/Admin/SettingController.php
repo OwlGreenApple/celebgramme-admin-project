@@ -65,11 +65,7 @@ class SettingController extends Controller {
 						 ->where("settings.type","=","temp")
 						 ->where(function ($query){
 							 $query->where("insta_username","like","%".Request::input('keyword')."%")
-							 ->orWhere(function ($query2){
-								 $query2->where("meta_name","=","fl_filename")
-								 ->where("meta_value","like",Request::input('keyword')."%");
-							 })
-							 ->where("meta_value","like",Request::input('keyword')."%");
+							 ->orWhere("meta_value","like",Request::input('keyword')."%")
 							 ->orWhere("users.email","like","%".Request::input('keyword')."%");
 						 })
 						 ->groupBy("settings.id")
@@ -101,10 +97,7 @@ class SettingController extends Controller {
 						 ->where("settings.type","=","temp")
 						 ->where(function ($query){
 							 $query->where("insta_username","like","%".Request::input('keyword')."%")
-							 ->orWhere(function ($query2){
-								 $query2->where("meta_name","=","fl_filename")
-								 ->where("meta_value","like",Request::input('keyword')."%");
-							 })
+							 ->orWhere("meta_value","like",Request::input('keyword')."%")
 							 ->orWhere("users.email","like","%".Request::input('keyword')."%");
 						 })
 						 ->groupBy("settings.id")
