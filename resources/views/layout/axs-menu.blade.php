@@ -9,7 +9,7 @@
                 <li><a href="{{url('order', $parameters = [], $secure = null)}}">Order</a></li>
 								<?php } ?>
                 <li><a href="{{url('payment', $parameters = [], $secure = null)}}">Confirm Payment</a></li>
-                <li><a href="{{url('invoice', $parameters = [], $secure = null)}}">Invoice</a></li>
+                <!--<li><a href="{{url('invoice', $parameters = [], $secure = null)}}">Invoice</a></li>-->
                 <li><a href="{{url('coupon', $parameters = [], $secure = null)}}">Coupon</a></li>
               </ul>
           </li>

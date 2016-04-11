@@ -31,7 +31,7 @@
         {{OrderMeta::getMeta($arr->id,"nama pemilik rekening") }}
       </td>
       <td align="center">
-        {{$arr->email}}
+        {{$arr->email." ".$arr->fullname}}
       </td>
       <td align="center" class="data-nohp">
         {{number_format($arr->total,0,'','.')}}
