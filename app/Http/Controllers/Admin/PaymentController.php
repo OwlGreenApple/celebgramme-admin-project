@@ -44,6 +44,13 @@ class PaymentController extends Controller {
   
 	public function load_payment()
   {
+		/*
+		* status 
+		* 2 = All
+		* 1 = confirmed
+		* 0 = Not confirmed
+		*/
+		
     if (Request::input('status')==0) { $temp_s = "="; }
     if (Request::input('status')==1) { $temp_s = "<>"; }
     if (Request::input('search')=="") {
@@ -52,6 +59,7 @@ class PaymentController extends Controller {
                  ->select("orders.*","users.fullname","users.phone_number","users.email")
                  ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
                  ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+								 ->where('orders.order_status','<>',"cron dari affiliate")
                  ->orderBy('orders.created_at', 'desc')->paginate(15);
       }
       if ( (Request::input('status')==1) || (Request::input('status')==0) ){
@@ -60,6 +68,7 @@ class PaymentController extends Controller {
                  ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
                  ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                  ->where('orders.image',$temp_s, "")
+								 ->where('orders.order_status','<>',"cron dari affiliate")
                  ->orderBy('orders.created_at', 'desc')->paginate(15);
       }
     } else {
@@ -69,6 +78,7 @@ class PaymentController extends Controller {
                ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
                ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                ->orWhere('fullname','like','%'.Request::input('search').'%')
+							 ->where('orders.order_status','<>',"cron dari affiliate")
                ->orderBy('orders.created_at', 'desc')->paginate(15);
       }
       if ( (Request::input('status')==1) || (Request::input('status')==0) ){
@@ -77,6 +87,7 @@ class PaymentController extends Controller {
                  ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
                  ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                  ->where('orders.image',$temp_s,"")
+								 ->where('orders.order_status','<>',"cron dari affiliate")
                  ->orderBy('orders.created_at', 'desc')->paginate(15);
       }
     }
@@ -92,6 +103,13 @@ class PaymentController extends Controller {
   
 	public function pagination_payment()
   {
+		/*
+		* status 
+		* 2 = All
+		* 1 = confirmed
+		* 0 = Not confirmed
+		*/
+		
     if (Request::input('status')==1) { $temp_s = "<>"; }
     if (Request::input('status')==0) { $temp_s = "="; }
     if (Request::input('search')=="") {
@@ -100,6 +118,7 @@ class PaymentController extends Controller {
                  ->select("orders.*","users.fullname","users.phone_number","users.email")
                  ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
                  ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+                 ->where('orders.order_status','<>',"cron dari affiliate")
                  ->orderBy('orders.created_at', 'desc')->paginate(15);
       }
       if ( (Request::input('status')==1) || (Request::input('status')==0) ){
@@ -107,7 +126,8 @@ class PaymentController extends Controller {
                  ->select("orders.*","users.fullname","users.phone_number","users.email")
                  ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
                  ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-                 ->where('orders.created_at',$temp_s,'orders.updated_at')
+                 ->where('orders.image',$temp_s, "")
+								 ->where('orders.order_status','<>',"cron dari affiliate")
                  ->orderBy('orders.created_at', 'desc')->paginate(15);
       }
     } else {
@@ -117,6 +137,7 @@ class PaymentController extends Controller {
                ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
                ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                ->orWhere('fullname','like','%'.Request::input('search').'%')
+							 ->where('orders.order_status','<>',"cron dari affiliate")
                ->orderBy('orders.created_at', 'desc')->paginate(15);
       }
       if ( (Request::input('status')==1) || (Request::input('status')==0) ){
@@ -124,7 +145,8 @@ class PaymentController extends Controller {
                  ->select("orders.*","users.fullname","users.phone_number","users.email")
                  ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
                  ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-                 ->where('orders.created_at',$temp_s,'orders.updated_at')
+                 ->where('orders.image',$temp_s,"")
+								 ->where('orders.order_status','<>',"cron dari affiliate")
                  ->orderBy('orders.created_at', 'desc')->paginate(15);
       }
     }
