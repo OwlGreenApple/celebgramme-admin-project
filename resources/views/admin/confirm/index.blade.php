@@ -134,12 +134,13 @@
         }
       });
     }
-    function create_pagination()
+    function create_pagination(page)
     {
       $.ajax({
         url: '<?php echo url('pagination-payment'); ?>',
         type: 'get',
         data: {
+					page : page,
           search : $("#search-text").val(),
           from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
           to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
