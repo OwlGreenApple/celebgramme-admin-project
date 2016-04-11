@@ -54,7 +54,7 @@
               </div>
             </div>  
             <div class="form-group form-group-sm row">
-              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Affiliate</label>
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Kirim email, create user baru ?</label>
               <div class="col-sm-8 col-md-6">
 								<input type="checkbox" name="affiliate-check" id="affiliate-check">
               </div>
@@ -123,7 +123,7 @@
         <th>Fullname</th>
         <th>Total (Rp.)</th>
         <th>Package name</th>
-        <th>Affiliate</th>
+        <th>Keterangan</th>
         <th></th>
       </tr>      
     </thead>

@@ -322,16 +322,19 @@ class PaymentController extends Controller {
   public function order()
   {
     $user = Auth::user();
-		
-		$packages_affiliate = Package::
-													where("package_group","=","auto-manage")
-													;
+		if ( ($user->email == "it2.axiapro@gmail.com") || ($user->email == "admin@admin.com") ) {
+			$packages_affiliate = Package::
+														where("package_group","=","auto-manage")
+														;
 
-    return View::make('admin.order.index')->with(
-                  array(
-                    'user'=>$user,
-                    'packages_affiliate'=>$packages_affiliate,
-                  ));
+			return View::make('admin.order.index')->with(
+										array(
+											'user'=>$user,
+											'packages_affiliate'=>$packages_affiliate,
+										));
+		} else {
+			return "NOT authorized";
+		}
   }
 
   public function load_order()

@@ -39,14 +39,8 @@
           if (!is_null($package)) { echo $package->package_name;} else { echo "-";}
         ?>
       </td>
-      <td>
-				<?php 
-				  if($data_arr->affiliate) {
-						echo "Yes";
-					}else {
-						echo "No";
-					}
-				?>
+      <td> <!-- keterangan -->
+			{{$data_arr->order_status}}
       </td>
       <td align="center">
 				<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}" data-total="{{$data_arr->total}}" data-affiliate="{{$data_arr->affiliate}}" data-package-manage-id="{{$data_arr->package_manage_id}}" data-email="{{$email}}" data-fullname="{{$fullname}}">
