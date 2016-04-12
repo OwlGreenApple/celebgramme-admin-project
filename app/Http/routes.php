@@ -91,6 +91,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('edit-member', 'Admin\MemberController@edit_member');
 	Route::post('delete-member', 'Admin\MemberController@delete_member');
 	Route::post('edit-member-login-webstame', 'Admin\MemberController@edit_member_login_webstame');
+	Route::post('edit-member-max-account', 'Admin\MemberController@edit_member_max_account');
 	Route::get('home-page', 'Admin\MemberController@home_page');
 	Route::post('save-home-page', 'Admin\MemberController@save_home_page');
 

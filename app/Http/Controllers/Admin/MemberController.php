@@ -339,6 +339,18 @@ class MemberController extends Controller {
     return $arr;
 	}
 
+  public function edit_member_max_account()
+	{
+    $arr["type"] = "success";
+    $arr["message"] = "Proses edit member berhasil dilakukan";
+
+		$user = User::find(Request::input("user-id"));
+		$user->max_account = Request::input("max-account-user");
+		$user->save();
+
+    return $arr;
+	}
+
   public function delete_member()
   {
 		$user = User::find(Request::input("id"))->delete();

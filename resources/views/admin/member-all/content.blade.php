@@ -56,6 +56,7 @@
 					<span class='glyphicon glyphicon-remove'></span> 
 				</button>
 				<input type="button" class="btn btn-success btn-check-login-websta" data-toggle="modal" data-target="#myModalEditLoginWebsta" data-id="{{$data_arr->id}}" data-test="{{$data_arr->test}}" value="Login websta">
+				<input type="button" class="btn btn-info btn-max-account" value="Max account" data-toggle="modal" data-target="#myModalMaxAccount" data-id="{{$data_arr->id}}" >
 				<?php } ?>
       </td>
     </tr>    
