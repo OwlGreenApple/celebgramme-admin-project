@@ -104,9 +104,11 @@
     <div class="input-group fl">
       <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
     </div>  
+<?php if ( ($user->email == "it2.axiapro@gmail.com") || ($user->email == "admin@admin.com") ) { ?>
     <div class="input-group fl">
 			<input type="button" value="Add" id="button-add" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModal" > 		
     </div>  
+<?php } ?>
     <div class="none"></div>
   </div>
 	

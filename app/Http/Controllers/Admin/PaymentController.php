@@ -345,7 +345,7 @@ class PaymentController extends Controller {
   public function order()
   {
     $user = Auth::user();
-		if ( ($user->email == "it2.axiapro@gmail.com") || ($user->email == "admin@admin.com") ) {
+		// if ( ($user->email == "it2.axiapro@gmail.com") || ($user->email == "admin@admin.com") ) {
 			$packages_affiliate = Package::
 														where("package_group","=","auto-manage")
 														;
@@ -355,13 +355,14 @@ class PaymentController extends Controller {
 											'user'=>$user,
 											'packages_affiliate'=>$packages_affiliate,
 										));
-		} else {
-			return "NOT authorized";
-		}
+		// } else {
+			// return "NOT authorized";
+		// }
   }
 
   public function load_order()
   {
+		$admin = Auth::user();
 		if (Request::input('keyword') == "" ) {
 			$arr = Order::orderBy('id', 'desc')->paginate(15);
 		} else {
@@ -374,6 +375,7 @@ class PaymentController extends Controller {
 
     return view('admin.order.content')->with(
                 array(
+                  'admin'=>$admin,
                   'arr'=>$arr,
                   'page'=>Request::input('page'),
                 ));

@@ -285,6 +285,7 @@
         <th>Free trial (Daily Likes)</th>
 				-->
         <th>Times left (auto manage)</th>
+        <th>MAX Account</th>
         <th>Created</th>
         <th></th>
       </tr>      
@@ -435,12 +436,14 @@
           }
         });
       });
-      $( "body" ).on( "click", ".btn-daily-like", function() {
-        $(".user-id").val($(this).attr("data-id"));
-        $(".action").val("daily");
-        $("#daily-likes").val("");
-        $("#valid-until").val("");
-      });
+			
+      // $( "body" ).on( "click", ".btn-daily-like", function() {
+        // $(".user-id").val($(this).attr("data-id"));
+        // $(".action").val("daily");
+        // $("#daily-likes").val("");
+        // $("#valid-until").val("");
+      // });
+			
       $( "body" ).on( "click", ".btn-auto-manage", function() {
         $(".user-id").val($(this).attr("data-id"));
         $(".action").val("auto");

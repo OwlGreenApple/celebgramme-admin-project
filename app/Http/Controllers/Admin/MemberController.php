@@ -133,6 +133,7 @@ class MemberController extends Controller {
 
   public function load_member_all()
   {
+		$admin = Auth::user();
 		if (Request::input('sort')==1) {
 		  if (Request::input('keyword')=="") {
 				$arr = User::where("type","<>","admin")
@@ -159,6 +160,7 @@ class MemberController extends Controller {
 
     return view('admin.member-all.content')->with(
                 array(
+                  'admin'=>$admin,
                   'arr'=>$arr,
                   'page'=>Request::input('page'),
                 ));
