@@ -34,6 +34,16 @@
         {{$arr->email." ".$arr->fullname}}
       </td>
       <td align="center" class="data-nohp">
+				<?php 
+					$nilai_konfirmasi = OrderMeta::getMeta($arr->id,"jumlah transfer");
+					if ($nilai_konfirmasi<>"") {
+						echo number_format($nilai_konfirmasi,0,'','.');
+					} else {
+						echo "-";
+					}
+				?>
+      </td>
+      <td align="center" class="data-nohp">
         {{number_format($arr->total,0,'','.')}}
       </td>
       <td align="center">

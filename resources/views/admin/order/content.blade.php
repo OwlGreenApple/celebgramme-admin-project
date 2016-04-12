@@ -1,6 +1,7 @@
 <?php 
   use Celebgramme\Models\Package;
   use Celebgramme\Models\User;
+  use Celebgramme\Models\OrderMeta;
   if ( $arr->count()==0  ) {
     echo "<tr><td colspan='7' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -40,7 +41,12 @@
         ?>
       </td>
       <td> <!-- keterangan -->
-			{{$data_arr->order_status}}
+			<?php 
+				if ($data_arr->order_status == "pending") { echo "pending order";}
+				else { echo $data_arr->order_status; }
+				echo "<br>";
+				echo OrderMeta::getMeta($data_arr->id,"logs");
+			?>
       </td>
       <td align="center">
 				<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}" data-total="{{$data_arr->total}}" data-affiliate="{{$data_arr->affiliate}}" data-package-manage-id="{{$data_arr->package_manage_id}}" data-email="{{$email}}" data-fullname="{{$fullname}}">

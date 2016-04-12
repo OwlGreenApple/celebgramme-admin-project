@@ -52,7 +52,8 @@
         <th>No rekening</th>
         <th>Nama pemilik rekening</th>
         <th>Email</th>
-        <th>Jumlah</th>
+        <th>Nilai yang dikonfirmasi (Rp)</th>
+        <th>Order Total (Rp)</th>
         <th>Coupon</th>
         <th>package daily likes</th>
         <th>package auto manage</th>

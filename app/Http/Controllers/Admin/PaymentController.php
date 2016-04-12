@@ -7,6 +7,7 @@ use Celebgramme\Helpers\GeneralHelper;
 
 use Celebgramme\Models\Invoice;
 use Celebgramme\Models\Order;
+use Celebgramme\Models\OrderMeta;
 use Celebgramme\Models\User;
 use Celebgramme\Models\Package;
 use Celebgramme\Models\PackageUser;
@@ -482,6 +483,8 @@ class PaymentController extends Controller {
 				});
 			}
 		}
+		
+		OrderMeta::createMeta("logs","create order by admin",$order->id);
 		
     $arr['type'] = 'success';
     $arr['id'] = Request::input("id-order");
