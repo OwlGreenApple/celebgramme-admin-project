@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('load-setting', 'Admin\SettingController@load_setting');
 	Route::get('pagination-setting', 'Admin\SettingController@pagination_setting');
 	Route::post('update-status-server', 'Admin\SettingController@update_status_server');
+	Route::post('update-setting-helper', 'Admin\SettingController@update_setting_helper');
 	
 	/* Meta */
 	/* Follow spiderman name file list */

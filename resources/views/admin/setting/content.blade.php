@@ -1,6 +1,7 @@
 <?php 
 	use Celebgramme\Models\SettingMeta; 
 	use Celebgramme\Models\User;
+	use Celebgramme\Models\SettingHelper; 
   if ( $arr->count()==0  ) {
     echo "<tr><td colspan='8' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -110,6 +111,21 @@
       </td>
       <td align="center">
         <span class="glyphicon glyphicon-save download-comments" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>
+      </td>
+      <td align="center">
+				<?php //if ( ($admin->email == "it2.axiapro@gmail.com") || ($admin->email == "admin@admin.com") ) { ?>
+				<?php 
+					$server="";$proxy="";$cred="";$port="";
+					$settingHelper = SettingHelper::where("setting_id","=",$data_arr->id)->first();
+					if ( !is_null($settingHelper) ) {
+						$server = $settingHelper->server;
+						$proxy = $settingHelper->proxy;
+						$cred = $settingHelper->cred;
+						$port = $settingHelper->port;
+					}
+				?>
+				<input type="button" class="btn btn-info button-setting-helper" value="Edit Automation" data-toggle="modal" data-target="#myModalAutomation" data-id="{{$data_arr->id}}" data-server="{{$server}}" data-proxy="{{$proxy}}" data-cred="{{$cred}}" data-port="{{$port}}">
+				<?php //} ?>
       </td>
 			
 			

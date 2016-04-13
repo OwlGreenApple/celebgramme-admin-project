@@ -9,6 +9,7 @@ use Celebgramme\Models\RequestModel;
 use Celebgramme\Models\Post;
 use Celebgramme\Models\Setting;
 use Celebgramme\Models\SettingMeta; 
+use Celebgramme\Models\SettingHelper; 
 use Celebgramme\Models\LinkUserSetting;
 use Celebgramme\Models\TemplateEmail;
 
@@ -50,6 +51,7 @@ class SettingController extends Controller {
 
   public function load_setting()
   {
+		$admin = Auth::user();
 		// if (Request::input('filename')=="all") {
 			if (Request::input('keyword')=="") {
 				$arr = Setting::where("type","=","temp")
@@ -104,6 +106,7 @@ class SettingController extends Controller {
     */
     return view('admin.setting.content')->with(
                 array(
+                  'admin'=>$admin,
                   'arr'=>$arr,
                   'page'=>Request::input('page'),
                 ));
@@ -183,6 +186,22 @@ class SettingController extends Controller {
     return "success";
   }
 
+	public function update_setting_helper()
+	{
+		$settingHelper = SettingHelper::where("setting_id","=",Request::input("setting-id"))->first();
+		if (is_null($settingHelper)) {
+			$settingHelper = new SettingHelper;
+		}
+		$settingHelper->server = Request::input("name-server");
+		$settingHelper->proxy = Request::input("proxy");
+		$settingHelper->cred = Request::input("cred");
+		$settingHelper->port = Request::input("port");
+		$settingHelper->setting_id = Request::input("setting-id");
+		$settingHelper->save();
+		
+		return "success";
+	}
+	
 	public function update_status_server()
   {
 		$meta = Meta::where('meta_name','=','status_server')->first();

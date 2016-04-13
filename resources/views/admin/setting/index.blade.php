@@ -96,6 +96,52 @@
     </div>
   </div>
 	
+	<!-- Modal Automation -->
+  <div class="modal fade" id="myModalAutomation" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-setting-helper">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Server</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Name server" name="name-server" id="name-server">
+              </div>
+            </div>
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Proxy</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="proxy" name="proxy" id="proxy">
+              </div>
+            </div>
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Username password proxy</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="username:password" name="cred" id="cred">
+              </div>
+            </div>
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Port</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="port" name="port" id="port">
+              </div>
+            </div>
+            <input type="hidden" class="setting-id" name="setting-id">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default button-process" data-dismiss="modal" id="button-process-setting-helper" data-check="auto">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 
   <div class="page-header">
@@ -157,6 +203,7 @@
         <th>Download Hashtags</th>
         <th>Download Usernames</th>
         <th>Download Comments</th>
+        <th></th>
 				
       </tr>      
     </thead>
@@ -421,6 +468,37 @@
           },
           type: 'post',
           data: $("#form-send-email").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            if(result=='success') {
+            }
+            $("#div-loading").hide();
+          }
+        });
+      });
+
+			$( "body" ).on( "click", ".button-setting-helper", function() {
+				$(".setting-id").val($(this).attr("data-id"));
+				
+				$("#name-server").val($(this).attr("data-server"));
+				$("#proxy").val($(this).attr("data-proxy"));
+				$("#cred").val($(this).attr("data-cred"));
+				$("#port").val($(this).attr("data-port"));
+      });
+      $( "body" ).on( "click", "#button-process-setting-helper", function() {
+        temp = $(this);
+        $.ajax({
+          url: '<?php echo url('update-setting-helper'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-setting-helper").serialize(),
           beforeSend: function()
           {
             $("#div-loading").show();
