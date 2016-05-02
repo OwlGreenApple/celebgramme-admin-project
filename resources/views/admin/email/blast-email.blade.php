@@ -27,11 +27,13 @@
 
   <div class="cover-input-group">
 
-    <div class="input-group fl">
-		Subject
+		<div class="input-group">
+			Subject
     </div>  
-    <div class="input-group fl">
-      <input type="text" value="" class="form-control" id="text-subject">
+    <div class="row">
+			<div class="col-md-10">
+				<input type="text" value="" class="form-control" id="text-subject">
+			</div>  
     </div>  
   </div>  
   <div class="cover-input-group">
