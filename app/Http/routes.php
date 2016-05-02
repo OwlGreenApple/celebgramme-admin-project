@@ -123,6 +123,24 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-payment', 'Admin\PaymentController@pagination_payment');
 	Route::patch('update-payment/{konfirmasiId}', 'Admin\PaymentController@update_payment');
   
+	/* Proxy Manager  */
+	Route::get('proxy-manager', 'Admin\ProxyController@index');
+	Route::get('load-proxy-manager', 'Admin\ProxyController@load_proxy_manager');
+	Route::get('pagination-proxy-manager', 'Admin\ProxyController@pagination_proxy_manager');
+	Route::post('add-proxy', 'Admin\ProxyController@add_proxy');
+	Route::post('edit-proxy', 'Admin\ProxyController@edit_proxy');
+	Route::post('delete-proxy', 'Admin\ProxyController@delete_proxy');
+	
+	/* Email  */
+	Route::get('email-users', 'Admin\EmailController@index');
+	Route::get('load-email-users', 'Admin\EmailController@load_email_users');
+	Route::get('pagination-email-users', 'Admin\EmailController@pagination_email_users');
+	Route::post('add-email-users', 'Admin\EmailController@add_email_users');
+	Route::post('edit-email-users', 'Admin\EmailController@edit_email_users');
+	Route::post('delete-email-users', 'Admin\EmailController@delete_email_users');
+	Route::get('blast-email', 'Admin\EmailController@blast_email');
+	Route::post('send-blast-email', 'Admin\EmailController@send_blast_email');
+
 	Route::get('invoice', 'Admin\InvoiceController@index');
 	Route::get('load-invoice', 'Admin\InvoiceController@load_invoice');
 	Route::get('pagination-invoice', 'Admin\InvoiceController@pagination_invoice');

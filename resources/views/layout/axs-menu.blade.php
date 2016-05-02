@@ -1,5 +1,6 @@
 <div id="navbar-axs" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
+				<?php if ( $user->email != "hancelebgramme@gmail.com" ) { ?>
           <li class='dropdown'>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Payment<span class="caret"></span>
@@ -11,6 +12,7 @@
                 <li><a href="{{url('coupon', $parameters = [], $secure = null)}}">Coupon</a></li>
               </ul>
           </li>
+				<?php } ?>
 <?php 
 use Celebgramme\Models\Post;
 $count_post = Post::join("settings","settings.id","=","posts.setting_id")
@@ -36,19 +38,41 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{url('member-all', $parameters = [], $secure = null)}}">All</a></li>
-                <li><a href="{{url('access-token', $parameters = [], $secure = null)}}">Access Token</a></li>
+                <!--<li><a href="{{url('access-token', $parameters = [], $secure = null)}}">Access Token</a></li>-->
                 <li><a href="{{url('home-page', $parameters = [], $secure = null)}}">Home Page</li></a>
               </ul>
           </li>
+					<?php if ( ($user->email == "it2.axiapro@gmail.com") || ($user->email == "admin@admin.com") ) { ?>
+          <li class='dropdown'>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                Email<span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{{url('email-users', $parameters = [], $secure = null)}}">Users</a></li>
+                <li><a href="{{url('blast-email', $parameters = [], $secure = null)}}">Blast Email</a></li>
+              </ul>
+          </li>
+					<?php } ?>
           <li class='dropdown'>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Package<span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{url('package-auto-manage', $parameters = [], $secure = null)}}">Package Auto Manage</a></li>
-                <li><a href="#">Package Daily Likes</a></li>
+                <!--<li><a href="#">Package Daily Likes</a></li>-->
               </ul>
           </li>
+					<?php if ( ($user->email == "it2.axiapro@gmail.com") || ($user->email == "admin@admin.com") ) { ?>
+          <li class='dropdown'>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                Automation<span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{{url('proxy-manager', $parameters = [], $secure = null)}}">Proxy Manager</a></li>
+                <li><a href="{{url('ig-users-logs', $parameters = [], $secure = null)}}">IG Users Logs</a></li>
+              </ul>
+          </li>
+					<?php } ?>
           <li class='dropdown'>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Helper Const<span class="caret"></span>
