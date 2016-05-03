@@ -217,7 +217,7 @@ class PostController extends Controller {
     $arr_temp = $setting_temp->toArray();
     unset($arr_temp['id']);unset($arr_temp['type']);
     $setting_real->update($arr_temp);
-		
+
 		//log 
 		$dt = Carbon::now();
     $postlog = new PostLog;
@@ -228,6 +228,11 @@ class PostController extends Controller {
     $postlog->server = SettingMeta::getMeta($post->setting_id,"fl_filename");
     $postlog->save();
 
+		if ( ($setting_temp->status=="deleted") && ($setting_real->status=="deleted") ) {
+			$setting_temp->delete();
+			$delete_setting_real = Setting::find($setting_real->id)->delete();
+		}
+		
     return "success";
   }
 
