@@ -98,6 +98,7 @@ class EmailController extends Controller {
 		$content = Request::input("content");
 		foreach($emailusers as $emailuser){
 					$content = str_replace("/nama/", $emailuser->fullname, $content);
+					$subject = str_replace("/nama/", $emailuser->fullname, $subject);
 					$emaildata = [
 							'content' => $content,
 					];
