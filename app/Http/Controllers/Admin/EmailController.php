@@ -97,15 +97,15 @@ class EmailController extends Controller {
 		$subject = Request::input("subject");
 		$content = Request::input("content");
 		foreach($emailusers as $emailuser){
-					$content = str_replace("/nama/", $emailuser->fullname, $content);
-					$subject = str_replace("/nama/", $emailuser->fullname, $subject);
+					$replace_content = str_replace("/nama/", $emailuser->fullname, $content);
+					$replace_subject = str_replace("/nama/", $emailuser->fullname, $subject);
 					$emaildata = [
-							'content' => $content,
+							'content' => $replace_content,
 					];
-					Mail::queue('emails.content', $emaildata, function ($message) use ($emailuser,$subject) {
+					Mail::queue('emails.content', $emaildata, function ($message) use ($emailuser,$replace_subject) {
 						$message->from('no-reply@celebgramme.com', 'Celebgramme');
 						$message->to($emailuser->email);
-						$message->subject($subject);
+						$message->subject($replace_subject);
 					});
 			
 		}
