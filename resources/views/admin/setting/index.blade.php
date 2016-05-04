@@ -191,7 +191,7 @@
   </nav>  
   <table class="table table-bordered">  
     <thead>
-      <tr>
+      <tr style="font-weight:bold;">
         <th>No. </th>
         <th>Password Error</th>
         <th>Insta username / Insta password</th>
@@ -200,7 +200,10 @@
         <th>Updates</th>
 				
         <th>Download </th>
-        <th></th>
+        <th>Action</th>
+        <th>Proxy</th>
+        <th>Status</th>
+        <th>Method</th>
 				
       </tr>      
     </thead>

@@ -55,14 +55,6 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('send-email-member', 'Admin\PostController@send_email_member');
 	Route::get('load-template', 'Admin\PostController@load_template_email');
 
-	/* Setting */
-	Route::get('setting', 'Admin\SettingController@index');
-	Route::get('setting/{search}', 'Admin\SettingController@index');
-	Route::get('load-setting', 'Admin\SettingController@load_setting');
-	Route::get('pagination-setting', 'Admin\SettingController@pagination_setting');
-	Route::post('update-status-server', 'Admin\SettingController@update_status_server');
-	Route::post('update-setting-helper', 'Admin\SettingController@update_setting_helper');
-	
 	/* Meta */
 	/* Follow spiderman name file list */
 	Route::get('fl-name', 'Admin\MetaController@fl_name');
@@ -123,6 +115,14 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-payment', 'Admin\PaymentController@pagination_payment');
 	Route::patch('update-payment/{konfirmasiId}', 'Admin\PaymentController@update_payment');
   
+	/* Setting Account IG All*/
+	Route::get('setting', 'Admin\SettingController@index');
+	Route::get('setting/{search}', 'Admin\SettingController@index');
+	Route::get('load-setting', 'Admin\SettingController@load_setting');
+	Route::get('pagination-setting', 'Admin\SettingController@pagination_setting');
+	Route::post('update-status-server', 'Admin\SettingController@update_status_server');
+	Route::post('update-setting-helper', 'Admin\SettingController@update_setting_helper');
+	
 	/* Proxy Manager  */
 	Route::get('proxy-manager', 'Admin\ProxyController@index');
 	Route::get('load-proxy-manager', 'Admin\ProxyController@load_proxy_manager');

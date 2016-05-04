@@ -8,6 +8,15 @@
     //search by username
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
+		$server="";$proxy="";$cred="";$port="";$use_automation="";
+		$settingHelper = SettingHelper::where("setting_id","=",$data_arr->id)->first();
+		if ( !is_null($settingHelper) ) {
+			$server = $settingHelper->server;
+			$proxy = $settingHelper->proxy;
+			$cred = $settingHelper->cred;
+			$port = $settingHelper->port;
+			$use_automation = $settingHelper->use_automation;
+		}
 ?>
     <tr class="row{{$data_arr->id}}">
       <td>
@@ -113,24 +122,24 @@
       </td>
       <td align="center">
 				<?php //if ( ($admin->email == "it2.axiapro@gmail.com") || ($admin->email == "admin@admin.com") ) { ?>
-				<?php 
-					$server="";$proxy="";$cred="";$port="";
-					$settingHelper = SettingHelper::where("setting_id","=",$data_arr->id)->first();
-					if ( !is_null($settingHelper) ) {
-						$server = $settingHelper->server;
-						$proxy = $settingHelper->proxy;
-						$cred = $settingHelper->cred;
-						$port = $settingHelper->port;
-					}
-				?>
-				<input type="button" class="btn btn-info button-setting-helper" value="Assign Proxy" data-toggle="modal" data-target="#myModalAutomation" data-id="{{$data_arr->id}}" data-server="{{$server}}" data-proxy="{{$proxy}}" data-cred="{{$cred}}" data-port="{{$port}}">
+				<input type="button" class="btn btn-warning btn-delete-proxy" value="Clear" data-toggle="modal" data-target="#confirm-delete" data-id="{{$data_arr->id}}">
 
-				<input type="button" class="btn btn-danger btn-delete-proxy" value="Clear assign proxy " data-toggle="modal" data-target="#confirm-delete" data-id="{{$data_arr->id}}">
-				
-				<input type="button" value="stop" class="button-action btn " data-id="{{$data_arr->id}}" >
-				
 				<?php //} ?>
       </td>
+      <td align="center">
+				<input type="button" class="btn btn-info button-setting-helper" value="Assign" data-toggle="modal" data-target="#myModalAutomation" data-id="{{$data_arr->id}}" data-server="{{$server}}" data-proxy="{{$proxy}}" data-cred="{{$cred}}" data-port="{{$port}}">
+			</td>
+      <td align="center">
+				<input type="button" value="stop" class="button-action btn " data-id="{{$data_arr->id}}" >
+			</td>
+      <td align="center">
+				<button class="btn btn-primary btn-method" data-id="{{$data_arr->id}}" >
+				<?php 
+					if ($use_automation) { echo "Auto"; } else { echo "Manual"; }
+				?>
+				</button>
+			</td>
+<!-- glyphicon glyphicon-hand-right manual glyphicon-wrench auto -->
 			
 			
     </tr>    

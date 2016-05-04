@@ -202,6 +202,18 @@ class SettingController extends Controller {
 		return "success";
 	}
 	
+	public function update_use_automation()
+	{
+		$settingHelper = SettingHelper::where("setting_id","=",Request::input("setting-id"))->first();
+		if (is_null($settingHelper)) {
+			$settingHelper = new SettingHelper;
+		}
+		$settingHelper->use_automation = 1;
+		$settingHelper->save();
+		
+		return "success";
+	}
+
 	public function update_status_server()
   {
 		$meta = Meta::where('meta_name','=','status_server')->first();
