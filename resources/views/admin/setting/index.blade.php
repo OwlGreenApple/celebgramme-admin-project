@@ -25,7 +25,7 @@
         <div class="modal-body">
           <form enctype="multipart/form-data" id="form-edit">
             <div class="form-group form-group-sm row">
-              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Spiderman filename</label>
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Server Name</label>
               <div class="col-sm-8 col-md-6">
 								<select class="form-control" name="fl-filename" id="fl-filename">
 									@foreach ($filenames as $filename)
@@ -194,15 +194,12 @@
       <tr>
         <th>No. </th>
         <th>Password Error</th>
-        <th>Insta username</th>
-        <th>Insta password</th>
+        <th>Insta username / Insta password</th>
         <th>Fullname (email)</th>
-        <th>Filename (Spiderman)</th>
+        <th>Server Name</th>
         <th>Updates</th>
 				
-        <th>Download Hashtags</th>
-        <th>Download Usernames</th>
-        <th>Download Comments</th>
+        <th>Download </th>
         <th></th>
 				
       </tr>      

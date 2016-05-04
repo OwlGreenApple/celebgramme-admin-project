@@ -21,9 +21,7 @@
         <?php } ?>
       </td>
       <td align="center">
-        {{$data_arr->insta_username}}
-      </td>
-      <td align="center">
+        {{$data_arr->insta_username}} /
         {{$data_arr->insta_password}}
       </td>
       <td align="center">
@@ -95,19 +93,22 @@
       </td>
 
       <td align="center">
+				Hashtags
 				<select>
-					<option data-val="Relevant">Like Comment # Relevant</option>
 					<option data-val="Normal Search">Follow # Normal Search</option>
+					<option data-val="Relevant">Like Comment # Relevant</option>
 				</select>
         <span class="glyphicon glyphicon-save download-hashtags" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>
-      </td>
-      <td align="center">
+				<br><br>
+				
+				Usernames
 				<select>
 					<option>User's Follower</option>
 				</select>
         <span class="glyphicon glyphicon-save download-usernames" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>
-      </td>
-      <td align="center">
+				<br><br>
+				
+				Comment
         <span class="glyphicon glyphicon-save download-comments" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>
       </td>
       <td align="center">

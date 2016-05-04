@@ -33,36 +33,10 @@
       <td align="center">
         {{$arr->email." ".$arr->fullname}}
       </td>
-			<!--
-      <td align="center" class="data-nohp">
-				<?php 
-					$nilai_konfirmasi = OrderMeta::getMeta($arr->id,"jumlah transfer");
-					if ($nilai_konfirmasi<>"") {
-						echo number_format($nilai_konfirmasi,0,'','.');
-					} else {
-						echo "-";
-					}
-				?>
-      </td>
-			-->
+
       <td align="center" class="data-nohp">
         {{number_format($arr->total - $arr->discount,0,'','.')}}
       </td>
-      <!--<td align="center">
-        <?php 
-          $coupon = Coupon::find($arr->coupon_id);
-          if (!is_null($coupon)) {
-            echo $coupon->coupon_value;
-          } else echo "0";
-        ?>
-      </td>
-      <td align="center">
-        <?php 
-          $package = Package::find($arr->package_id);
-          if (!is_null($package)) { echo $package->package_name;} else { echo "-";}
-        ?>
-      </td>
-			-->
       <td align="center">
         <?php 
           $package = Package::find($arr->package_manage_id);
