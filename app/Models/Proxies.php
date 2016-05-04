@@ -6,4 +6,5 @@ class Proxies extends Model {
 
 	protected $connection = 'mysql_axs';
 	protected $table = 'proxies';
+	public $timestamps = false;
 }

@@ -37,13 +37,13 @@
       <td>
         <?php 
           $package = Package::find($data_arr->package_manage_id);
-          if (!is_null($package)) { echo $package->package_name;} else { echo "-";}
+          if (!is_null($package)) { echo $package->package_name."</span>";} else { echo "-";}
         ?>
       </td>
       <td> <!-- keterangan -->
 			<?php 
-				if ($data_arr->order_status == "pending") { echo "pending order";}
-				else { echo $data_arr->order_status; }
+				if ($data_arr->order_status == "pending") { echo "<span style='color:#c12e2a;font-weight:Bold;'>Pending order</span>";}
+				else { echo "<span style='color:#1e80e1;font-weight:Bold;'>".$data_arr->order_status."</span>"; }
 				echo "<br>";
 				echo OrderMeta::getMeta($data_arr->id,"logs");
 			?>

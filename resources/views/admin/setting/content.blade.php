@@ -124,7 +124,10 @@
 						$port = $settingHelper->port;
 					}
 				?>
-				<input type="button" class="btn btn-info button-setting-helper" value="Edit Automation" data-toggle="modal" data-target="#myModalAutomation" data-id="{{$data_arr->id}}" data-server="{{$server}}" data-proxy="{{$proxy}}" data-cred="{{$cred}}" data-port="{{$port}}">
+				<input type="button" class="btn btn-info button-setting-helper" value="Assign Proxy" data-toggle="modal" data-target="#myModalAutomation" data-id="{{$data_arr->id}}" data-server="{{$server}}" data-proxy="{{$proxy}}" data-cred="{{$cred}}" data-port="{{$port}}">
+
+				<input type="button" class="btn btn-danger btn-delete-proxy" value="Clear assign proxy " data-toggle="modal" data-target="#confirm-delete" data-id="{{$data_arr->id}}">
+				
 				<?php //} ?>
       </td>
 			

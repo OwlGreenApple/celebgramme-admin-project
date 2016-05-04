@@ -33,6 +33,7 @@
       <td align="center">
         {{$arr->email." ".$arr->fullname}}
       </td>
+			<!--
       <td align="center" class="data-nohp">
 				<?php 
 					$nilai_konfirmasi = OrderMeta::getMeta($arr->id,"jumlah transfer");
@@ -43,10 +44,11 @@
 					}
 				?>
       </td>
+			-->
       <td align="center" class="data-nohp">
-        {{number_format($arr->total,0,'','.')}}
+        {{number_format($arr->total - $arr->discount,0,'','.')}}
       </td>
-      <td align="center">
+      <!--<td align="center">
         <?php 
           $coupon = Coupon::find($arr->coupon_id);
           if (!is_null($coupon)) {
@@ -60,6 +62,7 @@
           if (!is_null($package)) { echo $package->package_name;} else { echo "-";}
         ?>
       </td>
+			-->
       <td align="center">
         <?php 
           $package = Package::find($arr->package_manage_id);

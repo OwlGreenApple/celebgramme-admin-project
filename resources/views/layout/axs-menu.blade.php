@@ -70,6 +70,7 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{url('proxy-manager', $parameters = [], $secure = null)}}">Proxy Manager</a></li>
                 <li><a href="{{url('ig-users-logs', $parameters = [], $secure = null)}}">IG Users Logs</a></li>
+                <li><a href="{{url('ig-users-logs', $parameters = [], $secure = null)}}">Setting Delay Global</a></li>
               </ul>
           </li>
 					<?php } ?>

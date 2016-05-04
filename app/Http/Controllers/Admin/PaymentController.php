@@ -61,7 +61,7 @@ class PaymentController extends Controller {
                  ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
                  ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
 								 ->where('orders.order_status','<>',"cron dari affiliate")
-                 ->orderBy('orders.created_at', 'desc')->paginate(15);
+                 ->orderBy('orders.updated_at', 'desc')->paginate(15);
       }
       if ( (Request::input('status')==1) || (Request::input('status')==0) ){
         $order = Order::join('users',"users.id","=","orders.user_id")
@@ -70,7 +70,7 @@ class PaymentController extends Controller {
                  ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                  ->where('orders.image',$temp_s, "")
 								 ->where('orders.order_status','<>',"cron dari affiliate")
-                 ->orderBy('orders.created_at', 'desc')->paginate(15);
+                 ->orderBy('orders.updated_at', 'desc')->paginate(15);
       }
     } else {
       if (Request::input('status')==2) {
@@ -80,7 +80,7 @@ class PaymentController extends Controller {
                ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                ->orWhere('fullname','like','%'.Request::input('search').'%')
 							 ->where('orders.order_status','<>',"cron dari affiliate")
-               ->orderBy('orders.created_at', 'desc')->paginate(15);
+               ->orderBy('orders.updated_at', 'desc')->paginate(15);
       }
       if ( (Request::input('status')==1) || (Request::input('status')==0) ){
         $order = Order::join('users',"users.id","=","orders.user_id")
@@ -89,7 +89,7 @@ class PaymentController extends Controller {
                  ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                  ->where('orders.image',$temp_s,"")
 								 ->where('orders.order_status','<>',"cron dari affiliate")
-                 ->orderBy('orders.created_at', 'desc')->paginate(15);
+                 ->orderBy('orders.updated_at', 'desc')->paginate(15);
       }
     }
 
@@ -120,7 +120,7 @@ class PaymentController extends Controller {
                  ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
                  ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                  ->where('orders.order_status','<>',"cron dari affiliate")
-                 ->orderBy('orders.created_at', 'desc')->paginate(15);
+                 ->orderBy('orders.updated_at', 'desc')->paginate(15);
       }
       if ( (Request::input('status')==1) || (Request::input('status')==0) ){
         $order = Order::join('users',"users.id","=","orders.user_id")
@@ -129,7 +129,7 @@ class PaymentController extends Controller {
                  ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                  ->where('orders.image',$temp_s, "")
 								 ->where('orders.order_status','<>',"cron dari affiliate")
-                 ->orderBy('orders.created_at', 'desc')->paginate(15);
+                 ->orderBy('orders.updated_at', 'desc')->paginate(15);
       }
     } else {
       if (Request::input('status')==2) {
@@ -139,7 +139,7 @@ class PaymentController extends Controller {
                ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                ->orWhere('fullname','like','%'.Request::input('search').'%')
 							 ->where('orders.order_status','<>',"cron dari affiliate")
-               ->orderBy('orders.created_at', 'desc')->paginate(15);
+               ->orderBy('orders.updated_at', 'desc')->paginate(15);
       }
       if ( (Request::input('status')==1) || (Request::input('status')==0) ){
         $order = Order::join('users',"users.id","=","orders.user_id")
@@ -148,7 +148,7 @@ class PaymentController extends Controller {
                  ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                  ->where('orders.image',$temp_s,"")
 								 ->where('orders.order_status','<>',"cron dari affiliate")
-                 ->orderBy('orders.created_at', 'desc')->paginate(15);
+                 ->orderBy('orders.updated_at', 'desc')->paginate(15);
       }
     }
 

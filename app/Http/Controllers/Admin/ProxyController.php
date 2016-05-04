@@ -6,6 +6,7 @@ use Celebgramme\Http\Controllers\Controller;
 use Celebgramme\Helpers\GeneralHelper;
 
 use Celebgramme\Models\Proxies;
+use Celebgramme\Models\LinkProxySetting;
 
 use View,Auth,Request,DB,Carbon,Excel, Mail, Validator;
 
@@ -60,16 +61,23 @@ class ProxyController extends Controller {
 	public function add_proxy()
   {
     $arr["type"] = "success";
-    $arr["message"] = "Proses add proxy berhasil dilakukan";
+    $arr["message"] = "Proses add / edit proxy berhasil dilakukan";
 		
-		return $arr;
-	}
+		if ( Request::input("id_proxy")=="new" ) {
+			$proxy = new Proxies;
+		} else {
+			$proxy = Proxies::find(Request::input("id_proxy"));
+		}
+		$proxy->proxy = Request::input("proxy");
+		$proxy->cred = Request::input("cred");
+		$proxy->port = Request::input("port");
+		if ( (Request::input("cred") <> "" ) && (Request::input("port")<>"") ) {
+			$proxy->auth = true;
+		} else {
+			$proxy->auth = false;
+		}
+		$proxy->save();
 
-	public function edit_proxy()
-  {
-    $arr["type"] = "success";
-    $arr["message"] = "Proses edit proxy berhasil dilakukan";
-		
 		return $arr;
 	}
 
@@ -77,12 +85,16 @@ class ProxyController extends Controller {
   {
     $arr["type"] = "success";
     $arr["message"] = "Proses delete proxy berhasil dilakukan";
-		
+
+		if (LinkProxySetting::where("proxy_id","=",Request::input("id"))->count()>0) {
+			LinkProxySetting::where("proxy_id","=",Request::input("id"))->delete();
+		}
+		$check_proxy = Proxies::find(Request::input("id"));
+		if (!is_null($check_proxy)) {
+			$check_proxy->delete();
+		}
+
 		return $arr;
 	}
-
-
-
-
   
 }

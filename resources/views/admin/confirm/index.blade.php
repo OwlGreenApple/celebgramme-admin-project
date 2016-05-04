@@ -52,11 +52,11 @@
         <th>No rekening</th>
         <th>Nama pemilik rekening</th>
         <th>Email</th>
-        <th>Nilai yang dikonfirmasi (Rp)</th>
+        <!--<th>Nilai yang dikonfirmasi (Rp)</th>-->
         <th>Order Total (Rp)</th>
-        <th>Coupon</th>
-        <th>package daily likes</th>
-        <th>package auto manage</th>
+        <!--<th>Coupon</th>-->
+        <!--<th>package daily likes</th>-->
+        <th>Package Type</th>
         <th>Bukti Transfer</th>
         <th>Status</th>
       </tr>      

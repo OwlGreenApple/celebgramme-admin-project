@@ -28,11 +28,10 @@
 											<input type="text" class="form-control" placeholder="port" name="port" id="port">
 										</div>
 									</div>
-									<input type="hidden" class="proxy-id" name="proxy-id">
+									<input type="hidden" class="" name="id_proxy" id="id-proxy">
 								</form>
 									
 							</div>
-							<input type="hidden" id="id-order-delete">
 							<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 									<button type="button" data-dismiss="modal" class="btn btn-default btn-ok" id="button-submit-proxy">Submit</button>
@@ -51,7 +50,7 @@
 							<div class="modal-body">
 									Are you sure want to delete ?
 							</div>
-							<input type="hidden" id="id-member-delete">
+							<input type="hidden" id="id-proxy-delete">
 							<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 									<button type="button" data-dismiss="modal" class="btn btn-danger btn-ok" id="button-delete">Delete</button>
@@ -71,7 +70,7 @@
       <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
     </div>  
     <div class="input-group fl">
-      <input type="button" value="Add" id="button-Add" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#modal-proxy"> 
+      <input type="button" value="Add" id="button-add" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#modal-proxy"> 
     </div>  
     <div class="none"></div>
   </div>
@@ -209,31 +208,17 @@
       $('#button-add').click(function(e){
         e.preventDefault();
         $("#id-proxy").val("new");
-  			$('#affiliate-check').attr('checked', false);
-				$("#select-auto-manage").val("None");
-				$("#email").val("");
-				$("#fullname").val("");
       });
-      $( "body" ).on( "click", ".btn-update", function() {
+      $( "body" ).on( "click", ".button-edit-proxy", function() {
         $("#id-proxy").val($(this).attr("data-id"));
-				if ($(this).attr("data-package-manage-id") != 0 ) {
-					$("#select-auto-manage").val($(this).attr("data-package-manage-id"));
-				} else {
-					$("#select-auto-manage").val("None");
-				}
-        $("#total").val($(this).attr("data-total"));
-				if ( $(this).attr("data-affiliate") == "0") {
-					$('#affiliate-check').attr('checked', false);
-				} else {
-					$('#affiliate-check').attr('checked', true);
-				}
-				$("#email").val($(this).attr("data-email"));
-				$("#fullname").val($(this).attr("data-fullname"));
+        $("#proxy").val($(this).attr("data-proxy"));
+        $("#cred").val($(this).attr("data-cred"));
+        $("#port").val($(this).attr("data-port"));
       });
-      $( "body" ).on( "click", "#button-process", function() {
+      $( "body" ).on( "click", "#button-submit-proxy", function() {
         temp = $(this);
         $.ajax({                                      
-          url: '<?php echo url('add-order'); ?>',
+          url: '<?php echo url('add-proxy'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
