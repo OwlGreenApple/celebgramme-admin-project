@@ -32,7 +32,7 @@
         {{$fullname}}
       </td>
       <td align="right">
-        {{number_format($data_arr->total,0,'','.')}}
+        {{number_format($data_arr->total-$data_arr->discount,0,'','.')}}
       </td>
       <td>
         <?php 

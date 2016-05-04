@@ -541,6 +541,9 @@
         });
 			});
 			
+			$( "body" ).on( "click", ".button-action", function() {
+			});
+			
     });
   </script>		
   

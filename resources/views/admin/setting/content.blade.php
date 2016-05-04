@@ -104,8 +104,6 @@
       <td align="center">
 				<select>
 					<option>User's Follower</option>
-					<option>User's Photo</option>
-					<option>User's Following</option>
 				</select>
         <span class="glyphicon glyphicon-save download-usernames" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>
       </td>
@@ -127,6 +125,8 @@
 				<input type="button" class="btn btn-info button-setting-helper" value="Assign Proxy" data-toggle="modal" data-target="#myModalAutomation" data-id="{{$data_arr->id}}" data-server="{{$server}}" data-proxy="{{$proxy}}" data-cred="{{$cred}}" data-port="{{$port}}">
 
 				<input type="button" class="btn btn-danger btn-delete-proxy" value="Clear assign proxy " data-toggle="modal" data-target="#confirm-delete" data-id="{{$data_arr->id}}">
+				
+				<input type="button" value="stop" class="button-action btn " data-id="{{$data_arr->id}}" >
 				
 				<?php //} ?>
       </td>
