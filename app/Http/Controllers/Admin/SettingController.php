@@ -12,6 +12,8 @@ use Celebgramme\Models\SettingMeta;
 use Celebgramme\Models\SettingHelper; 
 use Celebgramme\Models\LinkUserSetting;
 use Celebgramme\Models\TemplateEmail;
+use Celebgramme\Models\LinkProxySetting;
+use Celebgramme\Models\Proxies;
 
 use View,Auth,Request,DB,Carbon,Excel,Mail,Input;
 
@@ -39,6 +41,29 @@ class SettingController extends Controller {
 		$filenames = Meta::where("meta_name","=","fl_name")->get();
 		$status_server = Meta::where("meta_name","=","status_server")->first()->meta_value;
 		$template = TemplateEmail::all();
+		
+		$availableProxy = Proxies::leftJoin("link_proxies_settings","link_proxies_settings.proxy_id","=","proxies.id")
+								->select("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
+                ->groupBy('proxies.id')
+								->havingRaw('count(proxies.id) < 5')
+								->get();
+		// dd($availableProxy);
+		$arrAvailableProxy = array();
+		foreach($availableProxy as $data) {
+			$dataNew = array();
+			// $dataNew[] = $data->id;
+			$dataNew["id"] = $data->id;
+			if ($data->auth) {
+				$dataNew["value"] = $data->proxy.":".$data->cred.":".$data->port;
+				// $dataNew[] = $data->proxy.":".$data->cred.":".$data->port;
+			} else {
+				$dataNew["value"] = $data->proxy;
+				// $dataNew[] = $data->proxy;
+			}
+			$arrAvailableProxy[] = $dataNew;	
+		}
+		
+								
 		return View::make('admin.setting.index')->with(
                   array(
                     'search'=>$search,
@@ -46,6 +71,7 @@ class SettingController extends Controller {
                     'filenames'=>$filenames,
                     'status_server'=>$status_server,
 										'templates'=>$template,
+										'availableProxy'=>$arrAvailableProxy,
                   ));
 	}
 
@@ -186,29 +212,37 @@ class SettingController extends Controller {
     return "success";
   }
 
-	public function update_setting_helper()
+	public function update_setting_proxy()
 	{
-		$settingHelper = SettingHelper::where("setting_id","=",Request::input("setting-id"))->first();
-		if (is_null($settingHelper)) {
-			$settingHelper = new SettingHelper;
-		}
-		$settingHelper->server = Request::input("name-server");
-		$settingHelper->proxy = Request::input("proxy");
-		$settingHelper->cred = Request::input("cred");
-		$settingHelper->port = Request::input("port");
-		$settingHelper->setting_id = Request::input("setting-id");
-		$settingHelper->save();
+		$proxy = Proxies::find(Request::input("hiddenIdProxy"));
+		if (is_null($proxy)) {
+			return "proxy tidak terdaftar";
+		} else {
 		
+			$settingHelper = SettingHelper::where("setting_id","=",Request::input("setting-id"))->first();
+			if (is_null($settingHelper)) {
+				$settingHelper = new SettingHelper;
+				$settingHelper->setting_id = Request::input("setting-id");
+			}
+			$settingHelper->proxy_id = Request::input("hiddenIdProxy");
+			$settingHelper->save();
+			
+		}
 		return "success";
 	}
 	
-	public function update_use_automation()
+	public function update_method_automation()
 	{
 		$settingHelper = SettingHelper::where("setting_id","=",Request::input("setting-id"))->first();
 		if (is_null($settingHelper)) {
 			$settingHelper = new SettingHelper;
+			$settingHelper->setting_id = Request::input("setting-id");
 		}
-		$settingHelper->use_automation = 1;
+		if (Request::input("radio_method_automation") == "manual") {
+			$settingHelper->use_automation = 0;
+		} else {
+			$settingHelper->use_automation = 1;
+		}
 		$settingHelper->save();
 		
 		return "success";

@@ -10,8 +10,10 @@
 		word-wrap: break-word;      /* IE */		
 		width:350px;
 	}
+.ui-autocomplete {
+    z-index:9050!important;
+}	
 </style>
-
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -107,42 +109,56 @@
           <h4 class="modal-title">Edit</h4>
         </div>
         <div class="modal-body">
-          <form enctype="multipart/form-data" id="form-setting-helper">
-            <div class="form-group form-group-sm row">
-              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Server</label>
-              <div class="col-sm-8 col-md-6">
-                <input type="text" class="form-control" placeholder="Name server" name="name-server" id="name-server">
-              </div>
-            </div>
+          <form enctype="multipart/form-data" id="form-setting-proxy">
             <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Proxy</label>
-              <div class="col-sm-8 col-md-6">
+              <div class="col-sm-8 col-md-6 ui-widget">
                 <input type="text" class="form-control" placeholder="proxy" name="proxy" id="proxy">
-              </div>
-            </div>
-            <div class="form-group form-group-sm row">
-              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Username password proxy</label>
-              <div class="col-sm-8 col-md-6">
-                <input type="text" class="form-control" placeholder="username:password" name="cred" id="cred">
-              </div>
-            </div>
-            <div class="form-group form-group-sm row">
-              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Port</label>
-              <div class="col-sm-8 col-md-6">
-                <input type="text" class="form-control" placeholder="port" name="port" id="port">
+                <input type="hidden" name="hiddenIdProxy" id="hiddenIdProxy">
               </div>
             </div>
             <input type="hidden" class="setting-id" name="setting-id">
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default button-process" data-dismiss="modal" id="button-process-setting-helper" data-check="auto">Submit</button>
+          <button type="button" class="btn btn-default button-process" data-dismiss="modal" id="button-process-setting-proxy" data-check="auto">Submit</button>
         </div>
       </div>
       
     </div>
   </div>
 
+	<!-- Modal Method Automation ( AUTO / MANUAL) -->
+  <div class="modal fade" id="myModalMethodAutomation" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-setting-method-automation">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Pilih method</label>
+              <div class="col-sm-8 col-md-6 ui-widget">
+                <input type="radio" class="" name="radio_method_automation" id="manual-automation" value="manual">
+								<label for="manual-automation">Manual (Spiderman)</label> <br>
+                <input type="radio" class="" name="radio_method_automation" id="auto-automation" value="auto">
+								<label for="auto-automation">Auto (Auto New) </label>
+              </div>
+            </div>
+            <input type="hidden" class="setting-id" name="setting-id">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default button-process" data-dismiss="modal" id="button-process-method-automation" data-check="auto">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
   <div class="page-header">
     <h1>ALL Setting IG account</h1>
@@ -200,10 +216,9 @@
         <th>Updates</th>
 				
         <th>Download </th>
-        <th>Action</th>
         <th>Proxy</th>
         <th>Status</th>
-        <th>Method</th>
+        <th colspan=2>Method</th>
 				
       </tr>      
     </thead>
@@ -313,6 +328,18 @@
       });
     }
     $(document).ready(function(){
+			
+			//autocomplete proxy
+			availableProxy =  <?php echo json_encode( $availableProxy ) ?>;
+			console.log(availableProxy);
+
+		  $('#proxy').autocomplete({
+					source: availableProxy,
+					select: function (event, ui) {
+							$("#hiddenIdProxy").val(ui.item.id); // display the selected text
+					}
+			});			
+			
       $("#alert").hide();
       create_pagination(1);
       refresh_page(1);
@@ -482,23 +509,19 @@
         });
       });
 
-			$( "body" ).on( "click", ".button-setting-helper", function() {
+			$( "body" ).on( "click", ".button-setting-proxy", function() {
 				$(".setting-id").val($(this).attr("data-id"));
-				
-				$("#name-server").val($(this).attr("data-server"));
 				$("#proxy").val($(this).attr("data-proxy"));
-				$("#cred").val($(this).attr("data-cred"));
-				$("#port").val($(this).attr("data-port"));
       });
-      $( "body" ).on( "click", "#button-process-setting-helper", function() {
+      $( "body" ).on( "click", "#button-process-setting-proxy", function() {
         temp = $(this);
         $.ajax({
-          url: '<?php echo url('update-setting-helper'); ?>',
+          url: '<?php echo url('update-setting-proxy'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           type: 'post',
-          data: $("#form-setting-helper").serialize(),
+          data: $("#form-setting-proxy").serialize(),
           beforeSend: function()
           {
             $("#div-loading").show();
@@ -507,6 +530,8 @@
           success: function(result)
           {
             if(result=='success') {
+							create_pagination(1);
+							refresh_page(1);
             }
             $("#div-loading").hide();
           }
@@ -541,8 +566,40 @@
         });
 			});
 			
-			$( "body" ).on( "click", ".button-action", function() {
+			//method automation (MANUAL or AUTO)
+			$( "body" ).on( "click", ".button-method", function() {
+				$(".setting-id").val($(this).attr("data-id"));
+				if ($(this).attr("data-automation")== "yes") {
+					$("#auto-automation").prop('checked', true);
+				} else {
+					$("#manual-automation").prop('checked', true);
+				}
 			});
+      $( "body" ).on( "click", "#button-process-method-automation", function() {
+        temp = $(this);
+        $.ajax({
+          url: '<?php echo url('update-method-automation'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-setting-method-automation").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            if(result=='success') {
+							create_pagination(1);
+							refresh_page(1);
+            }
+            $("#div-loading").hide();
+          }
+        });
+      });
+
 			
     });
   </script>		

@@ -2,20 +2,25 @@
 	use Celebgramme\Models\SettingMeta; 
 	use Celebgramme\Models\User;
 	use Celebgramme\Models\SettingHelper; 
+	use Celebgramme\Models\Proxies; 
   if ( $arr->count()==0  ) {
     echo "<tr><td colspan='8' align='center'>Data tidak ada</td></tr>";
   } else {
     //search by username
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
-		$server="";$proxy="";$cred="";$port="";$use_automation="";
+		$server="";$proxy="";$use_automation="";
 		$settingHelper = SettingHelper::where("setting_id","=",$data_arr->id)->first();
 		if ( !is_null($settingHelper) ) {
-			$server = $settingHelper->server;
-			$proxy = $settingHelper->proxy;
-			$cred = $settingHelper->cred;
-			$port = $settingHelper->port;
 			$use_automation = $settingHelper->use_automation;
+			$proxies = Proxies::find($settingHelper->proxy_id);
+			if (!is_null($proxies)) {
+				if ($proxies->auth) {
+					$proxy = $proxies->proxy.":".$proxies->cred.":".$proxies->port;
+				} else {
+					$proxy = $proxies->proxy;
+				}
+			}
 		}
 ?>
     <tr class="row{{$data_arr->id}}">
@@ -121,24 +126,20 @@
         <span class="glyphicon glyphicon-save download-comments" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>
       </td>
       <td align="center">
+				<input type="button" class="btn btn-info button-setting-proxy" value="Assign" data-toggle="modal" data-target="#myModalAutomation" data-id="{{$data_arr->id}}" data-proxy="{{$proxy}}">
+			</td>
+      <td align="center">
+				<input type="button" value="stop" class="button-status btn " data-id="{{$data_arr->id}}" >
+			</td>
+      <td align="center">
+				<input type="button" class="btn btn-primary button-method" data-id="{{$data_arr->id}}" value="Automation" data-toggle="modal" data-target="#myModalMethodAutomation" <?php if ($use_automation) {echo "data-automation='yes'";} else { echo "data-automation='no'"; } ?>>
+			</td>
+      <td align="center">
 				<?php //if ( ($admin->email == "it2.axiapro@gmail.com") || ($admin->email == "admin@admin.com") ) { ?>
 				<input type="button" class="btn btn-warning btn-delete-proxy" value="Clear" data-toggle="modal" data-target="#confirm-delete" data-id="{{$data_arr->id}}">
 
 				<?php //} ?>
       </td>
-      <td align="center">
-				<input type="button" class="btn btn-info button-setting-helper" value="Assign" data-toggle="modal" data-target="#myModalAutomation" data-id="{{$data_arr->id}}" data-server="{{$server}}" data-proxy="{{$proxy}}" data-cred="{{$cred}}" data-port="{{$port}}">
-			</td>
-      <td align="center">
-				<input type="button" value="stop" class="button-action btn " data-id="{{$data_arr->id}}" >
-			</td>
-      <td align="center">
-				<button class="btn btn-primary btn-method" data-id="{{$data_arr->id}}" >
-				<?php 
-					if ($use_automation) { echo "Auto"; } else { echo "Manual"; }
-				?>
-				</button>
-			</td>
 <!-- glyphicon glyphicon-hand-right manual glyphicon-wrench auto -->
 			
 			

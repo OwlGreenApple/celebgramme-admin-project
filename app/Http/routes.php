@@ -121,7 +121,8 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('load-setting', 'Admin\SettingController@load_setting');
 	Route::get('pagination-setting', 'Admin\SettingController@pagination_setting');
 	Route::post('update-status-server', 'Admin\SettingController@update_status_server');
-	Route::post('update-setting-helper', 'Admin\SettingController@update_setting_helper');
+	Route::post('update-setting-proxy', 'Admin\SettingController@update_setting_proxy');
+	Route::post('update-method-automation', 'Admin\SettingController@update_method_automation');
 	
 	/* Proxy Manager  */
 	Route::get('proxy-manager', 'Admin\ProxyController@index');
