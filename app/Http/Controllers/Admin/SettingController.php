@@ -54,8 +54,8 @@ class SettingController extends Controller {
 			// $dataNew[] = $data->id;
 			$dataNew["id"] = $data->id;
 			if ($data->auth) {
-				$dataNew["value"] = $data->proxy.":".$data->cred.":".$data->port;
-				// $dataNew[] = $data->proxy.":".$data->cred.":".$data->port;
+				$dataNew["value"] = $data->proxy.":".$data->port.":".$data->cred;
+				// $dataNew[] = $data->proxy.":".$data->port.":".$data->cred;
 			} else {
 				$dataNew["value"] = $data->proxy;
 				// $dataNew[] = $data->proxy;
