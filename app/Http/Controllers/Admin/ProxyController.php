@@ -62,8 +62,19 @@ class ProxyController extends Controller {
   {
     $arr["type"] = "success";
     $arr["message"] = "Proses add / edit proxy berhasil dilakukan";
+		$dt = Carbon::now()->setTimezone('Asia/Jakarta');
 		
 		if ( Request::input("id_proxy")=="new" ) {
+			$proxy = Proxies::
+								where("proxy","=",Request::input("proxy"))
+								->where("cred","=",Request::input("cred"))
+								->where("port","=",Request::input("port"))
+								->first();
+			if (!is_null($proxy)) {
+				$arr["type"] = "error";
+				$arr["message"] = "Proxy sudah terdaftar sebelumnya";
+				return $arr;
+			}
 			$proxy = new Proxies;
 		} else {
 			$proxy = Proxies::find(Request::input("id_proxy"));
@@ -76,6 +87,7 @@ class ProxyController extends Controller {
 		} else {
 			$proxy->auth = false;
 		}
+		$proxy->created = $dt->toDateTimeString();
 		$proxy->save();
 
 		return $arr;

@@ -1,5 +1,5 @@
 <?php 
-	use Celebgramme\Models\LinkProxySetting;
+	use Celebgramme\Models\SettingHelper;
   if ( ($data->count()==0) ) {
     echo "<tr><td colspan='7' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -22,7 +22,7 @@
       </td>
       <td align="center">
 			<?php 
-				echo LinkProxySetting::where("proxy_id","=",$arr->id)->count();
+				echo SettingHelper::where("proxy_id","=",$arr->id)->count();
 			?>
       </td>
       <td align="center">

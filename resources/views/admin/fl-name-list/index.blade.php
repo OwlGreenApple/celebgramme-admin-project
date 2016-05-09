@@ -57,7 +57,7 @@
 	</div>	
 	
   <div class="page-header">
-    <h1>spiderman name list</h1>
+    <h1>Server name list</h1>
   </div>  
 	
   <div class="cover-input-group">
