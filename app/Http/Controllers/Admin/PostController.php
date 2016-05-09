@@ -228,6 +228,8 @@ class PostController extends Controller {
     $postlog->server = SettingMeta::getMeta($post->setting_id,"fl_filename");
     $postlog->save();
 
+    $setting_temp = Setting::find($post->setting_id);
+    $setting_real = Setting::where("insta_user_id","=",$setting_temp->insta_user_id)->where("type","=","real")->first();
 		if ( ($setting_temp->status=="deleted") && ($setting_real->status=="deleted") ) {
 			$setting_temp->delete();
 			$delete_setting_real = Setting::find($setting_real->id)->delete();
