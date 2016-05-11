@@ -216,7 +216,7 @@
         <th>Updates</th>
 				
         <th>Download </th>
-        <th>Proxy</th>
+        <th>Setting</th>
         <th>Status</th>
         <th colspan=2>Method</th>
 				

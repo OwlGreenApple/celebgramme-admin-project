@@ -16,7 +16,7 @@
 			$proxies = Proxies::find($settingHelper->proxy_id);
 			if (!is_null($proxies)) {
 				if ($proxies->auth) {
-					$proxy = $proxies->proxy.":".$proxies->cred.":".$proxies->port;
+					$proxy = $proxies->proxy.":".$proxies->port.":".$proxies->cred;
 				} else {
 					$proxy = $proxies->proxy;
 				}
