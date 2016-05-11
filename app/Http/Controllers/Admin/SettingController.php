@@ -42,7 +42,12 @@ class SettingController extends Controller {
 		$status_server = Meta::where("meta_name","=","status_server")->first()->meta_value;
 		$template = TemplateEmail::all();
 		
-		$availableProxy = Proxies::leftJoin("link_proxies_settings","link_proxies_settings.proxy_id","=","proxies.id")
+		// $availableProxy = Proxies::leftJoin("link_proxies_settings","link_proxies_settings.proxy_id","=","proxies.id")
+								// ->select("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
+                // ->groupBy("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
+								// ->havingRaw('count(proxies.id) < 5')
+								// ->get();
+		$availableProxy = Proxies::leftJoin("setting_helpers","setting_helpers.proxy_id","=","proxies.id")
 								->select("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
                 ->groupBy("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
 								->havingRaw('count(proxies.id) < 5')
