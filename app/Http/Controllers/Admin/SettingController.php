@@ -44,7 +44,7 @@ class SettingController extends Controller {
 		
 		$availableProxy = Proxies::leftJoin("link_proxies_settings","link_proxies_settings.proxy_id","=","proxies.id")
 								->select("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
-                ->groupBy('proxies.id')
+                ->groupBy("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
 								->havingRaw('count(proxies.id) < 5')
 								->get();
 		// dd($availableProxy);
