@@ -109,6 +109,7 @@
       <td align="center">
 				Hashtags
 				<select>
+					<option data-val="Users Who Tagged">Follow # Hashtags (new)</option>
 					<option data-val="Normal Search">Follow # Normal Search</option>
 					<option data-val="Relevant">Like Comment # Relevant</option>
 				</select>

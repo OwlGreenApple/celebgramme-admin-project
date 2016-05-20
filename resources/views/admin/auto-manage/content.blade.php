@@ -242,6 +242,7 @@
 			-->
       <td align="center">
 				<select>
+					<option data-val="Users Who Tagged">Follow # Hashtags (new)</option>
 					<option data-val="Relevant">Like Comment # Relevant</option>
 					<option data-val="Normal Search">Follow # Normal Search</option>
 				</select>

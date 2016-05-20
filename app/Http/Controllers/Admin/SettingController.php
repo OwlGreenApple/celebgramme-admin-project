@@ -88,6 +88,14 @@ class SettingController extends Controller {
 				$arr = Setting::where("type","=","temp")
 							 ->orderBy('id', 'asc')
 							 ->paginate(15);
+			} else if (Request::input('keyword')=="update") {
+				$arr = Setting::where("type","=","temp")
+							 ->where("status_follow_unfollow","=","on")
+							 ->where("activity","=","follow")
+							 ->where("status","=","started")
+							 ->where("follow_source","=","hashtags")
+							 ->orderBy('id', 'asc')
+							 ->paginate(15);
 			} else {
 				$arr = Setting::
 								leftJoin('setting_metas', function ($join) {
@@ -148,6 +156,14 @@ class SettingController extends Controller {
 		// if (Request::input('filename')=="all") {
 			if (Request::input('keyword')=="") {
 				$arr = Setting::where("type","=","temp")
+							 ->orderBy('id', 'asc')
+							 ->paginate(15);
+			} else if (Request::input('keyword')=="update") {
+				$arr = Setting::where("type","=","temp")
+							 ->where("status_follow_unfollow","=","on")
+							 ->where("activity","=","follow")
+							 ->where("status","=","started")
+							 ->where("follow_source","=","hashtags")
 							 ->orderBy('id', 'asc')
 							 ->paginate(15);
 			} else {
