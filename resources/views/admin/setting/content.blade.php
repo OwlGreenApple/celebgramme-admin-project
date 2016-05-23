@@ -110,7 +110,8 @@
 				Hashtags
 				<select>
 					<option data-val="Users Who Tagged">Follow # Hashtags (new)</option>
-					<option data-val="Normal Search">Follow # Normal Search</option>
+					<option data-val="Users Who Tagged (Only Follow)">Follow # Hashtags (Only Follow)</option>
+					<!--<option data-val="Normal Search">Follow # Normal Search</option>-->
 					<option data-val="Relevant">Like Comment # Relevant</option>
 				</select>
         <span class="glyphicon glyphicon-save download-hashtags" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>

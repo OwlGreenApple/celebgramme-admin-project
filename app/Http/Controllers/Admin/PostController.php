@@ -387,7 +387,11 @@ class PostController extends Controller {
 		Excel::create(date("F j, Y, g:i a")." ".$setting->insta_username." ".$stringby, function($excel) use ($arr,$stringby) {
       $excel->sheet('keywords', function($sheet)use ($arr,$stringby)  {
 				foreach ($arr as $data) { 
-				  if ($stringby == "Users Who Tagged") {
+				  if ($stringby == "Users Who Tagged (Only Follow)") {
+						$sheet->appendRow(array(
+								$data, "Users Who Tagged"
+						));
+				  } else if ($stringby == "Users Who Tagged") {
 						$sheet->appendRow(array(
 								"FLC:#".$data, $stringby
 						));
