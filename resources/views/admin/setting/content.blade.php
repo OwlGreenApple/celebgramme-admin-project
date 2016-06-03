@@ -118,7 +118,7 @@
 				<br><br>
 				
 				Usernames
-				<select>
+				<select class="select-username">
 					<option>User's Follower</option>
 				</select>
         <span class="glyphicon glyphicon-save download-usernames" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>

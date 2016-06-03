@@ -348,7 +348,7 @@
 				window.location="<?php echo url('download-hashtags'); ?>/"+$(this).attr("data-id")+"/"+$(this).parent().find("select option:selected").attr("data-val");
       });
 			$( "body" ).on( "click", ".download-usernames", function() {
-				window.location="<?php echo url('download-usernames'); ?>/"+$(this).attr("data-id")+"/"+$(this).parent().find("select option:selected").html();
+				window.location="<?php echo url('download-usernames'); ?>/"+$(this).attr("data-id")+"/"+$(this).parent().find(".select-username option:selected").html();
       });
 			$( "body" ).on( "click", ".download-comments", function() {
 				window.location="<?php echo url('download-comments'); ?>/"+$(this).attr("data-id");
