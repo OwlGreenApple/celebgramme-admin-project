@@ -9,11 +9,12 @@
     //search by username
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
-		$server="";$proxy="";$use_automation="";
+		$server="";$proxy="";$use_automation=""; $server_automation = "";
 		$settingHelper = SettingHelper::where("setting_id","=",$data_arr->id)->first();
 		if ( !is_null($settingHelper) ) {
 			$use_automation = $settingHelper->use_automation;
 			$proxies = Proxies::find($settingHelper->proxy_id);
+			$server_automation = $settingHelper->server_automation;
 			if (!is_null($proxies)) {
 				if ($proxies->auth) {
 					$proxy = $proxies->proxy.":".$proxies->port.":".$proxies->cred;
@@ -127,11 +128,19 @@
 				Comment
         <span class="glyphicon glyphicon-save download-comments" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>
       </td>
-      <td align="center">
+      <td align="center" class="setting-proxy">
 				<input type="button" class="btn btn-info button-setting-proxy" value="Assign" data-toggle="modal" data-target="#myModalAutomation" data-id="{{$data_arr->id}}" data-proxy="{{$proxy}}">
 			</td>
       <td align="center">
-				<input type="button" value="stop" class="button-status btn " data-id="{{$data_arr->id}}" >
+				<p class="server-automation-name">
+				<span class="edit-server-automation">
+				<?php 
+					echo $server_automation;
+				?>
+				</span>
+				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-server-automation-edit" data-toggle="modal" data-target="#serverAutomationModal" data-id="{{$data_arr->id}}"
+				data-filename="{{$server_automation}}" style="cursor:pointer;">  </span>
+				</p>
 			</td>
       <td align="center">
 				<input type="button" class="btn btn-primary button-method" data-id="{{$data_arr->id}}" value="Automation" data-toggle="modal" data-target="#myModalMethodAutomation" <?php if ($use_automation) {echo "data-automation='yes'";} else { echo "data-automation='no'"; } ?>>

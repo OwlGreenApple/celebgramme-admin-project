@@ -51,6 +51,40 @@
   </div>
 
 
+  <!-- Modal Server Automation-->
+  <div class="modal fade" id="serverAutomationModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-server-automation">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Server Automation Name</label>
+              <div class="col-sm-8 col-md-6">
+								<select class="form-control" name="server-automation" id="server-automation">
+									@foreach ($filenames as $filename)
+										<option value="{{$filename->meta_value}}">{{$filename->meta_value}}</option>
+									@endforeach
+								</select>
+              </div>
+              <input type="hidden" class="setting-id" name="setting-id">
+            </div>  
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="button-server-automation">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
   <!-- Modal Email to user-->
   <div class="modal fade" id="myModalSendEmail" role="dialog">
     <div class="modal-dialog">
@@ -217,7 +251,7 @@
 				
         <th>Download </th>
         <th>Setting</th>
-        <th>Status</th>
+        <th>Server Automation</th>
         <th colspan=2>Method</th>
 				
       </tr>      
@@ -480,6 +514,35 @@
           }
         });
       });
+      $( "body" ).on( "click", ".btn-server-automation-edit", function() {
+				$(".setting-id").val($(this).attr("data-id"));
+				$("#server-automation").val($(this).attr("data-filename"));
+			});
+      $( "body" ).on( "click", "#button-server-automation", function() {
+        temp = $(this);
+        $.ajax({                                      
+          url: '<?php echo url('update-server-automation'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-server-automation").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+              $(".row"+data.id).find(".server-automation-name").find(".edit-server-automation").html(data.servername);
+              $(".row"+data.id).find(".server-automation-name").find(".glyphicon").attr("data-filename" , data.servername);
+            }
+            $("#div-loading").hide();
+          }
+        });
+      });
 			$( "body" ).on( "click", ".btn-send-email", function() {
 				$("#sender").val($(this).attr("data-email"));
 				$("#fullname").val($(this).attr("data-fullname"));
@@ -529,10 +592,14 @@
           dataType: 'text',
           success: function(result)
           {
-            if(result=='success') {
-							create_pagination(1);
-							refresh_page(1);
+						var data = jQuery.parseJSON(result);
+            if(data.message=='success') {
+							// create_pagination(1);
+							// refresh_page(1);
+							console.log(data.id+" "+data.proxy);
+							$(".table .row"+data.id+" .setting-proxy :button").attr("data-proxy",data.proxy);
             }
+						// console.log(result);
             $("#div-loading").hide();
           }
         });

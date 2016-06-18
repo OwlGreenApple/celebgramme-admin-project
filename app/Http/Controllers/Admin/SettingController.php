@@ -235,23 +235,53 @@ class SettingController extends Controller {
 
 	public function update_setting_proxy()
 	{
-		$proxy = Proxies::find(Request::input("hiddenIdProxy"));
-		if (is_null($proxy)) {
-			return "proxy tidak terdaftar";
-		} else {
-		
+		if (Request::input("hiddenIdProxy") <> "" ) {
+			$proxy = Proxies::find(Request::input("hiddenIdProxy"));
+			if (is_null($proxy)) {
+				$arr["message"] = "Error proxy tidak terdaftar";
+				return $arr;
+			} else {
+				$settingHelper = SettingHelper::where("setting_id","=",Request::input("setting-id"))->first();
+				if (is_null($settingHelper)) {
+					$settingHelper = new SettingHelper;
+					$settingHelper->setting_id = Request::input("setting-id");
+				}
+				$settingHelper->proxy_id = Request::input("hiddenIdProxy");
+				$settingHelper->save();
+				$arr["proxy"] = $proxy->proxy.":".$proxy->port.":".$proxy->cred;
+			}
+		} else if (Request::input("hiddenIdProxy") == "" ) {
 			$settingHelper = SettingHelper::where("setting_id","=",Request::input("setting-id"))->first();
 			if (is_null($settingHelper)) {
 				$settingHelper = new SettingHelper;
 				$settingHelper->setting_id = Request::input("setting-id");
 			}
-			$settingHelper->proxy_id = Request::input("hiddenIdProxy");
+			$settingHelper->proxy_id = "";
 			$settingHelper->save();
-			
+			$arr["proxy"] = "";
 		}
-		return "success";
+		$arr["message"] = "success";
+		$arr["id"] = Request::input("setting-id");
+		
+		return $arr;
 	}
 	
+  public function update_server_automation()
+  {
+		$settingHelper = SettingHelper::where("setting_id","=",Request::input("setting-id"))->first();
+		if (is_null($settingHelper)) {
+			$settingHelper = new SettingHelper;
+			$settingHelper->setting_id = Request::input("setting-id");
+		}
+		$settingHelper->server_automation = Request::input("server-automation");
+		$settingHelper->save();
+		
+		$arr["id"] = Request::input("setting-id");
+		$arr["type"] = "success";
+		$arr["servername"] = Request::input("server-automation");
+		return $arr;
+	}
+
 	public function update_method_automation()
 	{
 		$settingHelper = SettingHelper::where("setting_id","=",Request::input("setting-id"))->first();

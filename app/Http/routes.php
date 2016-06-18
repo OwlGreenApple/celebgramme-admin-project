@@ -123,6 +123,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('update-status-server', 'Admin\SettingController@update_status_server');
 	Route::post('update-setting-proxy', 'Admin\SettingController@update_setting_proxy');
 	Route::post('update-method-automation', 'Admin\SettingController@update_method_automation');
+	Route::post('update-server-automation', 'Admin\SettingController@update_server_automation');
 	
 	/* Proxy Manager  */
 	Route::get('proxy-manager', 'Admin\ProxyController@index');
