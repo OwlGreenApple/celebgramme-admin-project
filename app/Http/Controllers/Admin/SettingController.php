@@ -14,6 +14,7 @@ use Celebgramme\Models\LinkUserSetting;
 use Celebgramme\Models\TemplateEmail;
 use Celebgramme\Models\LinkProxySetting;
 use Celebgramme\Models\Proxies;
+use Celebgramme\Models\SettingCounter;
 
 use View,Auth,Request,DB,Carbon,Excel,Mail,Input;
 
@@ -308,4 +309,89 @@ class SettingController extends Controller {
 		return "success";
 	}
 
+	/**
+	 * Show Setting Page.
+	 *
+	 * @return Response
+	 */
+	public function automation($search="")
+	{
+    $user = Auth::user();
+		
+								
+		return View::make('admin.setting-automation.index')->with(
+                  array(
+                    'search'=>$search,
+                    'user'=>$user,
+                  ));
+	}
+
+  public function load_automation()
+  {
+		$admin = Auth::user();
+		if (Request::input('keyword')=="") {
+			$arr = Setting::
+					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
+					->where("type","=","temp")
+					->orderBy('settings.id', 'asc')
+					->paginate(15);
+	  } else {
+			$arr = Setting::
+					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
+					->where("type","=","temp")
+					->where("settings.insta_username","like","%".Request::input('keyword')."%")
+					->orderBy('settings.id', 'asc')
+					->paginate(15);
+		}
+					
+			
+    return view('admin.setting-automation.content')->with(
+                array(
+                  'admin'=>$admin,
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                ));
+  }
+  
+	public function pagination_automation()
+  {
+		if (Request::input('keyword')=="") {
+			$arr = Setting::
+					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
+					->where("type","=","temp")
+					->orderBy('settings.id', 'asc')
+					->paginate(15);
+	  } else {
+			$arr = Setting::
+					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
+					->where("type","=","temp")
+					->where("settings.insta_username","like","%".Request::input('keyword')."%")
+					->orderBy('settings.id', 'asc')
+					->paginate(15);
+		}
+
+
+    return view('admin.setting-automation.pagination')->with(
+                array(
+                  'arr'=>$arr,
+                ));
+  }
+  
+	public function get_logs_automation() {
+		$logs = "";
+		$counter =1;
+		$setting_counters = SettingCounter::where("setting_id","=",Request::input('id'))
+												->orderBy("created","desc")
+												->get();
+		foreach($setting_counters as $setting_counter) {
+			$logs .= $setting_counter->created."<br> ".$setting_counter->description;
+			$logs .= "<br><br>";
+			$counter +=1;
+			if ($counter>3) {break;}
+		}
+		$arr["logs"] = $logs;
+		$arr["type"] = "success";
+		return $arr;
+	}
+	
 }

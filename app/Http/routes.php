@@ -125,6 +125,13 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('update-method-automation', 'Admin\SettingController@update_method_automation');
 	Route::post('update-server-automation', 'Admin\SettingController@update_server_automation');
 	
+	/* Status Setting Account IG Automation*/
+	Route::get('setting-automation', 'Admin\SettingController@automation');
+	Route::get('setting-automation/{search}', 'Admin\SettingController@automation');
+	Route::get('load-automation', 'Admin\SettingController@load_automation');
+	Route::get('pagination-automation', 'Admin\SettingController@pagination_automation');
+	Route::get('load-automation-logs', 'Admin\SettingController@get_logs_automation');
+	
 	/* Proxy Manager  */
 	Route::get('proxy-manager', 'Admin\ProxyController@index');
 	Route::get('load-proxy-manager', 'Admin\ProxyController@load_proxy_manager');
