@@ -29,7 +29,6 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
                 <!--<li><a href="{{url('post', $parameters = [], $secure = null)}}">Post History Daily Likes</a></li>-->
                 <li><a href="{{url('post-auto-manage', $parameters = [], $secure = null)}}">Post History Auto Manage ({{$count_post}})</a></li>
                 <li><a href="{{url('setting', $parameters = [], $secure = null)}}">Setting IG Account All</a></li>
-                <li><a href="{{url('setting-automation', $parameters = [], $secure = null)}}">Status IG automation</a></li>
                 <li><a href="{{url('log-post', $parameters = [], $secure = null)}}">Logs Post Auto Manage</a></li>
               </ul>
           </li>
@@ -70,8 +69,8 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{url('proxy-manager', $parameters = [], $secure = null)}}">Proxy Manager</a></li>
-                <li><a href="{{url('ig-users-logs', $parameters = [], $secure = null)}}">IG Users Logs</a></li>
-                <li><a href="{{url('ig-users-logs', $parameters = [], $secure = null)}}">Setting Delay Global</a></li>
+								<li><a href="{{url('setting-automation', $parameters = [], $secure = null)}}">Status IG automation</a></li>
+								<li><a href="#" data-target="#modalChangeConfig" data-toggle="modal">Change Config</a></li>
               </ul>
           </li>
 					<?php } ?>
@@ -82,7 +81,6 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
               <ul class="dropdown-menu" role="menu">
 								<li><a href="{{url('fl-name', $parameters = [], $secure = null)}}">Server instance name</a></li>
 								<li><a href="{{url('template-email', $parameters = [], $secure = null)}}">Templates Email</a></li>
-								<li><a href="#" data-target="#modalChangeConfig" data-toggle="modal">Change Config</a></li>
               </ul>
           </li>
           <li class='dropdown'>

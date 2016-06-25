@@ -23,6 +23,30 @@
 	<script>
 		$(document).ready(function(){
 			$("#div-loading").hide();
+      $( "body" ).on( "click", "#button-edit-config", function() {
+        $.ajax({
+          url: '<?php echo url('update-config'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-edit-config").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+						if (result=="success"){
+							alert("Config changed");
+						} else {
+							alert("Error");
+						}
+            $("#div-loading").hide();
+          }
+        });
+      });
       $( "body" ).on( "click", "#button-edit-password", function() {
         $.ajax({
           url: '<?php echo url('update-password'); ?>',

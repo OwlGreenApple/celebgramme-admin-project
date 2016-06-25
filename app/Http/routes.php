@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function()
   Route::get('/', 'Admin\AdminController@index');
   Route::get('home', 'Admin\AdminController@index');
   Route::post('update-password', 'Admin\AdminController@update_password');
+  Route::post('update-config', 'Admin\AdminController@update_config');
   
 	Route::get('post', 'Admin\PostController@index');
 	Route::get('load-post', 'Admin\PostController@load_post');
