@@ -70,6 +70,8 @@
       </td>
       <td align="center">
 				<input type="button" value="Open" data-loading-text="Loading..." class="btn btn-primary btn-show-log" data-toggle="modal" data-target="#myModalLog" data-id="{{$data_arr->setting_id}}"> 
+				<input type="button" value="Daily" data-loading-text="Loading..." class="btn btn-primary btn-show-log-daily" data-toggle="modal" data-target="#myModalDaily" data-id="{{$data_arr->setting_id}}"> 
+				<input type="button" value="Hourly" data-loading-text="Loading..." class="btn btn-primary btn-show-log-hourly" data-toggle="modal" data-target="#myModalHourly" data-id="{{$data_arr->setting_id}}"> 
       </td>
 
 			

@@ -394,4 +394,51 @@ class SettingController extends Controller {
 		return $arr;
 	}
 	
+	public function get_logs_automation_daily() {
+		$logs = "";
+		$counter =1;
+		$setting_counters = SettingCounter::
+												select(DB::raw('SUM(follows_counter) as follows_counter'),DB::raw('SUM(likes_counter) as likes_counter'),DB::raw('SUM(comments_counter) as comments_counter'),DB::raw('SUM(unfollows_counter) as unfollows_counter'),DB::raw('DATE(created) as datum'))
+												->where("setting_id","=",Request::input('id'))
+												->orderBy("created","desc")
+												->groupBy("setting_id","datum")
+												->get();
+		foreach($setting_counters as $setting_counter) {
+			$logs .= "<tr>";
+			$logs .= "<td>".$setting_counter->datum."</td>";
+			$logs .= "<td>".$setting_counter->unfollows_counter."</td>";
+			$logs .= "<td>".$setting_counter->follows_counter."</td>";
+			$logs .= "<td>".$setting_counter->likes_counter."</td>";
+			$logs .= "<td>".$setting_counter->comments_counter."</td>";
+			$logs .= "</tr>";
+			$counter +=1;
+			if ($counter>7) {break;}
+		}
+		$arr["logs"] = $logs;
+		$arr["type"] = "success";
+		return $arr;
+	}
+
+	public function get_logs_automation_hourly() {
+		$logs = "";
+		$counter =1;
+		$setting_counters = SettingCounter::where("setting_id","=",Request::input('id'))
+												->orderBy("created","desc")
+												->get();
+		foreach($setting_counters as $setting_counter) {
+			$logs .= "<tr>";
+			$logs .= "<td>".$setting_counter->created."</td>";
+			$logs .= "<td>".$setting_counter->unfollows_counter."</td>";
+			$logs .= "<td>".$setting_counter->follows_counter."</td>";
+			$logs .= "<td>".$setting_counter->likes_counter."</td>";
+			$logs .= "<td>".$setting_counter->comments_counter."</td>";
+			$logs .= "</tr>";
+			$counter +=1;
+			if ($counter>20) {break;}
+		}
+		$arr["logs"] = $logs;
+		$arr["type"] = "success";
+		return $arr;
+	}
+	
 }

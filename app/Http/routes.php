@@ -132,6 +132,8 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('load-automation', 'Admin\SettingController@load_automation');
 	Route::get('pagination-automation', 'Admin\SettingController@pagination_automation');
 	Route::get('load-automation-logs', 'Admin\SettingController@get_logs_automation');
+	Route::get('load-automation-logs-daily', 'Admin\SettingController@get_logs_automation_daily');
+	Route::get('load-automation-logs-hourly', 'Admin\SettingController@get_logs_automation_hourly');
 	
 	/* Proxy Manager  */
 	Route::get('proxy-manager', 'Admin\ProxyController@index');
