@@ -43,10 +43,12 @@
       <td align="center">
 			<?php 
 				$proxy = Proxies::find($data_arr->proxy_id);
-				if ($proxy->auth) {
-					echo $proxy->proxy.":".$proxy->port.":".$proxy->cred;
-				} else if (!$proxy->auth) {
-					echo $proxy->proxy.":".$proxy->port;
+				if (!is_null($proxy)) {
+					if ($proxy->auth) {
+						echo $proxy->proxy.":".$proxy->port.":".$proxy->cred;
+					} else if (!$proxy->auth) {
+						echo $proxy->proxy.":".$proxy->port;
+					}
 				}
 				?>
       </td>
