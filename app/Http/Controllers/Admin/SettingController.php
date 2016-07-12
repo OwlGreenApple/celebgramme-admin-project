@@ -438,7 +438,6 @@ class SettingController extends Controller {
 			} else {
 				$logs .= "<td> 0 </td>";
 			}
-			echo $retcode;
 			curl_close($ch);
 
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."follow.txt";
@@ -451,7 +450,6 @@ class SettingController extends Controller {
 			} else {
 				$logs .= "<td> 0 </td>";
 			}
-			echo $retcode;
 			curl_close($ch);
 
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."like.txt";
@@ -464,7 +462,6 @@ class SettingController extends Controller {
 			} else {
 				$logs .= "<td> 0 </td>";
 			}
-			echo $retcode;
 			curl_close($ch);
 
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."comment.txt";
@@ -477,7 +474,6 @@ class SettingController extends Controller {
 			} else {
 				$logs .= "<td> 0 </td>";
 			}
-			echo $retcode;
 			curl_close($ch);
 			
 			$logs .= "</tr>";
