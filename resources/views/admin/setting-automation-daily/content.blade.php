@@ -46,7 +46,6 @@
 						echo " 0 ";
 					}
 					curl_close($ch);
-					echo $day;
 				?>
       </td>
 			<td align="center">

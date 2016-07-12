@@ -193,7 +193,7 @@
           page: page,
 					keyword: $("#keyword-search").val(),
 					// filename: $("#file-name").val(),
-					from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
+					from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24)),
         },
         beforeSend: function()
         {
@@ -215,7 +215,7 @@
         data: {
           page : page,
 					keyword: $("#keyword-search").val(),
-					from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
+					from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24)),
 					// filename: $("#file-name").val(),
         },
         beforeSend: function()
