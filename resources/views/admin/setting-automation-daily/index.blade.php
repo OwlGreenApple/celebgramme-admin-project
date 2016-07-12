@@ -115,6 +115,9 @@
     <div class="input-group fl">
 			<input type="text" id="keyword-search" class="form-control" placeholder="insta username" value="{{$search}}">
 		</div>  
+    <div class="input-group fl">
+      <input type="text" id="from" class="form-control"> 
+    </div>
 		<!--
     <div class="input-group fl">
 			<select class="form-control" id="file-name">
@@ -129,9 +132,6 @@
     <div class="input-group fl">
       <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
     </div>  
-    <div class="input-group fl">
-      <input type="text" id="from" class="form-control"> 
-    </div>
     <div class="none"></div>
   </div>
   
