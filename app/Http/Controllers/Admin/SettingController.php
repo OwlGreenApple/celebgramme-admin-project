@@ -629,12 +629,14 @@ class SettingController extends Controller {
 			$arr = Setting::
 					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
 					->where("type","=","temp")
+					->where("status","=","started")
 					->orderBy('settings.id', 'asc')
 					->paginate(15);
 	  } else {
 			$arr = Setting::
 					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
 					->where("type","=","temp")
+					->where("status","=","started")
 					->where("settings.insta_username","like","%".Request::input('keyword')."%")
 					->orderBy('settings.id', 'asc')
 					->paginate(15);
@@ -656,12 +658,14 @@ class SettingController extends Controller {
 			$arr = Setting::
 					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
 					->where("type","=","temp")
+					->where("status","=","started")
 					->orderBy('settings.id', 'asc')
 					->paginate(15);
 	  } else {
 			$arr = Setting::
 					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
 					->where("type","=","temp")
+					->where("status","=","started")
 					->where("settings.insta_username","like","%".Request::input('keyword')."%")
 					->orderBy('settings.id', 'asc')
 					->paginate(15);
