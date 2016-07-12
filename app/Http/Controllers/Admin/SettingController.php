@@ -390,9 +390,19 @@ class SettingController extends Controller {
 		if ($setting_helper->server_automation == "A2(automation-2)") {
 			$file_server = "http://192.186.146.246/";
 		}
+
 		$file_server .= "logs-IG-account/".$setting->insta_username.".txt";
+		$ch = curl_init($file_server);
+		curl_setopt($ch, CURLOPT_NOBODY, true);
+		curl_exec($ch);
+		$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+			$logs = file_get_contents($file_server);
+		} else {
+			$logs = "-";
+		}
+		curl_close($ch);
 		
-		$logs = file_get_contents($file_server);
 		
 		// $setting_counters = SettingCounter::where("setting_id","=",Request::input('id'))
 												// ->orderBy("created","desc")
@@ -425,7 +435,7 @@ class SettingController extends Controller {
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
 		for ($i=1;$i<=7;$i++) {
 			$logs .= "<tr>";
-			$logs .= "<td>".$dt->toDateTimeString()."</td>";
+			$logs .= "<td>".$dt->toDateString()."</td>";
 			
 
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."unfollow.txt";
@@ -508,7 +518,120 @@ class SettingController extends Controller {
 	public function get_logs_automation_hourly() {
 		$logs = "";
 		$counter =1;
-		$setting_counters = SettingCounter::where("setting_id","=",Request::input('id'))
+		
+		$setting_helper = SettingHelper::where("setting_id","=",Request::input('id'))->first();
+		$setting = Setting::find(Request::input('id'));
+		
+		if ($setting_helper->server_automation == "A1(automation-1)") {
+			$file_server = "http://192.186.146.248/";
+		}
+		if ($setting_helper->server_automation == "A2(automation-2)") {
+			$file_server = "http://192.186.146.246/";
+		}
+
+		$file_server .= "logs-IG-account/".$setting->insta_username.".txt";
+		$ch = curl_init($file_server);
+		curl_setopt($ch, CURLOPT_NOBODY, true);
+		curl_exec($ch);
+		$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+			$logs = file_get_contents($file_server);
+		} else {
+			$logs = "-";
+		}
+		curl_close($ch);
+		
+		
+		// $setting_counters = SettingCounter::where("setting_id","=",Request::input('id'))
+												// ->orderBy("created","desc")
+												// ->get();
+		// foreach($setting_counters as $setting_counter) {
+			// $logs .= $setting_counter->created."<br> ".$setting_counter->description;
+			// $logs .= "<br><br>";
+			// $counter +=1;
+			// if ($counter>3) {break;}
+		// }
+		$arr["logs"] = $logs;
+		$arr["type"] = "success";
+		return $arr;
+	}
+	
+	public function get_logs_automation_daily() {
+		$logs = "";
+		$counter =1;
+		
+		$setting_helper = SettingHelper::where("setting_id","=",Request::input('id'))->first();
+		$setting = Setting::find(Request::input('id'));
+		
+		if ($setting_helper->server_automation == "A1(automation-1)") {
+			$server = "http://192.186.146.248/";
+		}
+		if ($setting_helper->server_automation == "A2(automation-2)") {
+			$server = "http://192.186.146.246/";
+		}
+
+		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
+		for ($i=1;$i<=20;$i++) {
+			$logs .= "<tr>";
+			$logs .= "<td>".$dt->toDateString()." ".str_pad(strval($dt->hour), 2, "0", STR_PAD_LEFT).":00:00"."</td>";
+			
+
+			$file_server = $server."hourly-action-counter/".$setting->insta_username."/".strval($dt->day)."/".strval($dt->hour)."/"."unfollow.txt";
+			$ch = curl_init($file_server);
+			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_exec($ch);
+			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+				$logs .= "<td>".file_get_contents($file_server)."</td>";	
+			} else {
+				$logs .= "<td> 0 </td>";
+			}
+			curl_close($ch);
+
+			$file_server = $server."hourly-action-counter/".$setting->insta_username."/".strval($dt->day)."/".strval($dt->hour)."/"."follow.txt";
+			$ch = curl_init($file_server);
+			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_exec($ch);
+			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+				$logs .= "<td>".file_get_contents($file_server)."</td>";	
+			} else {
+				$logs .= "<td> 0 </td>";
+			}
+			curl_close($ch);
+
+			$file_server = $server."hourly-action-counter/".$setting->insta_username."/".strval($dt->day)."/".strval($dt->hour)."/"."like.txt";
+			$ch = curl_init($file_server);
+			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_exec($ch);
+			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+				$logs .= "<td>".file_get_contents($file_server)."</td>";	
+			} else {
+				$logs .= "<td> 0 </td>";
+			}
+			curl_close($ch);
+
+			$file_server = $server."hourly-action-counter/".$setting->insta_username."/".strval($dt->day)."/".strval($dt->hour)."/"."comment.txt";
+			$ch = curl_init($file_server);
+			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_exec($ch);
+			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+				$logs .= "<td>".file_get_contents($file_server)."</td>";	
+			} else {
+				$logs .= "<td> 0 </td>";
+			}
+			curl_close($ch);
+			
+			$logs .= "</tr>";
+			
+			
+			$dt->subHour();
+		}
+
+		
+		/*$setting_counters = SettingCounter::where("setting_id","=",Request::input('id'))
 												->orderBy("created","desc")
 												->get();
 		foreach($setting_counters as $setting_counter) {
@@ -521,7 +644,8 @@ class SettingController extends Controller {
 			$logs .= "</tr>";
 			$counter +=1;
 			if ($counter>20) {break;}
-		}
+		}*/
+		
 		$arr["logs"] = $logs;
 		$arr["type"] = "success";
 		return $arr;
