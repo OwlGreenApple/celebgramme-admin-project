@@ -135,6 +135,12 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('load-automation-logs-daily', 'Admin\SettingController@get_logs_automation_daily');
 	Route::get('load-automation-logs-hourly', 'Admin\SettingController@get_logs_automation_hourly');
 	
+	/* Daily Setting Account IG Automation*/
+	Route::get('setting-automation-daily', 'Admin\SettingController@automation_daily');
+	Route::get('setting-automation-daily/{search}', 'Admin\SettingController@automation_daily');
+	Route::get('load-automation-daily', 'Admin\SettingController@load_automation_daily');
+	Route::get('pagination-automation-daily', 'Admin\SettingController@pagination_automation_daily');
+	
 	/* Proxy Manager  */
 	Route::get('proxy-manager', 'Admin\ProxyController@index');
 	Route::get('load-proxy-manager', 'Admin\ProxyController@load_proxy_manager');

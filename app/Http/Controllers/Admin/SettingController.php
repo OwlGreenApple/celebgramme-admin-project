@@ -605,5 +605,74 @@ class SettingController extends Controller {
 		return $arr;
 	}
 	
+	/**
+	 * Show Setting Page.
+	 *
+	 * @return Response
+	 */
+	public function automation_daily($search="")
+	{
+    $user = Auth::user();
+		
+								
+		return View::make('admin.setting-automation-daily.index')->with(
+                  array(
+                    'search'=>$search,
+                    'user'=>$user,
+                  ));
+	}
+
+  public function load_automation_daily()
+  {
+		$admin = Auth::user();
+		if (Request::input('keyword')=="") {
+			$arr = Setting::
+					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
+					->where("type","=","temp")
+					->orderBy('settings.id', 'asc')
+					->paginate(15);
+	  } else {
+			$arr = Setting::
+					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
+					->where("type","=","temp")
+					->where("settings.insta_username","like","%".Request::input('keyword')."%")
+					->orderBy('settings.id', 'asc')
+					->paginate(15);
+		}
+					
+			
+    return view('admin.setting-automation-daily.content')->with(
+                array(
+                  'admin'=>$admin,
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                  'day'=>date("d", intval(Request::input('from'))),
+                ));
+  }
+  
+	public function pagination_automation_daily()
+  {
+		if (Request::input('keyword')=="") {
+			$arr = Setting::
+					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
+					->where("type","=","temp")
+					->orderBy('settings.id', 'asc')
+					->paginate(15);
+	  } else {
+			$arr = Setting::
+					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
+					->where("type","=","temp")
+					->where("settings.insta_username","like","%".Request::input('keyword')."%")
+					->orderBy('settings.id', 'asc')
+					->paginate(15);
+		}
+
+
+    return view('admin.setting-automation-daily.pagination')->with(
+                array(
+                  'arr'=>$arr,
+                ));
+  }
+  
 	
 }
