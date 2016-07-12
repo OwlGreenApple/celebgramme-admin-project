@@ -411,7 +411,82 @@ class SettingController extends Controller {
 	public function get_logs_automation_daily() {
 		$logs = "";
 		$counter =1;
-		$setting_counters = SettingCounter::
+		
+		$setting_helper = SettingHelper::where("setting_id","=",Request::input('id'))->first();
+		$setting = Setting::find(Request::input('id'));
+		
+		if ($setting_helper->server_automation == "A1(automation-1)") {
+			$server = "http://192.186.146.248/";
+		}
+		if ($setting_helper->server_automation == "A2(automation-2)") {
+			$server = "http://192.186.146.246/";
+		}
+
+		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
+		for ($i=1;$i<=7;$i++) {
+			$logs .= "<tr>";
+			$logs .= "<td>".$dt->toDateTimeString()."</td>";
+			
+
+			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."unfollow.txt";
+			$ch = curl_init($file_server);
+			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_exec($ch);
+			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+				$logs .= "<td>".file_get_contents($file_server)."</td>";	
+			} else {
+				$logs .= "<td> 0 </td>";
+			}
+			echo $retcode;
+			curl_close($ch);
+
+			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."follow.txt";
+			$ch = curl_init($file_server);
+			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_exec($ch);
+			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+				$logs .= "<td>".file_get_contents($file_server)."</td>";	
+			} else {
+				$logs .= "<td> 0 </td>";
+			}
+			echo $retcode;
+			curl_close($ch);
+
+			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."like.txt";
+			$ch = curl_init($file_server);
+			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_exec($ch);
+			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+				$logs .= "<td>".file_get_contents($file_server)."</td>";	
+			} else {
+				$logs .= "<td> 0 </td>";
+			}
+			echo $retcode;
+			curl_close($ch);
+
+			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."comment.txt";
+			$ch = curl_init($file_server);
+			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_exec($ch);
+			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+				$logs .= "<td>".file_get_contents($file_server)."</td>";	
+			} else {
+				$logs .= "<td> 0 </td>";
+			}
+			echo $retcode;
+			curl_close($ch);
+			
+			$logs .= "</tr>";
+			
+			
+			$dt->subDay();
+		}
+		
+		/*$setting_counters = SettingCounter::
 												select(DB::raw('SUM(follows_counter) as follows_counter'),DB::raw('SUM(likes_counter) as likes_counter'),DB::raw('SUM(comments_counter) as comments_counter'),DB::raw('SUM(unfollows_counter) as unfollows_counter'),DB::raw('DATE(created) as datum'))
 												->where("setting_id","=",Request::input('id'))
 												->orderBy("created","desc")
@@ -427,7 +502,8 @@ class SettingController extends Controller {
 			$logs .= "</tr>";
 			$counter +=1;
 			if ($counter>7) {break;}
-		}
+		}*/
+		
 		$arr["logs"] = $logs;
 		$arr["type"] = "success";
 		return $arr;
