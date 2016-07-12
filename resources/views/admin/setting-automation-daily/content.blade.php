@@ -111,6 +111,9 @@
 					}
 				?>
       </td>
+      <td align="center">
+				{{$data_arr->status}}
+      </td>
 
 			
 			

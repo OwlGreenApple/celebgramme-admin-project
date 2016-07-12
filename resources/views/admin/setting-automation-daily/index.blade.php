@@ -151,6 +151,7 @@
         <th>Follows</th>
         <th>Likes</th>
         <th>Comments</th>
+        <th>Status Cookies</th>
         <th>Status</th>
 				
       </tr>      

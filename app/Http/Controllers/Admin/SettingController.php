@@ -646,7 +646,7 @@ class SettingController extends Controller {
                   'admin'=>$admin,
                   'arr'=>$arr,
                   'page'=>Request::input('page'),
-                  'day'=>date("d", intval(Request::input('from'))),
+                  'day'=>intval(date("d", intval(Request::input('from')))) - 1 ,
                 ));
   }
   
