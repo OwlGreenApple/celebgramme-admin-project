@@ -152,6 +152,7 @@
         <th>Likes</th>
         <th>Comments</th>
         <th>Status Cookies</th>
+        <th>Activity Speed</th>
 				
       </tr>      
     </thead>
