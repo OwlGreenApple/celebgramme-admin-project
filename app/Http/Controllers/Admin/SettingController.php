@@ -380,15 +380,29 @@ class SettingController extends Controller {
 	public function get_logs_automation() {
 		$logs = "";
 		$counter =1;
-		$setting_counters = SettingCounter::where("setting_id","=",Request::input('id'))
-												->orderBy("created","desc")
-												->get();
-		foreach($setting_counters as $setting_counter) {
-			$logs .= $setting_counter->created."<br> ".$setting_counter->description;
-			$logs .= "<br><br>";
-			$counter +=1;
-			if ($counter>3) {break;}
+		
+		$setting_helper = SettingHelper::where("setting_id","=",Request::input('id'))->first();
+		$setting = Setting::find(Request::input('id'));
+		
+		if ($setting_helper->server_automation == "A1(automation-1)") {
+			$file_server = "http://192.186.146.248/";
 		}
+		if ($setting_helper->server_automation == "A2(automation-2)") {
+			$file_server = "http://192.186.146.246/";
+		}
+		$file_server .= "logs-IG-account/".$setting->insta_username.".txt";
+		
+		$logs = file_get_contents($file_server);
+		
+		// $setting_counters = SettingCounter::where("setting_id","=",Request::input('id'))
+												// ->orderBy("created","desc")
+												// ->get();
+		// foreach($setting_counters as $setting_counter) {
+			// $logs .= $setting_counter->created."<br> ".$setting_counter->description;
+			// $logs .= "<br><br>";
+			// $counter +=1;
+			// if ($counter>3) {break;}
+		// }
 		$arr["logs"] = $logs;
 		$arr["type"] = "success";
 		return $arr;
