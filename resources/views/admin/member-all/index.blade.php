@@ -196,9 +196,7 @@
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Source using</label>
               <div class="col-sm-8 col-md-6">
                 <input type="radio" name="check-login" id="radio-login-standard" value="2">
-								<label for="radio-login-standard">Login Check API STANDARD</label> <br>
-                <input type="radio" name="check-login" id="radio-login-websta" value="1">
-								<label for="radio-login-websta">Login Check Websta</label> <br>
+								<label for="radio-login-standard">Login Check Username</label> <br>
                 <input type="radio" name="check-login" id="radio-login-api" value="0">
 								<label for="radio-login-api">Login Check Curl</label>
               </div>
