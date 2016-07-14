@@ -106,6 +106,37 @@
   </div>
 
 
+  <div class="modal fade" id="myModalErrorIG" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">IG Account error</h4>
+        </div>
+        <div class="modal-body">
+					<div class="form-group form-group-sm row">
+						<table class="table table-bordered">  
+							<thead>
+								<tr style="font-weight:bold;">
+									<th>IG ACCOUNT</th>
+									<th>Status Cookies</th>
+									<th>Description</th>
+								</tr>      
+							</thead>
+							<tbody id="p-logs-errorIG">
+							</tbody>
+							
+						</table>  
+					</div>  
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+      
+    </div>
+  </div>
+	
 
 	
   <div class="page-header">
@@ -128,6 +159,9 @@
   <div class="cover-input-group">
     <div class="input-group fl">
       <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
+    </div>  
+    <div class="input-group fl">
+      <input type="button" value="IG account error" id="button-show-error" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalErrorIG"> 
     </div>  
     <div class="none"></div>
   </div>
@@ -334,6 +368,31 @@
         });
       });
 
+			
+      $( "body" ).on( "click", "#button-show-error", function() {
+        temp = $(this);
+        $.ajax({                                      
+          url: '<?php echo url('load-automation-logs-error'); ?>',
+          type: 'get',
+          data: {
+						id : $(this).attr("data-id")
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+							$("#p-logs-errorIG").html(data.logs);
+            } else if (data.type=='error') {
+            }
+						$("#div-loading").hide();
+          }
+        });
+      });
 			
     });
   </script>		

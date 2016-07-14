@@ -134,6 +134,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('load-automation-logs', 'Admin\SettingController@get_logs_automation');
 	Route::get('load-automation-logs-daily', 'Admin\SettingController@get_logs_automation_daily');
 	Route::get('load-automation-logs-hourly', 'Admin\SettingController@get_logs_automation_hourly');
+	Route::get('load-automation-logs-error', 'Admin\SettingController@get_logs_automation_error');
 	
 	/* Daily Setting Account IG Automation*/
 	Route::get('setting-automation-daily', 'Admin\SettingController@automation_daily');

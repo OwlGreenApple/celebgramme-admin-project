@@ -404,15 +404,6 @@ class SettingController extends Controller {
 		curl_close($ch);
 		
 		
-		// $setting_counters = SettingCounter::where("setting_id","=",Request::input('id'))
-												// ->orderBy("created","desc")
-												// ->get();
-		// foreach($setting_counters as $setting_counter) {
-			// $logs .= $setting_counter->created."<br> ".$setting_counter->description;
-			// $logs .= "<br><br>";
-			// $counter +=1;
-			// if ($counter>3) {break;}
-		// }
 		$arr["logs"] = $logs;
 		$arr["type"] = "success";
 		return $arr;
@@ -491,24 +482,6 @@ class SettingController extends Controller {
 			
 			$dt->subDay();
 		}
-		
-		/*$setting_counters = SettingCounter::
-												select(DB::raw('SUM(follows_counter) as follows_counter'),DB::raw('SUM(likes_counter) as likes_counter'),DB::raw('SUM(comments_counter) as comments_counter'),DB::raw('SUM(unfollows_counter) as unfollows_counter'),DB::raw('DATE(created) as datum'))
-												->where("setting_id","=",Request::input('id'))
-												->orderBy("created","desc")
-												->groupBy("setting_id","datum")
-												->get();
-		foreach($setting_counters as $setting_counter) {
-			$logs .= "<tr>";
-			$logs .= "<td>".$setting_counter->datum."</td>";
-			$logs .= "<td>".$setting_counter->unfollows_counter."</td>";
-			$logs .= "<td>".$setting_counter->follows_counter."</td>";
-			$logs .= "<td>".$setting_counter->likes_counter."</td>";
-			$logs .= "<td>".$setting_counter->comments_counter."</td>";
-			$logs .= "</tr>";
-			$counter +=1;
-			if ($counter>7) {break;}
-		}*/
 		
 		$arr["logs"] = $logs;
 		$arr["type"] = "success";
@@ -589,17 +562,106 @@ class SettingController extends Controller {
 			$dt->subHour();
 		}
 
+		$arr["logs"] = $logs;
+		$arr["type"] = "success";
+		return $arr;
+	}
+	
+	public function get_logs_automation_error() {
+		$logs = "";
+		$counter =1;
 		
-		
-		// $setting_counters = SettingCounter::where("setting_id","=",Request::input('id'))
-												// ->orderBy("created","desc")
-												// ->get();
-		// foreach($setting_counters as $setting_counter) {
-			// $logs .= $setting_counter->created."<br> ".$setting_counter->description;
-			// $logs .= "<br><br>";
-			// $counter +=1;
-			// if ($counter>3) {break;}
-		// }
+		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
+		$settings = Setting::
+				join("setting_helpers","setting_helpers.setting_id","=","settings.id")
+				->where("type","=","temp")
+				->orderBy('settings.id', 'asc')
+				->get();
+					
+    foreach ($settings as $setting) {					
+			if ($setting->server_automation == "A1(automation-1)") {
+				$server = "http://192.186.146.248/";
+			}
+			if ($setting->server_automation == "A2(automation-2)") {
+				$server = "http://192.186.146.246/";
+			}
+
+			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."unfollow.txt";
+			$ch = curl_init($file_server);
+			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_exec($ch);
+			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+				$unfollow_counter = file_get_contents($file_server);	
+			} else {
+				$unfollow_counter = 0;
+			}
+			curl_close($ch);
+
+			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."follow.txt";
+			$ch = curl_init($file_server);
+			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_exec($ch);
+			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+				$follow_counter = file_get_contents($file_server);	
+			} else {
+				$follow_counter = 0;
+			}
+			curl_close($ch);
+
+			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."like.txt";
+			$ch = curl_init($file_server);
+			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_exec($ch);
+			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+				$like_counter = file_get_contents($file_server);	
+			} else {
+				$like_counter = 0;
+			}
+			curl_close($ch);
+
+			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."comment.txt";
+			$ch = curl_init($file_server);
+			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_exec($ch);
+			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+				$comment_counter = file_get_contents($file_server);	
+			} else {
+				$comment_counter = 0;
+			}
+			curl_close($ch);
+
+			if ( ( ($unfollow_counter==0) && ($follow_counter==0) && ($like_counter==0) && ($comment_counter==0) && ) || ( substr($setting->cookies, 0, 5) == "error")) {
+			
+				$logs .= "<tr>";
+				$logs .= "<td>".$setting->insta_username."</td>";
+				
+				if ($setting->cookies=="error login status :check") {
+					$logs .= "<td>Error Password Reset</td>";
+				} else
+				if ($setting->cookies=="error csrf status : new") {
+					$logs .= "<td>Error Konfirmasi Telepon / Email</td>";
+				} else
+				if ($setting->cookies=="") {
+					$logs .= "<td>OFF</td>";
+				} else {
+					echo $setting->cookies;
+				}
+				$logs .= "<td>Error Cookies</td>";
+				$logs .= "</tr>";
+			}
+			
+			if ( ($unfollow_counter==0) && ($follow_counter==0) && ($like_counter==0) && ($comment_counter==0) && ) {
+				$logs .= "<td>Error No Activity</td>";
+			}
+			if ( substr($setting->cookies, 0, 5) == "error") {
+				$logs .= "<td>Error Cookies</td>";
+			}
+		}
+
 		$arr["logs"] = $logs;
 		$arr["type"] = "success";
 		return $arr;
