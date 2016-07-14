@@ -51,6 +51,9 @@ class AdminController extends Controller {
 	}
 
 	public function update_config(){
+		$temp = Meta::createMeta("delay_like_on_same_account",Request::input("delay_like_on_same_account")); //in day
+		$temp = Meta::createMeta("number_like_on_same_account",Request::input("number_like_on_same_account")); //in action
+		
 		$temp = Meta::createMeta("delay_error_cookies_1",Request::input("delay_error_cookies_1"));
 		$temp = Meta::createMeta("delay_error_cookies_2",Request::input("delay_error_cookies_2"));
 		$temp = Meta::createMeta("delay_error_cookies_3",Request::input("delay_error_cookies_3"));

@@ -461,6 +461,20 @@ use Celebgramme\Models\Meta;
                 <input type="number" class="form-control" placeholder="" name="delay_error_cookies_5" value="{{Meta::getMeta('delay_error_cookies_5')}}">
               </div>
             </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Maximum Like on same account <br>(per Delay like number)
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="number_like_on_same_account" value="{{Meta::getMeta('number_like_on_same_account')}}">
+              </div>
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Delay like on same account 
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="delay_like_on_same_account" value="{{Meta::getMeta('delay_like_on_same_account')}}">
+              </div>
+            </div>  
           </form>
         </div>
         <div class="modal-footer">
