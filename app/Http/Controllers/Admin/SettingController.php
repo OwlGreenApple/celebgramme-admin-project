@@ -651,8 +651,6 @@ class SettingController extends Controller {
 				} else {
 					$logs .= "<td>".$setting->cookies."</td>";
 				}
-				$logs .= "<td>Error Cookies</td>";
-				$logs .= "</tr>";
 			}
 			
 			if ( ($unfollow_counter==0) && ($follow_counter==0) && ($like_counter==0) && ($comment_counter==0) ) {
