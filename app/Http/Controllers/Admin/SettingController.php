@@ -634,7 +634,7 @@ class SettingController extends Controller {
 			}
 			curl_close($ch);
 
-			if ( ( ($unfollow_counter==0) && ($follow_counter==0) && ($like_counter==0) && ($comment_counter==0) && ) || ( substr($setting->cookies, 0, 5) == "error")) {
+			if ( ( ($unfollow_counter==0) && ($follow_counter==0) && ($like_counter==0) && ($comment_counter==0) ) || ( substr($setting->cookies, 0, 5) == "error")) {
 			
 				$logs .= "<tr>";
 				$logs .= "<td>".$setting->insta_username."</td>";
