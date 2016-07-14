@@ -575,6 +575,7 @@ class SettingController extends Controller {
 		$settings = Setting::
 				join("setting_helpers","setting_helpers.setting_id","=","settings.id")
 				->where("type","=","temp")
+				->where("status","=","started")
 				->orderBy('settings.id', 'asc')
 				->get();
 					
@@ -648,7 +649,7 @@ class SettingController extends Controller {
 				if ($setting->cookies=="") {
 					$logs .= "<td>OFF</td>";
 				} else {
-					echo $setting->cookies;
+					$logs .= "<td>".$setting->cookies."</td>";
 				}
 				$logs .= "<td>Error Cookies</td>";
 				$logs .= "</tr>";
