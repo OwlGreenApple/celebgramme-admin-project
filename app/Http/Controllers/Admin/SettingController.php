@@ -654,7 +654,7 @@ class SettingController extends Controller {
 				$logs .= "</tr>";
 			}
 			
-			if ( ($unfollow_counter==0) && ($follow_counter==0) && ($like_counter==0) && ($comment_counter==0) && ) {
+			if ( ($unfollow_counter==0) && ($follow_counter==0) && ($like_counter==0) && ($comment_counter==0) ) {
 				$logs .= "<td>Error No Activity</td>";
 			}
 			if ( substr($setting->cookies, 0, 5) == "error") {
