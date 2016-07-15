@@ -14,7 +14,6 @@ use Celebgramme\Models\LinkUserSetting;
 use Celebgramme\Models\TemplateEmail;
 use Celebgramme\Models\LinkProxySetting;
 use Celebgramme\Models\Proxies;
-use Celebgramme\Models\SettingCounter;
 
 use View,Auth,Request,DB,Carbon,Excel,Mail,Input;
 

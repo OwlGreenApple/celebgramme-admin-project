@@ -1,5 +1,4 @@
 <?php 
-	use Celebgramme\Models\LinkProxySetting;
   if ( ($data->count()==0) ) {
     echo "<tr><td colspan='7' align='center'>Data tidak ada</td></tr>";
   } else {
