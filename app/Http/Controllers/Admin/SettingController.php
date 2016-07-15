@@ -739,5 +739,16 @@ class SettingController extends Controller {
                 ));
   }
   
+	public function refresh_account() {
+		$setting_helper = SettingHelper::where("setting_id","=",Request::input('id'))->first();
+		$setting_helper->is_refresh = 1 ;
+		$setting_helper->save();
+		
+		
+		$arr["logs"] = "";
+		$arr["type"] = "success";
+		return $arr;
+	}
+	
 	
 }

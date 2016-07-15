@@ -394,6 +394,32 @@
         });
       });
 			
+      $( "body" ).on( "click", ".btn-refresh-account", function() {
+        temp = $(this);
+        $.ajax({
+          url: '<?php echo url('refresh-automation-IG-account'); ?>',
+          type: 'get',
+          data: {
+						id : $(this).attr("data-id")
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+							alert("account berhasil direfresh");
+            } else if (data.type=='error') {
+            }
+						$("#div-loading").hide();
+          }
+        });
+      });
+			
+			
     });
   </script>		
   

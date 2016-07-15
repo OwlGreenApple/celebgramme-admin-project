@@ -125,6 +125,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('update-setting-proxy', 'Admin\SettingController@update_setting_proxy');
 	Route::post('update-method-automation', 'Admin\SettingController@update_method_automation');
 	Route::post('update-server-automation', 'Admin\SettingController@update_server_automation');
+	Route::post('refresh-automation-IG-account', 'Admin\SettingController@refresh_account');
 	
 	/* Status Setting Account IG Automation*/
 	Route::get('setting-automation', 'Admin\SettingController@automation');
