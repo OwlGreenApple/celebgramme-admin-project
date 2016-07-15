@@ -175,6 +175,7 @@
     <thead>
       <tr style="font-weight:bold;">
         <th>No. </th>
+				<th>Password Error</th>
         <th>Insta username</th>
         <th>Fullname (email)</th>
         <th>Followers</th>
@@ -418,6 +419,33 @@
             } else if (data.type=='error') {
             }
 						$("#div-loading").hide();
+          }
+        });
+      });
+
+      $( "body" ).on( "click", ".update-error", function() {
+        temp = $(this);
+        $.ajax({                                      
+          url: '<?php echo url('update-error-cred'); ?>/'+$(this).attr('data-id'),
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'patch',
+          data: {
+            _method : "PATCH",
+          },
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            if (result=='success') {
+              temp.removeClass('x-icon');
+              temp.addClass('checked-icon');
+            }
+            $("#div-loading").hide();
           }
         });
       });

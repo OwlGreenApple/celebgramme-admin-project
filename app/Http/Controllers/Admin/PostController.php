@@ -9,6 +9,7 @@ use Celebgramme\Models\RequestModel;
 use Celebgramme\Models\Post;
 use Celebgramme\Models\PostLog;
 use Celebgramme\Models\Setting;
+use Celebgramme\Models\SettingHelper;
 use Celebgramme\Models\SettingMeta; 
 use Celebgramme\Models\LinkUserSetting;
 use Celebgramme\Models\TemplateEmail;
@@ -311,6 +312,10 @@ class PostController extends Controller {
     $setting_real->error_cred = true;
     $setting_real->status = "stopped";
     $setting_real->save();
+		
+		$setting_helper = SettingHelper::where("setting_id","=",$id)->first();
+		$setting_helper->cookies = "error manual by admin";
+		$setting_helper->save();
 
 		$user = User::find($setting_temp->last_user);
     $emaildata = [
