@@ -398,6 +398,9 @@
         temp = $(this);
         $.ajax({
           url: '<?php echo url('refresh-automation-IG-account'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
           type: 'post',
           data: {
 						id : $(this).attr("data-id")
