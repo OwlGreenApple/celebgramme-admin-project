@@ -144,7 +144,7 @@
     <thead>
       <tr style="font-weight:bold;">
         <th>No. </th>
-        <th>Insta username</th>
+        <th>Insta username / Start time</th>
         <th>Followers</th>
         <th>Following</th>
         <th>Unfollows</th>
