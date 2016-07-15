@@ -398,7 +398,7 @@
         temp = $(this);
         $.ajax({
           url: '<?php echo url('refresh-automation-IG-account'); ?>',
-          type: 'get',
+          type: 'post',
           data: {
 						id : $(this).attr("data-id")
 					},
