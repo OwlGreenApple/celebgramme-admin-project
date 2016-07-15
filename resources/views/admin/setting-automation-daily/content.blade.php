@@ -19,7 +19,7 @@
         {{$i}}
       </td>
       <td align="center">
-        {{$data_arr->insta_username."<br>".$data_arr->start_time}} 
+        {{$data_arr->insta_username." / ".$data_arr->start_time}} 
       </td>
       <td align="center">
         <?php 
