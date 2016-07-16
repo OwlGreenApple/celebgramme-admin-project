@@ -82,6 +82,9 @@
 				<input type="button" value="Daily" data-loading-text="Loading..." class="btn btn-primary btn-show-log-daily" data-toggle="modal" data-target="#myModalDaily" data-id="{{$data_arr->setting_id}}"> 
 				<input type="button" value="Hourly" data-loading-text="Loading..." class="btn btn-primary btn-show-log-hourly" data-toggle="modal" data-target="#myModalHourly" data-id="{{$data_arr->setting_id}}"> 
 				<input type="button" value="Refresh" data-loading-text="Loading..." class="btn btn-primary btn-refresh-account"  data-id="{{$data_arr->setting_id}}"> 
+				<?php if ($admin->email == "it2.axiapro@gmail.com") { ?>
+				<input type="button" value="Refresh auth" data-loading-text="Loading..." class="btn btn-primary btn-refresh-auth"  data-id="{{$data_arr->setting_id}}"> 
+				<?php } ?>
       </td>
 
 			

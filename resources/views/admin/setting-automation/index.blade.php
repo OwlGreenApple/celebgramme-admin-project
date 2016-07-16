@@ -451,6 +451,34 @@
       });
 			
 			
+      $( "body" ).on( "click", ".btn-refresh-auth", function() {
+        temp = $(this);
+        $.ajax({
+          url: '<?php echo url('refresh-auth-IG-account'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: {
+						id : $(this).attr("data-id")
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+							alert("auth account berhasil direfresh");
+            } else if (data.type=='error') {
+            }
+						$("#div-loading").hide();
+          }
+        });
+      });
+			
     });
   </script>		
   

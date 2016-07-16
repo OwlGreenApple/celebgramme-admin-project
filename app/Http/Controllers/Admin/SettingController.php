@@ -15,6 +15,8 @@ use Celebgramme\Models\TemplateEmail;
 use Celebgramme\Models\LinkProxySetting;
 use Celebgramme\Models\Proxies;
 
+use Celebgramme\Helpers\GlobalHelper;
+
 use View,Auth,Request,DB,Carbon,Excel,Mail,Input;
 
 class SettingController extends Controller {
@@ -743,6 +745,20 @@ class SettingController extends Controller {
 		$setting_helper->is_refresh = 1 ;
 		$setting_helper->save();
 		
+		
+		$arr["logs"] = "";
+		$arr["type"] = "success";
+		return $arr;
+	}
+	
+	public function refresh_auth() {
+		$setting_helper = SettingHelper::where("setting_id","=",Request::input('id'))->first();
+		$setting_helper->cookies = "" ;
+		$setting_helper->save();
+		
+		//assign proxy ulang
+		$ssetting = Setting::find(Request::input('id'));
+		GlobalHelper::clearProxy($ssetting);
 		
 		$arr["logs"] = "";
 		$arr["type"] = "success";
