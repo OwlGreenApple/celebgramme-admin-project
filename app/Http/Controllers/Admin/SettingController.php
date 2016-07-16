@@ -757,7 +757,7 @@ class SettingController extends Controller {
 		$setting_helper->save();
 		
 		//assign proxy ulang
-		$ssetting = Setting::find(Request::input('id'));
+		$ssetting = serialize(Setting::find(Request::input('id')));
 		GlobalHelper::clearProxy($ssetting);
 		
 		$arr["logs"] = "";
