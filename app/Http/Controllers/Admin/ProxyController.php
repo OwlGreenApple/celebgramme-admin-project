@@ -30,16 +30,37 @@ class ProxyController extends Controller {
 	public function index()
 	{
     $user = Auth::user();
+
+		$collection = array();
+		$availableProxys = Proxies::leftJoin("setting_helpers","setting_helpers.proxy_id","=","proxies.id")
+								->select(DB::raw("count(proxies.id) as test"))
+                ->groupBy("proxies.id")
+								->havingRaw('count(proxies.id) < 5')
+								->get();
+		foreach ($availableProxys as $availableProxy) {
+			$collection[] = $availableProxy->test ;
+		}
+		// echo collect($collection)->sum(); exit;
+		
 		return View::make('admin.proxy.index')->with(
                   array(
                     'user'=>$user,
+                    'numAvailableProxy'=>collect($collection)->sum(),
                   ));
   }
   
 	public function load_proxy_manager()
   {
     $user = Auth::user();
-		$data = Proxies::paginate(15);
+		
+		if (Request::input('search')=="") {
+			$data = Proxies::paginate(15);
+		} else {
+			$data = Proxies::
+							where("proxy","like","%".Request::input('search')."%")
+							->orWhere("port","like","%".Request::input('search')."%")
+							->paginate(15);
+		}
     return view('admin.proxy.content')->with(
                 array(
                   'user'=>$user,
@@ -50,7 +71,14 @@ class ProxyController extends Controller {
 
 	public function pagination_proxy_manager()
   {
-		$data = Proxies::paginate(15);
+		if (Request::input('search')=="") {
+			$data = Proxies::paginate(15);
+		} else {
+			$data = Proxies::
+							where("proxy","like","%".Request::input('search')."%")
+							->orWhere("port","like","%".Request::input('search')."%")
+							->paginate(15);
+		}
     return view('admin.proxy.pagination')->with(
                 array(
                   'data'=>$data,
