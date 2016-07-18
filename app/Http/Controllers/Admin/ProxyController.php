@@ -38,7 +38,7 @@ class ProxyController extends Controller {
 								->havingRaw('count(proxies.id) < 5')
 								->get();
 		foreach ($availableProxys as $availableProxy) {
-			$collection[] = $availableProxy->test ;
+			$collection[] = 5 - $availableProxy->test ;
 		}
 		// echo collect($collection)->sum(); exit;
 		
