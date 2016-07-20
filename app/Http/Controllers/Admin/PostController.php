@@ -370,8 +370,6 @@ class PostController extends Controller {
 					$sheet->appendRow(array( "Media Source : ".$setting->media_source ));
 					$sheet->appendRow(array( "Media Age : ".$setting->media_age ));
 					$sheet->appendRow(array( "Media Type : ".$setting->media_type ));
-					$sheet->appendRow(array( "Min like media : ".$setting->min_likes_media ));
-					$sheet->appendRow(array( "Max like media : ".$setting->max_likes_media ));
 					$sheet->appendRow(array( "Dont comment same user : ".$setting->dont_comment_su ));
 					$sheet->appendRow(array( "Follow source : ".$setting->follow_source ));
 					$sheet->appendRow(array( "Dont follow same user : ".$setting->dont_follow_su ));

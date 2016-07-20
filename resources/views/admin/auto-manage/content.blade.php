@@ -208,8 +208,6 @@
 					<li class="wrap"><strong>Username : </strong>{{$setting->username}}</li>
 					<li class="wrap"><strong>Media age : </strong>{{$setting->media_age}}</li>
 					<li class="wrap"><strong>Media type : </strong>{{$setting->media_type}}</li>
-					<li class="wrap"><strong>Min likes media : </strong>{{$setting->min_likes_media}}</li>
-					<li class="wrap"><strong>Max likes media : </strong>{{$setting->max_likes_media}}</li>
 					<li class="wrap"><strong>Dont comment same user : </strong>{{$setting->dont_comment_su}}</li>
 					<!--<li class="wrap"><strong>Follow source : </strong>{{$setting->follow_source}}</li>-->
 					<li class="wrap"><strong>Dont follow same user : </strong>{{$setting->dont_follow_su}}</li>

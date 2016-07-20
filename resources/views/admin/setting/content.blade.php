@@ -95,8 +95,6 @@
 					<li class="wrap"><strong>Username : </strong>{{$data_arr->username}}</li>
 					<li class="wrap"><strong>Media age : </strong>{{$data_arr->media_age}}</li>
 					<li class="wrap"><strong>Media type : </strong>{{$data_arr->media_type}}</li>
-					<li class="wrap"><strong>Min likes media : </strong>{{$data_arr->min_likes_media}}</li>
-					<li class="wrap"><strong>Max likes media : </strong>{{$data_arr->max_likes_media}}</li>
 					<li class="wrap"><strong>Dont comment same user : </strong>{{$data_arr->dont_comment_su}}</li>
 					<!--<li class="wrap"><strong>Follow source : </strong>{{$data_arr->follow_source}}</li>-->
 					<li class="wrap"><strong>Dont follow same user : </strong>{{$data_arr->dont_follow_su}}</li>
