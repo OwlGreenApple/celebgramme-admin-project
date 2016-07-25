@@ -22,13 +22,13 @@
         <?php } ?>
       </td>
       <td align="center">
-        {{$data_arr->insta_username}} 
+        {{$data_arr->insta_username." / ".$data_arr->start_time}} 
       </td>
       <td align="center">
 				<?php 
 					$user = User::find($data_arr->last_user);
 					if (!is_null($user)) {
-						echo $user->fullname."(".$user->email.")"." / ".$data_arr->start_time;?>
+						echo $user->fullname."(".$user->email.")";?>
 				<?php						
 					} else {
 						echo "Email account celebgramme deleted";
