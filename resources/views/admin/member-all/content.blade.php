@@ -46,7 +46,7 @@
 				{{$data_arr->created_at}}
       </td>
       <td align="center">
-				<input type="button" class="btn btn-success btn-check-login-websta" data-toggle="modal" data-target="#myModalEditLoginWebsta" data-id="{{$data_arr->id}}" data-test="{{$data_arr->test}}" value="Login websta">
+				<input type="button" class="btn btn-success btn-check-login-websta" data-toggle="modal" data-target="#myModalEditLoginWebsta" data-id="{{$data_arr->id}}" data-test="{{$data_arr->test}}" value="Login source">
 				<?php if ( ($admin->email == "it2.axiapro@gmail.com") || ($admin->email == "admin@admin.com") ) { ?>
         <!--<input type="button" class="btn btn-info btn-daily-like" value="+ likes" data-toggle="modal" data-target="#myModalDailyLikes" data-id="{{$data_arr->id}}" >-->
         <input type="button" class="btn btn-info btn-auto-manage" value="+ times" data-toggle="modal" data-target="#myModalAutoManage" data-id="{{$data_arr->id}}" >

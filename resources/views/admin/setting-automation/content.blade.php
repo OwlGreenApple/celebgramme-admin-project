@@ -28,7 +28,7 @@
 				<?php 
 					$user = User::find($data_arr->last_user);
 					if (!is_null($user)) {
-						echo $user->fullname."(".$user->email.")";?>
+						echo $user->fullname."(".$user->email.")"." / ".$data_arr->start_time;?>
 				<?php						
 					} else {
 						echo "Email account celebgramme deleted";
@@ -82,9 +82,7 @@
 				<input type="button" value="Daily" data-loading-text="Loading..." class="btn btn-primary btn-show-log-daily" data-toggle="modal" data-target="#myModalDaily" data-id="{{$data_arr->setting_id}}"> 
 				<input type="button" value="Hourly" data-loading-text="Loading..." class="btn btn-primary btn-show-log-hourly" data-toggle="modal" data-target="#myModalHourly" data-id="{{$data_arr->setting_id}}"> 
 				<input type="button" value="Refresh" data-loading-text="Loading..." class="btn btn-primary btn-refresh-account"  data-id="{{$data_arr->setting_id}}"> 
-				<?php if ($admin->email == "it2.axiapro@gmail.com") { ?>
-				<input type="button" value="Refresh auth" data-loading-text="Loading..." class="btn btn-primary btn-refresh-auth"  data-id="{{$data_arr->setting_id}}"> 
-				<?php } ?>
+				<input type="button" value="Refresh Auth" data-loading-text="Loading..." class="btn btn-primary btn-refresh-auth"  data-id="{{$data_arr->setting_id}}"> 
       </td>
 
 			

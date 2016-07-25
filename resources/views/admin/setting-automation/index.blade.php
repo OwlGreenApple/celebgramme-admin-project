@@ -176,7 +176,7 @@
       <tr style="font-weight:bold;">
         <th>No. </th>
 				<th>Password Error</th>
-        <th>Insta username</th>
+        <th>Insta username / start time</th>
         <th>Fullname (email)</th>
         <th>Followers</th>
         <th>Following</th>
