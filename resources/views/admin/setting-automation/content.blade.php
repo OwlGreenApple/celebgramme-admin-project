@@ -22,18 +22,45 @@
         <?php } ?>
       </td>
       <td align="center">
-        {{$data_arr->insta_username." / ".$data_arr->start_time}} 
-      </td>
-      <td align="center">
+        {{$data_arr->insta_username." / "}} 
 				<?php 
 					$user = User::find($data_arr->last_user);
 					if (!is_null($user)) {
-						echo $user->fullname."(".$user->email.")";?>
+						echo $user->fullname."(".$user->email.") / ";?>
 				<?php						
 					} else {
-						echo "Email account celebgramme deleted";
+						echo "Email account celebgramme deleted / ";
 					}
-				?><br>
+				?>
+				{{$data_arr->start_time}}
+      </td>
+      <td align="center">
+				<p class="identity">
+				<span class="edit-identity">
+				<?php 
+					if ($data_arr->identity == "") { echo "-"; } 
+					else {
+						echo $data_arr->identity;
+					}
+				?>
+				</span>
+				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-identity-edit" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}"
+				data-filename="{{$data_arr->identity}}" style="cursor:pointer;">  </span>
+				</p>
+      </td>
+      <td align="center">
+				<p class="target">
+				<span class="edit-target">
+				<?php 
+					if ($data_arr->target == "") { echo "-"; } 
+					else {
+						echo $data_arr->target;
+					}
+				?>
+				</span>
+				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-target-edit" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}"
+				data-filename="{{$data_arr->target}}" style="cursor:pointer;">  </span>
+				</p>
       </td>
       <td align="center">
         <?php 

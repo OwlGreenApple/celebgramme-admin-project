@@ -179,4 +179,11 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-log-post', 'Admin\PostController@pagination_log_post');
 	
 	
+	/* Categories*/
+	Route::get('categories', 'Admin\CategoriesController@index');
+	Route::get('categories/{search}', 'Admin\CategoriesController@index');
+	Route::get('load-categories', 'Admin\CategoriesController@load');
+	Route::get('pagination-categories', 'Admin\CategoriesController@pagination');
+	Route::post('update-categories', 'Admin\CategoriesController@update');
+	
 });

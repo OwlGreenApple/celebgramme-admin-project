@@ -246,7 +246,7 @@
 			<div class="modal-dialog">
 					<div class="modal-content">
 							<div class="modal-header">
-									Delete Order
+									Delete Member
 							</div>
 							<div class="modal-body">
 									Are you sure want to delete ?

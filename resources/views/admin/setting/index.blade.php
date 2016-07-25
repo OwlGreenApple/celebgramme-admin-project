@@ -244,8 +244,7 @@
       <tr style="font-weight:bold;">
         <th>No. </th>
         <th>Password Error</th>
-        <th>Insta username / Insta password</th>
-        <th>Fullname (email)</th>
+        <th>Fullname (email) / Insta username / Insta password / start time</th>
         <th>Server Name</th>
         <th>Updates</th>
 				

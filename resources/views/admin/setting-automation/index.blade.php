@@ -15,6 +15,38 @@
 }	
 </style>
 
+  <div class="modal fade" id="myModalIdentity" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">History Logs</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-edit">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Server Name</label>
+              <div class="col-sm-8 col-md-6">
+								<select class="form-control" name="fl-filename" id="fl-filename">
+									@foreach ($filenames as $filename)
+										<option value="{{$filename->meta_value}}">{{$filename->meta_value}}</option>
+									@endforeach
+								</select>
+              </div>
+              <input type="hidden" id="setting-id" name="setting-id">
+            </div>  
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="button-edit-filename">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
   <div class="modal fade" id="myModalLog" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
@@ -176,8 +208,9 @@
       <tr style="font-weight:bold;">
         <th>No. </th>
 				<th>Password Error</th>
-        <th>Insta username / start time</th>
-        <th>Fullname (email)</th>
+        <th>Insta username / Fullname (email) / start time</th>
+        <th>Identity Categories</th>
+        <th>Target Categories</th>
         <th>Followers</th>
         <th>Following</th>
         <th>Proxy</th>
