@@ -14,6 +14,7 @@ use Celebgramme\Models\LinkUserSetting;
 use Celebgramme\Models\TemplateEmail;
 use Celebgramme\Models\LinkProxySetting;
 use Celebgramme\Models\Proxies;
+use Celebgramme\Models\Category;
 
 use Celebgramme\Helpers\GlobalHelper;
 
@@ -766,4 +767,36 @@ class SettingController extends Controller {
 	}
 	
 	
+	public function update_identity() {
+		$setting_helper = SettingHelper::where("setting_id","=",Request::input("setting-id"))->first();
+		if (!is_null($setting_helper)) {
+			$setting_helper->identity = Request::input("identity");
+			$setting_helper->save();
+		}
+		$arr["type"]="success";
+		$arr["message"]="identity berhasil diupdate";
+		return $arr;
+	}
+
+	public function update_target() {
+		$setting_helper = SettingHelper::where("setting_id","=",Request::input("setting-id"))->first();
+		if (!is_null($setting_helper)) {
+			$setting_helper->target = Request::input("target");
+			$setting_helper->save();
+		}
+		$setting = Setting::find(Request::input("setting-id"));
+		$setting->hashtags_auto = "";
+		
+		$arr = explode(";",Request::input("target"));
+		foreach($arr as $data_arr) {
+			$category = Category::where("name","like","%".$data_arr."%")->first();
+			$setting->hashtags_auto .= $category->hashtags.";";
+		}
+
+		$setting->save();
+		$arr["type"]="success";
+		$arr["message"]="target berhasil diupdate";
+		return $arr;
+	}
+
 }

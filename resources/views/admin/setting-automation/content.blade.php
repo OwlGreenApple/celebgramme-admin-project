@@ -44,7 +44,7 @@
 					}
 				?>
 				</span>
-				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-identity-edit" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}"
+				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-identity-edit" data-toggle="modal" data-target="#myModalIdentity" data-id="{{$data_arr->setting_id}}"
 				data-filename="{{$data_arr->identity}}" style="cursor:pointer;">  </span>
 				</p>
       </td>
@@ -58,7 +58,7 @@
 					}
 				?>
 				</span>
-				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-target-edit" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}"
+				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-target-edit" data-toggle="modal" data-target="#myModalTarget" data-id="{{$data_arr->setting_id}}"
 				data-filename="{{$data_arr->target}}" style="cursor:pointer;">  </span>
 				</p>
       </td>

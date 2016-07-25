@@ -15,31 +15,30 @@
 }	
 </style>
 
+<link href="{{ asset('/selectize/css/selectize.bootstrap3.css') }}" rel="stylesheet">
+<script type="text/javascript" src="{{ asset('/selectize/js/standalone/selectize.js') }}"></script>
+
   <div class="modal fade" id="myModalIdentity" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">History Logs</h4>
+          <h4 class="modal-title">Identity IG account</h4>
         </div>
         <div class="modal-body">
-          <form enctype="multipart/form-data" id="form-edit">
+          <form enctype="multipart/form-data" id="form-edit-identity">
             <div class="form-group form-group-sm row">
-              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Server Name</label>
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Identity</label>
               <div class="col-sm-8 col-md-6">
-								<select class="form-control" name="fl-filename" id="fl-filename">
-									@foreach ($filenames as $filename)
-										<option value="{{$filename->meta_value}}">{{$filename->meta_value}}</option>
-									@endforeach
-								</select>
+								<textarea class="selectize-default" id="textarea-identity" name="identity"></textarea>
               </div>
-              <input type="hidden" id="setting-id" name="setting-id">
+              <input type="hidden" class="setting-id" name="setting-id">
             </div>  
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" id="button-edit-filename">Submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="button-edit-identity">Submit</button>
         </div>
       </div>
       
@@ -47,20 +46,27 @@
   </div>
 
 
-  <div class="modal fade" id="myModalLog" role="dialog">
+  <div class="modal fade" id="myModalTarget" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">History Logs</h4>
+          <h4 class="modal-title">Target IG account</h4>
         </div>
         <div class="modal-body">
-					<div class="form-group form-group-sm row">
-						<p id="p-logs" style="margin-left:10px;"></p>
-					</div>  
+          <form enctype="multipart/form-data" id="form-edit-target">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Target</label>
+              <div class="col-sm-8 col-md-6">
+								<textarea class="selectize-default" id="textarea-target" name="target"></textarea>
+              </div>
+              <input type="hidden" class="setting-id" name="setting-id">
+            </div>  
+          </form>
         </div>
         <div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="button-edit-target">Submit</button>
         </div>
       </div>
       
@@ -309,6 +315,60 @@
         }
       });
     }
+		var selectS;
+    function refreshSelectize() {
+		  selectS = $('.selectize-default').selectize({
+/*
+				plugins:['remove_button'],
+				delimiter: ';',
+				persist: false,
+				onChange: function(value) {
+								 // alert(value);
+					// console.log($(this).parent());
+				},
+				// create: function(input) {
+					// return {
+						// value: input,
+						// text: input
+					// }
+				// },*/
+   options: [
+        {id: 'avenger', make: 'dodge', model: 'Avenger'},
+        {id: 'caliber', make: 'dodge', model: 'Caliber'},
+        {id: 'caravan-grand-passenger', make: 'dodge', model: 'Caravan Grand Passenger'},
+        {id: 'challenger', make: 'dodge', model: 'Challenger'},
+        {id: 'ram-1500', make: 'dodge', model: 'Ram 1500'},
+        {id: 'viper', make: 'dodge', model: 'Viper'},
+        {id: 'a3', make: 'audi', model: 'A3'},
+        {id: 'a6', make: 'audi', model: 'A6'},
+        {id: 'r8', make: 'audi', model: 'R8'},
+        {id: 'rs-4', make: 'audi', model: 'RS 4'},
+        {id: 's4', make: 'audi', model: 'S4'},
+        {id: 's8', make: 'audi', model: 'S8'},
+        {id: 'tt', make: 'audi', model: 'TT'},
+        {id: 'avalanche', make: 'chevrolet', model: 'Avalanche'},
+        {id: 'aveo', make: 'chevrolet', model: 'Aveo'},
+        {id: 'cobalt', make: 'chevrolet', model: 'Cobalt'},
+        {id: 'silverado', make: 'chevrolet', model: 'Silverado'},
+        {id: 'suburban', make: 'chevrolet', model: 'Suburban'},
+        {id: 'tahoe', make: 'chevrolet', model: 'Tahoe'},
+        {id: 'trail-blazer', make: 'chevrolet', model: 'TrailBlazer'},
+    ],
+    optgroups: [
+        {id: 'dodge', name: 'Dodge'},
+        {id: 'audi', name: 'Audi'},
+        {id: 'chevrolet', name: 'Chevrolet'}
+    ],
+    labelField: 'model',
+    valueField: 'id',
+    optgroupField: 'make',
+    optgroupLabelField: 'name',
+    optgroupValueField: 'id',
+    optgroupOrder: ['chevrolet', 'dodge', 'audi'],
+    searchField: ['model'],
+    plugins: ['optgroup_columns']
+			});
+    }
     $(document).ready(function(){
 			
 			
@@ -316,8 +376,99 @@
       create_pagination(1);
       refresh_page(1);
 			
+			refreshSelectize();
 			
+			// show current input values
+			$('textarea.selectize-default,select.selectize-default,input.selectize-default').each(function() {
+				var $container = $('<div style="font-size:11px;">').addClass('value').html('Current count: ');
+				var $value = $('<span>').appendTo($container);
+				var $input = $(this);
+				var update = function(e) { 
+					// $value.text(JSON.stringify($input.val())); 
+
+					var str,res;
+					str = JSON.stringify($input.val());
+					res = str.split(";");
+					if ($input.val() == "") {
+						$value.text("0"); 
+					} else {
+						$value.text(res.length); 
+					}
+					// console.log(res.length);
+					// $container.insertAfter($input.next());
+				}
+
+				$(this).on('change', update);
+				update();
+
+				$container.insertAfter($input.next());
+				
+				// $container.insertAfter($input.next());
+			});
+
+
+			$('#button-edit-identity').click(function(e){
+        $.ajax({
+          url: '<?php echo url('update-identity'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-edit-identity").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            }
+            $("#div-loading").hide();
+          }
+        });
+			});
 			
+			$('#button-edit-target').click(function(e){
+        $.ajax({
+          url: '<?php echo url('update-target'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-edit-target").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            }
+            $("#div-loading").hide();
+          }
+        });
+			});
+			
+			$( "body" ).on( "click", ".btn-identity-edit", function() {
+				$(".setting-id").val($(this).attr("data-id"));
+			});
+
+			$( "body" ).on( "click", ".btn-target-edit", function() {
+				$(".setting-id").val($(this).attr("data-id"));
+			});
+
       $('#button-search').click(function(e){
         e.preventDefault();
         create_pagination(1);
