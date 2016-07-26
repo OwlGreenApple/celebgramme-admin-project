@@ -812,9 +812,15 @@ class SettingController extends Controller {
 		$setting->hashtags_auto = "";
 		
 		$arr = explode(";",Request::input("target"));
+		$counter = 1;
 		foreach($arr as $data_arr) {
 			$category = Category::where("name","like","%".$data_arr."%")->first();
-			$setting->hashtags_auto .= $category->hashtags.";";
+			if ($counter<count($arr)) {
+				$setting->hashtags_auto .= $category->hashtags.";";
+			} else {
+				$setting->hashtags_auto .= $category->hashtags;
+			}
+			$counter += 1;
 		}
 
 		$setting->save();
