@@ -187,5 +187,6 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('load-categories', 'Admin\CategoriesController@load');
 	Route::get('pagination-categories', 'Admin\CategoriesController@pagination');
 	Route::post('update-categories', 'Admin\CategoriesController@update');
+	Route::post('delete-categories', 'Admin\CategoriesController@delete');
 	
 });

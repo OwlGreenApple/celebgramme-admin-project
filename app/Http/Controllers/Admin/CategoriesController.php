@@ -97,6 +97,7 @@ class CategoriesController extends Controller {
 		} else {
 			$category =  Category::find(Request::input("category-id"));
 		}
+		$category->categories = Request::input("categories");
 		$category->name = Request::input("name");
 		$category->hashtags = Request::input("hashtags");
 		$category->username = Request::input("username");
@@ -107,4 +108,13 @@ class CategoriesController extends Controller {
 		$arr["message"] = "data berhasil disimpan";
 		return $arr;
 	}
+
+	public function delete()
+  {
+		$category =  Category::find(Request::input("id"))->delete();
+		$arr["type"] = "success";
+		$arr["message"] = "data berhasil dihapus";
+		return $arr;
+	}
+	
 }

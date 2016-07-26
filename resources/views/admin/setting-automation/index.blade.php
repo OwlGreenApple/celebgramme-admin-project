@@ -332,41 +332,35 @@
 						// text: input
 					// }
 				// },*/
-   options: [
-        {id: 'avenger', make: 'dodge', model: 'Avenger'},
-        {id: 'caliber', make: 'dodge', model: 'Caliber'},
-        {id: 'caravan-grand-passenger', make: 'dodge', model: 'Caravan Grand Passenger'},
-        {id: 'challenger', make: 'dodge', model: 'Challenger'},
-        {id: 'ram-1500', make: 'dodge', model: 'Ram 1500'},
-        {id: 'viper', make: 'dodge', model: 'Viper'},
-        {id: 'a3', make: 'audi', model: 'A3'},
-        {id: 'a6', make: 'audi', model: 'A6'},
-        {id: 'r8', make: 'audi', model: 'R8'},
-        {id: 'rs-4', make: 'audi', model: 'RS 4'},
-        {id: 's4', make: 'audi', model: 'S4'},
-        {id: 's8', make: 'audi', model: 'S8'},
-        {id: 'tt', make: 'audi', model: 'TT'},
-        {id: 'avalanche', make: 'chevrolet', model: 'Avalanche'},
-        {id: 'aveo', make: 'chevrolet', model: 'Aveo'},
-        {id: 'cobalt', make: 'chevrolet', model: 'Cobalt'},
-        {id: 'silverado', make: 'chevrolet', model: 'Silverado'},
-        {id: 'suburban', make: 'chevrolet', model: 'Suburban'},
-        {id: 'tahoe', make: 'chevrolet', model: 'Tahoe'},
-        {id: 'trail-blazer', make: 'chevrolet', model: 'TrailBlazer'},
-    ],
-    optgroups: [
-        {id: 'dodge', name: 'Dodge'},
-        {id: 'audi', name: 'Audi'},
-        {id: 'chevrolet', name: 'Chevrolet'}
-    ],
-    labelField: 'model',
-    valueField: 'id',
-    optgroupField: 'make',
-    optgroupLabelField: 'name',
-    optgroupValueField: 'id',
-    optgroupOrder: ['chevrolet', 'dodge', 'audi'],
-    searchField: ['model'],
-    plugins: ['optgroup_columns']
+				options: [
+						{class: 'mammal', value: "dog", name: "Dog" },
+						{class: 'mammal', value: "cat", name: "Cat" },
+						{class: 'mammal', value: "horse", name: "Horse" },
+						{class: 'mammal', value: "kangaroo", name: "Kangaroo" },
+						{class: 'bird', value: 'duck', name: 'Duck'},
+						{class: 'bird', value: 'chicken', name: 'Chicken'},
+						{class: 'bird', value: 'ostrich', name: 'Ostrich'},
+						{class: 'bird', value: 'seagull', name: 'Seagull'},
+						{class: 'reptile', value: 'snake', name: 'Snake'},
+						{class: 'reptile', value: 'lizard', name: 'Lizard'},
+						{class: 'reptile', value: 'alligator', name: 'Alligator'},
+						{class: 'reptile', value: 'turtle', name: 'Turtle'}
+				],
+				optgroups: [
+						{value: 'mammal', label: 'Mammal', label_scientific: 'Mammalia'},
+						{value: 'bird', label: 'Bird', label_scientific: 'Aves'},
+						{value: 'reptile', label: 'Reptile', label_scientific: 'Reptilia'}
+				],
+				optgroupField: 'class',
+				labelField: 'name',
+				searchField: ['name'],
+				render: {
+						optgroup_header: function(data, escape) {
+								return '<div class="optgroup-header" style="font-size:16px;">' + escape(data.label) + ' <span class="scientific">' + escape(data.label_scientific) + '</span></div>';
+						}
+				},
+				plugins:['remove_button']
+
 			});
     }
     $(document).ready(function(){

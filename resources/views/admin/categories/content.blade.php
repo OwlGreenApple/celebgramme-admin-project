@@ -15,6 +15,9 @@
         {{$i}}
       </td>
       <td align="center">
+				{{$data_arr->categories}}
+      </td>
+      <td align="center">
 				{{$data_arr->name}}
       </td>
       <td align="left">
@@ -27,7 +30,7 @@
 				{{$data_arr->created}}
       </td>
       <td align="center">
-				<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModalUpdateCategories" data-id="{{$data_arr->id}}" data-name="{{$data_arr->name}}" data-hashtags="{{$data_arr->hashtags}}" data-username="{{$data_arr->username}}">
+				<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModalUpdateCategories" data-id="{{$data_arr->id}}" data-categories="{{$data_arr->categories}}" data-name="{{$data_arr->name}}" data-hashtags="{{$data_arr->hashtags}}" data-username="{{$data_arr->username}}">
 					<span class='glyphicon glyphicon-pencil'></span> 
 				</button>
 				<button type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#confirm-delete" data-id="{{$data_arr->id}}" >

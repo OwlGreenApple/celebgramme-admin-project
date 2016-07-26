@@ -31,7 +31,13 @@
             <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Name Categories</label>
               <div class="col-sm-8 col-md-6">
-                <input type="text" class="form-control" placeholder="Name Categories" name="name" id="name">
+                <input type="text" class="form-control" placeholder="Name Categories" name="categories" id="categories">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Categories Value</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Categories Value" name="name" id="name">
               </div>
             </div>  
             <div class="form-group form-group-sm row">
@@ -66,7 +72,7 @@
 							<div class="modal-body">
 									Are you sure want to delete ?
 							</div>
-							<input type="hidden" id="id-member-delete">
+							<input type="hidden" id="id-categories-delete">
 							<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 									<button type="button" data-dismiss="modal" class="btn btn-danger btn-ok" id="button-delete">Delete</button>
@@ -101,7 +107,8 @@
     <thead>
       <tr style="font-weight:bold;">
         <th>No. </th>
-        <th>Categories Name</th>
+        <th>Categories</th>
+        <th>Value</th>
         <th>Hashtags</th>
         <th>Username</th>
         <th>created</th>
@@ -252,10 +259,23 @@
 			
 			$('#button-add').click(function(e){
 				$(".category-id").val("new");
+				$("#name").val("");
+				$("#categories").val("");
+				
+				// fetch the instance
+				var selectize = selectS[0].selectize;
+				selectize.destroy();
+				var selectize = selectS[1].selectize;
+				selectize.destroy();
+				$("#textarea-hashtags").val("");
+				$("#textarea-username").val("");
+				
+				refreshSelectize();
       });
 			$( "body" ).on( "click", ".btn-update", function() {
 				$(".category-id").val($(this).attr("data-id"));
 				$("#name").val($(this).attr("data-name"));
+				$("#categories").val($(this).attr("data-categories"));
 				
 				// fetch the instance
 				var selectize = selectS[0].selectize;
@@ -266,8 +286,6 @@
 				$("#textarea-username").val($(this).attr("data-username"));
 				
 				refreshSelectize();
-				
-				
       });
 			$('#btn-update-categories').click(function(e){
         $.ajax({
@@ -298,6 +316,41 @@
         });
 			});
 
+			$( "body" ).on( "click", ".btn-delete", function() {
+				$("#id-categories-delete").val($(this).attr("data-id"));
+      });
+			
+			$('#button-delete').click(function(e){
+        $.ajax({
+          url: '<?php echo url('delete-categories'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: {
+						id:$("#id-categories-delete").val()
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+							create_pagination(1);
+							refresh_page(1);
+            }
+            $("#div-loading").hide();
+          }
+        });
+      });
+			
 			$('#button-search').click(function(e){
 				create_pagination(1);
 				refresh_page(1);
