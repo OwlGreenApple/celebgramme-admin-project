@@ -21,10 +21,10 @@
 				{{$data_arr->name}}
       </td>
       <td align="left">
-				<p style="width:350px!important;word-wrap:break-word;">{{$data_arr->hashtags}}</p>
+				<p style="width:300px!important;word-wrap:break-word;">{{$data_arr->hashtags}}</p>
       </td>
       <td align="left">
-				<p style="width:350px!important;word-wrap: break-word;">{{$data_arr->username}}</p>
+				<p style="width:300px!important;word-wrap: break-word;">{{$data_arr->username}}</p>
       </td>
       <td align="center">
 				{{$data_arr->created}}
