@@ -318,45 +318,20 @@
 		var selectS;
     function refreshSelectize() {
 		  selectS = $('.selectize-default').selectize({
-/*
-				plugins:['remove_button'],
-				delimiter: ';',
 				persist: false,
-				onChange: function(value) {
-								 // alert(value);
-					// console.log($(this).parent());
-				},
-				// create: function(input) {
-					// return {
-						// value: input,
-						// text: input
-					// }
-				// },*/
+				delimiter: ';',
 				options: [
-						{class: 'mammal', value: "dog", name: "Dog" },
-						{class: 'mammal', value: "cat", name: "Cat" },
-						{class: 'mammal', value: "horse", name: "Horse" },
-						{class: 'mammal', value: "kangaroo", name: "Kangaroo" },
-						{class: 'bird', value: 'duck', name: 'Duck'},
-						{class: 'bird', value: 'chicken', name: 'Chicken'},
-						{class: 'bird', value: 'ostrich', name: 'Ostrich'},
-						{class: 'bird', value: 'seagull', name: 'Seagull'},
-						{class: 'reptile', value: 'snake', name: 'Snake'},
-						{class: 'reptile', value: 'lizard', name: 'Lizard'},
-						{class: 'reptile', value: 'alligator', name: 'Alligator'},
-						{class: 'reptile', value: 'turtle', name: 'Turtle'}
+					<?php echo $strCategory; ?>
 				],
 				optgroups: [
-						{value: 'mammal', label: 'Mammal', label_scientific: 'Mammalia'},
-						{value: 'bird', label: 'Bird', label_scientific: 'Aves'},
-						{value: 'reptile', label: 'Reptile', label_scientific: 'Reptilia'}
+					<?php echo $strClassCategory; ?>
 				],
 				optgroupField: 'class',
 				labelField: 'name',
 				searchField: ['name'],
 				render: {
 						optgroup_header: function(data, escape) {
-								return '<div class="optgroup-header" style="font-size:16px;">' + escape(data.label) + ' <span class="scientific">' + escape(data.label_scientific) + '</span></div>';
+								return '<div class="optgroup-header" style="font-size:16px;">' + escape(data.label) + '</div>';
 						}
 				},
 				plugins:['remove_button']
@@ -372,36 +347,9 @@
 			
 			refreshSelectize();
 			
-			// show current input values
-			$('textarea.selectize-default,select.selectize-default,input.selectize-default').each(function() {
-				var $container = $('<div style="font-size:11px;">').addClass('value').html('Current count: ');
-				var $value = $('<span>').appendTo($container);
-				var $input = $(this);
-				var update = function(e) { 
-					// $value.text(JSON.stringify($input.val())); 
-
-					var str,res;
-					str = JSON.stringify($input.val());
-					res = str.split(";");
-					if ($input.val() == "") {
-						$value.text("0"); 
-					} else {
-						$value.text(res.length); 
-					}
-					// console.log(res.length);
-					// $container.insertAfter($input.next());
-				}
-
-				$(this).on('change', update);
-				update();
-
-				$container.insertAfter($input.next());
-				
-				// $container.insertAfter($input.next());
-			});
-
 
 			$('#button-edit-identity').click(function(e){
+				settingId = $(".setting-id").val();
         $.ajax({
           url: '<?php echo url('update-identity'); ?>',
           headers: {
@@ -422,6 +370,10 @@
             if(data.type=='success') {
               $("#alert").addClass("alert-success");
               $("#alert").removeClass("alert-danger");
+							
+							//update data 
+							$(".setting-id"+settingId).find(".edit-identity").html(data.identity);
+							$(".setting-id"+settingId).find(".btn-identity-edit").attr("data-identity",data.identity);
             }
             $("#div-loading").hide();
           }
@@ -429,6 +381,7 @@
 			});
 			
 			$('#button-edit-target').click(function(e){
+				settingId = $(".setting-id").val();
         $.ajax({
           url: '<?php echo url('update-target'); ?>',
           headers: {
@@ -449,6 +402,10 @@
             if(data.type=='success') {
               $("#alert").addClass("alert-success");
               $("#alert").removeClass("alert-danger");
+
+							//update data 
+							$(".setting-id"+settingId).find(".edit-target").html(data.target);
+							$(".setting-id"+settingId).find(".btn-target-edit").attr("data-value-target",data.target);
             }
             $("#div-loading").hide();
           }
@@ -457,10 +414,23 @@
 			
 			$( "body" ).on( "click", ".btn-identity-edit", function() {
 				$(".setting-id").val($(this).attr("data-id"));
+				// fetch the instance
+				var selectize = selectS[0].selectize;
+				selectize.destroy();
+				var selectize = selectS[1].selectize;
+				selectize.destroy();
+				$("#textarea-identity").val($(this).attr("data-identity"));
+				refreshSelectize();
 			});
 
 			$( "body" ).on( "click", ".btn-target-edit", function() {
 				$(".setting-id").val($(this).attr("data-id"));
+				var selectize = selectS[0].selectize;
+				selectize.destroy();
+				var selectize = selectS[1].selectize;
+				selectize.destroy();
+				$("#textarea-target").val($(this).attr("data-value-target"));
+				refreshSelectize();
 			});
 
       $('#button-search').click(function(e){

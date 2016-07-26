@@ -46,6 +46,7 @@
 						echo "Email account celebgramme deleted / ";
 					}
 				?>
+				<br>
         {{$data_arr->insta_username}} /
         {{$data_arr->insta_password}} /
 				{{$data_arr->start_time}}

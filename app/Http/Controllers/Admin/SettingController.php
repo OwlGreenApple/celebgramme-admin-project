@@ -319,12 +319,35 @@ class SettingController extends Controller {
 	public function automation($search="")
 	{
     $user = Auth::user();
+		$categories = Category::all();
 		
+		$strCategory = "";
+		foreach ($categories as $category) {
+			$strCategory .= json_encode(
+								array(
+									"class"=>strtolower($category->categories),
+									"value"=>strtolower($category->name),
+									"name"=>ucfirst($category->name),
+								)).",";
+		}
+		
+		$strClassCategory = "";
+		$groupCategories = Category::groupBy('categories')->get();
+		foreach ($groupCategories as $groupCategory) {
+			$strClassCategory .= json_encode(
+								array(
+									"value"=>strtolower($groupCategory->categories),
+									"label"=>ucfirst($groupCategory->categories),
+								)).",";
+		}
+								
 								
 		return View::make('admin.setting-automation.index')->with(
                   array(
                     'search'=>$search,
                     'user'=>$user,
+                    'strCategory'=>$strCategory,
+                    'strClassCategory'=>$strClassCategory,
                   ));
 	}
 
@@ -775,6 +798,7 @@ class SettingController extends Controller {
 		}
 		$arr["type"]="success";
 		$arr["message"]="identity berhasil diupdate";
+		$arr["identity"]=Request::input("identity");
 		return $arr;
 	}
 
@@ -796,6 +820,7 @@ class SettingController extends Controller {
 		$setting->save();
 		$arr["type"]="success";
 		$arr["message"]="target berhasil diupdate";
+		$arr["target"]=Request::input("target");
 		return $arr;
 	}
 
