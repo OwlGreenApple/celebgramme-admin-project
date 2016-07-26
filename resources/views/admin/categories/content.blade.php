@@ -21,10 +21,10 @@
 				{{$data_arr->name}}
       </td>
       <td align="left">
-				{{$data_arr->hashtags}}
+				<p style="width:350px!important;">{{$data_arr->hashtags}}</p>
       </td>
       <td align="left">
-				{{$data_arr->username}}
+				<p style="width:350px!important;">{{$data_arr->username}}</p>
       </td>
       <td align="center">
 				{{$data_arr->created}}
