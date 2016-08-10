@@ -724,7 +724,6 @@ class SettingController extends Controller {
 					->where("type","=","temp")
 					->where("status","=","started")
 					->where("identity","=","none")
-					->where("settings.insta_username","like","%".Request::input('keyword')."%")
 					->orderBy('settings.id', 'asc')
 					->paginate(15);
 		}
@@ -763,7 +762,6 @@ class SettingController extends Controller {
 					->where("type","=","temp")
 					->where("status","=","started")
 					->where("identity","=","none")
-					->where("settings.insta_username","like","%".Request::input('keyword')."%")
 					->orderBy('settings.id', 'asc')
 					->paginate(15);
 		}
