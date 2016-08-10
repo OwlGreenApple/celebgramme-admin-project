@@ -360,7 +360,17 @@ class SettingController extends Controller {
 					->where("type","=","temp")
 					->orderBy('settings.id', 'asc')
 					->paginate(15);
-	  } else {
+	  } 
+		if (Request::input('keyword')=="update-identity") {
+			$arr = Setting::
+					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
+					->where("type","=","temp")
+					->where("status","=","started")
+					->where("identity","=","none")
+					->orderBy('settings.id', 'asc')
+					->paginate(15);
+		}
+		else {
 			$arr = Setting::
 					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
 					->where("type","=","temp")
@@ -386,7 +396,17 @@ class SettingController extends Controller {
 					->where("type","=","temp")
 					->orderBy('settings.id', 'asc')
 					->paginate(15);
-	  } else {
+	  } 
+		if (Request::input('keyword')=="update-identity") {
+			$arr = Setting::
+					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
+					->where("type","=","temp")
+					->where("status","=","started")
+					->where("identity","=","none")
+					->orderBy('settings.id', 'asc')
+					->paginate(15);
+		}
+		else {
 			$arr = Setting::
 					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
 					->where("type","=","temp")
@@ -718,15 +738,7 @@ class SettingController extends Controller {
 					->where("status","=","started")
 					->orderBy('settings.id', 'asc')
 					->paginate(15);
-	  } if (Request::input('keyword')=="update-identity") {
-			$arr = Setting::
-					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
-					->where("type","=","temp")
-					->where("status","=","started")
-					->where("identity","=","none")
-					->orderBy('settings.id', 'asc')
-					->paginate(15);
-		}
+	  }
 		else {
 			$arr = Setting::
 					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
@@ -756,15 +768,7 @@ class SettingController extends Controller {
 					->where("status","=","started")
 					->orderBy('settings.id', 'asc')
 					->paginate(15);
-	  } if (Request::input('keyword')=="update-identity") {
-			$arr = Setting::
-					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
-					->where("type","=","temp")
-					->where("status","=","started")
-					->where("identity","=","none")
-					->orderBy('settings.id', 'asc')
-					->paginate(15);
-		}
+	  } 
 		else {
 			$arr = Setting::
 					join("setting_helpers","setting_helpers.setting_id","=","settings.id")
