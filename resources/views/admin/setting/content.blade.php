@@ -10,7 +10,7 @@
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
 		$server="";$proxy="";$use_automation=""; $server_automation = "";
-		$identity = ""; $number_likes = 0; $is_auto_get_likes = 0;
+		$identity = ""; $target=""; $number_likes = 0; $is_auto_get_likes = 0;
 		$settingHelper = SettingHelper::where("setting_id","=",$data_arr->id)->first();
 		if ( !is_null($settingHelper) ) {
 			$use_automation = $settingHelper->use_automation;
@@ -27,6 +27,10 @@
 			$arr1 = explode(";",$settingHelper->identity);
 			foreach($arr1 as $arr2) { 
 				$identity .= $arr2. " ";
+			}
+			$arr1 = explode(";",$settingHelper->target);
+			foreach($arr1 as $arr2) { 
+				$target .= $arr2. " ";
 			}
 			
 			$number_likes = $settingHelper->number_likes; 
@@ -91,7 +95,8 @@
 					<li class="wrap"><strong>Full auto : </strong><?php if ($data_arr->status_auto) { echo "Full Auto";} else { echo "Manual";} ?></li>
 					
 					<?php if ($data_arr->status_auto) { ?>
-					<li class="wrap"><strong>Categories : </strong><?php echo $identity ?></li>
+					<li class="wrap"><strong>Identity Categories : </strong><?php echo $identity ?></li>
+					<li class="wrap"><strong>Target Categories : </strong><?php echo $target ?></li>
 					<?php } ?>
 					
 					
