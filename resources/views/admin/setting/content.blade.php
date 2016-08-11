@@ -10,6 +10,7 @@
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
 		$server="";$proxy="";$use_automation=""; $server_automation = "";
+		$identity = ""; $number_likes = 0; $is_auto_get_likes = 0;
 		$settingHelper = SettingHelper::where("setting_id","=",$data_arr->id)->first();
 		if ( !is_null($settingHelper) ) {
 			$use_automation = $settingHelper->use_automation;
@@ -22,6 +23,16 @@
 					$proxy = $proxies->proxy;
 				}
 			}
+			
+			$arr1 = explode(";",$settingHelper->identity);
+			foreach($arr1 as $arr2) { 
+				$identity .= $arr2. " ";
+			}
+			
+			$number_likes = $settingHelper->number_likes; 
+			
+			$is_auto_get_likes = $settingHelper->is_auto_get_likes;
+			
 		}
 ?>
     <tr class="row{{$data_arr->id}}">
@@ -77,6 +88,16 @@
 					<li class="wrap"><strong>Insta username : </strong>{{$data_arr->insta_username}}</li>
 					<li class="wrap"><strong>Insta password : </strong>{{$data_arr->insta_password}}</li>
 					
+					<li class="wrap"><strong>Full auto : </strong><?php if ($data_arr->status_auto) { echo "Full Auto";} else { echo "Manual";} ?></li>
+					
+					<?php if ($data_arr->status_auto) { ?>
+					<li class="wrap"><strong>Categories : </strong><?php echo $identity ?></li>
+					<?php } ?>
+					
+					
+					<li class="wrap"><strong>is Auto Likes : </strong><?php if ($is_auto_get_likes) { echo "Yes"; } else { echo "No";} ?></li>
+					<li class="wrap"><strong>Number Likes : </strong><?php echo $number_likes; ?></li>
+					<?php if (!$data_arr->status_auto) { ?>
 					<?php if ($data_arr->status_follow_unfollow=="on") { $colorstatus="1212e8"; } else if ($data_arr->status_follow_unfollow=="off") { $colorstatus="ea0000"; } ?>
 					<li class="wrap"><strong>Status Follow  : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->status_follow_unfollow)}} </span> </strong> </li> 
 					<?php if ($data_arr->status_like=="on") { $colorstatus="1212e8"; } else if ($data_arr->status_like=="off") { $colorstatus="ea0000"; } ?>
@@ -95,13 +116,14 @@
 					<li class="wrap"><strong>Username : </strong>{{$data_arr->username}}</li>
 					<li class="wrap"><strong>Media age : </strong>{{$data_arr->media_age}}</li>
 					<li class="wrap"><strong>Media type : </strong>{{$data_arr->media_type}}</li>
-					<li class="wrap"><strong>Dont comment same user : </strong>{{$data_arr->dont_comment_su}}</li>
 					<!--<li class="wrap"><strong>Follow source : </strong>{{$data_arr->follow_source}}</li>-->
 					<li class="wrap"><strong>Dont follow same user : </strong>{{$data_arr->dont_follow_su}}</li>
 					<li class="wrap"><strong>Dont follow private user : </strong>{{$data_arr->dont_follow_pu}}</li>
 					<!--<li class="wrap"><strong>Unfollow source : </strong>{{$data_arr->unfollow_source}}</li>
 					<li class="wrap"><strong>Unfollow who dont follow me : </strong>{{$data_arr->unfollow_wdfm}}</li>-->
+					<?php } ?>
 					<li class="wrap"><strong>usernames whitelist : </strong>{{$data_arr->usernames_whitelist}}</li>
+					<li class="wrap"><strong>usernames blacklist : </strong>{{$data_arr->usernames_blacklist}}</li>
 				</ul>
       </td>
 
