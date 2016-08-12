@@ -2,6 +2,46 @@
 
 @section('content')
 
+  <!-- Modal -->
+  <div class="modal fade" id="myModalOrderPackage" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Order Package</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-order-package">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Package</label>
+              <div class="col-sm-8 col-md-6">
+                <select class="form-control" name="package-auto-manage" id="select-auto-manage">
+									<?php foreach($packages as $package) { ?>
+										<option data-real="{{$package->price}}" data-price="{{number_format($package->price,0,'','.')}}" value="{{$package->id}}" >
+										Paket {{$package->package_name}}</option>
+									<?php } ?>
+								</select>
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Coupon</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="text" class="form-control" placeholder="Code Coupon" name="coupon-code" id="coupon-code">
+              </div>
+            </div>  
+            <input type="hidden" class="user-id" name="user-id">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-process-order" >Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 
   <!-- Modal -->
   <div class="modal fade" id="myModalDailyLikes" role="dialog">
@@ -638,6 +678,35 @@
 
       });
 
+			
+      $( "body" ).on( "click", ".btn-order-package", function() {
+				$(".user-id").val($(this).attr("data-id"));
+      });
+      $( "body" ).on( "click", "#btn-process-order", function() {
+        $.ajax({                                      
+          url: '<?php echo url('member-order-package'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+					data: $("#form-order-package").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+              create_pagination(1);
+              refresh_page(1);
+            }
+            $("#div-loading").hide();
+          }
+        });
+      });
+			
       
     });
   </script>		

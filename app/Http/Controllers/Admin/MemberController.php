@@ -12,8 +12,9 @@ use Celebgramme\Models\Setting;
 use Celebgramme\Models\LinkUserSetting;
 use Celebgramme\Models\UserMeta;
 use Celebgramme\Models\UserLog;
+use Celebgramme\Models\Coupon;
 
-use View,Auth,Request,DB,Carbon,Mail,Validator;
+use View,Auth,Request,DB,Carbon,Mail,Validator, Input;
 
 class MemberController extends Controller {
 
@@ -123,10 +124,13 @@ class MemberController extends Controller {
              ->get();
 		$orders = Order::where("affiliate","=","1")->
 						 where("user_id","=","0");
+		$packages = Package::where("package_group","=","auto-manage")
+								->orderBy('price', 'asc')->get();
     return View::make('admin.member-all.index')->with(
                   array(
                     'user'=>$user,
                     'orders'=>$orders,
+                    'packages'=>$packages,
                     'total_auto_manage'=>$arr[0]->total_time_manage,
                   ));
   }
@@ -355,6 +359,43 @@ class MemberController extends Controller {
   {
 		$user = User::find(Request::input("id"))->delete();
 
+    $arr['type'] = 'success';
+    $arr['id'] = Request::input("id-coupon");
+    return $arr;    
+  }
+
+  public function member_order_package()
+  {
+    //hitung total
+		$total = 0;
+		// $package = Package::find(Input::get("package-daily-likes"));
+		// if (!is_null($package)) {
+			// $total += $package->price;
+		// }
+		$package = Package::find(Input::get("package-auto-manage"));
+		if (!is_null($package)) {
+			$total += $package->price;
+		}
+		$dt = Carbon::now();
+		$coupon = Coupon::where("coupon_code","=",Input::get("coupon-code"))
+					->where("valid_until",">=",$dt->toDateTimeString())->first();
+		if (!is_null($coupon)) {
+			$total -= $coupon->coupon_value;
+			if ($total<0) { $total =0; }
+		}
+		
+		$data = array (
+			"order_type" => "transfer_bank",
+			"order_status" => "pending",
+			"user_id" => Request::input("user-id"),
+			"order_total" => $total,
+			"package_manage_id" => Input::get("package-auto-manage"),
+			"coupon_code" => Input::get("coupon-code"),
+			"logs" => "EXISTING MEMBER",
+		);
+		
+		$order = Order::createOrder($data,true);
+		
     $arr['type'] = 'success';
     $arr['id'] = Request::input("id-coupon");
     return $arr;    

@@ -88,6 +88,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('edit-member-max-account', 'Admin\MemberController@edit_member_max_account');
 	Route::get('home-page', 'Admin\MemberController@home_page');
 	Route::post('save-home-page', 'Admin\MemberController@save_home_page');
+	Route::post('member-order-package', 'Admin\MemberController@member_order_package');
 
 	/* Coupon */
 	Route::get('coupon', 'Admin\PaymentController@coupon');
