@@ -366,7 +366,8 @@ class PaymentController extends Controller {
 		if (Request::input('keyword') == "" ) {
 			$arr = Order::orderBy('id', 'desc')->paginate(15);
 		} else {
-			$arr = Order::leftJoin("users","users.id","=","orders.user_id")
+			$arr = Order::select("*")
+							->leftJoin("users","users.id","=","orders.user_id")
 							->where("no_order","like","%".Request::input('keyword')."%")
 							->orWhere("email","like","%".Request::input('keyword')."%")
 							->orWhere("fullname","like","%".Request::input('keyword')."%")
@@ -384,6 +385,16 @@ class PaymentController extends Controller {
   public function pagination_order()
   {
     $arr = Order::orderBy('id', 'desc')->paginate(15);
+		if (Request::input('keyword') == "" ) {
+			$arr = Order::orderBy('id', 'desc')->paginate(15);
+		} else {
+			$arr = Order::select("*")
+							->leftJoin("users","users.id","=","orders.user_id")
+							->where("no_order","like","%".Request::input('keyword')."%")
+							->orWhere("email","like","%".Request::input('keyword')."%")
+							->orWhere("fullname","like","%".Request::input('keyword')."%")
+							->orderBy('orders.id', 'desc')->paginate(15);
+		}
     
                               
     return view('admin.order.pagination')->with(
