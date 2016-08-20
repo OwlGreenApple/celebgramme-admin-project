@@ -6,6 +6,7 @@ use Celebgramme\Http\Controllers\Controller;
 use Celebgramme\Helpers\GeneralHelper;
 
 use Celebgramme\Models\Proxies;
+use Celebgramme\Models\SettingHelper; 
 
 use View,Auth,Request,DB,Carbon,Excel, Mail, Validator;
 
@@ -33,12 +34,17 @@ class ProxyController extends Controller {
 
 		$collection = array();
 		$availableProxys = Proxies::leftJoin("setting_helpers","setting_helpers.proxy_id","=","proxies.id")
-								->select(DB::raw("count(proxies.id) as test"))
+								->select(DB::raw("count(proxies.id) as test"),"proxies.id")
                 ->groupBy("proxies.id")
 								->havingRaw('count(proxies.id) < 5')
 								->get();
 		foreach ($availableProxys as $availableProxy) {
-			$collection[] = 5 - $availableProxy->test ;
+			$setting_helper = SettingHelper::where("proxy_id","=",$availableProxy->id)->first();
+			if (is_null($setting_helper)) {
+				$collection[] = 5;
+			}else {
+				$collection[] = 5 - $availableProxy->test ;
+			}
 		}
 		// echo collect($collection)->sum(); exit;
 		
