@@ -58,6 +58,7 @@ class Order extends Model {
         $order->order_status = $cdata["order_status"];
         $order->user_id = $cdata["user_id"];
         $order->total = $cdata["order_total"] + $unique_code;
+        $order->image = "no image, from admin" ;
         $order->discount = $order_discount;
         // $order->package_id = $cdata["package_id"];
         $order->package_id = 0;

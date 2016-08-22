@@ -57,6 +57,8 @@
 					<span class='glyphicon glyphicon-remove'></span> 
 				</button> 
 				<input type="button" class="btn btn-info btn-max-account" value="Max account" data-toggle="modal" data-target="#myModalMaxAccount" data-id="{{$data_arr->id}}"> 
+				<?php } ?>
+				<?php if ( ($admin->email == "it2.axiapro@gmail.com") || ($admin->email == "admin@admin.com")  || ($admin->email == "it.axiapro@gmail.com") ) { ?>
 				<input type="button" class="btn btn-info btn-order-package" value="Order" data-toggle="modal" data-target="#myModalOrderPackage" data-id="{{$data_arr->id}}">
 				<?php } ?>
       </td>
