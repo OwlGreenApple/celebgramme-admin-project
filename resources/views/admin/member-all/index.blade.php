@@ -20,7 +20,7 @@
                 <select class="form-control" name="package-auto-manage" id="select-auto-manage">
 									<?php foreach($packages as $package) { ?>
 										<option data-real="{{$package->price}}" data-price="{{number_format($package->price,0,'','.')}}" value="{{$package->id}}" >
-										Paket {{$package->package_name}}</option>
+										Paket {{$package->package_name." - Rp ".number_format($package->price,0,'','.')}}</option>
 									<?php } ?>
 								</select>
               </div>
