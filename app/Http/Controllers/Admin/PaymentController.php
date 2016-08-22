@@ -439,6 +439,7 @@ class PaymentController extends Controller {
 		$order->package_manage_id = Request::input("select-auto-manage");
 		$package = Package::find(Request::input("select-auto-manage"));
 		$order->total = $package->price;
+		$order->image = "no image, from admin" ;
 		
 		if (Request::input("payment-method")==1) {
 			$order->order_type = "transfer_bank";
@@ -446,6 +447,7 @@ class PaymentController extends Controller {
 		$order->save();
 
 		if ($order->affiliate==1) {
+			$order->checked = 1;
 			$order->order_status = "success";
 			$invoice = Invoice::where("order_id","=",$order->id)->first();
 			if (is_null($invoice)){
