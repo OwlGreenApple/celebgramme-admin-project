@@ -13,6 +13,7 @@ use Celebgramme\Models\LinkUserSetting;
 use Celebgramme\Models\UserMeta;
 use Celebgramme\Models\UserLog;
 use Celebgramme\Models\Coupon;
+use Celebgramme\Models\TimeLog;
 
 use View,Auth,Request,DB,Carbon,Mail,Validator, Input;
 
@@ -603,4 +604,26 @@ class MemberController extends Controller {
 		return $arr;
 	}
 
+	public function get_time_logs() {
+		$logs = "";
+		$counter =1;
+		
+		$timeLogs = TimeLog::where("user_id","=",Request::Input("id"))->orderBy('id', 'desc')->get();
+		foreach($timeLogs as $timeLog){
+			$t = $timeLog->time;
+			$days = floor($t / (60*60*24));
+			$hours = floor(($t / (60*60)) % 24);
+			$minutes = floor(($t / (60)) % 60);
+			$seconds = floor($t  % 60);
+			$logs .= "<tr><td>".$timeLog->created."</td><td>".$days."D ".$hours."H ".$minutes."M ".$seconds."S"."</td></tr>";
+			
+			$counter += 1 ;
+			if($counter==21) {break;}
+		}
+		
+		$arr["logs"] = $logs;
+		$arr["type"] = "success";
+		return $arr;
+	}
+	
 }

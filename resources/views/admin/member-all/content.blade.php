@@ -61,6 +61,7 @@
 				<?php if ( ($admin->email == "it2.axiapro@gmail.com") || ($admin->email == "admin@admin.com")  || ($admin->email == "it.axiapro@gmail.com") ) { ?>
 				<input type="button" class="btn btn-info btn-order-package" value="Order" data-toggle="modal" data-target="#myModalOrderPackage" data-id="{{$data_arr->id}}">
 				<?php } ?>
+				<input type="button" class="btn btn-info btn-time-logs" value="Time Logs" data-toggle="modal" data-target="#myModalTimeLogs" data-id="{{$data_arr->id}}">
       </td>
     </tr>    
 

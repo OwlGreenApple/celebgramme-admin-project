@@ -89,6 +89,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('home-page', 'Admin\MemberController@home_page');
 	Route::post('save-home-page', 'Admin\MemberController@save_home_page');
 	Route::post('member-order-package', 'Admin\MemberController@member_order_package');
+	Route::get('load-time-logs', 'Admin\MemberController@get_time_logs');
 
 	/* Coupon */
 	Route::get('coupon', 'Admin\PaymentController@coupon');
@@ -140,6 +141,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('load-automation-logs-error', 'Admin\SettingController@get_logs_automation_error');
 	Route::post('update-identity', 'Admin\SettingController@update_identity');
 	Route::post('update-target', 'Admin\SettingController@update_target');
+	Route::get('load-setting-logs', 'Admin\SettingController@load_setting_logs');
 	
 	/* Daily Setting Account IG Automation*/
 	Route::get('setting-automation-daily', 'Admin\SettingController@automation_daily');

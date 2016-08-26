@@ -2,6 +2,36 @@
 
 @section('content')
 
+  <div class="modal fade" id="myModalTimeLogs" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">History Logs</h4>
+        </div>
+        <div class="modal-body">
+					<div class="form-group form-group-sm row">
+						<table class="table table-bordered">  
+							<thead>
+								<tr style="font-weight:bold;">
+									<th>Date time</th>
+									<th>Sisa waktu</th>
+								</tr>      
+							</thead>
+							<tbody id="p-logs">
+							</tbody>
+						</table>  
+						
+					</div>  
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <!-- Modal -->
   <div class="modal fade" id="myModalOrderPackage" role="dialog">
     <div class="modal-dialog">
@@ -708,6 +738,32 @@
       });
 			
       
+      $( "body" ).on( "click", ".btn-time-logs", function() {
+        temp = $(this);
+        $.ajax({                                      
+          url: '<?php echo url('load-time-logs'); ?>',
+          type: 'get',
+          data: {
+						id : $(this).attr("data-id")
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+							$("#p-logs").html(data.logs);
+            } else if (data.type=='error') {
+            }
+						$("#div-loading").hide();
+          }
+        });
+      });
+			
+			
     });
   </script>		
   

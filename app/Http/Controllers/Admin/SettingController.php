@@ -15,6 +15,7 @@ use Celebgramme\Models\TemplateEmail;
 use Celebgramme\Models\LinkProxySetting;
 use Celebgramme\Models\Proxies;
 use Celebgramme\Models\Category;
+use Celebgramme\Models\SettingLog;
 
 use Celebgramme\Helpers\GlobalHelper;
 
@@ -852,4 +853,21 @@ class SettingController extends Controller {
 		return $arr;
 	}
 
+	public function load_setting_logs() {
+		$logs = "";
+		$counter =1;
+		
+		$settingLogs = SettingLog::where("setting_id","=",Request::Input("id"))->orderBy('id', 'desc')->get();
+		foreach($settingLogs as $settingLog){
+			$logs .= "<tr><td>".$settingLog->created."</td><td>".$settingLog->status."</td></tr>";
+			
+			$counter += 1 ;
+			if($counter==21) {break;}
+		}
+		
+		$arr["logs"] = $logs;
+		$arr["type"] = "success";
+		return $arr;
+	}
+	
 }
