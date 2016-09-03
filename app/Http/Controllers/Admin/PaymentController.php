@@ -508,7 +508,12 @@ class PaymentController extends Controller {
 
   public function delete_order()
   {
-		$order = Order::find(Request::input("id"))->delete();
+		$order = Order::find(Request::input("id"));
+		if (!is_null($order)) {
+			if ( ($order->order_status <> "success") && ($order->order_status <> "cron dari affiliate") ) {
+				$order->delete();
+			}
+		}
 
     $arr['type'] = 'success';
     $arr['id'] = Request::input("id-coupon");

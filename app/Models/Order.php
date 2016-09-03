@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Celebgramme\Models\User;
 use Celebgramme\Models\Package;
 use Celebgramme\Models\OrderMeta;
-use Illuminate\Database\Eloquent\SoftDeletes;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Mail;
 
@@ -16,10 +16,10 @@ class Order extends Model {
 
 	protected $connection = 'mysql_axs';
 	protected $table = 'orders';
-	protected $primaryKey  = "id";
+	// protected $primaryKey  = "id";
 	protected $fillable = [
 	];
-	use SoftDeletes;
+	// use SoftDeletes;
 	/**
 	 * The attributes that should be mutated to dates.
 	 *

@@ -211,6 +211,8 @@
 				$("#id-order-delete").val($(this).attr("data-id"));
       });
       $( "body" ).on( "click", "#button-delete", function() {
+				console.log($("#id-order-delete").val());
+				id_order = $("#id-order-delete").val();
         $.ajax({                                      
           url: '<?php echo url('delete-order'); ?>',
           headers: {
@@ -218,7 +220,8 @@
           },
           type: 'post',
           data: {
-						id : $("#id-order-delete").val(),
+						// id : $("#id-order-delete").val(),
+						id : id_order,
 					},
           beforeSend: function()
           {
