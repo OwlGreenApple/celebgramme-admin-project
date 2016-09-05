@@ -156,6 +156,13 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('add-proxy', 'Admin\ProxyController@add_proxy');
 	Route::post('delete-proxy', 'Admin\ProxyController@delete_proxy');
 	
+	/* Affiliate  */
+	Route::get('affiliate', 'Admin\AffiliateController@index');
+	Route::get('load-affiliate', 'Admin\AffiliateController@load_affiliate');
+	Route::get('pagination-affiliate', 'Admin\AffiliateController@pagination_affiliate');
+	Route::post('add-affiliate', 'Admin\AffiliateController@add_affiliate');
+	Route::post('delete-affiliate', 'Admin\AffiliateController@delete_affiliate');
+	
 	/* Email  */
 	Route::get('email-users', 'Admin\EmailController@index');
 	Route::get('load-email-users', 'Admin\EmailController@load_email_users');

@@ -14,8 +14,9 @@ use Celebgramme\Models\UserMeta;
 use Celebgramme\Models\UserLog;
 use Celebgramme\Models\Coupon;
 use Celebgramme\Models\TimeLog;
+use Celebgramme\Models\Affiliate;
 
-use View,Auth,Request,DB,Carbon,Mail,Validator, Input;
+use View,Auth,Request,DB,Carbon,Mail,Validator, Input, Excel, Config;
 
 class MemberController extends Controller {
 
@@ -123,14 +124,13 @@ class MemberController extends Controller {
              ->select(DB::raw("sum(active_auto_manage) as total_time_manage"))
              ->orderBy('id', 'desc')
              ->get();
-		$orders = Order::where("affiliate","=","1")->
-						 where("user_id","=","0");
 		$packages = Package::where("package_group","=","auto-manage")
 								->orderBy('price', 'asc')->get();
+	  $affiliates = Affiliate::all();
     return View::make('admin.member-all.index')->with(
                   array(
                     'user'=>$user,
-                    'orders'=>$orders,
+                    'affiliates'=>$affiliates,
                     'packages'=>$packages,
                     'total_auto_manage'=>$arr[0]->total_time_manage,
                   ));
@@ -244,52 +244,134 @@ class MemberController extends Controller {
   {
     $arr["type"] = "success";
     $arr["message"] = "Proses add member berhasil dilakukan";
-    $arr["orderid"] = Request::input("select-order");
 
-    $data = array (
-      "email" => Request::input("email"),
-    );
-    $validator = Validator::make($data, [
-      'email' => 'required|email|max:255|unique:users',
-    ]);
-    if ($validator->fails()){
-      $arr["type"] = "error";
-      $arr["message"] = "Email sudah terdaftar atau tidak valid";
-      return $arr;
-    }
+		if (Request::input("select_input") == "manual") {
+			$data = array (
+				"email" => Request::input("email"),
+			);
+			$validator = Validator::make($data, [
+				'email' => 'required|email|max:255|unique:users',
+			]);
+			if ($validator->fails()){
+				$arr["type"] = "error";
+				$arr["message"] = "Email sudah terdaftar atau tidak valid";
+				return $arr;
+			}
 
-    $karakter= 'abcdefghjklmnpqrstuvwxyz123456789';
-    $string = '';
-    for ($i = 0; $i < 8 ; $i++) {
-      $pos = rand(0, strlen($karakter)-1);
-      $string .= $karakter{$pos};
-    }
+			$karakter= 'abcdefghjklmnpqrstuvwxyz123456789';
+			$string = '';
+			for ($i = 0; $i < 8 ; $i++) {
+				$pos = rand(0, strlen($karakter)-1);
+				$string .= $karakter{$pos};
+			}
 
-    $user = new User;
-    $user->email = Request::input("email");
-    $user->password = $string;
-    $user->fullname = Request::input("fullname");
-    $user->type = "confirmed-email";
-    $user->save();
+			$user = new User;
+			$user->email = Request::input("email");
+			$user->password = $string;
+			$user->fullname = Request::input("fullname");
+			$user->type = "confirmed-email";
+			$user->save();
+
+			$affiliate = Affiliate::find(Request::input("select-affiliate"));
+			$user->active_auto_manage = $affiliate->jumlah_hari_free_trial * 86400;
+			$user->max_account = 3;
+			$user->link_affiliate = $affiliate->link;
+			$user->save();
+
+			$emaildata = [
+					'user' => $user,
+					'password' => $string,
+			];
+			Mail::queue('emails.create-user-free-trial', $emaildata, function ($message) use ($user) {
+				$message->from('no-reply@celebgramme.com', 'Celebgramme');
+				$message->to($user->email);
+				$message->subject('[Celebgramme] Welcome to celebgramme.com');
+			});
+		}
 		
-		$order = Order::find(Request::input("select-order"));
-		$order->user_id = $user->id;
-		$order->save();
+		if (Request::input("select_input") == "excel") {
+			
+			
+			if (Input::file('fileExcel')->isValid()) {
+				// $destinationPath = 'uploads'; // upload path
+				$destinationPath = base_path().'/public/admin/uploads/temp/';
+				$extension = Input::file('fileExcel')->getClientOriginalExtension(); 
+				$fileName = 'file-list-new-member'.date('Y_m_d_H_i_s').'.'.$extension; 
+				Input::file('fileExcel')->move($destinationPath, $fileName);
+			} else {
+				$arr['type'] = "error";
+				$arr['message'] = "File tidak valid";
+				return $arr;
+			}
+			
+			Config::set('excel.import.startRow', '1');
+			$readers = Excel::load($destinationPath.$fileName, function($reader) {
+			})->get();
 
-		$package = Package::find($order->package_manage_id);
-    $user->active_auto_manage = $package->active_days * 86400;
-    $user->max_account = $package->max_account;
-    $user->save();
+			$flag = false;
+			$error_message="";
+			foreach($readers as $sheet)
+			{
+				if ($sheet->getTitle()=='Sheet1') {
+					foreach($sheet as $row)
+					{
+						if ( ($row->name=="") && ($row->email=="") )  {
+							break;
+						}
+						
 
-    $emaildata = [
-        'user' => $user,
-        'password' => $string,
-    ];
-    Mail::queue('emails.create-user', $emaildata, function ($message) use ($user) {
-      $message->from('no-reply@celebgramme.com', 'Celebgramme');
-      $message->to($user->email);
-      $message->subject('[Celebgramme] Welcome to celebgramme.com');
-    });
+						$data = array (
+							"email" => $row->email,
+						);
+						$validator = Validator::make($data, [
+							'email' => 'required|email|max:255|unique:users',
+						]);
+						if ($validator->fails()){
+							$arr["type"] = "error";
+							$arr["message"] = "Email sudah terdaftar atau tidak valid";
+							return $arr;
+						}
+
+						$karakter= 'abcdefghjklmnpqrstuvwxyz123456789';
+						$string = '';
+						for ($i = 0; $i < 8 ; $i++) {
+							$pos = rand(0, strlen($karakter)-1);
+							$string .= $karakter{$pos};
+						}
+
+						$user = new User;
+						$user->email = $row->email;
+						$user->password = $string;
+						$user->fullname = $row->name;
+						$user->type = "confirmed-email";
+						$user->save();
+
+						$affiliate = Affiliate::find(Request::input("select-affiliate"));
+						$user->active_auto_manage = $affiliate->jumlah_hari_free_trial * 86400;
+						$user->max_account = 3;
+						$user->link_affiliate = $affiliate->link;
+						$user->save();
+
+						$emaildata = [
+								'user' => $user,
+								'password' => $string,
+						];
+						Mail::queue('emails.create-user-free-trial', $emaildata, function ($message) use ($user) {
+							$message->from('no-reply@celebgramme.com', 'Celebgramme');
+							$message->to($user->email);
+							$message->subject('[Celebgramme] Welcome to celebgramme.com');
+						});
+
+
+						
+						
+						
+						
+					}
+				}
+			}
+			
+		}
 
 
     return $arr;

@@ -162,43 +162,51 @@
           <h4 class="modal-title">Add Member Affiliate</h4>
         </div>
         <div class="modal-body">
-          <form enctype="multipart/form-data" id="form-create-member">
+          <!--<form enctype="multipart/form-data" id="form-create-member">-->
+					{!! Form::open(array('url'=>'save-confirmation','method'=>'POST', 'files'=>true, 'id'=>'form-create-member')) !!}
             <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Type Input</label>
+              <div class="col-sm-8 col-md-6">
+                <select class="form-control" name="select_input" id="select-input">
+									<option value="manual">Manual</option>
+									<option value="excel">Excel</option>
+								</select>
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row type-manual">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Email</label>
               <div class="col-sm-8 col-md-6">
                 <input type="text" class="form-control" placeholder="Email" name="email" id="email">
               </div>
             </div>  
-            <div class="form-group form-group-sm row">
+            <div class="form-group form-group-sm row type-manual">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Name</label>
               <div class="col-sm-8 col-md-6">
                 <input type="text" class="form-control" placeholder="Fullname" name="fullname" id="fullname">
               </div>
             </div>  
-            <div class="form-group form-group-sm row">
-              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Order</label>
+            <div class="form-group form-group-sm row type-excel">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Excel</label>
               <div class="col-sm-8 col-md-6">
-                <select class="form-control" name="select-order" id="select-order">
+								<input type="file" id="fileExcel" name="fileExcel" class="form-control"> 
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Affiliate</label>
+              <div class="col-sm-8 col-md-6">
+                <select class="form-control" name="select-affiliate" id="select-affiliate">
 									<?php 
-									  if ($orders->count()>0) {
-											foreach($orders->get() as $order){ ?>
-												<option value="{{$order->id}}">{{$order->no_order}} Rp. {{number_format($order->total,0,'','.')}}</option>
+									  // if ($affiliates->count()>0) {
+											foreach($affiliates as $affiliate){ ?>
+												<option value="{{$affiliate->id}}">{{$affiliate->nama}} - free {{$affiliate->jumlah_hari_free_trial}} hari</option>
 									<?php 
 											}
 											
-										}
+										// }
 									?>
 								</select>
               </div>
             </div>  
-						<!--
-            <div class="form-group form-group-sm row">
-              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">days</label>
-              <div class="col-sm-8 col-md-6">
-                <input type="number" class="form-control" placeholder="Jumlah hari yang ditambahkan" name="member-days" id="member-days">
-              </div>
-            </div>  
-						-->
               <input type="hidden" class="user-id" name="user-id">
               <input type="hidden" class="action" name="action">
           </form>
@@ -359,11 +367,11 @@
   <div class="cover-input-group">
     <div class="input-group fl">
       <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
-    </div>  <!--
+    </div>  
     <div class="input-group fl">
       <input type="button" value="Add member" id="button-add-member" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalCreateMember" > 
     </div>  
-		-->
+	
     <div class="none"></div>
   </div>
 	
@@ -557,18 +565,24 @@
 
       $( "body" ).on( "click", "#btn-create-member", function() {
 
+					var uf = $('#form-create-member');
+					var fd = new FormData(uf[0]);
         $.ajax({
           url: '<?php echo url('add-member'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           type: 'post',
-          data: $("#form-create-member").serialize(),
+          // data: $("#form-create-member").serialize(),
+          data : fd,
           beforeSend: function()
           {
             $("#div-loading").show();
           },
           dataType: 'text',
+					processData:false,
+					contentType: false,
+					
           success: function(result)
           {
             var data = jQuery.parseJSON(result);
@@ -762,7 +776,21 @@
           }
         });
       });
-			
+
+
+			$(".type-excel").hide();
+			$('#select-input').on('change', function() {
+				// alert( this.value ); // or $(this).val()
+				// alert( $(this).val() ); // or $(this).val()
+				if ($(this).val()=="manual") {
+					$(".type-manual").show();
+					$(".type-excel").hide();
+				}
+				if ($(this).val()=="excel") {
+					$(".type-manual").hide();
+					$(".type-excel").show();
+				}
+			});			
 			
     });
   </script>		
