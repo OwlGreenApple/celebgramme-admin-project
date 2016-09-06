@@ -277,6 +277,9 @@ class MemberController extends Controller {
 			$user->max_account = 3;
 			$user->link_affiliate = $affiliate->link;
 			$user->save();
+			
+			UserMeta::createMeta("nama affiliate",$affiliate->nama,$user->id);
+			UserMeta::createMeta("start_waktu",$affiliate->jumlah_hari_free_trial * 86400,$user->id);
 
 			$emaildata = [
 					'user' => $user,
@@ -327,9 +330,10 @@ class MemberController extends Controller {
 							'email' => 'required|email|max:255|unique:users',
 						]);
 						if ($validator->fails()){
-							$arr["type"] = "error";
-							$arr["message"] = "Email sudah terdaftar atau tidak valid";
-							return $arr;
+							// $arr["type"] = "error";
+							// $arr["message"] = "Email sudah terdaftar atau tidak valid";
+							// return $arr;
+							break;
 						}
 
 						$karakter= 'abcdefghjklmnpqrstuvwxyz123456789';
@@ -351,6 +355,9 @@ class MemberController extends Controller {
 						$user->max_account = 3;
 						$user->link_affiliate = $affiliate->link;
 						$user->save();
+						
+						UserMeta::createMeta("nama affiliate",$affiliate->nama,$user->id);
+						UserMeta::createMeta("start_waktu",$affiliate->jumlah_hari_free_trial * 86400,$user->id);
 
 						$emaildata = [
 								'user' => $user,
