@@ -319,7 +319,7 @@ class MemberController extends Controller {
 					foreach($sheet as $row)
 					{
 						if ( ($row->name=="") && ($row->email=="") )  {
-							break;
+							continue;
 						}
 						
 
@@ -333,7 +333,7 @@ class MemberController extends Controller {
 							// $arr["type"] = "error";
 							// $arr["message"] = "Email sudah terdaftar atau tidak valid";
 							// return $arr;
-							break;
+							continue;
 						}
 
 						$karakter= 'abcdefghjklmnpqrstuvwxyz123456789';
