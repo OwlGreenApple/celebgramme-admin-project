@@ -129,6 +129,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('update-server-automation', 'Admin\SettingController@update_server_automation');
 	Route::post('refresh-automation-IG-account', 'Admin\SettingController@refresh_account');
 	Route::post('refresh-auth-IG-account', 'Admin\SettingController@refresh_auth');
+	Route::post('delete-action-IG-account', 'Admin\SettingController@delete_action');
 	
 	/* Status Setting Account IG Automation*/
 	Route::get('setting-automation', 'Admin\SettingController@automation');

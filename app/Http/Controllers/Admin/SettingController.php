@@ -825,6 +825,18 @@ class SettingController extends Controller {
 	}
 	
 	
+	public function delete_action() {
+		$setting_helper = SettingHelper::where("setting_id","=",Request::input('id'))->first();
+		$setting_helper->is_refresh = 1 ;
+		$setting_helper->is_delete_action = 1 ;
+		$setting_helper->save();
+		
+		
+		$arr["logs"] = "";
+		$arr["type"] = "success";
+		return $arr;
+	}
+	
 	public function update_identity() {
 		$setting_helper = SettingHelper::where("setting_id","=",Request::input("setting-id"))->first();
 		if (!is_null($setting_helper)) {

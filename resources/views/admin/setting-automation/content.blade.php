@@ -111,6 +111,9 @@
 				<input type="button" value="Hourly" data-loading-text="Loading..." class="btn btn-primary btn-show-log-hourly" data-toggle="modal" data-target="#myModalHourly" data-id="{{$data_arr->setting_id}}"> 
 				<input type="button" value="Refresh" data-loading-text="Loading..." class="btn btn-primary btn-refresh-account"  data-id="{{$data_arr->setting_id}}"> 
 				<input type="button" value="Refresh Auth" data-loading-text="Loading..." class="btn btn-primary btn-refresh-auth"  data-id="{{$data_arr->setting_id}}"> 
+				<?php if ($admin->email == "it2.axiapro@gmail.com") { ?>
+				<input type="button" value="Delete action & refresh" data-loading-text="Loading..." class="btn btn-primary btn-delete-action"  data-id="{{$data_arr->setting_id}}"> 
+				<?php } ?>
       </td>
 
 			
