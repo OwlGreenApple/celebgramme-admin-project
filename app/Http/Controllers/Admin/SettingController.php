@@ -476,7 +476,7 @@ class SettingController extends Controller {
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
-		for ($i=1;$i<=21;$i++) {
+		for ($i=1;$i<=30;$i++) {
 			$logs .= "<tr>";
 			$logs .= "<td>".$dt->toDateString()."</td>";
 			
