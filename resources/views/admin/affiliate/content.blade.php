@@ -21,6 +21,12 @@
 			{{$arr->jumlah_hari_free_trial}}
       </td>
       <td align="center">
+			{{$arr->jumlah_user_daftar}}
+      </td>
+      <td align="center">
+			{{$arr->jumlah_user_beli}}
+      </td>
+      <td align="center">
 			{{$arr->created}}
       </td>
       <td align="center">

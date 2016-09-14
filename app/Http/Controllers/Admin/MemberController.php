@@ -273,6 +273,8 @@ class MemberController extends Controller {
 			$user->save();
 
 			$affiliate = Affiliate::find(Request::input("select-affiliate"));
+			$affiliate->jumlah_user_daftar += 1;
+			$affiliate->save();
 			$user->active_auto_manage = $affiliate->jumlah_hari_free_trial * 86400;
 			$user->max_account = 3;
 			$user->link_affiliate = $affiliate->link;
@@ -351,6 +353,8 @@ class MemberController extends Controller {
 						$user->save();
 
 						$affiliate = Affiliate::find(Request::input("select-affiliate"));
+						$affiliate->jumlah_user_daftar += 1;
+						$affiliate->save();
 						$user->active_auto_manage = $affiliate->jumlah_hari_free_trial * 86400;
 						$user->max_account = 3;
 						$user->link_affiliate = $affiliate->link;
