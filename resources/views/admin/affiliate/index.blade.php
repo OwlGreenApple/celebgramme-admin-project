@@ -85,8 +85,8 @@
         <th>Nama</th>
         <th>Link Wuoymembership</th>
         <th>Jumlah hari free trial</th>
-        <th>Jumlah hari user daftar</th>
-        <th>Jumlah hari user beli</th>
+        <th>Jumlah user daftar</th>
+        <th>Jumlah user beli</th>
         <th>Created</th>
         <th></th>
       </tr>      
