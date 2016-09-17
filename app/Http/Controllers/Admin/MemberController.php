@@ -697,6 +697,36 @@ class MemberController extends Controller {
 		return $arr;
 	}
 
+  public function ads_page()
+  {
+    $user = Auth::user();
+		$post = Post::where("type","=","ads")->first();
+		if (is_null($post)) {
+			$post = new Post;
+			$post->type="ads";
+			$post->save();
+		}
+		$content = $post->description;
+    return View::make('admin.member-all.ads')->with(
+                  array(
+                    'user'=>$user,
+                    'content'=>$content,
+                  ));
+	}
+
+  public function save_ads_page()
+  {
+		$arr["type"] = "success";
+		$arr["message"] = "Saved";
+
+		$post = Post::where("type","=","ads")->first();
+		$post->description=Request::input("content");
+		$post->type="ads";
+		$post->save();
+
+		return $arr;
+	}
+	
 	public function get_time_logs() {
 		$logs = "";
 		$counter =1;

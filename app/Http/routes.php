@@ -90,6 +90,8 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('save-home-page', 'Admin\MemberController@save_home_page');
 	Route::post('member-order-package', 'Admin\MemberController@member_order_package');
 	Route::get('load-time-logs', 'Admin\MemberController@get_time_logs');
+	Route::get('ads-page', 'Admin\MemberController@ads_page');
+	Route::post('save-ads-page', 'Admin\MemberController@save_ads_page');
 
 	/* Coupon */
 	Route::get('coupon', 'Admin\PaymentController@coupon');
