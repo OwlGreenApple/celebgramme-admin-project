@@ -641,9 +641,9 @@ class SettingController extends Controller {
 			if ($setting->server_automation == "A2(automation-2)") {
 				$server = "http://192.186.146.246/";
 			}
-			if ($setting->server_automation == "A3(automation-3)") {
-				$server = "http://188.210.215.104/";
-			}
+			// if ($setting->server_automation == "A3(automation-3)") {
+				// $server = "http://188.210.215.104/";
+			// }
 
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."unfollow.txt";
 			$ch = curl_init($file_server);
