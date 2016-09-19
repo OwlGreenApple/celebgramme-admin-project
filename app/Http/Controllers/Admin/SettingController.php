@@ -646,54 +646,64 @@ class SettingController extends Controller {
 			if ($setting->server_automation == "A3(automation-3)") {
 				$server = "http://188.210.215.104/";
 			}
+			
+			$unfollow_counter = 0; $follow_counter = 0; $like_counter = 0; $comment_counter = 0;
 
-			$file_server = $server."daily-action-counter/".urlencode($setting->insta_username)."/".strval($dt->day)."/"."unfollow.txt";
-			$ch = curl_init($file_server);
-			curl_setopt($ch, CURLOPT_NOBODY, true);
-			curl_exec($ch);
-			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-				$unfollow_counter = file_get_contents($file_server);	
-			} else {
-				$unfollow_counter = 0;
+			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."unfollow.txt";
+			if (filter_var($file_server, FILTER_VALIDATE_URL) === TRUE) {
+				$ch = curl_init($file_server);
+				curl_setopt($ch, CURLOPT_NOBODY, true);
+				curl_exec($ch);
+				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+					$unfollow_counter = file_get_contents($file_server);	
+				} else {
+					// $unfollow_counter = 0;
+				}
+				curl_close($ch);
 			}
-			curl_close($ch);
 
-			$file_server = $server."daily-action-counter/".urlencode($setting->insta_username)."/".strval($dt->day)."/"."follow.txt";
-			$ch = curl_init($file_server);
-			curl_setopt($ch, CURLOPT_NOBODY, true);
-			curl_exec($ch);
-			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-				$follow_counter = file_get_contents($file_server);	
-			} else {
-				$follow_counter = 0;
+			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."follow.txt";
+			if (filter_var($file_server, FILTER_VALIDATE_URL) === TRUE) {
+				$ch = curl_init($file_server);
+				curl_setopt($ch, CURLOPT_NOBODY, true);
+				curl_exec($ch);
+				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+					$follow_counter = file_get_contents($file_server);	
+				} else {
+					// $follow_counter = 0;
+				}
+				curl_close($ch);
 			}
-			curl_close($ch);
 
-			$file_server = $server."daily-action-counter/".urlencode($setting->insta_username)."/".strval($dt->day)."/"."like.txt";
-			$ch = curl_init($file_server);
-			curl_setopt($ch, CURLOPT_NOBODY, true);
-			curl_exec($ch);
-			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-				$like_counter = file_get_contents($file_server);	
-			} else {
-				$like_counter = 0;
+			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."like.txt";
+			if (filter_var($file_server, FILTER_VALIDATE_URL) === TRUE) {
+				$ch = curl_init($file_server);
+				curl_setopt($ch, CURLOPT_NOBODY, true);
+				curl_exec($ch);
+				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+					$like_counter = file_get_contents($file_server);	
+				} else {
+					// $like_counter = 0;
+				}
+				curl_close($ch);
 			}
-			curl_close($ch);
 
-			$file_server = $server."daily-action-counter/".urlencode($setting->insta_username)."/".strval($dt->day)."/"."comment.txt";
-			$ch = curl_init($file_server);
-			curl_setopt($ch, CURLOPT_NOBODY, true);
-			curl_exec($ch);
-			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-				$comment_counter = file_get_contents($file_server);	
-			} else {
-				$comment_counter = 0;
+			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."comment.txt";
+			if (filter_var($file_server, FILTER_VALIDATE_URL) === TRUE) {
+				$ch = curl_init($file_server);
+				curl_setopt($ch, CURLOPT_NOBODY, true);
+				curl_exec($ch);
+				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+					$comment_counter = file_get_contents($file_server);	
+				} else {
+					// $comment_counter = 0;
+				}
+				curl_close($ch);
 			}
-			curl_close($ch);
 			
 			$desc = "";
 
