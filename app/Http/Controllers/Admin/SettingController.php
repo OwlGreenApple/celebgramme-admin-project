@@ -631,6 +631,7 @@ class SettingController extends Controller {
 				join("setting_helpers","setting_helpers.setting_id","=","settings.id")
 				->where("type","=","temp")
 				->where("status","=","started")
+				->where("server_automation","!=","A3(automation-3)")
 				->orderBy('settings.id', 'asc')
 				->get();
 					
