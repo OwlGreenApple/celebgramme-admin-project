@@ -650,7 +650,7 @@ class SettingController extends Controller {
 			$unfollow_counter = 0; $follow_counter = 0; $like_counter = 0; $comment_counter = 0;
 
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."unfollow.txt";
-			if (filter_var($file_server, FILTER_VALIDATE_URL) === TRUE) {
+			if (filter_var($file_server, FILTER_VALIDATE_URL) === FALSE) { } else {}
 				$ch = curl_init($file_server);
 				curl_setopt($ch, CURLOPT_NOBODY, true);
 				curl_exec($ch);
@@ -664,7 +664,7 @@ class SettingController extends Controller {
 			}
 
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."follow.txt";
-			if (filter_var($file_server, FILTER_VALIDATE_URL) === TRUE) {
+			if (filter_var($file_server, FILTER_VALIDATE_URL) === FALSE) { } else {}
 				$ch = curl_init($file_server);
 				curl_setopt($ch, CURLOPT_NOBODY, true);
 				curl_exec($ch);
@@ -678,7 +678,7 @@ class SettingController extends Controller {
 			}
 
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."like.txt";
-			if (filter_var($file_server, FILTER_VALIDATE_URL) === TRUE) {
+			if (filter_var($file_server, FILTER_VALIDATE_URL) === FALSE) { } else {}
 				$ch = curl_init($file_server);
 				curl_setopt($ch, CURLOPT_NOBODY, true);
 				curl_exec($ch);
@@ -692,7 +692,7 @@ class SettingController extends Controller {
 			}
 
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."comment.txt";
-			if (filter_var($file_server, FILTER_VALIDATE_URL) === TRUE) {
+			if (filter_var($file_server, FILTER_VALIDATE_URL) === FALSE) { } else {}
 				$ch = curl_init($file_server);
 				curl_setopt($ch, CURLOPT_NOBODY, true);
 				curl_exec($ch);
