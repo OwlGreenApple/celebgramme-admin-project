@@ -625,7 +625,7 @@ class SettingController extends Controller {
 	public function get_logs_automation_error() {
 		$logs = "";
 		$counter =1;
-		
+		/*
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
 		$settings = Setting::
 				join("setting_helpers","setting_helpers.setting_id","=","settings.id")
@@ -740,13 +740,13 @@ class SettingController extends Controller {
 			
 		} catch (Exception $e) {
 				// echo 'Caught exception: ',  $e->getMessage(), "\n";
-				$logs .= "<tr><td>".$setting->insta_password."</td></tr>";
+				$logs .= "<tr><td colspan=3>".$setting->insta_password."</td></tr>";
 				continue;
 		}
 			
 			
 		}
-
+*/
 		$arr["logs"] = $logs;
 		$arr["type"] = "success";
 		return $arr;
