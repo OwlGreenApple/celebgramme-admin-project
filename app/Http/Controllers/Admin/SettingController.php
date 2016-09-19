@@ -717,6 +717,7 @@ class SettingController extends Controller {
 			if ( substr($setting->cookies, 0, 5) == "error") {
 				$logs .= "<td>Error Cookies</td>";
 			}
+			usleep(mt_rand(200,2000000));
 		}
 
 		$arr["logs"] = $logs;
