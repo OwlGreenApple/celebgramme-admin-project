@@ -647,7 +647,7 @@ class SettingController extends Controller {
 				$server = "http://188.210.215.104/";
 			}
 
-			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."unfollow.txt";
+			$file_server = urlencode($server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."unfollow.txt");
 			$ch = curl_init($file_server);
 			curl_setopt($ch, CURLOPT_NOBODY, true);
 			curl_exec($ch);
@@ -659,7 +659,7 @@ class SettingController extends Controller {
 			}
 			curl_close($ch);
 
-			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."follow.txt";
+			$file_server = urlencode($server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."follow.txt");
 			$ch = curl_init($file_server);
 			curl_setopt($ch, CURLOPT_NOBODY, true);
 			curl_exec($ch);
@@ -671,7 +671,7 @@ class SettingController extends Controller {
 			}
 			curl_close($ch);
 
-			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."like.txt";
+			$file_server = urlencode($server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."like.txt");
 			$ch = curl_init($file_server);
 			curl_setopt($ch, CURLOPT_NOBODY, true);
 			curl_exec($ch);
@@ -683,7 +683,7 @@ class SettingController extends Controller {
 			}
 			curl_close($ch);
 
-			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."comment.txt";
+			$file_server = urlencode($server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."comment.txt");
 			$ch = curl_init($file_server);
 			curl_setopt($ch, CURLOPT_NOBODY, true);
 			curl_exec($ch);
