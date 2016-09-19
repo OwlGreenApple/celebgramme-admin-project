@@ -692,6 +692,8 @@ class SettingController extends Controller {
 				$comment_counter = 0;
 			}
 			curl_close($ch);
+			
+			$desc = "";
 
 			if ( ( ($unfollow_counter==0) && ($follow_counter==0) && ($like_counter==0) && ($comment_counter==0) ) || ( substr($setting->cookies, 0, 5) == "error")) {
 			
@@ -709,15 +711,18 @@ class SettingController extends Controller {
 				} else {
 					$logs .= "<td>".$setting->cookies."</td>";
 				}
+			
+				if ( ($unfollow_counter==0) && ($follow_counter==0) && ($like_counter==0) && ($comment_counter==0) ) {
+					$desc .= "Error No Activity";
+				}
+				if ( substr($setting->cookies, 0, 5) == "error") {
+					$desc .= " Error Cookies";
+				}
+				
+				$logs .= "<td>".$desc."</td>";
+				$logs .= "</tr>";
 			}
 			
-			if ( ($unfollow_counter==0) && ($follow_counter==0) && ($like_counter==0) && ($comment_counter==0) ) {
-				$logs .= "<td>Error No Activity</td>";
-			}
-			if ( substr($setting->cookies, 0, 5) == "error") {
-				$logs .= "<td>Error Cookies</td>";
-			}
-			usleep(mt_rand(200,2000000));
 		}
 
 		$arr["logs"] = $logs;
