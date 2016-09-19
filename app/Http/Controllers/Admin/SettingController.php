@@ -649,6 +649,9 @@ class SettingController extends Controller {
 			
 			$unfollow_counter = 0; $follow_counter = 0; $like_counter = 0; $comment_counter = 0;
 
+			
+		try {
+			
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."unfollow.txt";
 			if (filter_var($file_server, FILTER_VALIDATE_URL) === FALSE) { } else {
 				$ch = curl_init($file_server);
@@ -734,6 +737,13 @@ class SettingController extends Controller {
 				$logs .= "<td>".$desc."</td>";
 				$logs .= "</tr>";
 			}
+			
+		} catch (Exception $e) {
+				// echo 'Caught exception: ',  $e->getMessage(), "\n";
+				$logs .= "<tr><td>".$setting->insta_password."</td></tr>";
+				continue;
+		}
+			
 			
 		}
 
