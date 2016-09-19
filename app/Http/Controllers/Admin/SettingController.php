@@ -632,6 +632,7 @@ class SettingController extends Controller {
 				->where("type","=","temp")
 				->where("status","=","started")
 				->where("server_automation","!=","A1(automation-1)")
+				->where("server_automation","!=","A2(automation-2)")
 				->orderBy('settings.id', 'asc')
 				->get();
 					
@@ -639,9 +640,9 @@ class SettingController extends Controller {
 			// if ($setting->server_automation == "A1(automation-1)") {
 				// $server = "http://192.186.146.248/";
 			// }
-			if ($setting->server_automation == "A2(automation-2)") {
-				$server = "http://192.186.146.246/";
-			}
+			// if ($setting->server_automation == "A2(automation-2)") {
+				// $server = "http://192.186.146.246/";
+			// }
 			if ($setting->server_automation == "A3(automation-3)") {
 				$server = "http://188.210.215.104/";
 			}
