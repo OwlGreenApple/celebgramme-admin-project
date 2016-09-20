@@ -668,7 +668,7 @@ class SettingController extends Controller {
 				curl_exec($ch);
 				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-					$unfollow_counter = file_get_contents($file_server,true,$context);	
+					$unfollow_counter = file_get_contents($file_server,false,$context);	
 				} else {
 					// $unfollow_counter = 0;
 				}
@@ -682,7 +682,7 @@ class SettingController extends Controller {
 				curl_exec($ch);
 				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-					$follow_counter = file_get_contents($file_server,true,$context);	
+					$follow_counter = file_get_contents($file_server,false,$context);	
 				} else {
 					// $follow_counter = 0;
 				}
@@ -696,7 +696,7 @@ class SettingController extends Controller {
 				curl_exec($ch);
 				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-					$like_counter = file_get_contents($file_server,true,$context);	
+					$like_counter = file_get_contents($file_server,false,$context);	
 				} else {
 					// $like_counter = 0;
 				}
@@ -710,7 +710,7 @@ class SettingController extends Controller {
 				curl_exec($ch);
 				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-					$comment_counter = file_get_contents($file_server,true,$context);	
+					$comment_counter = file_get_contents($file_server,false,$context);	
 				} else {
 					// $comment_counter = 0;
 				}
