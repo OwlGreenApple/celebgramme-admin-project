@@ -664,11 +664,12 @@ class SettingController extends Controller {
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."unfollow.txt";
 			if (filter_var($file_server, FILTER_VALIDATE_URL) === FALSE) { } else {
 				$ch = curl_init($file_server);
-				curl_setopt($ch, CURLOPT_NOBODY, true);
-				curl_exec($ch);
+				curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+				$content = curl_exec($ch);
 				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-					$unfollow_counter = file_get_contents($file_server,false,$context);	
+					// $unfollow_counter = file_get_contents($file_server,false,$context);	
+					$unfollow_counter = $content;	
 				} else {
 					// $unfollow_counter = 0;
 				}
@@ -678,11 +679,12 @@ class SettingController extends Controller {
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."follow.txt";
 			if (filter_var($file_server, FILTER_VALIDATE_URL) === FALSE) { } else {
 				$ch = curl_init($file_server);
-				curl_setopt($ch, CURLOPT_NOBODY, true);
-				curl_exec($ch);
+				curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+				$content = curl_exec($ch);
 				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-					$follow_counter = file_get_contents($file_server,false,$context);	
+					// $follow_counter = file_get_contents($file_server,false,$context);	
+					$follow_counter = $content;	
 				} else {
 					// $follow_counter = 0;
 				}
@@ -692,11 +694,12 @@ class SettingController extends Controller {
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."like.txt";
 			if (filter_var($file_server, FILTER_VALIDATE_URL) === FALSE) { } else {
 				$ch = curl_init($file_server);
-				curl_setopt($ch, CURLOPT_NOBODY, true);
-				curl_exec($ch);
+				curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+				$content = curl_exec($ch);
 				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-					$like_counter = file_get_contents($file_server,false,$context);	
+					// $like_counter = file_get_contents($file_server,false,$context);	
+					$like_counter = $content;	
 				} else {
 					// $like_counter = 0;
 				}
@@ -706,11 +709,12 @@ class SettingController extends Controller {
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."comment.txt";
 			if (filter_var($file_server, FILTER_VALIDATE_URL) === FALSE) { } else {
 				$ch = curl_init($file_server);
-				curl_setopt($ch, CURLOPT_NOBODY, true);
-				curl_exec($ch);
+				curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+				$content = curl_exec($ch);
 				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-					$comment_counter = file_get_contents($file_server,false,$context);	
+					// $comment_counter = file_get_contents($file_server,false,$context);	
+					$comment_counter = $content;	
 				} else {
 					// $comment_counter = 0;
 				}
