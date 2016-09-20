@@ -623,26 +623,35 @@ class SettingController extends Controller {
 	}
 	
 	public function get_logs_automation_error() {
+		$opts = array(
+			'http'=>array(
+				'method'=>"GET",
+				'header'=>"Accept-language: en\r\n" .
+									"Cookie: foo=bar\r\n"
+			)
+		);
+
+		$context = stream_context_create($opts);
+		
+		
 		$logs = "";
 		$counter =1;
-		/*
+		
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
 		$settings = Setting::
 				join("setting_helpers","setting_helpers.setting_id","=","settings.id")
 				->where("type","=","temp")
 				->where("status","=","started")
-				->where("server_automation","!=","A1(automation-1)")
-				->where("server_automation","!=","A2(automation-2)")
 				->orderBy('settings.id', 'asc')
 				->get();
 					
     foreach ($settings as $setting) {					
-			// if ($setting->server_automation == "A1(automation-1)") {
-				// $server = "http://192.186.146.248/";
-			// }
-			// if ($setting->server_automation == "A2(automation-2)") {
-				// $server = "http://192.186.146.246/";
-			// }
+			if ($setting->server_automation == "A1(automation-1)") {
+				$server = "http://192.186.146.248/";
+			}
+			if ($setting->server_automation == "A2(automation-2)") {
+				$server = "http://192.186.146.246/";
+			}
 			if ($setting->server_automation == "A3(automation-3)") {
 				$server = "http://188.210.215.104/";
 			}
@@ -659,7 +668,7 @@ class SettingController extends Controller {
 				curl_exec($ch);
 				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-					$unfollow_counter = file_get_contents($file_server);	
+					$unfollow_counter = file_get_contents($file_server,true,$context);	
 				} else {
 					// $unfollow_counter = 0;
 				}
@@ -673,7 +682,7 @@ class SettingController extends Controller {
 				curl_exec($ch);
 				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-					$follow_counter = file_get_contents($file_server);	
+					$follow_counter = file_get_contents($file_server,true,$context);	
 				} else {
 					// $follow_counter = 0;
 				}
@@ -687,7 +696,7 @@ class SettingController extends Controller {
 				curl_exec($ch);
 				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-					$like_counter = file_get_contents($file_server);	
+					$like_counter = file_get_contents($file_server,true,$context);	
 				} else {
 					// $like_counter = 0;
 				}
@@ -701,30 +710,30 @@ class SettingController extends Controller {
 				curl_exec($ch);
 				$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-					$comment_counter = file_get_contents($file_server);	
+					$comment_counter = file_get_contents($file_server,true,$context);	
 				} else {
 					// $comment_counter = 0;
 				}
 				curl_close($ch);
 			}
 			
-			$desc = "";
+			$desc = ""; $logs_temp = "";
 
 			if ( ( ($unfollow_counter==0) && ($follow_counter==0) && ($like_counter==0) && ($comment_counter==0) ) || ( substr($setting->cookies, 0, 5) == "error")) {
 			
-				$logs .= "<tr>";
-				$logs .= "<td>".$setting->insta_username."</td>";
+				$logs_temp .= "<tr>";
+				$logs_temp .= "<td>".$setting->insta_username."</td>";
 				
 				if ($setting->cookies=="error login status :check") {
-					$logs .= "<td>Error Password Reset</td>";
+					$logs_temp .= "<td>Error Password Reset</td>";
 				} else
 				if ($setting->cookies=="error csrf status : new") {
-					$logs .= "<td>Error Konfirmasi Telepon / Email</td>";
+					$logs_temp .= "<td>Error Konfirmasi Telepon / Email</td>";
 				} else
 				if ($setting->cookies=="") {
-					$logs .= "<td>OFF</td>";
+					$logs_temp .= "<td>OFF</td>";
 				} else {
-					$logs .= "<td>".$setting->cookies."</td>";
+					$logs_temp .= "<td>".$setting->cookies."</td>";
 				}
 			
 				if ( ($unfollow_counter==0) && ($follow_counter==0) && ($like_counter==0) && ($comment_counter==0) ) {
@@ -734,8 +743,9 @@ class SettingController extends Controller {
 					$desc .= " Error Cookies";
 				}
 				
-				$logs .= "<td>".$desc."</td>";
-				$logs .= "</tr>";
+				$logs_temp .= "<td>".$desc."</td>";
+				$logs_temp .= "</tr>";
+				$logs .= $logs_temp;
 			}
 			
 		} catch (Exception $e) {
@@ -746,7 +756,7 @@ class SettingController extends Controller {
 			
 			
 		}
-*/
+
 		$arr["logs"] = $logs;
 		$arr["type"] = "success";
 		return $arr;
