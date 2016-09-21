@@ -483,7 +483,7 @@ class SettingController extends Controller {
 
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."unfollow.txt";
 			$ch = curl_init($file_server);
-			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
 			$content = curl_exec($ch);
 			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
@@ -496,7 +496,7 @@ class SettingController extends Controller {
 
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."follow.txt";
 			$ch = curl_init($file_server);
-			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
 			$content = curl_exec($ch);
 			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
@@ -509,7 +509,7 @@ class SettingController extends Controller {
 
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."like.txt";
 			$ch = curl_init($file_server);
-			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
 			$content = curl_exec($ch);
 			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
@@ -522,7 +522,7 @@ class SettingController extends Controller {
 
 			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."comment.txt";
 			$ch = curl_init($file_server);
-			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
 			$content = curl_exec($ch);
 			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
@@ -569,7 +569,7 @@ class SettingController extends Controller {
 
 			$file_server = $server."hourly-action-counter/".$setting->insta_username."/".strval($dt->day)."/".strval($dt->hour)."/"."unfollow.txt";
 			$ch = curl_init($file_server);
-			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
 			$content = curl_exec($ch);
 			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
@@ -582,7 +582,7 @@ class SettingController extends Controller {
 
 			$file_server = $server."hourly-action-counter/".$setting->insta_username."/".strval($dt->day)."/".strval($dt->hour)."/"."follow.txt";
 			$ch = curl_init($file_server);
-			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
 			$content = curl_exec($ch);
 			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
@@ -595,7 +595,7 @@ class SettingController extends Controller {
 
 			$file_server = $server."hourly-action-counter/".$setting->insta_username."/".strval($dt->day)."/".strval($dt->hour)."/"."like.txt";
 			$ch = curl_init($file_server);
-			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
 			$content = curl_exec($ch);
 			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
@@ -608,7 +608,7 @@ class SettingController extends Controller {
 
 			$file_server = $server."hourly-action-counter/".$setting->insta_username."/".strval($dt->day)."/".strval($dt->hour)."/"."comment.txt";
 			$ch = curl_init($file_server);
-			curl_setopt($ch, CURLOPT_NOBODY, true);
+			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
 			$content = curl_exec($ch);
 			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
