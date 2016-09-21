@@ -41,10 +41,10 @@
 					$file_server = $server."daily-action-counter/".$data_arr->insta_username."/".$day."/"."unfollow.txt";
 					$ch = curl_init($file_server);
 					curl_setopt($ch, CURLOPT_NOBODY, true);
-					curl_exec($ch);
+					$content = curl_exec($ch);
 					$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 					if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-						echo file_get_contents($file_server)."</td>";	
+						echo $content."</td>";	
 					} else {
 						echo " 0 ";
 					}
@@ -56,10 +56,10 @@
 					$file_server = $server."daily-action-counter/".$data_arr->insta_username."/".$day."/"."follow.txt";
 					$ch = curl_init($file_server);
 					curl_setopt($ch, CURLOPT_NOBODY, true);
-					curl_exec($ch);
+					$content = curl_exec($ch);
 					$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 					if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-						echo file_get_contents($file_server)."</td>";	
+						echo $content."</td>";	
 					} else {
 						echo " 0 ";
 					}
@@ -71,10 +71,10 @@
 					$file_server = $server."daily-action-counter/".$data_arr->insta_username."/".$day."/"."like.txt";
 					$ch = curl_init($file_server);
 					curl_setopt($ch, CURLOPT_NOBODY, true);
-					curl_exec($ch);
+					$content = curl_exec($ch);
 					$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 					if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-						echo file_get_contents($file_server)."</td>";	
+						echo $content."</td>";	
 					} else {
 						echo " 0 ";
 					}
@@ -86,10 +86,10 @@
 					$file_server = $server."daily-action-counter/".$data_arr->insta_username."/".$day."/"."comment.txt";
 					$ch = curl_init($file_server);
 					curl_setopt($ch, CURLOPT_NOBODY, true);
-					curl_exec($ch);
+					$content = curl_exec($ch);
 					$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 					if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
-						echo file_get_contents($file_server)."</td>";	
+						echo $content."</td>";	
 					} else {
 						echo " 0 ";
 					}
