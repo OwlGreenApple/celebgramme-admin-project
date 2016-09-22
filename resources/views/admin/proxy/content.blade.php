@@ -1,5 +1,6 @@
 <?php 
 	use Celebgramme\Models\SettingHelper;
+	use Celebgramme\Models\Account;
   if ( ($data->count()==0) ) {
     echo "<tr><td colspan='7' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -22,7 +23,9 @@
       </td>
       <td align="center">
 			<?php 
-				echo SettingHelper::where("proxy_id","=",$arr->id)->count();
+				$counter = SettingHelper::where("proxy_id","=",$arr->id)->count();
+				$counter += Account::where("proxy_id","=",$arr->id)->count();
+				echo $counter;
 			?>
       </td>
       <td align="center">
