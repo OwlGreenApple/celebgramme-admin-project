@@ -16,6 +16,7 @@ use Celebgramme\Models\LinkProxySetting;
 use Celebgramme\Models\Proxies;
 use Celebgramme\Models\Category;
 use Celebgramme\Models\SettingLog;
+use Celebgramme\Models\Account;
 
 use Celebgramme\Helpers\GlobalHelper;
 
@@ -52,7 +53,7 @@ class SettingController extends Controller {
 								// ->havingRaw('count(proxies.id) < 5')
 								// ->get();
 		$availableProxy = Proxies::leftJoin("setting_helpers","setting_helpers.proxy_id","=","proxies.id")
-								->select("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
+								->select("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth",DB::raw("count(proxies.id) as total"))
                 ->groupBy("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
 								->havingRaw('count(proxies.id) < 5')
 								->get();
@@ -69,7 +70,11 @@ class SettingController extends Controller {
 				$dataNew["value"] = $data->proxy;
 				// $dataNew[] = $data->proxy;
 			}
-			$arrAvailableProxy[] = $dataNew;	
+			
+			$total_proxy_celebpost_used = Account::where("proxy_id","<>",0)->count();
+			if ($total_proxy_celebpost_used + $data->total < 5) {
+				$arrAvailableProxy[] = $dataNew;	
+			}
 		}
 		
 								
