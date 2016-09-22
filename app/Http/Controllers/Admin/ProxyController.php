@@ -5,6 +5,7 @@ use Celebgramme\Http\Controllers\Controller;
 
 use Celebgramme\Helpers\GeneralHelper;
 
+use Celebgramme\Models\Account;
 use Celebgramme\Models\Proxies;
 use Celebgramme\Models\SettingHelper; 
 
@@ -47,11 +48,15 @@ class ProxyController extends Controller {
 			}
 		}
 		// echo collect($collection)->sum(); exit;
+		$total = collect($collection)->sum();
+		
+		$total_proxy_celebpost_used = Account::where("proxy_id","<>",0)->count();
+		$total -= $total_proxy_celebpost_used;
 		
 		return View::make('admin.proxy.index')->with(
                   array(
                     'user'=>$user,
-                    'numAvailableProxy'=>collect($collection)->sum(),
+                    'numAvailableProxy'=> $total,
                   ));
   }
   
