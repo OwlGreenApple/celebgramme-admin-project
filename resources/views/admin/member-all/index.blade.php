@@ -499,7 +499,6 @@
         });
     }
     $(document).ready(function(){
-			$('.table-data-default').DataTable();
       $("#alert").hide();
       create_pagination(1);
       refresh_page(1);
@@ -771,6 +770,7 @@
             var data = jQuery.parseJSON(result);
             if(data.type=='success') {
 							$("#p-logs").html(data.logs);
+							$('.table-data-default').DataTable();
             } else if (data.type=='error') {
             }
 						$("#div-loading").hide();
