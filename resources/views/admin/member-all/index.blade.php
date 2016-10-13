@@ -769,7 +769,6 @@
           {
             var data = jQuery.parseJSON(result);
             if(data.type=='success') {
-							$('.table-data-default').DataTable().clear();
 							$("#p-logs").html(data.logs);
 							$('.table-data-default').DataTable().draw();
             } else if (data.type=='error') {
