@@ -499,7 +499,7 @@
         });
     }
     $(document).ready(function(){
-			$('#table-data-default').DataTable();
+			$('.table-data-default').DataTable();
       $("#alert").hide();
       create_pagination(1);
       refresh_page(1);
