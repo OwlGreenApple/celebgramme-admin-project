@@ -11,18 +11,7 @@
           <h4 class="modal-title">History Logs</h4>
         </div>
         <div class="modal-body">
-					<div class="form-group form-group-sm">
-						<table class="table table-bordered table-data-default">  
-							<thead>
-								<tr style="font-weight:bold;">
-									<th>Date time</th>
-									<th>Sisa waktu</th>
-								</tr>      
-							</thead>
-							<tbody id="p-logs">
-							</tbody>
-						</table>  
-						
+					<div class="form-group form-group-sm" id="time-log-div">
 					</div>  
         </div>
         <div class="modal-footer">
@@ -751,9 +740,10 @@
         });
       });
 			
-      $('.table-data-default').DataTable();
+      
       $( "body" ).on( "click", ".btn-time-logs", function() {
         temp = $(this);
+				$("#time-log-div").html("");
         $.ajax({                                      
           url: '<?php echo url('load-time-logs'); ?>',
           type: 'get',
@@ -769,7 +759,9 @@
           {
             var data = jQuery.parseJSON(result);
             if(data.type=='success') {
+							$("#time-log-div").html('<table class="table table-bordered table-data-default">  <thead>	<tr style="font-weight:bold;"><th>Date time</th><th>Sisa waktu</th></tr>      </thead><tbody id="p-logs"></tbody></table>  ');
 							$("#p-logs").html(data.logs);
+							$('.table-data-default').DataTable();
             } else if (data.type=='error') {
             }
 						$("#div-loading").hide();
