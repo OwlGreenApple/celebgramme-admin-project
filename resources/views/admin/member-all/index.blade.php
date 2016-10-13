@@ -11,8 +11,8 @@
           <h4 class="modal-title">History Logs</h4>
         </div>
         <div class="modal-body">
-					<div class="form-group form-group-sm row">
-						<table class="table table-bordered">  
+					<div class="form-group form-group-sm">
+						<table class="table table-bordered table-data-default">  
 							<thead>
 								<tr style="font-weight:bold;">
 									<th>Date time</th>
@@ -499,6 +499,7 @@
         });
     }
     $(document).ready(function(){
+			$('#table-data-default').DataTable();
       $("#alert").hide();
       create_pagination(1);
       refresh_page(1);

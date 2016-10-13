@@ -729,7 +729,6 @@ class MemberController extends Controller {
 	
 	public function get_time_logs() {
 		$logs = "";
-		$counter =1;
 		
 		$timeLogs = TimeLog::where("user_id","=",Request::Input("id"))->orderBy('id', 'desc')->get();
 		foreach($timeLogs as $timeLog){
@@ -740,8 +739,6 @@ class MemberController extends Controller {
 			$seconds = floor($t  % 60);
 			$logs .= "<tr><td>".$timeLog->created."</td><td>".$days."D ".$hours."H ".$minutes."M ".$seconds."S"."</td></tr>";
 			
-			$counter += 1 ;
-			if($counter==21) {break;}
 		}
 		
 		$arr["logs"] = $logs;
