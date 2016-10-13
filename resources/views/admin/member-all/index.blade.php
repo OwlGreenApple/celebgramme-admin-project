@@ -770,7 +770,6 @@
             var data = jQuery.parseJSON(result);
             if(data.type=='success') {
 							$("#p-logs").html(data.logs);
-							$('.table-data-default').DataTable().draw();
             } else if (data.type=='error') {
             }
 						$("#div-loading").hide();
