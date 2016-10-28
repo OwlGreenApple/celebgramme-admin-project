@@ -660,11 +660,11 @@ class SettingController extends Controller {
 					
     foreach ($settings as $setting) {					
 			if ($setting->server_automation == "A1(automation-1)") {
-				$server = "http://192.186.146.248/";
+				// $server = "http://192.186.146.248/";
+				continue;
 			}
 			if ($setting->server_automation == "A2(automation-2)") {
-				// $server = "http://192.186.146.246/";
-				continue;
+				$server = "http://192.186.146.246/";
 			}
 			if ($setting->server_automation == "A3(automation-3)") {
 				// $server = "http://188.210.215.104/";
