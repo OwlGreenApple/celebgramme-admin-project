@@ -664,11 +664,11 @@ class SettingController extends Controller {
 				continue;
 			}
 			if ($setting->server_automation == "A2(automation-2)") {
-				$server = "http://192.186.146.246/";
+				// $server = "http://192.186.146.246/";
+				continue;
 			}
 			if ($setting->server_automation == "A3(automation-3)") {
-				// $server = "http://188.210.215.104/";
-				continue;
+				$server = "http://188.210.215.104/";
 			}
 			
 			$unfollow_counter = 0; $follow_counter = 0; $like_counter = 0; $comment_counter = 0;
