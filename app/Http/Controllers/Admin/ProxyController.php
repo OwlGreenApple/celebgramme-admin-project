@@ -41,7 +41,7 @@ class ProxyController extends Controller {
 											->having('countP', '<', 5)
 											->get();
 		foreach($availableProxy as $data) {
-			$total += 5 - $data->count_proxy;
+			$total += (5 - $data->countP);
 		}
 		
 		
