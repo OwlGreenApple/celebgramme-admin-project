@@ -8,6 +8,7 @@ use Celebgramme\Helpers\GeneralHelper;
 use Celebgramme\Models\Account;
 use Celebgramme\Models\Proxies;
 use Celebgramme\Models\SettingHelper; 
+use Celebgramme\Models\ViewProxyUses;
 
 use View,Auth,Request,DB,Carbon,Excel, Mail, Validator;
 
@@ -33,25 +34,16 @@ class ProxyController extends Controller {
 	{
     $user = Auth::user();
 
-		$collection = array();
-		$availableProxys = Proxies::leftJoin("setting_helpers","setting_helpers.proxy_id","=","proxies.id")
-								->select(DB::raw("count(proxies.id) as test"),"proxies.id")
-                ->groupBy("proxies.id")
-								->havingRaw('count(proxies.id) < 5')
-								->get();
-		foreach ($availableProxys as $availableProxy) {
-			$setting_helper = SettingHelper::where("proxy_id","=",$availableProxy->id)->first();
-			if (is_null($setting_helper)) {
-				$collection[] = 5;
-			}else {
-				$collection[] = 5 - $availableProxy->test ;
-			}
+		$total = 0;
+		$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(									"sum(count_proxy) as countP"))
+											->groupBy("id","proxy","cred","port","auth")
+											->orderBy("countP","asc")
+											->having('countP', '<', 5)
+											->get();
+		foreach($availableProxy as $data) {
+			$total += 5 - $availableProxy->count_proxy;
 		}
-		// echo collect($collection)->sum(); exit;
-		$total = collect($collection)->sum();
 		
-		$total_proxy_celebpost_used = Account::where("proxy_id","<>",0)->count();
-		$total -= $total_proxy_celebpost_used;
 		
 		return View::make('admin.proxy.index')->with(
                   array(
