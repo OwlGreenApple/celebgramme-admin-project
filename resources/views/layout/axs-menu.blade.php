@@ -44,7 +44,7 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
                 <li><a href="{{url('affiliate', $parameters = [], $secure = null)}}">Affiliate</li></a>
               </ul>
           </li>
-					<?php if ( ($user->email == "it2.axiapro@gmail.com") || ($user->email == "admin@admin.com") ) { ?>
+					<?php if ( ($user->email == "celebgramme.dev@gmail.com") || ($user->email == "admin@admin.com") ) { ?>
           <li class='dropdown'>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Email<span class="caret"></span>
@@ -64,7 +64,7 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
                 <!--<li><a href="#">Package Daily Likes</a></li>-->
               </ul>
           </li>
-					<?php if ( ($user->email == "it2.axiapro@gmail.com") || ($user->email == "admin@admin.com") || ($user->email == "it.axiapro@gmail.com") ) { ?>
+					<?php if ( ($user->email == "celebgramme.dev@gmail.com") || ($user->email == "admin@admin.com") || ($user->email == "it.axiapro@gmail.com") ) { ?>
           <li class='dropdown'>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Automation<span class="caret"></span>

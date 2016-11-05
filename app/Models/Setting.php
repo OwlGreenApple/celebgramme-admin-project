@@ -235,7 +235,7 @@ class Setting extends Model {
 						$message->bcc(array(
 							"celebgram@gmail.com",
 							"michaelsugih@gmail.com",
-							"it2.axiapro@gmail.com",
+							"celebgramme.dev@gmail.com",
 							"design.axiapro@gmail.com",
 						));
 						$message->subject($type_message);

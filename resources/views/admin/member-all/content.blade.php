@@ -47,7 +47,7 @@
       </td>
       <td align="center">
 				<input type="button" class="btn btn-success btn-check-login-websta" data-toggle="modal" data-target="#myModalEditLoginWebsta" data-id="{{$data_arr->id}}" data-test="{{$data_arr->test}}" value="Login source"> 
-				<?php if ( ($admin->email == "it2.axiapro@gmail.com") || ($admin->email == "admin@admin.com") ) { ?>
+				<?php if ( ($admin->email == "celebgramme.dev@gmail.com") || ($admin->email == "admin@admin.com") ) { ?>
         <!--<input type="button" class="btn btn-info btn-daily-like" value="+ likes" data-toggle="modal" data-target="#myModalDailyLikes" data-id="{{$data_arr->id}}" >-->
         <input type="button" class="btn btn-info btn-auto-manage" value="+ times" data-toggle="modal" data-target="#myModalAutoManage" data-id="{{$data_arr->id}}" > 
 				<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModalEditMember" data-id="{{$data_arr->id}}" data-email="{{$data_arr->email}}" data-nama="{{$data_arr->fullname}}" >
@@ -58,7 +58,7 @@
 				</button> 
 				<input type="button" class="btn btn-info btn-max-account" value="Max account" data-toggle="modal" data-target="#myModalMaxAccount" data-id="{{$data_arr->id}}"> 
 				<?php } ?>
-				<?php if ( ($admin->email == "it2.axiapro@gmail.com") || ($admin->email == "admin@admin.com")  || ($admin->email == "it.axiapro@gmail.com") ) { ?>
+				<?php if ( ($admin->email == "celebgramme.dev@gmail.com") || ($admin->email == "admin@admin.com")  || ($admin->email == "it.axiapro@gmail.com") ) { ?>
 				<input type="button" class="btn btn-info btn-order-package" value="Order" data-toggle="modal" data-target="#myModalOrderPackage" data-id="{{$data_arr->id}}">
 				<?php } ?>
 				<input type="button" class="btn btn-info btn-time-logs" value="Time Logs" data-toggle="modal" data-target="#myModalTimeLogs" data-id="{{$data_arr->id}}">

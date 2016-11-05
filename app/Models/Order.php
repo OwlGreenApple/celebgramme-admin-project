@@ -106,7 +106,7 @@ class Order extends Model {
 					$message->from('no-reply@celebgramme.com', 'Celebgramme');
 					$message->to(array(
 						"michaelsugih@gmail.com",
-						"it2.axiapro@gmail.com",
+						"celebgramme.dev@gmail.com",
 					));
 					$message->subject($type_message);
 				});

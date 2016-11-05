@@ -345,7 +345,7 @@ class PaymentController extends Controller {
   public function order()
   {
     $user = Auth::user();
-		// if ( ($user->email == "it2.axiapro@gmail.com") || ($user->email == "admin@admin.com") ) {
+		// if ( ($user->email == "celebgramme.dev@gmail.com") || ($user->email == "admin@admin.com") ) {
 			$packages_affiliate = Package::
 														where("package_group","=","auto-manage")
 														;
