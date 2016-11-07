@@ -24,7 +24,7 @@
       <td align="center">
 			<?php 
 				$counter = SettingHelper::where("proxy_id","=",$arr->id)->count();
-				$counter += Account::where("proxy_id","=",$arr->id)->count();
+				$counter += Account::where("proxy_id","=",$arr->id)->where("is_on_celebgramme","=",0)->count();
 				echo $counter;
 			?>
       </td>
