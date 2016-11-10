@@ -158,7 +158,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-proxy-manager', 'Admin\ProxyController@pagination_proxy_manager');
 	Route::post('add-proxy', 'Admin\ProxyController@add_proxy');
 	Route::post('delete-proxy', 'Admin\ProxyController@delete_proxy');
-	Route::get('check-proxy', 'Admin\ProxyController@check_proxy');
+	Route::post('check-proxy', 'Admin\ProxyController@check_proxy');
 	Route::get('check-proxy-all', 'Admin\ProxyController@check_proxy_all');
 	
 	/* Affiliate  */
