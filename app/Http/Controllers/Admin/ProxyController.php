@@ -139,8 +139,8 @@ class ProxyController extends Controller {
 	}
   
 	public function check_proxy(){
-    $arr["type"] = "success";
-    $arr["message"] = "Proxy Works";
+    $arr_ret["type"] = "success";
+    $arr_ret["message"] = "Proxy Works";
 		
 		$port = Request::input("port");
 		$cred = Request::input("cred");
@@ -170,12 +170,12 @@ class ProxyController extends Controller {
 			unlink($cookiefile);
 		} else {
 			// echo "username not found";
-			$arr["type"] = "error";
-			$arr["message"] = "Proxy Error";
+			$arr_ret["type"] = "error";
+			$arr_ret["message"] = "Proxy Error";
 		}
 		
 	
-		return $arr;
+		return $arr_ret;
 	}
 	
 	public function check_proxy_all(){
