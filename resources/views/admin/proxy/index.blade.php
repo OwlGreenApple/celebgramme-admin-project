@@ -40,6 +40,48 @@
 			</div>
 	</div>	
 	
+	
+  <!-- Modal Check proxy-->
+	<div class="modal fade" id="modal-check-proxy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+					<div class="modal-content">
+							<div class="modal-header">
+									Check Proxy
+							</div>
+							<div class="modal-body">
+								<form enctype="multipart/form-data" id="form-check-proxy">
+									<div class="form-group form-group-sm row">
+										<label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Proxy</label>
+										<div class="col-sm-8 col-md-6">
+											<input type="text" class="form-control" placeholder="proxy" name="proxy" id="proxy-check">
+										</div>
+									</div>
+									<div class="form-group form-group-sm row">
+										<label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Username password proxy</label>
+										<div class="col-sm-8 col-md-6">
+											<input type="text" class="form-control" placeholder="username:password" name="cred" id="cred-check">
+										</div>
+									</div>
+									<div class="form-group form-group-sm row">
+										<label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Port</label>
+										<div class="col-sm-8 col-md-6">
+											<input type="text" class="form-control" placeholder="port" name="port" id="port-check">
+										</div>
+									</div>
+									<input type="hidden" class="" name="id_proxy" id="id-proxy">
+								</form>
+									
+							</div>
+							<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default btn-ok" id="button-submit-check-proxy">Submit</button>
+							</div>
+					</div>
+			</div>
+	</div>	
+	
+	
+	
   <!-- Modal confirm delete-->
 	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -72,6 +114,12 @@
     </div>  
     <div class="input-group fl">
       <input type="button" value="Add" id="button-add" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#modal-proxy"> 
+    </div>  
+    <div class="input-group fl">
+      <input type="button" value="Check Proxy" id="button-check" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#modal-check-proxy" > 
+    </div>  
+    <div class="input-group fl">
+      <input type="button" value="Check All proxy" id="button-check-all" data-loading-text="Loading..." class="btn btn-primary"> 
     </div>  
     <div class="none"></div>
   </div>
@@ -178,6 +226,43 @@
         refresh_page(1);
       });
 
+      $('#button-submit-check-proxy').click(function(e){
+        $.ajax({
+          url: '<?php echo url('check-proxy'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-check-proxy").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              create_pagination(1);
+              refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
+            }
+						$("#div-loading").hide();
+          }
+        });
+			
+				
+      });
+			
+      $('#button-check-all').click(function(e){
+      });
+			
       $( "body" ).on( "click", ".btn-delete", function() {
 				$("#id-proxy-delete").val($(this).attr("data-id"));
       });
