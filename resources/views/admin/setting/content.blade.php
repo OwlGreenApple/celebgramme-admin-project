@@ -62,9 +62,7 @@
 					}
 				?>
 				<br>
-        {{$data_arr->insta_username}} /
-        {{$data_arr->insta_password}} /
-				{{$data_arr->start_time}}
+        {{$data_arr->insta_username}}/{{$data_arr->insta_password}}/{{$data_arr->start_time}}
       </td>
       <td align="center">
 				<p class="fl-filename">
