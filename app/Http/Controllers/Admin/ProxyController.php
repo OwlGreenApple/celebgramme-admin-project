@@ -62,6 +62,7 @@ class ProxyController extends Controller {
 			$data = Proxies::
 							where("proxy","like","%".Request::input('search')."%")
 							->orWhere("port","like","%".Request::input('search')."%")
+							->orWhere(DB::raw("CONCAT('proxy', ':', 'cred', ':', 'port')"), 'LIKE', "%".Request::input('search')."%")
 							->paginate(15);
 		}
     return view('admin.proxy.content')->with(
@@ -80,6 +81,7 @@ class ProxyController extends Controller {
 			$data = Proxies::
 							where("proxy","like","%".Request::input('search')."%")
 							->orWhere("port","like","%".Request::input('search')."%")
+							->orWhere(DB::raw("CONCAT('proxy', ':', 'cred', ':', 'port')"), 'LIKE', "%".Request::input('search')."%")
 							->paginate(15);
 		}
     return view('admin.proxy.pagination')->with(
