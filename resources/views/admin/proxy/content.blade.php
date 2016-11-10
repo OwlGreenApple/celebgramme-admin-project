@@ -28,6 +28,25 @@
 				echo $counter;
 			?>
       </td>
+			<td align="center">
+				Celebgramme : <br>
+				<?php 
+					$settings = SettingHelper::join("settings","settings.id","=","setting_helpers.setting_id")
+											->where("proxy_id","=",$arr->id)
+											->get();
+					foreach($settings as $setting) {
+						echo $setting->insta_username."<br>";
+					}
+				?>
+				<br>
+				Celebpost : <br>
+				<?php 
+					$accounts = Account::where("proxy_id","=",$arr->id)->where("is_on_celebgramme","=",0)->get();
+					foreach($accounts as $account) {
+						echo $account->username."<br>";
+					}
+				?>
+      </td>
       <td align="center">
 			{{$arr->created}}
       </td>
