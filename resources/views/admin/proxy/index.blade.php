@@ -68,7 +68,6 @@
 											<input type="text" class="form-control" placeholder="port" name="port" id="port-check">
 										</div>
 									</div>
-									<input type="hidden" class="" name="id_proxy" id="id-proxy">
 								</form>
 									
 							</div>
@@ -100,6 +99,46 @@
       
     </div>
   </div>
+	
+
+  <!-- Modal Check proxy-->
+	<div class="modal fade" id="modal-exchange-proxy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+					<div class="modal-content">
+							<div class="modal-header">
+									Exchange Proxy
+							</div>
+							<div class="modal-body">
+								<form enctype="multipart/form-data" id="form-exchange-proxy">
+									<div class="form-group form-group-sm row">
+										<label class="col-xs-8 col-sm-2 control-label" for="proxy-exchange">New Proxy</label>
+										<div class="col-sm-8 col-md-6">
+											<input type="text" class="form-control" placeholder="proxy" name="proxy" id="proxy-exchange">
+										</div>
+									</div>
+									<div class="form-group form-group-sm row">
+										<label class="col-xs-8 col-sm-2 control-label" for="cred-exchange">New Username password proxy</label>
+										<div class="col-sm-8 col-md-6">
+											<input type="text" class="form-control" placeholder="username:password" name="cred" id="cred-exchange">
+										</div>
+									</div>
+									<div class="form-group form-group-sm row">
+										<label class="col-xs-8 col-sm-2 control-label" for="port-exchange">New Port</label>
+										<div class="col-sm-8 col-md-6">
+											<input type="text" class="form-control" placeholder="port" name="port" id="port-exchange">
+										</div>
+									</div>
+									<input type="hidden" class="" name="id_proxy" id="id-proxy-exchange">
+								</form>
+									
+							</div>
+							<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default btn-ok" id="button-submit-exchange-proxy">Submit</button>
+							</div>
+					</div>
+			</div>
+	</div>	
 	
 	
 	
@@ -371,6 +410,39 @@
             if(data.type=='success') {
 							$("#p-all-error").html(data.logs);
             } else if (data.type=='error') {
+            }
+						$("#div-loading").hide();
+          }
+        });
+      });
+			
+			
+      $( "body" ).on( "click", ".btn-exchange-proxy", function() {
+				$("#id-proxy-exchange").val($(this).attr("data-id"));
+      });
+      $('#button-submit-exchange-proxy').click(function(e){
+        $.ajax({
+          url: '<?php echo url('exchange-proxy'); ?>',
+          type: 'get',
+          data: $("#form-exchange-proxy").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              create_pagination(1);
+              refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
             }
 						$("#div-loading").hide();
           }

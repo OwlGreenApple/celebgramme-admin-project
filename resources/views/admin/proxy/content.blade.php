@@ -55,6 +55,8 @@
 				
 				<input type="button" class="btn btn-danger btn-delete" value="Delete" data-toggle="modal" data-target="#confirm-delete" data-id="{{$arr->id}}">
 
+				<input type="button" class="btn btn-danger btn-exchange-proxy" value="Exchange" data-toggle="modal" data-target="#modal-exchange-proxy" data-id="{{$arr->id}}">
+
       </td>
       
     </tr>    

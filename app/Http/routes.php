@@ -160,6 +160,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('delete-proxy', 'Admin\ProxyController@delete_proxy');
 	Route::post('check-proxy', 'Admin\ProxyController@check_proxy');
 	Route::get('check-proxy-all', 'Admin\ProxyController@check_proxy_all');
+	Route::get('exchange-proxy', 'Admin\ProxyController@exchange_proxy');
 	
 	/* Affiliate  */
 	Route::get('affiliate', 'Admin\AffiliateController@index');

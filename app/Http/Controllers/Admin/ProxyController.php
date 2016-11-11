@@ -224,4 +224,38 @@ class ProxyController extends Controller {
 		$arr["type"] = "success";
 		return $arr;
 	}
+
+	public function exchange_proxy(){
+		$arr["type"]="success";
+		$arr["message"]="success";
+		$dt = Carbon::now()->setTimezone('Asia/Jakarta');
+		
+		//proxy yang lama di delete, insert proxy baru, list account proxy lama(celebgramme/celebpost) diganti dengan id proxy_baru
+
+		$check_proxy = Proxies::find(Request::input("id_proxy"));
+		if (!is_null($check_proxy)) {
+			$check_proxy->delete();
+		}
+		
+		$proxy = new Proxies;
+		$proxy->proxy = Request::input("proxy");
+		$proxy->cred = Request::input("cred");
+		$proxy->port = Request::input("port");
+		$proxy->auth = 1;
+		$proxy->created = $dt->toDateTimeString();
+		$proxy->save();
+		
+		$celebgramme_proxies = SettingHelper::where("proxy_id","=",Request::input("id_proxy"))->get();
+		foreach($celebgramme_proxies as $data){
+			$data->proxy_id = $proxy->id;
+			$data->save();
+		}
+		$celebpost_proxies = Account::where("proxy_id","=",Request::input("id_proxy"))->get();
+		foreach($celebpost_proxies as $data){
+			$data->proxy_id = $proxy->id;
+			$data->save();
+		}
+		
+		return $arr;
+	}
 }
