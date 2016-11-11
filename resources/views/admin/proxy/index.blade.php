@@ -81,6 +81,27 @@
 	</div>	
 	
 	
+  <div class="modal fade" id="myModalAllError" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">All Proxy Error</h4>
+        </div>
+        <div class="modal-body">
+					<div class="form-group form-group-sm row">
+						<p id="p-all-error" style="margin-left:10px;"></p>
+					</div>  
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+      
+    </div>
+  </div>
+	
+	
 	
   <!-- Modal confirm delete-->
 	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -119,7 +140,7 @@
       <input type="button" value="Check Proxy" id="button-check" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#modal-check-proxy" > 
     </div>  
     <div class="input-group fl">
-      <input type="button" value="Check All proxy" id="button-check-all" data-loading-text="Loading..." class="btn btn-primary"> 
+      <input type="button" value="Check All proxy" id="button-check-all" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalAllError" > 
     </div>  
     <div class="none"></div>
   </div>
@@ -260,9 +281,6 @@
 				
       });
 			
-      $('#button-check-all').click(function(e){
-      });
-			
       $( "body" ).on( "click", ".btn-delete", function() {
 				$("#id-proxy-delete").val($(this).attr("data-id"));
       });
@@ -334,6 +352,32 @@
           }
         });
       });
+			
+      $('#button-check-all').click(function(e){
+        $.ajax({
+          url: '<?php echo url('check-proxy-all'); ?>',
+          type: 'get',
+          data: {
+						id : ""
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+							$("#p-all-error").html(data.logs);
+            } else if (data.type=='error') {
+            }
+						$("#div-loading").hide();
+          }
+        });
+      });
+			
+			
 
     });
   </script>		

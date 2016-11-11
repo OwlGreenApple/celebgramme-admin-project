@@ -179,6 +179,49 @@ class ProxyController extends Controller {
 	}
 	
 	public function check_proxy_all(){
+		$proxies = Proxies::all();
+		$logs = "";
 		
+		foreach($proxies as $data) {
+
+			$port = $data->port;
+			$cred = $data->cred;
+			$proxy = $data->proxy;
+
+			$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
+			$url = "https://www.instagram.com/celebgramme/?__a=1";
+			$c = curl_init();
+
+
+			curl_setopt($c, CURLOPT_PROXY, $proxy);
+			curl_setopt($c, CURLOPT_PROXYPORT, $port);
+			curl_setopt($c, CURLOPT_PROXYUSERPWD, $cred);
+			curl_setopt($c, CURLOPT_PROXYTYPE, 'HTTP');
+			curl_setopt($c, CURLOPT_URL, $url);
+			curl_setopt($c, CURLOPT_REFERER, $url);
+			curl_setopt($c, CURLOPT_FOLLOWLOCATION, true);
+			curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($c, CURLOPT_COOKIEFILE, $cookiefile);
+			curl_setopt($c, CURLOPT_COOKIEJAR, $cookiefile);
+			$page = curl_exec($c);
+			curl_close($c);
+			
+			$arr = json_decode($page,true);
+			if (count($arr)>0) {
+				unlink($cookiefile);
+			} else {
+				// echo "username not found";
+				$arr_ret["type"] = "error";
+				$arr_ret["message"] = "Proxy Error";
+				$logs .= $data->proxy.":".$port.":".$cred."<br>";
+			}
+
+		
+		}
+		
+		$arr["logs"] = $logs;
+		$arr["type"] = "success";
+		return $arr;
 	}
 }
