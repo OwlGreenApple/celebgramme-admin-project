@@ -147,7 +147,7 @@ class ProxyController extends Controller {
 		$proxy = Request::input("proxy");
 
 		$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
-		$url = "https://www.instagram.com/celebgramme/?__a=1";
+		$url = "https://www.instagram.com/joshwebdev/?__a=1";
 		$c = curl_init();
 
 
@@ -189,7 +189,7 @@ class ProxyController extends Controller {
 			$proxy = $data->proxy;
 
 			$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
-			$url = "https://www.instagram.com/celebgramme/?__a=1";
+			$url = "https://www.instagram.com/joshwebdev/?__a=1";
 			$c = curl_init();
 
 
