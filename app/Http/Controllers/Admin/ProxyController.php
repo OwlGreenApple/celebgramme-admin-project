@@ -189,6 +189,9 @@ class ProxyController extends Controller {
 			$proxy = $data->proxy;
 
 			$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
+			if (file_exists($cookiefile)) {
+				unlink($cookiefile);
+			}
 			$url = "https://www.instagram.com/joshwebdev/?__a=1";
 			$c = curl_init();
 
