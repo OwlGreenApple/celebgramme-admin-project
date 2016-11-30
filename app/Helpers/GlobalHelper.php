@@ -5,6 +5,7 @@ use Celebgramme\Models\SettingHelper;
 use Celebgramme\Models\Proxies;
 use Celebgramme\Models\UserLog;
 use Celebgramme\Helpers\GlobalHelper;
+use Celebgramme\Models\Account;
 
 use Carbon\Carbon;
 
@@ -69,42 +70,56 @@ class GlobalHelper {
 	*	for clear Proxy and assign with new proxy
 	*
 	*/
-	public static function clearProxy($ssetting){
+	public static function clearProxy($ssetting,$status){
 		$setting = unserialize($ssetting);
 		$setting_helper = SettingHelper::where("setting_id","=",$setting->id)->first();
 		
 		//carikan proxy baru, yang available 
-		$availableProxy = Proxies::leftJoin("setting_helpers","setting_helpers.proxy_id","=","proxies.id")
-				->select("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
-				->groupBy("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
-				->havingRaw('count(proxies.id) < 5');
-		if ($availableProxy->count() > 0 ) {
-			$arrAvailableProxy = array();
-			foreach($availableProxy->get() as $data) {
-				$dataNew = array();
-				$dataNew["id"] = $data->id;
-				if ($data->auth) {
-					$dataNew["value"] = $data->proxy.":".$data->port.":".$data->cred;
-				} else {
-					$dataNew["value"] = $data->proxy;
-				}
-				$arrAvailableProxy[] = $dataNew;	
-			}
+		$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(	"sum(count_proxy) as countP"))
+											->groupBy("id","proxy","cred","port","auth")
+											->orderBy("countP","asc")
+											->having('countP', '<', 5)
+											->get();
+		$arrAvailableProxy = array();
+		foreach($availableProxy as $data) {
+			$dataNew = array();
+			$dataNew["id"] = $data->id;
+			$arrAvailableProxy[] = $dataNew;	
+		}
+		if (count($arrAvailableProxy)>0) {
 			$proxy_id = $arrAvailableProxy[array_rand($arrAvailableProxy)]["id"];
 		} else {
-			$availableProxy = Proxies::leftJoin("setting_helpers","setting_helpers.proxy_id","=","proxies.id")
-				->select("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth", DB::raw("count(*) as countP") )
-				->groupBy("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
-				->orderBy("countP","asc")
-				->first();
+			$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(									"sum(count_proxy) as countP"))
+												->groupBy("id","proxy","cred","port","auth")
+												->orderBy("countP","asc")
+												->first();
 			if (!is_null($availableProxy)) {
 				$proxy_id = $availableProxy->id;
 			}
 		}
 
+		if($status=="new"){
+			//klo assign baru, cek di celebpost klo uda ada ambil di celebpost.
+			$account = Account::where("username","=",$setting->insta_username)
+									->first();
+			if (!is_null($account)){
+				$proxy_id = $account->proxy_id;
+			}
+		} 
+
 		if (!is_null($setting_helper)) {
 			$setting_helper->proxy_id = $proxy_id;
 			$setting_helper->save();
+
+			//kasi tanda yang di celebpost klo ada.
+			$account = Account::where("username","=",$setting->insta_username)
+									->first();
+			if (!is_null($account)){
+				$account->is_on_celebgramme = 1;
+				$account->proxy_id = $proxy_id;
+				$account->save();
+			}
+			
 		}
 		
 		
@@ -194,7 +209,7 @@ class GlobalHelper {
 				//klo uda error jangan di counter lagi
 				if ( ( substr($setting_helper->cookies, 0, 7) == "success") || ($setting_helper->cookies=="") ) {
 				// if ( $setting_helper->cookies <> "error cookies" ) {
-					GlobalHelper::clearProxy($ssetting);
+					GlobalHelper::clearProxy($ssetting,"change");
 					// if ( substr($setting_helper->cookies, 0, 5) == "error" ) {
 						// $setting_helper->cookies .= ", error cookies";
 					// } else {
