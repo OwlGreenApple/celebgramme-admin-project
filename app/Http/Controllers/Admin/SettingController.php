@@ -277,7 +277,7 @@ class SettingController extends Controller {
 				
 				//change yang dicelebpost juga 
 				$setting = Setting::find(Request::input("setting-id"));
-				$account = Account::where("username","=",)->first();
+				$account = Account::where("username","=",$setting->insta_username)->first();
 				if (!is_null($account)) {
 					$account->proxy_id = Request::input("hiddenIdProxy");
 					$account->save();
