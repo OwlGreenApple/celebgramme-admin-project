@@ -5,6 +5,7 @@ use Celebgramme\Models\SettingHelper;
 use Celebgramme\Models\Proxies;
 use Celebgramme\Models\UserLog;
 use Celebgramme\Helpers\GlobalHelper;
+use Celebgramme\Models\ViewProxyUses;
 use Celebgramme\Models\Account;
 
 use Carbon\Carbon;
