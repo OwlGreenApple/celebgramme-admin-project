@@ -17,6 +17,7 @@ use Celebgramme\Models\Proxies;
 use Celebgramme\Models\Category;
 use Celebgramme\Models\SettingLog;
 use Celebgramme\Models\Account;
+use Celebgramme\Models\ViewProxyUses;
 
 use Celebgramme\Helpers\GlobalHelper;
 
@@ -52,7 +53,7 @@ class SettingController extends Controller {
                 // ->groupBy("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
 								// ->havingRaw('count(proxies.id) < 5')
 								// ->get();
-		$availableProxy = Proxies::leftJoin("setting_helpers","setting_helpers.proxy_id","=","proxies.id")
+		/*$availableProxy = Proxies::leftJoin("setting_helpers","setting_helpers.proxy_id","=","proxies.id")
 								->select("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth",DB::raw("count(proxies.id) as total"))
                 ->groupBy("proxies.id","proxies.proxy","proxies.cred","proxies.port","proxies.auth")
 								->havingRaw('count(proxies.id) < 5')
@@ -75,6 +76,22 @@ class SettingController extends Controller {
 			if ($total_proxy_celebpost_used + $data->total < 5) {
 				$arrAvailableProxy[] = $dataNew;	
 			}
+		}*/
+		$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(									"sum(count_proxy) as countP"))
+											->groupBy("id","proxy","cred","port","auth")
+											->orderBy("countP","asc")
+											->having('countP', '<', 5)
+											->get();
+		foreach($availableProxy as $data) {
+			$dataNew = array();
+			// $dataNew[] = $data->id;
+			$dataNew["id"] = $data->id;
+			if ($data->auth) {
+				$dataNew["value"] = $data->proxy.":".$data->port.":".$data->cred;
+			} else {
+				$dataNew["value"] = $data->proxy;
+			}
+			$arrAvailableProxy[] = $dataNew;	
 		}
 		
 								
@@ -257,6 +274,15 @@ class SettingController extends Controller {
 				}
 				$settingHelper->proxy_id = Request::input("hiddenIdProxy");
 				$settingHelper->save();
+				
+				//change yang dicelebpost juga 
+				$setting = Setting::find(Request::input("setting-id"));
+				$account = Account::where("username","=",)->first();
+				if (!is_null($account)) {
+					$account->proxy_id = Request::input("hiddenIdProxy");
+					$account->save();
+				}
+				
 				$arr["proxy"] = $proxy->proxy.":".$proxy->port.":".$proxy->cred;
 			}
 		} else if (Request::input("hiddenIdProxy") == "" ) {
