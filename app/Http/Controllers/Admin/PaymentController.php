@@ -205,7 +205,9 @@ class PaymentController extends Controller {
       $packageuser->save();
 
       $user->active_auto_manage += $package->active_days * 86400;
-			$user->max_account = $package->max_account;
+			if ($user->max_account<=$package->max_account) {
+				$user->max_account = $package->max_account;
+			}
       $user->save();
     }
 
