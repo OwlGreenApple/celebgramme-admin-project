@@ -83,6 +83,10 @@
 					} else if (!$proxy->auth) {
 						echo $proxy->proxy.":".$proxy->port;
 					}
+					echo "<br>";
+					if ($proxy->is_error) {
+						echo "Proxy Error";
+					}
 				}
 				?>
       </td>
