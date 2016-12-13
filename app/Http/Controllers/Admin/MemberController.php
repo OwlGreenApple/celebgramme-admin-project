@@ -240,6 +240,102 @@ class MemberController extends Controller {
   }
 
 
+  public function bonus_member()
+  {
+    $arr["type"] = "success";
+    $arr["message"] = "Proses add member berhasil dilakukan";
+
+
+			if (Input::file('fileExcel')->isValid()) {
+				// $destinationPath = 'uploads'; // upload path
+				$destinationPath = base_path().'/public/admin/uploads/temp/';
+				$extension = Input::file('fileExcel')->getClientOriginalExtension(); 
+				$fileName = 'file-list-bonus-member'.date('Y_m_d_H_i_s').'.'.$extension; 
+				Input::file('fileExcel')->move($destinationPath, $fileName);
+			} else {
+				$arr['type'] = "error";
+				$arr['message'] = "File tidak valid";
+				return $arr;
+			}
+			
+			Config::set('excel.import.startRow', '1');
+			$readers = Excel::load($destinationPath.$fileName, function($reader) {
+			})->get();
+
+			$flag = false;
+			$error_message="";
+			foreach($readers as $sheet)
+			{
+				if ($sheet->getTitle()=='Sheet1') {
+					foreach($sheet as $row)
+					{
+						if ( ($row->name=="") && ($row->email=="") )  {
+							continue;
+						}
+						
+
+						$data = array (
+							"email" => $row->email,
+						);
+						$validator = Validator::make($data, [
+							'email' => 'required|email|max:255',
+						]);
+						if ($validator->fails()){
+							// $arr["type"] = "error";
+							// $arr["message"] = "Email sudah terdaftar atau tidak valid";
+							// return $arr;
+							continue;
+						}
+
+
+						$user = User::where("email","=",$row->email)->first();
+						$string = '';
+						if (is_null($user)) {
+							//password
+							$karakter= 'abcdefghjklmnpqrstuvwxyz123456789';
+							for ($i = 0; $i < 8 ; $i++) {
+								$pos = rand(0, strlen($karakter)-1);
+								$string .= $karakter{$pos};
+							}
+							
+							$user = new User;
+							$user->password = $string;
+						}
+						$user->email = $row->email;
+						$user->fullname = $row->name;
+						$user->type = "confirmed-email";
+						$user->save();
+
+						$user->active_auto_manage = Input::get("jumlahHari") * 86400;
+						$user->max_account = 3;
+						$user->link_affiliate = "";
+						$user->save();
+						
+						UserMeta::createMeta("bonus_waktu",Input::get("jumlahHari") * 86400,$user->id);
+
+						$emaildata = [
+								'user' => $user,
+								'password' => $string,
+						];
+						Mail::queue('emails.bonus', $emaildata, function ($message) use ($user) {
+							$message->from('no-reply@celebgramme.com', 'Celebgramme');
+							$message->to($user->email);
+							$message->subject('[Celebgramme] Bonus celebgramme.com');
+						});
+
+
+						
+						
+						
+						
+					}
+				}
+			}
+
+		
+    return $arr;
+	}
+	
   public function add_member()
   {
     $arr["type"] = "success";
