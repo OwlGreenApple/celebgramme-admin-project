@@ -225,7 +225,7 @@
 								<input type="number" id="jumlahHari" name="jumlahHari" class="form-control"> 
               </div>
             </div>  
-            <div class="form-group form-group-sm row type-excel">
+            <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Excel</label>
               <div class="col-sm-8 col-md-6">
 								<input type="file" id="" name="fileExcel" class="form-control"> 
