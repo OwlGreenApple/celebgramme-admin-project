@@ -317,18 +317,13 @@ class MemberController extends Controller {
 						$emaildata = [
 								'user' => $user,
 								'password' => $string,
+								'jumlah_hari' => Input::get("jumlahHari"),
 						];
 						Mail::queue('emails.bonus', $emaildata, function ($message) use ($user) {
 							$message->from('no-reply@celebgramme.com', 'Celebgramme');
 							$message->to($user->email);
 							$message->subject('[Celebgramme] Bonus celebgramme.com');
 						});
-
-
-						
-						
-						
-						
 					}
 				}
 			}
