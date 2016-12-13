@@ -1,7 +1,7 @@
 Hi , {{ucfirst(strtolower($user->fullname))}} <br>
 <br>
 Selamat,<br>Bonus anda sudah datang. <br>
-Anda mendapatkan bonus celebgramme selama {{$jumlah_hari}}
+Anda mendapatkan bonus celebgramme selama {{$jumlah_hari}} hari
 <br>
 <br>
 <?php if ($password<>"") { ?>
