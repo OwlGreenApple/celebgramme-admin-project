@@ -300,15 +300,16 @@ class MemberController extends Controller {
 							
 							$user = new User;
 							$user->password = $string;
+							$user->email = $row->email;
+							$user->fullname = $row->name;
+							$user->type = "confirmed-email";
+							$user->max_account = 3;
+							$user->link_affiliate = "";
+							$user->active_auto_manage = Input::get("jumlahHari") * 86400;
+						} else {
+							$user->active_auto_manage += Input::get("jumlahHari") * 86400;
 						}
-						$user->email = $row->email;
-						$user->fullname = $row->name;
-						$user->type = "confirmed-email";
-						$user->save();
 
-						$user->active_auto_manage = Input::get("jumlahHari") * 86400;
-						$user->max_account = 3;
-						$user->link_affiliate = "";
 						$user->save();
 						
 						UserMeta::createMeta("bonus_waktu",Input::get("jumlahHari") * 86400,$user->id);
