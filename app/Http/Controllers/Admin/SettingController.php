@@ -83,15 +83,18 @@ class SettingController extends Controller {
 											->having('countP', '<', 5)
 											->get();
 		foreach($availableProxy as $data) {
-			$dataNew = array();
-			// $dataNew[] = $data->id;
-			$dataNew["id"] = $data->id;
-			if ($data->auth) {
-				$dataNew["value"] = $data->proxy.":".$data->port.":".$data->cred;
-			} else {
-				$dataNew["value"] = $data->proxy;
+			$check_proxy = Proxies::find($data->id);
+			if ($check_proxy->is_error == 0){
+				$dataNew = array();
+				// $dataNew[] = $data->id;
+				$dataNew["id"] = $data->id;
+				if ($data->auth) {
+					$dataNew["value"] = $data->proxy.":".$data->port.":".$data->cred;
+				} else {
+					$dataNew["value"] = $data->proxy;
+				}
+				$arrAvailableProxy[] = $dataNew;	
 			}
-			$arrAvailableProxy[] = $dataNew;	
 		}
 		
 								
