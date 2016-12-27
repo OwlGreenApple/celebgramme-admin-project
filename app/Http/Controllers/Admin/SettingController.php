@@ -312,6 +312,7 @@ class SettingController extends Controller {
 			$settingHelper->setting_id = Request::input("setting-id");
 		}
 		$settingHelper->server_automation = Request::input("server-automation");
+		$settingHelper->cookies = "";
 		$settingHelper->save();
 		
 		$arr["id"] = Request::input("setting-id");
