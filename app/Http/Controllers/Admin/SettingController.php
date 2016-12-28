@@ -477,6 +477,15 @@ class SettingController extends Controller {
 		if ($setting_helper->server_automation == "A5(automation-5)") {
 			$file_server = "http://192.186.146.253/";
 		}
+		if ($setting_helper->server_automation == "AA1(automation-1)") {
+			$file_server = "http://188.210.215.100/";
+		}
+		if ($setting_helper->server_automation == "AA2(automation-2)") {
+			$file_server = "http://188.210.215.105/";
+		}
+		if ($setting_helper->server_automation == "AA3(automation-3)") {
+			$file_server = "http://188.210.215.112/";
+		}
 
 		$file_server .= "logs-IG-account/".$setting->insta_username.".txt";
 		$ch = curl_init($file_server);
@@ -514,6 +523,15 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "A5(automation-5)") {
 			$server = "http://192.186.146.253/";
+		}
+		if ($setting_helper->server_automation == "AA1(automation-1)") {
+			$file_server = "http://188.210.215.100/";
+		}
+		if ($setting_helper->server_automation == "AA2(automation-2)") {
+			$file_server = "http://188.210.215.105/";
+		}
+		if ($setting_helper->server_automation == "AA3(automation-3)") {
+			$file_server = "http://188.210.215.112/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -603,6 +621,15 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "A5(automation-5)") {
 			$server = "http://192.186.146.253/";
+		}
+		if ($setting_helper->server_automation == "AA1(automation-1)") {
+			$server = "http://188.210.215.100/";
+		}
+		if ($setting_helper->server_automation == "AA2(automation-2)") {
+			$server = "http://188.210.215.105/";
+		}
+		if ($setting_helper->server_automation == "AA3(automation-3)") {
+			$server = "http://188.210.215.112/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -709,6 +736,15 @@ class SettingController extends Controller {
 			}
 			if ($setting->server_automation == "A5(automation-5)") {
 				$server = "http://192.186.146.253/";
+			}
+			if ($setting_helper->server_automation == "AA1(automation-1)") {
+				$server = "http://188.210.215.100/";
+			}
+			if ($setting_helper->server_automation == "AA2(automation-2)") {
+				$server = "http://188.210.215.105/";
+			}
+			if ($setting_helper->server_automation == "AA3(automation-3)") {
+				$server = "http://188.210.215.112/";
 			}
 			
 			$unfollow_counter = 0; $follow_counter = 0; $like_counter = 0; $comment_counter = 0;
