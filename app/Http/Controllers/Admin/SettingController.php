@@ -525,13 +525,13 @@ class SettingController extends Controller {
 			$server = "http://192.186.146.253/";
 		}
 		if ($setting_helper->server_automation == "AA1(automation-1)") {
-			$file_server = "http://188.210.215.100/";
+			$server = "http://188.210.215.100/";
 		}
 		if ($setting_helper->server_automation == "AA2(automation-2)") {
-			$file_server = "http://188.210.215.105/";
+			$server = "http://188.210.215.105/";
 		}
 		if ($setting_helper->server_automation == "AA3(automation-3)") {
-			$file_server = "http://188.210.215.112/";
+			$server = "http://188.210.215.112/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
