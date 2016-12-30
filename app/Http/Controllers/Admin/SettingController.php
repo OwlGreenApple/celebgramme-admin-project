@@ -737,13 +737,13 @@ class SettingController extends Controller {
 			if ($setting->server_automation == "A5(automation-5)") {
 				$server = "http://192.186.146.253/";
 			}
-			if ($setting_helper->server_automation == "AA1(automation-1)") {
+			if ($setting->server_automation == "AA1(automation-1)") {
 				$server = "http://188.210.215.100/";
 			}
-			if ($setting_helper->server_automation == "AA2(automation-2)") {
+			if ($setting->server_automation == "AA2(automation-2)") {
 				$server = "http://188.210.215.105/";
 			}
-			if ($setting_helper->server_automation == "AA3(automation-3)") {
+			if ($setting->server_automation == "AA3(automation-3)") {
 				$server = "http://188.210.215.112/";
 			}
 			
