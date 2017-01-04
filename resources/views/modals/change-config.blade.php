@@ -16,7 +16,9 @@ use Celebgramme\Models\Meta;
         <div class="modal-body">
           <form enctype="multipart/form-data" id="form-edit-config">
 						<div class="form-group form-group-sm row">
-							Delay follow (in seconds)
+							<label class="col-xs-12 col-sm-12 col-md-12 control-label" for="">
+								Delay follow (in seconds)
+							</label>
             </div>  
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
@@ -120,7 +122,9 @@ use Celebgramme\Models\Meta;
 						<hr>
 						
 						<div class="form-group form-group-sm row">
-							Delay follow for every action(in seconds)
+							<label class="col-xs-12 col-sm-12 col-md-12 control-label" for="">
+								Delay follow for every action(in seconds)
+							</label>
             </div>  
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
@@ -166,6 +170,11 @@ use Celebgramme\Models\Meta;
             </div>  
 						
 						<hr>
+						<div class="form-group form-group-sm row">
+							<label class="col-xs-12 col-sm-12 col-md-12 control-label" for="">
+								Number action of follow / like / comment / unfollow (in action number)
+							</label>
+            </div>  
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
 							Action follow slow min
@@ -265,6 +274,12 @@ use Celebgramme\Models\Meta;
               </div>
             </div>  
 						<hr>
+						<div class="form-group form-group-sm row">
+							<label class="col-xs-12 col-sm-12 col-md-12 control-label" for="">
+								Number range maximum action of follow / like / comment / unfollow (in action hourly number)
+							</label>
+            </div>  
+						
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
 							Hourly follow slow min
@@ -364,6 +379,11 @@ use Celebgramme\Models\Meta;
               </div>
             </div>  
 						<hr>
+						<div class="form-group form-group-sm row">
+							<label class="col-xs-12 col-sm-12 col-md-12 control-label" for="">
+								Number range maximum action of follow / like / comment / unfollow (in daily action number)
+							</label>
+            </div>  
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
 							Daily follow slow min
@@ -465,13 +485,13 @@ use Celebgramme\Models\Meta;
 						<hr>
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
-							Number days comment same user 
+							Number days comment same user (in days)
 							</label>
               <div class="col-xs-2 col-sm-2 col-md-2">
                 <input type="number" class="form-control" placeholder="" name="num_days_comment_same_user" value="{{Meta::getMeta('num_days_comment_same_user')}}">
               </div>
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
-							Number days comment same media
+							Number days comment same media (in days)
 							</label>
               <div class="col-xs-2 col-sm-2 col-md-2">
                 <input type="number" class="form-control" placeholder="" name="num_days_comment_same_media" value="{{Meta::getMeta('num_days_comment_same_media')}}">
@@ -479,13 +499,13 @@ use Celebgramme\Models\Meta;
             </div>  
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
-							First Delay Error Cookies 
+							First Delay Error Cookies (in minutes)
 							</label>
               <div class="col-xs-2 col-sm-2 col-md-2">
                 <input type="number" class="form-control" placeholder="" name="delay_error_cookies_1" value="{{Meta::getMeta('delay_error_cookies_1')}}">
               </div>
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
-							Second Delay Error Cookies
+							Second Delay Error Cookies (in minutes)
 							</label>
               <div class="col-xs-2 col-sm-2 col-md-2">
                 <input type="number" class="form-control" placeholder="" name="delay_error_cookies_2" value="{{Meta::getMeta('delay_error_cookies_2')}}">
@@ -493,13 +513,13 @@ use Celebgramme\Models\Meta;
             </div>  
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
-							Third Delay Error Cookies 
+							Third Delay Error Cookies (in minutes)
 							</label>
               <div class="col-xs-2 col-sm-2 col-md-2">
                 <input type="number" class="form-control" placeholder="" name="delay_error_cookies_3" value="{{Meta::getMeta('delay_error_cookies_3')}}">
               </div>
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
-							Forth Delay Error Cookies 
+							Forth Delay Error Cookies (in minutes)
 							</label>
               <div class="col-xs-2 col-sm-2 col-md-2">
                 <input type="number" class="form-control" placeholder="" name="delay_error_cookies_4" value="{{Meta::getMeta('delay_error_cookies_4')}}">
@@ -507,7 +527,7 @@ use Celebgramme\Models\Meta;
             </div>  
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
-							Fifth Delay Error Cookies 
+							Fifth Delay Error Cookies (in minutes)
 							</label>
               <div class="col-xs-2 col-sm-2 col-md-2">
                 <input type="number" class="form-control" placeholder="" name="delay_error_cookies_5" value="{{Meta::getMeta('delay_error_cookies_5')}}">
@@ -521,7 +541,7 @@ use Celebgramme\Models\Meta;
                 <input type="number" class="form-control" placeholder="" name="number_like_on_same_account" value="{{Meta::getMeta('number_like_on_same_account')}}">
               </div>
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
-							Delay like on same account 
+							Delay like on same account (in days)
 							</label>
               <div class="col-xs-2 col-sm-2 col-md-2">
                 <input type="number" class="form-control" placeholder="" name="delay_like_on_same_account" value="{{Meta::getMeta('delay_like_on_same_account')}}">
