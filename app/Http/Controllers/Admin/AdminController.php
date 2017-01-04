@@ -131,6 +131,15 @@ class AdminController extends Controller {
 		$temp = Meta::createMeta("daily_comment_limit_min",Request::input("daily_comment_limit_min"));
 		$temp = Meta::createMeta("daily_comment_limit_max",Request::input("daily_comment_limit_max"));
 		
+		
+		$temp = Meta::createMeta("delay_antara_action_follow_min",Request::input("delay_antara_action_follow_min"));
+		$temp = Meta::createMeta("delay_antara_action_follow_max",Request::input("delay_antara_action_follow_max"));
+		$temp = Meta::createMeta("delay_antara_action_like_min",Request::input("delay_antara_action_like_min"));
+		$temp = Meta::createMeta("delay_antara_action_like_max",Request::input("delay_antara_action_like_max"));
+		$temp = Meta::createMeta("delay_antara_action_comment_min",Request::input("delay_antara_action_comment_min"));
+		$temp = Meta::createMeta("delay_antara_action_comment_max",Request::input("delay_antara_action_comment_max"));
+
+		
 		return "success";
 	}
 }

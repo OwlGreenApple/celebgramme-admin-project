@@ -15,6 +15,9 @@ use Celebgramme\Models\Meta;
         </div>
         <div class="modal-body">
           <form enctype="multipart/form-data" id="form-edit-config">
+						<div class="form-group form-group-sm row">
+							Delay follow (in seconds)
+            </div>  
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
 							Delay follow slow min
@@ -113,6 +116,55 @@ use Celebgramme\Models\Meta;
                 <input type="number" class="form-control" placeholder="" name="random_delay_comment_max" value="{{Meta::getMeta('random_delay_comment_max')}}">
               </div>
             </div>  
+						
+						<hr>
+						
+						<div class="form-group form-group-sm row">
+							Delay follow for every action(in seconds)
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Delay antara action follow min
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="delay_antara_action_follow_min" value="{{Meta::getMeta('delay_antara_action_follow_min')}}">
+              </div>
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Delay antara action follow max
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="delay_antara_action_follow_max" value="{{Meta::getMeta('delay_antara_action_follow_max')}}">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Delay antara action like min
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="delay_antara_action_like_min" value="{{Meta::getMeta('delay_antara_action_like_min')}}">
+              </div>
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Delay antara action like max
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="delay_antara_action_like_max" value="{{Meta::getMeta('delay_antara_action_like_max')}}">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Delay antara action comment min
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="delay_antara_action_comment_min" value="{{Meta::getMeta('delay_antara_action_comment_min')}}">
+              </div>
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Delay antara action comment max
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="delay_antara_action_comment_max" value="{{Meta::getMeta('delay_antara_action_comment_max')}}">
+              </div>
+            </div>  
+						
 						<hr>
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
