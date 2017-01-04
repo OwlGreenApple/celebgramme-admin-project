@@ -254,6 +254,18 @@
     <div class="input-group fl">
       <input type="button" value="IG account error" id="button-show-error" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalErrorIG"> 
     </div>  
+    <div class="input-group fl">
+			<select id="select-server">
+				<option value="0">All</option>
+				<option value="A1(automation-1)">A1(automation-1)</option>
+				<option value="A2(automation-2)">A2(automation-2)</option>
+				<option value="A3(automation-3)">A3(automation-3)</option>
+				<option value="A5(automation-5)">A5(automation-5)</option>
+				<option value="AA1(automation-1)">AA1(automation-1)</option>
+				<option value="AA2(automation-2)">AA2(automation-2)</option>
+				<option value="AA3(automation-3)">AA3(automation-3)</option>
+			</select>
+    </div>  
     <div class="none"></div>
   </div>
   
@@ -577,7 +589,8 @@
           url: '<?php echo url('load-automation-logs-error'); ?>',
           type: 'get',
           data: {
-						id : $(this).attr("data-id")
+						id : $(this).attr("data-id"),
+						server : $("#select-server").val(),
 					},
           beforeSend: function()
           {

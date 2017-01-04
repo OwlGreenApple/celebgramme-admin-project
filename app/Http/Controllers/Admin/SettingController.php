@@ -717,13 +717,15 @@ class SettingController extends Controller {
 		$counter =1;
 		
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
-		$settings = Setting::
+		if (Request::input('server')== "0") {
+			$settings = Setting::
 				join("setting_helpers","setting_helpers.setting_id","=","settings.id")
 				->where("type","=","temp")
 				->where("status","=","started")
-				->orderBy('settings.id', 'asc')
+				->orderBy('setting_helpers.server_automation', 'asc')
 				->get();
-					
+		}
+			
     foreach ($settings as $setting) {					
 			if ($setting->server_automation == "A1(automation-1)") {
 				$server = "http://192.186.146.248/";
