@@ -255,7 +255,7 @@
       <input type="button" value="IG account error" id="button-show-error" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalErrorIG"> 
     </div>  
     <div class="input-group fl">
-			<select id="select-server">
+			<select id="select-server" class="form-control">
 				<option value="0">All</option>
 				<option value="A1(automation-1)">A1(automation-1)</option>
 				<option value="A2(automation-2)">A2(automation-2)</option>

@@ -724,6 +724,14 @@ class SettingController extends Controller {
 				->where("status","=","started")
 				->orderBy('setting_helpers.server_automation', 'asc')
 				->get();
+		} else {
+			$settings = Setting::
+				join("setting_helpers","setting_helpers.setting_id","=","settings.id")
+				->where("type","=","temp")
+				->where("status","=","started")
+				->where("setting_helpers.server_automation","=",Request::input('server'))
+				->orderBy('setting_helpers.server_automation', 'asc')
+				->get();
 		}
 			
     foreach ($settings as $setting) {					
