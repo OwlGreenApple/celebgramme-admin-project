@@ -474,9 +474,6 @@ class SettingController extends Controller {
 		if ($setting_helper->server_automation == "A3(automation-3)") {
 			$file_server = "http://188.210.215.104/";
 		}
-		if ($setting_helper->server_automation == "A5(automation-5)") {
-			$file_server = "http://192.186.146.253/";
-		}
 		if ($setting_helper->server_automation == "AA1(automation-1)") {
 			$file_server = "http://188.210.215.100/";
 		}
@@ -485,6 +482,9 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "AA3(automation-3)") {
 			$file_server = "http://188.210.215.112/";
+		}
+		if ($setting_helper->server_automation == "AA4(automation-4)") {
+			$file_server = "http://188.210.215.115/";
 		}
 
 		$file_server .= "logs-IG-account/".$setting->insta_username.".txt";
@@ -521,9 +521,6 @@ class SettingController extends Controller {
 		if ($setting_helper->server_automation == "A3(automation-3)") {
 			$server = "http://188.210.215.104/";
 		}
-		if ($setting_helper->server_automation == "A5(automation-5)") {
-			$server = "http://192.186.146.253/";
-		}
 		if ($setting_helper->server_automation == "AA1(automation-1)") {
 			$server = "http://188.210.215.100/";
 		}
@@ -532,6 +529,9 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "AA3(automation-3)") {
 			$server = "http://188.210.215.112/";
+		}
+		if ($setting_helper->server_automation == "AA4(automation-4)") {
+			$server = "http://188.210.215.115/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -619,9 +619,6 @@ class SettingController extends Controller {
 		if ($setting_helper->server_automation == "A3(automation-3)") {
 			$server = "http://188.210.215.104/";
 		}
-		if ($setting_helper->server_automation == "A5(automation-5)") {
-			$server = "http://192.186.146.253/";
-		}
 		if ($setting_helper->server_automation == "AA1(automation-1)") {
 			$server = "http://188.210.215.100/";
 		}
@@ -630,6 +627,9 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "AA3(automation-3)") {
 			$server = "http://188.210.215.112/";
+		}
+		if ($setting_helper->server_automation == "AA4(automation-4)") {
+			$server = "http://188.210.215.115/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -744,9 +744,6 @@ class SettingController extends Controller {
 			if ($setting->server_automation == "A3(automation-3)") {
 				$server = "http://188.210.215.104/";
 			}
-			if ($setting->server_automation == "A5(automation-5)") {
-				$server = "http://192.186.146.253/";
-			}
 			if ($setting->server_automation == "AA1(automation-1)") {
 				$server = "http://188.210.215.100/";
 			}
@@ -755,6 +752,9 @@ class SettingController extends Controller {
 			}
 			if ($setting->server_automation == "AA3(automation-3)") {
 				$server = "http://188.210.215.112/";
+			}
+			if ($setting->server_automation == "AA4(automation-4)") {
+				$server = "http://188.210.215.115/";
 			}
 			
 			$unfollow_counter = 0; $follow_counter = 0; $like_counter = 0; $comment_counter = 0;
