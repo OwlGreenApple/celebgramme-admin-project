@@ -16,9 +16,6 @@
 		if ($data_arr->server_automation == "A3(automation-3)") {
 			$server = "http://188.210.215.104/";
 		}
-		if ($data_arr->server_automation == "A5(automation-5)") {
-			$server = "http://192.186.146.253/";
-		}
 		
 		if ($data_arr->server_automation == "AA1(automation-1)") {
 			$server = "http://188.210.215.100/";
@@ -28,6 +25,9 @@
 		}
 		if ($data_arr->server_automation == "AA3(automation-3)") {
 			$server = "http://188.210.215.112/";
+		}
+		if ($data_arr->server_automation == "A4(automation-4)") {
+			$server = "http://188.210.215.115/";
 		}
 ?>
     <tr class="row{{$data_arr->id}}">
