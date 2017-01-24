@@ -86,6 +86,8 @@ class AdminController extends Controller {
 		$temp = Meta::createMeta("random_action_follow_normal_max",Request::input("random_action_follow_normal_max"));
 		$temp = Meta::createMeta("random_action_follow_fast_min",Request::input("random_action_follow_fast_min"));
 		$temp = Meta::createMeta("random_action_follow_fast_max",Request::input("random_action_follow_fast_max"));
+		$temp = Meta::createMeta("random_action_follow_turbo_min",Request::input("random_action_follow_turbo_min"));
+		$temp = Meta::createMeta("random_action_follow_turbo_max",Request::input("random_action_follow_turbo_max"));
 		
 		$temp = Meta::createMeta("random_action_like_slow_min",Request::input("random_action_like_slow_min"));
 		$temp = Meta::createMeta("random_action_like_slow_max",Request::input("random_action_like_slow_max"));
@@ -93,6 +95,8 @@ class AdminController extends Controller {
 		$temp = Meta::createMeta("random_action_like_normal_max",Request::input("random_action_like_normal_max"));
 		$temp = Meta::createMeta("random_action_like_fast_min",Request::input("random_action_like_fast_min"));
 		$temp = Meta::createMeta("random_action_like_fast_max",Request::input("random_action_like_fast_max"));
+		$temp = Meta::createMeta("random_action_like_turbo_min",Request::input("random_action_like_turbo_min"));
+		$temp = Meta::createMeta("random_action_like_turbo_max",Request::input("random_action_like_turbo_max"));
 		
 		$temp = Meta::createMeta("random_action_comment_min",Request::input("random_action_comment_min"));
 		$temp = Meta::createMeta("random_action_comment_max",Request::input("random_action_comment_max"));

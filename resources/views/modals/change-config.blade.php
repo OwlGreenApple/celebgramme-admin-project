@@ -219,6 +219,20 @@ use Celebgramme\Models\Meta;
             </div>  
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Action follow turbo min
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="random_action_follow_turbo_min" value="{{Meta::getMeta('random_action_follow_turbo_min')}}">
+              </div>
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Action follow turbo max
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="random_action_follow_turbo_max" value="{{Meta::getMeta('random_action_follow_turbo_max')}}">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
 							Action like slow min
 							</label>
               <div class="col-xs-2 col-sm-2 col-md-2">
@@ -257,6 +271,20 @@ use Celebgramme\Models\Meta;
 							</label>
               <div class="col-xs-2 col-sm-2 col-md-2">
                 <input type="number" class="form-control" placeholder="" name="random_action_like_fast_max" value="{{Meta::getMeta('random_action_like_fast_max')}}">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Action like turbo min
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="random_action_like_turbo_min" value="{{Meta::getMeta('random_action_like_turbo_min')}}">
+              </div>
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Action like turbo max
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="random_action_like_turbo_max" value="{{Meta::getMeta('random_action_like_turbo_max')}}">
               </div>
             </div>  
             <div class="form-group form-group-sm row">
