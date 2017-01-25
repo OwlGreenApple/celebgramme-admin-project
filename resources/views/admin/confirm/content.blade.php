@@ -20,6 +20,8 @@
       </td>
       <td align="center">
         <?php  if ($arr->updated_at<>$arr->created_at) echo $arr->updated_at; ?>
+				<br>
+				{{$arr->no_order}}
       </td>
       <td align="center">
         {{OrderMeta::getMeta($arr->id,"nama bank") }}
