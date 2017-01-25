@@ -465,12 +465,6 @@ class SettingController extends Controller {
 		$setting_helper = SettingHelper::where("setting_id","=",Request::input('id'))->first();
 		$setting = Setting::find(Request::input('id'));
 		
-		if ($setting_helper->server_automation == "A1(automation-1)") {
-			$file_server = "http://192.186.146.248/";
-		}
-		if ($setting_helper->server_automation == "A2(automation-2)") {
-			$file_server = "http://192.186.146.246/";
-		}
 		if ($setting_helper->server_automation == "A3(automation-3)") {
 			$file_server = "http://188.210.215.104/";
 		}
@@ -485,6 +479,12 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "AA4(automation-4)") {
 			$file_server = "http://188.210.215.115/";
+		}
+		if ($setting_helper->server_automation == "AA5(automation-5)") {
+			$file_server = "http://188.210.215.118/";
+		}
+		if ($setting_helper->server_automation == "AA6(automation-6)") {
+			$file_server = "http://188.210.215.121/";
 		}
 
 		$file_server .= "logs-IG-account/".$setting->insta_username.".txt";
@@ -512,12 +512,6 @@ class SettingController extends Controller {
 		$setting_helper = SettingHelper::where("setting_id","=",Request::input('id'))->first();
 		$setting = Setting::find(Request::input('id'));
 		
-		if ($setting_helper->server_automation == "A1(automation-1)") {
-			$server = "http://192.186.146.248/";
-		}
-		if ($setting_helper->server_automation == "A2(automation-2)") {
-			$server = "http://192.186.146.246/";
-		}
 		if ($setting_helper->server_automation == "A3(automation-3)") {
 			$server = "http://188.210.215.104/";
 		}
@@ -532,6 +526,12 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "AA4(automation-4)") {
 			$server = "http://188.210.215.115/";
+		}
+		if ($setting_helper->server_automation == "AA5(automation-5)") {
+			$server = "http://188.210.215.118/";
+		}
+		if ($setting_helper->server_automation == "AA6(automation-6)") {
+			$server = "http://188.210.215.121/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -610,12 +610,6 @@ class SettingController extends Controller {
 		$setting_helper = SettingHelper::where("setting_id","=",Request::input('id'))->first();
 		$setting = Setting::find(Request::input('id'));
 		
-		if ($setting_helper->server_automation == "A1(automation-1)") {
-			$server = "http://192.186.146.248/";
-		}
-		if ($setting_helper->server_automation == "A2(automation-2)") {
-			$server = "http://192.186.146.246/";
-		}
 		if ($setting_helper->server_automation == "A3(automation-3)") {
 			$server = "http://188.210.215.104/";
 		}
@@ -630,6 +624,12 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "AA4(automation-4)") {
 			$server = "http://188.210.215.115/";
+		}
+		if ($setting_helper->server_automation == "AA5(automation-5)") {
+			$server = "http://188.210.215.118/";
+		}
+		if ($setting_helper->server_automation == "AA6(automation-6)") {
+			$server = "http://188.210.215.121/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -735,12 +735,6 @@ class SettingController extends Controller {
 		}
 			
     foreach ($settings as $setting) {					
-			if ($setting->server_automation == "A1(automation-1)") {
-				$server = "http://192.186.146.248/";
-			}
-			if ($setting->server_automation == "A2(automation-2)") {
-				$server = "http://192.186.146.246/";
-			}
 			if ($setting->server_automation == "A3(automation-3)") {
 				$server = "http://188.210.215.104/";
 			}
@@ -755,6 +749,12 @@ class SettingController extends Controller {
 			}
 			if ($setting->server_automation == "AA4(automation-4)") {
 				$server = "http://188.210.215.115/";
+			}
+			if ($setting->server_automation == "AA5(automation-5)") {
+				$server = "http://188.210.215.118/";
+			}
+			if ($setting->server_automation == "AA6(automation-6)") {
+				$server = "http://188.210.215.121/";
 			}
 			
 			$unfollow_counter = 0; $follow_counter = 0; $like_counter = 0; $comment_counter = 0;

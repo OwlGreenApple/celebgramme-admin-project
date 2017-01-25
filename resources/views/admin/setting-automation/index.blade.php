@@ -257,13 +257,13 @@
     <div class="input-group fl">
 			<select id="select-server" class="form-control">
 				<option value="0">All</option>
-				<option value="A1(automation-1)">A1(automation-1)</option>
-				<option value="A2(automation-2)">A2(automation-2)</option>
 				<option value="A3(automation-3)">A3(automation-3)</option>
 				<option value="AA1(automation-1)">AA1(automation-1)</option>
 				<option value="AA2(automation-2)">AA2(automation-2)</option>
 				<option value="AA3(automation-3)">AA3(automation-3)</option>
 				<option value="AA4(automation-4)">AA4(automation-4)</option>
+				<option value="AA5(automation-5)">AA5(automation-5)</option>
+				<option value="AA6(automation-6)">AA6(automation-6)</option>
 			</select>
     </div>  
     <div class="none"></div>

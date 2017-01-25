@@ -7,12 +7,6 @@
     //search by username
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
-		if ($data_arr->server_automation == "A1(automation-1)") {
-			$server = "http://192.186.146.248/";
-		}
-		if ($data_arr->server_automation == "A2(automation-2)") {
-			$server = "http://192.186.146.246/";
-		}
 		if ($data_arr->server_automation == "A3(automation-3)") {
 			$server = "http://188.210.215.104/";
 		}
@@ -28,6 +22,12 @@
 		}
 		if ($data_arr->server_automation == "A4(automation-4)") {
 			$server = "http://188.210.215.115/";
+		}
+		if ($data_arr->server_automation == "AA5(automation-5)") {
+			$server = "http://188.210.215.118/";
+		}
+		if ($data_arr->server_automation == "AA6(automation-6)") {
+			$server = "http://188.210.215.121/";
 		}
 ?>
     <tr class="row{{$data_arr->id}}">
