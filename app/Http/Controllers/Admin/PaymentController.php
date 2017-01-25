@@ -70,7 +70,8 @@ class PaymentController extends Controller {
                  ->where('orders.confirmed_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                  ->where('orders.image',"<>", "")
 								 ->where('orders.order_status','<>',"cron dari affiliate")
-                 ->orderBy('orders.checked', 'asc')->paginate(15);
+                 ->orderBy('orders.checked', 'asc')
+								 ->orderBy('orders.updated_at', 'desc')->paginate(15);
       }
       if (Request::input('status')==0) {
         $order = Order::join('users',"users.id","=","orders.user_id")
@@ -98,7 +99,8 @@ class PaymentController extends Controller {
                  ->where('orders.confirmed_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                  ->where('orders.image',"<>","")
 								 ->where('orders.order_status','<>',"cron dari affiliate")
-                 ->orderBy('orders.checked', 'asc')->paginate(15);
+                 ->orderBy('orders.checked', 'asc')
+								 ->orderBy('orders.updated_at', 'desc')->paginate(15);
       }
       if (Request::input('status')==0)  {
         $order = Order::join('users',"users.id","=","orders.user_id")
@@ -147,7 +149,8 @@ class PaymentController extends Controller {
                  ->where('orders.confirmed_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                  ->where('orders.image',"<>", "")
 								 ->where('orders.order_status','<>',"cron dari affiliate")
-                 ->orderBy('orders.checked', 'asc')->paginate(15);
+                 ->orderBy('orders.checked', 'asc')
+								 ->orderBy('orders.updated_at', 'desc')->paginate(15);
       }
       if (Request::input('status')==0) {
         $order = Order::join('users',"users.id","=","orders.user_id")
@@ -175,7 +178,8 @@ class PaymentController extends Controller {
                  ->where('orders.confirmed_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
                  ->where('orders.image',"<>","")
 								 ->where('orders.order_status','<>',"cron dari affiliate")
-                 ->orderBy('orders.checked', 'asc')->paginate(15);
+								 ->orderBy('orders.checked', 'asc')
+								 ->orderBy('orders.updated_at', 'desc')->paginate(15);
       }
       if (Request::input('status')==0)  {
         $order = Order::join('users',"users.id","=","orders.user_id")
