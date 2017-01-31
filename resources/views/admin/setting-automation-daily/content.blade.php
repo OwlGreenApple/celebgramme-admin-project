@@ -7,10 +7,6 @@
     //search by username
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
-		if ($data_arr->server_automation == "A3(automation-3)") {
-			$server = "http://188.210.215.104/";
-		}
-		
 		if ($data_arr->server_automation == "AA1(automation-1)") {
 			$server = "http://188.210.215.100/";
 		}
@@ -29,6 +25,10 @@
 		if ($data_arr->server_automation == "AA6(automation-6)") {
 			$server = "http://188.210.215.121/";
 		}
+		if ($data_arr->server_automation == "AA7(automation-7)") {
+			$server = "http://188.210.215.124/";
+		}
+		
 ?>
     <tr class="row{{$data_arr->id}}">
       <td>
