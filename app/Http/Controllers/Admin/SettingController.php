@@ -1027,9 +1027,6 @@ class SettingController extends Controller {
 		$settingLogs = SettingLog::where("setting_id","=",Request::Input("id"))->orderBy('id', 'desc')->get();
 		foreach($settingLogs as $settingLog){
 			$logs .= "<tr><td>".$settingLog->created."</td><td>".$settingLog->status."</td></tr>";
-			
-			$counter += 1 ;
-			if($counter==21) {break;}
 		}
 		
 		$arr["logs"] = $logs;
