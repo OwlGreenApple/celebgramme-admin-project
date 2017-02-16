@@ -28,6 +28,9 @@
           <h4 class="modal-title">History Logs</h4>
         </div>
         <div class="modal-body">
+					<div class="form-group form-group-sm" id="setting-log-div">
+					</div>  
+				
 					<div class="form-group form-group-sm row">
 						<table class="table table-bordered table-data-default">  
 							<thead>
@@ -695,6 +698,7 @@
 			
       $( "body" ).on( "click", ".btn-show-log-settings", function() {
         temp = $(this);
+				$("#setting-log-div").html("");
         $.ajax({                                      
           url: '<?php echo url('load-setting-logs'); ?>',
           type: 'get',
@@ -710,6 +714,7 @@
           {
             var data = jQuery.parseJSON(result);
             if(data.type=='success') {
+							$("#setting-log-div").html('<table class="table table-bordered table-data-default"><thead><tr style="font-weight:bold;"><th>Date time</th><th>Activity</th></tr></thead><tbody id="p-setting-logs"></tbody></table>');
 							$("#p-setting-logs").html(data.logs);
 							$('.table-data-default').DataTable();
             } else if (data.type=='error') {
