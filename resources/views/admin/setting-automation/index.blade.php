@@ -30,20 +30,6 @@
         <div class="modal-body">
 					<div class="form-group form-group-sm" id="setting-log-div">
 					</div>  
-				
-					<div class="form-group form-group-sm row">
-						<table class="table table-bordered table-data-default">  
-							<thead>
-								<tr style="font-weight:bold;">
-									<th>Date time</th>
-									<th>Activity</th>
-								</tr>      
-							</thead>
-							<tbody id="p-setting-logs">
-							</tbody>
-						</table>  
-						
-					</div>  
         </div>
         <div class="modal-footer">
         </div>
