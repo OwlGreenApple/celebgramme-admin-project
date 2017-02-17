@@ -162,6 +162,15 @@
 					echo $server_automation;
 				?>
 				</span>
+				/
+				<?php 
+					if ($is_auto_get_likes) { 
+						echo SettingMeta::getMeta($data_arr->id,"server_liker");
+					} 
+					else { 
+						echo "-";
+					} 
+				?>
 				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-server-automation-edit" data-toggle="modal" data-target="#serverAutomationModal" data-id="{{$data_arr->id}}"
 				data-filename="{{$server_automation}}" style="cursor:pointer;">  </span>
 				</p>

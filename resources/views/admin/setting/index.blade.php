@@ -250,7 +250,7 @@
 				
         <th>Download </th>
         <th>Setting</th>
-        <th>Server Automation</th>
+        <th>Server Automation / Server Liker AutoLike</th>
         <th colspan=2>Method</th>
 				
       </tr>      
