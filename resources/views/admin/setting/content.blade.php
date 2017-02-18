@@ -162,6 +162,8 @@
 					echo $server_automation;
 				?>
 				</span>
+				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-server-automation-edit" data-toggle="modal" data-target="#serverAutomationModal" data-id="{{$data_arr->id}}"
+				data-filename="{{$server_automation}}" style="cursor:pointer;">  </span>
 				/
 				<?php 
 					if ($is_auto_get_likes) { 
@@ -171,8 +173,7 @@
 						echo "-";
 					} 
 				?>
-				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-server-automation-edit" data-toggle="modal" data-target="#serverAutomationModal" data-id="{{$data_arr->id}}"
-				data-filename="{{$server_automation}}" style="cursor:pointer;">  </span>
+				
 				</p>
 			</td>
       <td align="center">
