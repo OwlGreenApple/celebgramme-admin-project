@@ -253,6 +253,7 @@
 				<option value="AA5(automation-5)">AA5(automation-5)</option>
 				<option value="AA6(automation-6)">AA6(automation-6)</option>
 				<option value="AA7(automation-7)">AA7(automation-7)</option>
+				<option value="AA8(automation-8)">AA8(automation-8)</option>
 			</select>
     </div>  
     <div class="none"></div>
