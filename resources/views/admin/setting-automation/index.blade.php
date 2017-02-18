@@ -240,6 +240,7 @@
     <div class="input-group fl">
       <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
     </div>  
+		<?php if($user->email == "celebgramme.dev@gmail.com") { ?>
     <div class="input-group fl">
       <input type="button" value="IG account error" id="button-show-error" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalErrorIG"> 
     </div>  
@@ -256,6 +257,8 @@
 				<option value="AA8(automation-8)">AA8(automation-8)</option>
 			</select>
     </div>  
+		<?php } ?>
+		
     <div class="none"></div>
   </div>
   
