@@ -789,6 +789,36 @@ class MemberController extends Controller {
 		return $arr;
 	}
 
+  public function footer_ads()
+  {
+    $user = Auth::user();
+		$post = Post::where("type","=","footer_ads")->first();
+		if (is_null($post)) {
+			$post = new Post;
+			$post->type="footer_ads";
+			$post->save();
+		}
+		$content = $post->description;
+    return View::make('admin.member-all.footer')->with(
+                  array(
+                    'user'=>$user,
+                    'content'=>$content,
+                  ));
+	}
+
+  public function save_footer_ads()
+  {
+		$arr["type"] = "success";
+		$arr["message"] = "Saved";
+
+		$post = Post::where("type","=","footer_ads")->first();
+		$post->description=Request::input("content");
+		$post->type="footer_ads";
+		$post->save();
+
+		return $arr;
+	}
+
   public function ads_page()
   {
     $user = Auth::user();

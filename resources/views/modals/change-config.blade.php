@@ -352,6 +352,20 @@ use Celebgramme\Models\Meta;
             </div>  
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Hourly follow turbo min
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="random_hourly_limit_follow_turbo_min" value="{{Meta::getMeta('random_hourly_limit_follow_turbo_min')}}">
+              </div>
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Hourly follow turbo max
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="random_hourly_limit_follow_turbo_max" value="{{Meta::getMeta('random_hourly_limit_follow_turbo_max')}}">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
 							Hourly like slow min
 							</label>
               <div class="col-xs-2 col-sm-2 col-md-2">

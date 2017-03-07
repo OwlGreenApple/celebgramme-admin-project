@@ -107,6 +107,8 @@ class AdminController extends Controller {
 		$temp = Meta::createMeta("random_hourly_limit_follow_normal_max",Request::input("random_hourly_limit_follow_normal_max"));
 		$temp = Meta::createMeta("random_hourly_limit_follow_fast_min",Request::input("random_hourly_limit_follow_fast_min"));
 		$temp = Meta::createMeta("random_hourly_limit_follow_fast_max",Request::input("random_hourly_limit_follow_fast_max"));
+		$temp = Meta::createMeta("random_hourly_limit_follow_turbo_min",Request::input("random_hourly_limit_follow_turbo_min"));
+		$temp = Meta::createMeta("random_hourly_limit_follow_turbo_max",Request::input("random_hourly_limit_follow_turbo_max"));
 		
 		$temp = Meta::createMeta("random_hourly_limit_like_slow_min",Request::input("random_hourly_limit_like_slow_min"));
 		$temp = Meta::createMeta("random_hourly_limit_like_slow_max",Request::input("random_hourly_limit_like_slow_max"));
@@ -142,6 +144,7 @@ class AdminController extends Controller {
 		$temp = Meta::createMeta("delay_antara_action_like_max",Request::input("delay_antara_action_like_max"));
 		$temp = Meta::createMeta("delay_antara_action_comment_min",Request::input("delay_antara_action_comment_min"));
 		$temp = Meta::createMeta("delay_antara_action_comment_max",Request::input("delay_antara_action_comment_max"));
+		
 
 		
 		return "success";

@@ -89,6 +89,8 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('edit-member-max-account', 'Admin\MemberController@edit_member_max_account');
 	Route::get('home-page', 'Admin\MemberController@home_page');
 	Route::post('save-home-page', 'Admin\MemberController@save_home_page');
+	Route::get('footer-ads', 'Admin\MemberController@footer_ads');
+	Route::post('save-footer-ads', 'Admin\MemberController@save_footer_ads');
 	Route::post('member-order-package', 'Admin\MemberController@member_order_package');
 	Route::get('load-time-logs', 'Admin\MemberController@get_time_logs');
 	Route::get('ads-page', 'Admin\MemberController@ads_page');
