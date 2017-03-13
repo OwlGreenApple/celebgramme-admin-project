@@ -470,6 +470,20 @@ use Celebgramme\Models\Meta;
             </div>  
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Daily follow turbo min
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="daily_follow_turbo_limit_min" value="{{Meta::getMeta('daily_follow_turbo_limit_min')}}">
+              </div>
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Daily follow turbo max
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="daily_follow_turbo_limit_max" value="{{Meta::getMeta('daily_follow_turbo_limit_max')}}">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
 							Daily like slow min
 							</label>
               <div class="col-xs-2 col-sm-2 col-md-2">
@@ -508,6 +522,20 @@ use Celebgramme\Models\Meta;
 							</label>
               <div class="col-xs-2 col-sm-2 col-md-2">
                 <input type="number" class="form-control" placeholder="" name="daily_like_fast_limit_max" value="{{Meta::getMeta('daily_like_fast_limit_max')}}">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Daily like turbo min
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="daily_like_turbo_limit_min" value="{{Meta::getMeta('daily_like_turbo_limit_min')}}">
+              </div>
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Daily like turbo max
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="daily_like_turbo_limit_max" value="{{Meta::getMeta('daily_like_turbo_limit_max')}}">
               </div>
             </div>  
             <div class="form-group form-group-sm row">
