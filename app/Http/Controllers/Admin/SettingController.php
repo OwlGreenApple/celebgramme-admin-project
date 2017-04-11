@@ -489,6 +489,9 @@ class SettingController extends Controller {
 		if ($setting_helper->server_automation == "AA8(automation-8)") {
 			$file_server = "http://89.32.179.132/";
 		}
+		if ($setting_helper->server_automation == "AA12(automation-12)") {
+			$file_server = "http://89.32.179.145/";
+		}
 
 		$file_server .= "logs-IG-account/".$setting->insta_username.".txt";
 		$ch = curl_init($file_server);
@@ -538,6 +541,9 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "AA8(automation-8)") {
 			$server = "http://89.32.179.132/";
+		}
+		if ($setting_helper->server_automation == "AA12(automation-12)") {
+			$server = "http://89.32.179.145/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -639,6 +645,9 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "AA8(automation-8)") {
 			$server = "http://89.32.179.132/";
+		}
+		if ($setting_helper->server_automation == "AA12(automation-12)") {
+			$server = "http://89.32.179.145/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -767,6 +776,9 @@ class SettingController extends Controller {
 			}
 			if ($setting->server_automation == "AA8(automation-8)") {
 				$server = "http://89.32.179.132/";
+			}
+			if ($setting->server_automation == "AA12(automation-12)") {
+				$server = "http://89.32.179.145/";
 			}
 			
 			$unfollow_counter = 0; $follow_counter = 0; $like_counter = 0; $comment_counter = 0;

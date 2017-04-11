@@ -31,6 +31,9 @@
 		if ($data_arr->server_automation == "AA8(automation-8)") {
 			$server = "http://89.32.179.132/";
 		}
+		if ($data_arr->server_automation == "AA12(automation-12)") {
+			$server = "http://89.32.179.145/";
+		}
 		
 ?>
     <tr class="row{{$data_arr->id}}">
