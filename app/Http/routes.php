@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::patch('update-post/{konfirmasiId}', 'Admin\PostController@update_post');
   
 	/* Post auto manage */
+	Route::get('create-excel/{string}/{stringby}', 'Admin\PostController@create_excel');
 	Route::get('create-excel/{string}/{stringby}/{username}', 'Admin\PostController@create_excel');
 	Route::get('post-auto-manage', 'Admin\PostController@auto_manage');
 	Route::get('load-post-auto-manage', 'Admin\PostController@load_auto_manage');
