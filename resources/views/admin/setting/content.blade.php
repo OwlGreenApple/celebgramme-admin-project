@@ -30,7 +30,7 @@
 			}
 			$arr1 = explode(";",$settingHelper->target);
 			foreach($arr1 as $arr2) { 
-				$target .= $arr2. " ";
+				$target .= $arr2. ", ";
 			}
 			
 			$number_likes = $settingHelper->number_likes; 
