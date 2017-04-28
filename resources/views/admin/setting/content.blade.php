@@ -69,7 +69,7 @@
 				<p class="fl-filename">
 				<span class="edit-fl-filename">
 				<?php 
-					// $filename = "";
+					$filename = "";
 					// if (SettingMeta::getMeta($data_arr->id,"fl_filename") <> "0" ) {
 						// $filename = SettingMeta::getMeta($data_arr->id,"fl_filename");
 						// echo $filename."";
