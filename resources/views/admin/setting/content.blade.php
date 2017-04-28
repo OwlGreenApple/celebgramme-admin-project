@@ -65,19 +65,23 @@
         {{$data_arr->insta_username}}/{{$data_arr->insta_password}}/{{$data_arr->start_time}}
       </td>
       <td align="center">
+				<!--
 				<p class="fl-filename">
 				<span class="edit-fl-filename">
 				<?php 
-					$filename = "";
-					if (SettingMeta::getMeta($data_arr->id,"fl_filename") <> "0" ) {
-						$filename = SettingMeta::getMeta($data_arr->id,"fl_filename");
-						echo $filename."";
-					}
+					// $filename = "";
+					// if (SettingMeta::getMeta($data_arr->id,"fl_filename") <> "0" ) {
+						// $filename = SettingMeta::getMeta($data_arr->id,"fl_filename");
+						// echo $filename."";
+					// }
 				?>
 				</span>
 				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-fl-edit" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}"
 				data-filename="{{$filename}}" style="cursor:pointer;">  </span>
 				</p>
+				-->
+				<input type="button" class="btn btn-success btn-check-method-automation" data-toggle="modal" data-target="#myModalEditAutomationMethod" data-id="{{$data_arr->id}}" data-method="{{$data_arr->method}}" value="Login source"> 
+				
       </td>
       <td align="center" style="width:350px!important;">
 				<a href="#" class="see-all">lihat semua </a>

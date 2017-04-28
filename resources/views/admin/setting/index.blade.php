@@ -14,6 +14,37 @@
     z-index:9050!important;
 }	
 </style>
+  <div class="modal fade" id="myModalEditAutomationMethod" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Automation Method</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-edit-method-automation">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Automation using</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="radio" name="method-automation" id="radio-automation-API" value="API">
+								<label for="radio-automation-API">API</label> <br>
+                <input type="radio" name="method-automation" id="radio-automation-CURL" value="CURL">
+								<label for="radio-automation-CURL">CURL</label>
+              </div>
+            </div>  
+            <input type="hidden" class="setting-id" name="setting-id">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-edit-method-automation" data-check="auto">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+	
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -245,7 +276,7 @@
         <th>No. </th>
         <th>Password Error</th>
         <th>Fullname (email) / Insta username / Insta password / start time</th>
-        <th>Server Name</th>
+        <th><!--Server Name--> Method Automation</th>
         <th>Updates</th>
 				
         <th>Download </th>
@@ -666,6 +697,50 @@
         });
       });
 
+      $( "body" ).on( "click", ".btn-check-method-automation", function() {
+        $(".setting-id").val($(this).attr("data-id"));
+				if ($(this).attr("data-method")=="API") {
+					$("#radio-automation-API").prop("checked", true);
+				}
+				if ($(this).attr("data-method")=="CURL") {
+					$("#radio-automation-CURL").prop("checked", true);
+				}
+      });
+			
+      $( "body" ).on( "click", "#btn-edit-method-automation", function() {
+
+        $.ajax({
+          url: '<?php echo url('edit-method-automation'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-edit-method-automation").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              create_pagination(1);
+              refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
+            }
+            $("#div-loading").hide();
+          }
+        });
+
+
+      });
 			
     });
   </script>		

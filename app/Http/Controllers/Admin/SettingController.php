@@ -1058,4 +1058,13 @@ class SettingController extends Controller {
 		return $arr;
 	}
 	
+	public function change_method_automation() {
+		$setting = Setting::find(Request::input("setting-id"));
+		$setting->method = Request::input("method-automation");
+		$setting->save();
+		
+		$arr["type"] = "success";
+		return $arr;
+	}
+	
 }
