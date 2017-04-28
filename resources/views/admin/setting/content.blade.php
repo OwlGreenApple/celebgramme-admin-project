@@ -80,7 +80,7 @@
 				data-filename="{{$filename}}" style="cursor:pointer;">  </span>
 				</p>
 				-->
-				<input type="button" class="btn btn-success btn-check-method-automation" data-toggle="modal" data-target="#myModalEditAutomationMethod" data-id="{{$data_arr->id}}" data-method="{{$data_arr->method}}" value="Login source"> 
+				<input type="button" class="btn btn-success btn-check-method-automation" data-toggle="modal" data-target="#myModalEditAutomationMethod" data-id="{{$data_arr->id}}" data-method="{{$data_arr->method}}" value="Change"> 
 				
       </td>
       <td align="center" style="width:350px!important;">

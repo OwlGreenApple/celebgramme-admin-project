@@ -699,6 +699,8 @@
 
       $( "body" ).on( "click", ".btn-check-method-automation", function() {
         $(".setting-id").val($(this).attr("data-id"));
+				$("#radio-automation-API").prop("checked", false);
+				$("#radio-automation-CURL").prop("checked", false);
 				if ($(this).attr("data-method")=="API") {
 					$("#radio-automation-API").prop("checked", true);
 				}
