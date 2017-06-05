@@ -18,6 +18,7 @@ use Celebgramme\Models\Category;
 use Celebgramme\Models\SettingLog;
 use Celebgramme\Models\Account;
 use Celebgramme\Models\ViewProxyUses;
+use Celebgramme\Models\UserSetting;
 
 use Celebgramme\Helpers\GlobalHelper;
 
@@ -981,6 +982,14 @@ class SettingController extends Controller {
 		$setting_helper = SettingHelper::where("setting_id","=",Request::input('id'))->first();
 		$setting_helper->cookies = "" ;
 		$setting_helper->save();
+		
+		$setting = Setting::find(Request::input('id'));
+		if (!is_null($setting)) {
+			$user_setting = UserSetting::where("username",strtolower($setting->insta_username))->first();
+			if (!is_null($user_setting)) {
+				$user_setting->delete();
+			}
+		}
 		
 		//assign proxy ulang
 		$ssetting = serialize(Setting::find(Request::input('id')));
