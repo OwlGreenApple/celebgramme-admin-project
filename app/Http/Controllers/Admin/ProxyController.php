@@ -83,19 +83,19 @@ class ProxyController extends Controller {
 	public function pagination_proxy_manager()
   {
 		if (Request::input('search')=="") {
-			$collection1 = Proxies::paginate(15);
+			$collection1 = Proxies::get();
 		} else {
 			$collection1 = Proxies::
 							where("proxy","like","%".Request::input('search')."%")
 							->orWhere("port","like","%".Request::input('search')."%")
 							->orWhere(DB::raw("CONCAT(`proxy`, ':', `port`, ':', `cred`)"), 'LIKE', "%".Request::input('search')."%")
-							->paginate(15);
+							->get();
 		}
 		
 		if (Request::input('data_show')=="0") {
-			$collection2 = Proxies::where("is_error",1)->paginate(15);
+			$collection2 = Proxies::where("is_error",1)->get();
 		} else {
-			$collection2 = Proxies::paginate(15);
+			$collection2 = Proxies::get();
 		}
 		$data = $collection1->intersect($collection2);
 		
