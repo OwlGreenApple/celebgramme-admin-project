@@ -256,10 +256,11 @@ class ProxyController extends Controller {
 			$check_proxy->delete();
 		}
 		
+		$arr_proxy = explode(";", Request::input("proxy"));
 		$proxy = new Proxies;
-		$proxy->proxy = Request::input("proxy");
-		$proxy->cred = Request::input("cred");
-		$proxy->port = Request::input("port");
+		$proxy->proxy = $arr_proxy[0];
+		$proxy->cred = $arr_proxy[2];
+		$proxy->port = $arr_proxy[1];
 		$proxy->auth = 1;
 		$proxy->created = $dt->toDateTimeString();
 		$proxy->save();
