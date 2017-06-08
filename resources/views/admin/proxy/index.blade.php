@@ -170,7 +170,7 @@
       <input type="text" id="search-text" class="form-control" placeholder="keyword"> 
     </div>
     <div class="input-group fl">
-      <select id="proxy-show-data">
+      <select id="proxy-show-data" class="form-control">
 				<option value="1">
 					All
 				</option>
@@ -234,7 +234,7 @@
         type: 'get',
         data: {
           search : $("#search-text").val(),
-          data-show : $("#proxy-show-data").val(),
+          data_show : $("#proxy-show-data").val(),
           page: page,
         },
         beforeSend: function()
@@ -256,7 +256,7 @@
         type: 'get',
         data: {
           search : $("#search-text").val(),
-					data-show : $("#proxy-show-data").val(),
+					data_show : $("#proxy-show-data").val(),
 					page : page,
         },
         beforeSend: function()

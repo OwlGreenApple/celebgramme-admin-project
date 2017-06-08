@@ -64,7 +64,7 @@ class ProxyController extends Controller {
 							->paginate(15);
 		}
 		
-		if (Request::input('data-show')=="0") {
+		if (Request::input('data_show')=="0") {
 			$collection2 = Proxies::where("is_error",1)->paginate(15);
 		} else {
 			$collection2 = Proxies::paginate(15);
@@ -91,7 +91,7 @@ class ProxyController extends Controller {
 							->paginate(15);
 		}
 		
-		if (Request::input('data-show')=="0") {
+		if (Request::input('data_show')=="0") {
 			$collection2 = Proxies::where("is_error",1)->paginate(15);
 		} else {
 			$collection2 = Proxies::paginate(15);
