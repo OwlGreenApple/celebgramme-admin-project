@@ -56,21 +56,21 @@ class ProxyController extends Controller {
   {
 		$user = Auth::user();
 		if (Request::input('search')=="") {
-			$collection1 = Proxies::all();
+			$data = Proxies::all();
 		} else {
-			$collection1 = Proxies::
+			$data = Proxies::
 							where("proxy","like","%".Request::input('search')."%")
 							->orWhere("port","like","%".Request::input('search')."%")
 							->orWhere(DB::raw("CONCAT(`proxy`, ':', `port`, ':', `cred`)"), 'LIKE', "%".Request::input('search')."%")
 							->get();
 		}
 		
-		if (Request::input('data_show')=="0") {
-			$collection2 = Proxies::where("is_error",1)->get();
-			$data = $collection1->intersect($collection2)->forPage(Request::input("page"),15);
-		} else {
-			$data = $collection1->forPage(Request::input("page"),15);
-		}
+		// if (Request::input('data_show')=="0") {
+			// $collection2 = Proxies::where("is_error",1)->get();
+			// $data = $collection1->intersect($collection2)->forPage(Request::input("page"),15);
+		// } else {
+			// $data = $collection1->forPage(Request::input("page"),15);
+		// }
 		
     return view('admin.proxy.content')->with(
                 array(
@@ -83,21 +83,21 @@ class ProxyController extends Controller {
 	public function pagination_proxy_manager()
   {
 		if (Request::input('search')=="") {
-			$collection1 = Proxies::all();
+			$data = Proxies::all();
 		} else {
-			$collection1 = Proxies::
+			$data = Proxies::
 							where("proxy","like","%".Request::input('search')."%")
 							->orWhere("port","like","%".Request::input('search')."%")
 							->orWhere(DB::raw("CONCAT(`proxy`, ':', `port`, ':', `cred`)"), 'LIKE', "%".Request::input('search')."%")
 							->get();
 		}
 		
-		if (Request::input('data_show')=="0") {
-			$collection2 = Proxies::where("is_error",1)->get();
-			$data = $collection1->intersect($collection2);
-		} else {
-			$data = $collection1;
-		}
+		// if (Request::input('data_show')=="0") {
+			// $collection2 = Proxies::where("is_error",1)->get();
+			// $data = $collection1->intersect($collection2);
+		// } else {
+			// $data = $collection1;
+		// }
 		
     return view('admin.proxy.pagination')->with(
                 array(
