@@ -67,10 +67,10 @@ class ProxyController extends Controller {
 		
 		if (Request::input('data_show')=="0") {
 			$collection2 = Proxies::where("is_error",1)->get();
+			$data = $collection1->intersect($collection2)->forPage(Request::input("page"),15);
 		} else {
-			$collection2 = Proxies::get();
+			$data = $collection1->forPage(Request::input("page"),15);
 		}
-		$data = $collection1->intersect($collection2)->forPage(Request::input("page"),15);
 		
     return view('admin.proxy.content')->with(
                 array(
@@ -94,10 +94,10 @@ class ProxyController extends Controller {
 		
 		if (Request::input('data_show')=="0") {
 			$collection2 = Proxies::where("is_error",1)->get();
+			$data = $collection1->intersect($collection2);
 		} else {
-			$collection2 = Proxies::get();
+			$data = $collection1;
 		}
-		$data = $collection1->intersect($collection2);
 		
     return view('admin.proxy.pagination')->with(
                 array(
