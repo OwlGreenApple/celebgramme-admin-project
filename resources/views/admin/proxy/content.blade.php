@@ -13,6 +13,11 @@
         {{$i}}
       </td>
       <td align="center">
+			<?php 
+				if ($arr->is_error) {
+					echo "error";
+				}
+			?>
 			{{$arr->proxy}}
       </td>
       <td align="center">
