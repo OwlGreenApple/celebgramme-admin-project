@@ -54,6 +54,7 @@ class ProxyController extends Controller {
   
 	public function load_proxy_manager()
   {
+		$user = Auth::user();
 		if (Request::input('search')=="") {
 			$collection1 = Proxies::paginate(15);
 		} else {
