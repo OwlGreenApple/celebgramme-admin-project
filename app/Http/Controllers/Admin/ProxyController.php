@@ -38,10 +38,10 @@ class ProxyController extends Controller {
 		$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(									"sum(count_proxy) as countP"))
 											->groupBy("id","proxy","cred","port","auth")
 											->orderBy("countP","asc")
-											->having('countP', '<', 5)
+											->having('countP', '<', 3)
 											->get();
 		foreach($availableProxy as $data) {
-			$total += (5 - $data->countP);
+			$total += (3 - $data->countP);
 		}
 		
 		
@@ -54,17 +54,23 @@ class ProxyController extends Controller {
   
 	public function load_proxy_manager()
   {
-    $user = Auth::user();
-		
 		if (Request::input('search')=="") {
-			$data = Proxies::paginate(15);
+			$collection1 = Proxies::paginate(15);
 		} else {
-			$data = Proxies::
+			$collection1 = Proxies::
 							where("proxy","like","%".Request::input('search')."%")
 							->orWhere("port","like","%".Request::input('search')."%")
 							->orWhere(DB::raw("CONCAT(`proxy`, ':', `port`, ':', `cred`)"), 'LIKE', "%".Request::input('search')."%")
 							->paginate(15);
 		}
+		
+		if (Request::input('data-show')=="0") {
+			$collection2 = Proxies::where("is_error",1)->paginate(15);
+		} else {
+			$collection2 = Proxies::paginate(15);
+		}
+		$data = $collection1->intersect($collection2);
+		
     return view('admin.proxy.content')->with(
                 array(
                   'user'=>$user,
@@ -76,14 +82,22 @@ class ProxyController extends Controller {
 	public function pagination_proxy_manager()
   {
 		if (Request::input('search')=="") {
-			$data = Proxies::paginate(15);
+			$collection1 = Proxies::paginate(15);
 		} else {
-			$data = Proxies::
+			$collection1 = Proxies::
 							where("proxy","like","%".Request::input('search')."%")
 							->orWhere("port","like","%".Request::input('search')."%")
 							->orWhere(DB::raw("CONCAT(`proxy`, ':', `port`, ':', `cred`)"), 'LIKE', "%".Request::input('search')."%")
 							->paginate(15);
 		}
+		
+		if (Request::input('data-show')=="0") {
+			$collection2 = Proxies::where("is_error",1)->paginate(15);
+		} else {
+			$collection2 = Proxies::paginate(15);
+		}
+		$data = $collection1->intersect($collection2);
+		
     return view('admin.proxy.pagination')->with(
                 array(
                   'data'=>$data,

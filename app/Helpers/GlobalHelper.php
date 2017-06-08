@@ -79,7 +79,7 @@ class GlobalHelper {
 		$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(	"sum(count_proxy) as countP"))
 											->groupBy("id","proxy","cred","port","auth")
 											->orderBy("countP","asc")
-											->having('countP', '<', 5)
+											->having('countP', '<', 3)
 											->get();
 		$arrAvailableProxy = array();
 		foreach($availableProxy as $data) {

@@ -170,6 +170,16 @@
       <input type="text" id="search-text" class="form-control" placeholder="keyword"> 
     </div>
     <div class="input-group fl">
+      <select id="proxy-show-data">
+				<option value="1">
+					All
+				</option>
+				<option value="0">
+					Error
+				</option>
+      </select>
+    </div>
+    <div class="input-group fl">
       <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
     </div>  
     <div class="input-group fl">
@@ -224,6 +234,7 @@
         type: 'get',
         data: {
           search : $("#search-text").val(),
+          data-show : $("#proxy-show-data").val(),
           page: page,
         },
         beforeSend: function()
@@ -244,9 +255,9 @@
         url: '<?php echo url('pagination-proxy-manager'); ?>',
         type: 'get',
         data: {
-					page : page,
           search : $("#search-text").val(),
-          username : $("#username").val(),
+					data-show : $("#proxy-show-data").val(),
+					page : page,
         },
         beforeSend: function()
         {
