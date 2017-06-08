@@ -102,6 +102,7 @@ class ProxyController extends Controller {
     return view('admin.proxy.pagination')->with(
                 array(
                   'data'=>$data,
+                  'page'=>Request::input('page'),
                 ));
   }
 
