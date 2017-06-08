@@ -290,10 +290,10 @@
     $(document).ready(function(){
       $("#alert").hide();
       refresh_page(1);
-      create_pagination();
+      create_pagination(1);
       $('#button-search').click(function(e){
         e.preventDefault();
-        create_pagination();
+        create_pagination(1);
         refresh_page(1);
       });
 
