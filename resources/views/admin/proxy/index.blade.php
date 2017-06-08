@@ -112,7 +112,7 @@
 								<form enctype="multipart/form-data" id="form-exchange-proxy">
 									<div class="form-group form-group-sm row">
 										<label class="col-xs-8 col-sm-2 control-label" for="proxy-exchange">New Proxy</label>
-										<div class="col-sm-8 col-md-6">
+										<div class="col-sm-12 col-md-12">
 											<input type="text" class="form-control" placeholder="proxy" name="proxy" id="proxy-exchange">
 										</div>
 									</div><!--

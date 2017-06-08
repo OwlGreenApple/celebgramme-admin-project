@@ -267,6 +267,8 @@ class ProxyController extends Controller {
 		
 		$celebgramme_proxies = SettingHelper::where("proxy_id","=",Request::input("id_proxy"))->get();
 		foreach($celebgramme_proxies as $data){
+			$data->cookies = "";
+			$data->is_refresh = 1;
 			$data->proxy_id = $proxy->id;
 			$data->save();
 		}
