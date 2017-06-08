@@ -78,6 +78,7 @@ class SettingController extends Controller {
 				$arrAvailableProxy[] = $dataNew;	
 			}
 		}*/
+		$arrAvailableProxy = array();
 		$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(									"sum(count_proxy) as countP"))
 											->groupBy("id","proxy","cred","port","auth")
 											->orderBy("countP","asc")
