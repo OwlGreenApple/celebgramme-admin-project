@@ -4,7 +4,7 @@
 	} else {
 		$currentPage = $page;
 	}
-	$totalPage = floor(count($data) / 25) +1;
+	$totalPage = floor(count($data) / 15) +1;
 	
 	// dd($pagination);
 	$startPage = $currentPage - 4;
