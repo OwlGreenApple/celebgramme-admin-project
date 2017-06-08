@@ -70,7 +70,7 @@ class ProxyController extends Controller {
 		} else {
 			$collection2 = Proxies::get();
 		}
-		$data = $collection1->intersect($collection2)->paginate(15);
+		$data = $collection1->intersect($collection2)->forPage(Request::input("page"),15);
 		
     return view('admin.proxy.content')->with(
                 array(
