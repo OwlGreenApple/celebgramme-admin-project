@@ -19,7 +19,6 @@ use Celebgramme\Models\SettingLog;
 use Celebgramme\Models\Account;
 use Celebgramme\Models\ViewProxyUses;
 use Celebgramme\Models\UserSetting;
-use Celebgramme\Models\AutoResponderSetting;
 
 use Celebgramme\Helpers\GlobalHelper;
 
