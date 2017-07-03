@@ -3,6 +3,8 @@
 	use Celebgramme\Models\User;
 	use Celebgramme\Models\SettingHelper; 
 	use Celebgramme\Models\Proxies; 
+	use Celebgramme\Models\Proxies; 
+	use Celebgramme\Models\AutoResponderSetting; 
   if ( $arr->count()==0  ) {
     echo "<tr><td colspan='8' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -43,6 +45,12 @@
 			if ($data_arr->is_auto_responder) {
 				$is_auto_responder = true;
 			}
+		}
+		
+		$auto_responder_message = "";
+		$temps = AutoResponderSetting::where("setting_id",$data_arr->id)->get();
+		foreach ($temps as $temp) {
+			$auto_responder_message .= $temp->message.";";
 		}
 ?>
     <tr class="row{{$data_arr->id}}">
@@ -112,8 +120,10 @@
 					
 					
 					<li class="wrap"><strong>is Auto Likes : </strong><?php if ($is_auto_get_likes) { echo "Yes"; } else { echo "No";} ?></li>
-					<li class="wrap"><strong>is Auto Responder : </strong><?php if ($is_auto_responder) { echo "Yes"; } else { echo "No";} ?></li>
 					<li class="wrap"><strong>Number Likes : </strong><?php echo $number_likes; ?></li>
+					<li class="wrap"><strong>is Auto Responder : </strong><?php if ($is_auto_responder) { echo "Yes"; } else { echo "No";} ?></li>
+					<li class="wrap"><strong>Welcome Message : </strong><?php  echo $data_arr->messages;  ?></li>
+					<li class="wrap"><strong>Auto Responder Message : </strong><?php  echo $data_arr->messages; ?></li>
 					<?php if (!$data_arr->status_auto) { ?>
 					<?php if ($data_arr->status_follow_unfollow=="on") { $colorstatus="1212e8"; } else if ($data_arr->status_follow_unfollow=="off") { $colorstatus="ea0000"; } ?>
 					<li class="wrap"><strong>Status Follow  : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->status_follow_unfollow)}} </span> </strong> </li> 
