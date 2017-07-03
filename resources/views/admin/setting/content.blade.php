@@ -122,7 +122,7 @@
 					<li class="wrap"><strong>Number Likes : </strong><?php echo $number_likes; ?></li>
 					<li class="wrap"><strong>is Auto Responder : </strong><?php if ($is_auto_responder) { echo "Yes"; } else { echo "No";} ?></li>
 					<li class="wrap"><strong>Welcome Message : </strong><?php  echo $data_arr->messages;  ?></li>
-					<li class="wrap"><strong>Auto Responder Message : </strong><?php  echo $data_arr->messages; ?></li>
+					<li class="wrap"><strong>Auto Responder Message : </strong><?php  echo $auto_responder_message; ?></li>
 					<?php if (!$data_arr->status_auto) { ?>
 					<?php if ($data_arr->status_follow_unfollow=="on") { $colorstatus="1212e8"; } else if ($data_arr->status_follow_unfollow=="off") { $colorstatus="ea0000"; } ?>
 					<li class="wrap"><strong>Status Follow  : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->status_follow_unfollow)}} </span> </strong> </li> 
