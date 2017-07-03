@@ -3,7 +3,6 @@
 	use Celebgramme\Models\User;
 	use Celebgramme\Models\SettingHelper; 
 	use Celebgramme\Models\Proxies; 
-	use Celebgramme\Models\Proxies; 
 	use Celebgramme\Models\AutoResponderSetting; 
   if ( $arr->count()==0  ) {
     echo "<tr><td colspan='8' align='center'>Data tidak ada</td></tr>";
@@ -50,7 +49,7 @@
 		$auto_responder_message = "";
 		$temps = AutoResponderSetting::where("setting_id",$data_arr->id)->get();
 		foreach ($temps as $temp) {
-			$auto_responder_message .= $temp->message.";";
+			$auto_responder_message .= $temp->num_of_day."-"$temp->message.";";
 		}
 ?>
     <tr class="row{{$data_arr->id}}">
