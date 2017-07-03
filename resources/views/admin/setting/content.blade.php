@@ -36,13 +36,13 @@
 			$number_likes = $settingHelper->number_likes; 
 			
 			$is_auto_get_likes = $settingHelper->is_auto_get_likes;
-			$is_auto_responder = false;
-			if (!is_null($data_arr->is_auto_responder)) {
-				if ($data_arr->is_auto_responder) {
-					$is_auto_responder = true;
-				}
-			}
 			
+		}
+		$is_auto_responder = false;
+		if (!is_null($data_arr->is_auto_responder)) {
+			if ($data_arr->is_auto_responder) {
+				$is_auto_responder = true;
+			}
 		}
 ?>
     <tr class="row{{$data_arr->id}}">
