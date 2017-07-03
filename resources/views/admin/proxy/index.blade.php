@@ -367,9 +367,9 @@
       });
       $( "body" ).on( "click", ".button-edit-proxy", function() {
         $("#id-proxy").val($(this).attr("data-id"));
-        $("#proxy").val($(this).attr("data-proxy"));
-        $("#cred").val($(this).attr("data-cred"));
-        $("#port").val($(this).attr("data-port"));
+        $("#proxy").val($(this).attr("data-proxy")+":"+$(this).attr("data-port")+":"+$(this).attr("data-cred"));
+        // $("#cred").val($(this).attr("data-cred"));
+        // $("#port").val($(this).attr("data-port"));
       });
       $( "body" ).on( "click", "#button-submit-proxy", function() {
         temp = $(this);

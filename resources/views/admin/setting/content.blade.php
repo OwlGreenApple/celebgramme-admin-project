@@ -36,6 +36,12 @@
 			$number_likes = $settingHelper->number_likes; 
 			
 			$is_auto_get_likes = $settingHelper->is_auto_get_likes;
+			$is_auto_responder = false;
+			if (!is_null($data_arr->is_auto_responder)) {
+				if ($data_arr->is_auto_responder) {
+					$is_auto_responder = true;
+				}
+			}
 			
 		}
 ?>
@@ -106,6 +112,7 @@
 					
 					
 					<li class="wrap"><strong>is Auto Likes : </strong><?php if ($is_auto_get_likes) { echo "Yes"; } else { echo "No";} ?></li>
+					<li class="wrap"><strong>is Auto Responder : </strong><?php if ($is_auto_responder) { echo "Yes"; } else { echo "No";} ?></li>
 					<li class="wrap"><strong>Number Likes : </strong><?php echo $number_likes; ?></li>
 					<?php if (!$data_arr->status_auto) { ?>
 					<?php if ($data_arr->status_follow_unfollow=="on") { $colorstatus="1212e8"; } else if ($data_arr->status_follow_unfollow=="off") { $colorstatus="ea0000"; } ?>
