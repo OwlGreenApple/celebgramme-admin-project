@@ -49,7 +49,7 @@
 		$auto_responder_message = "";
 		$temps = AutoResponderSetting::where("setting_id",$data_arr->id)->get();
 		foreach ($temps as $temp) {
-			$auto_responder_message .= $temp->num_of_day."-"$temp->message.";";
+			$auto_responder_message .= $temp->num_of_day."-".$temp->message.";";
 		}
 ?>
     <tr class="row{{$data_arr->id}}">
