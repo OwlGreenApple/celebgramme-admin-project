@@ -235,9 +235,9 @@
         $("#price").val($(this).attr("data-price"));
         $("#active-days").val($(this).attr("data-active-days"));
 				if ( $(this).attr("data-affiliate") == "0") {
-					$('#affiliate-check').attr('checked', false);
+					$('#affiliate-check').prop('checked', false);
 				} else {
-					$('#affiliate-check').attr('checked', true);
+					$('#affiliate-check').prop('checked', true);
 				}
         $("#max-account").val($(this).attr("data-max_account"));
       });
