@@ -239,6 +239,7 @@
 				} else {
 					$('#affiliate-check').attr('checked', true);
 				}
+        $("#max-account").val($(this).attr("data-max_account"));
       });
       $( "body" ).on( "click", ".btn-delete", function() {
 				$("#id-package-delete").val($(this).attr("data-id"));

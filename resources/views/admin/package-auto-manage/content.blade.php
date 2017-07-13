@@ -33,7 +33,7 @@
 				?>
       </td>
       <td align="center">
-	<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}" data-package-name="{{$data_arr->package_name}}" data-price="{{$data_arr->price}}" data-active-days="{{$data_arr->active_days}}" data-affiliate="{{$data_arr->affiliate}}">
+	<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}" data-package-name="{{$data_arr->package_name}}" data-price="{{$data_arr->price}}" data-active-days="{{$data_arr->active_days}}" data-affiliate="{{$data_arr->affiliate}}" data-max_account="{{$data_arr->max_account}}">
 					<span class='glyphicon glyphicon-pencil'></span> 
 				</button>
 				<button type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#confirm-delete" data-id="{{$data_arr->id}}" >
