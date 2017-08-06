@@ -166,6 +166,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('check-proxy', 'Admin\ProxyController@check_proxy');
 	Route::get('check-proxy-all', 'Admin\ProxyController@check_proxy_all');
 	Route::get('exchange-proxy', 'Admin\ProxyController@exchange_proxy');
+	Route::post('exchange-error-proxy', 'Admin\ProxyController@exchange_error_proxy');
 	
 	/* Affiliate  */
 	Route::get('affiliate', 'Admin\AffiliateController@index');

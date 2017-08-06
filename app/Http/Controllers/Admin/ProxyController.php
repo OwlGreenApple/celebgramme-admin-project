@@ -281,4 +281,82 @@ class ProxyController extends Controller {
 		
 		return $arr;
 	}
+  
+  public function exchange_error_proxy(){
+		$arr["type"]="success";
+		$arr["message"]="success add proxy";
+    
+			if (Input::file('fileExcel')->isValid()) {
+				// $destinationPath = 'uploads'; // upload path
+				$destinationPath = base_path().'/public/admin/uploads/temp/';
+				$extension = Input::file('fileExcel')->getClientOriginalExtension(); 
+				$fileName = 'file-proxy-new-'.date('Y_m_d_H_i_s').'.'.$extension; 
+				Input::file('fileExcel')->move($destinationPath, $fileName);
+			} else {
+				$arr['type'] = "error";
+				$arr['message'] = "File tidak valid";
+				return $arr;
+			}
+			
+			Config::set('excel.import.startRow', '1');
+			$readers = Excel::load($destinationPath.$fileName, function($reader) {
+			})->get();
+
+			$flag = false;
+			$error_message="";
+			foreach($readers as $sheet)
+			{
+				if ($sheet->getTitle()=='Sheet1') {
+					foreach($sheet as $row)
+					{
+						if ($row->proxy=="") {
+							continue;
+						}
+            
+						
+            $arr_proxy = explode(":", $row->proxy);
+            $proxy = Proxies::
+                      where("proxy",$arr_proxy[0])
+                      ->where("port",$arr_proxy[1])
+                      ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
+                      ->where("auth",1)
+                      ->first();
+            if (!is_null($proxy)) {
+              continue;
+            } else {
+              $proxy = new Proxies;
+              $proxy->proxy = $arr_proxy[0];
+              $proxy->port = $arr_proxy[1];
+              $proxy->cred = $arr_proxy[2].":".$arr_proxy[3];
+              $proxy->auth = 1;
+              $proxy->created = $dt->toDateTimeString();
+              $proxy->save();
+            }
+
+            //cari proxy error, klo ada exchange, klo ga ada insert new biasa.
+            $proxy_error = Proxies::
+                            where("is_error",1)
+                            ->first();
+            if (!is_null($proxy_error)) {
+              $celebgramme_proxies = SettingHelper::where("proxy_id","=",$proxy_error->id)->get();
+              foreach($celebgramme_proxies as $data){
+                $data->cookies = "";
+                $data->is_refresh = 1;
+                $data->proxy_id = $proxy->id;
+                $data->save();
+              }
+              $celebpost_proxies = Account::where("proxy_id","=",$proxy_error->id)->get();
+              foreach($celebpost_proxies as $data){
+                $data->proxy_id = $proxy->id;
+                $data->save();
+              }
+              
+              
+              $proxy_error->delete();
+            }
+            
+					}
+				}
+    return $arr;
+  }
 }

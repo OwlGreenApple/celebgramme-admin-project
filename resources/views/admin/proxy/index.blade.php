@@ -1,6 +1,33 @@
 @extends('layout.main')
 
 @section('content')
+  <!-- Modal Add proxy using excel-->
+  <div class="modal fade" id="myModalAddProxyUsingExcel" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add BonusMember</h4>
+        </div>
+        <div class="modal-body">
+					{!! Form::open(array('url'=>'','method'=>'POST', 'files'=>true, 'id'=>'form-add-proxy-using-excel')) !!}
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Excel</label>
+              <div class="col-sm-8 col-md-6">
+								<input type="file" id="" name="fileExcel" class="form-control"> 
+              </div>
+            </div>  
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-add-proxy-using-excel" data-check="auto">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
   <!-- Modal Add proxy-->
 	<div class="modal fade" id="modal-proxy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -191,6 +218,9 @@
     </div>  
     <div class="input-group fl">
       <input type="button" value="Check All proxy" id="button-check-all" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalAllError" > 
+    </div>  
+    <div class="input-group fl">
+      <input type="button" value="Add proxy excel" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalAddProxyUsingExcel" > 
     </div>  
     <div class="none"></div>
   </div>
@@ -459,6 +489,44 @@
 						$("#div-loading").hide();
           }
         });
+      });
+			
+      $( "body" ).on( "click", "#btn-add-proxy-using-excel", function() {
+					var uf = $('#form-add-proxy-using-excel');
+					var fd = new FormData(uf[0]);
+        $.ajax({
+          url: '<?php echo url('exchange-error-proxy'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data : fd,
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+					processData:false,
+					contentType: false,
+					
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              create_pagination(1);
+              refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
+            }
+            $("#div-loading").hide();
+          }
+        });
+				
       });
 			
 			
