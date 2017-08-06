@@ -357,6 +357,7 @@ class ProxyController extends Controller {
             
 					}
 				}
+      }
     return $arr;
   }
 }
