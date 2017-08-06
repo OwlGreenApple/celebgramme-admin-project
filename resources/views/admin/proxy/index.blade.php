@@ -8,7 +8,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add BonusMember</h4>
+          <h4 class="modal-title">Add Proxy Using Excel</h4>
         </div>
         <div class="modal-body">
 					{!! Form::open(array('url'=>'','method'=>'POST', 'files'=>true, 'id'=>'form-add-proxy-using-excel')) !!}
