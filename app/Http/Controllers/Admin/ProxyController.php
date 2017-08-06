@@ -10,7 +10,7 @@ use Celebgramme\Models\Proxies;
 use Celebgramme\Models\SettingHelper; 
 use Celebgramme\Models\ViewProxyUses;
 
-use View,Auth,Request,DB,Carbon,Excel, Mail, Validator;
+use View,Auth,Request,DB,Carbon,Excel, Mail, Validator, Input;
 
 class ProxyController extends Controller {
 
