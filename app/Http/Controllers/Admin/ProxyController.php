@@ -285,6 +285,7 @@ class ProxyController extends Controller {
   public function exchange_error_proxy(){
 		$arr["type"]="success";
 		$arr["message"]="success add proxy";
+    $dt = Carbon::now()->setTimezone('Asia/Jakarta');
     
 			if (Input::file('fileExcel')->isValid()) {
 				// $destinationPath = 'uploads'; // upload path
