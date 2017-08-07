@@ -361,4 +361,89 @@ class ProxyController extends Controller {
       }
     return $arr;
   }
+
+  public function exchange_replace_proxy(){
+		$arr["type"]="success";
+		$arr["message"]="success replace proxy";
+    $dt = Carbon::now()->setTimezone('Asia/Jakarta');
+    
+			if (Input::file('fileExcel')->isValid()) {
+				// $destinationPath = 'uploads'; // upload path
+				$destinationPath = base_path().'/public/admin/uploads/temp/';
+				$extension = Input::file('fileExcel')->getClientOriginalExtension(); 
+				$fileName = 'file-proxy-replace-'.date('Y_m_d_H_i_s').'.'.$extension; 
+				Input::file('fileExcel')->move($destinationPath, $fileName);
+			} else {
+				$arr['type'] = "error";
+				$arr['message'] = "File tidak valid";
+				return $arr;
+			}
+			
+			Config::set('excel.import.startRow', '1');
+			$readers = Excel::load($destinationPath.$fileName, function($reader) {
+			})->get();
+
+			$flag = false;
+			$error_message="";
+			foreach($readers as $sheet)
+			{
+				if ($sheet->getTitle()=='Sheet1') {
+					foreach($sheet as $row)
+					{
+						if ( ($row->proxy_old=="") || ($row->proxy_new=="") ) {
+							continue;
+						}
+            
+						
+            $arr_proxy = explode(":", $row->proxy_new);
+            $proxy_new = Proxies::
+                      where("proxy",$arr_proxy[0])
+                      ->where("port",$arr_proxy[1])
+                      ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
+                      ->where("auth",1)
+                      ->first();
+            if (!is_null($proxy_new)) {
+              continue; //diasumsikan benar2 ga ada di database
+            } else {
+              $proxy_new = new Proxies;
+              $proxy_new->proxy = $arr_proxy[0];
+              $proxy_new->port = $arr_proxy[1];
+              $proxy_new->cred = $arr_proxy[2].":".$arr_proxy[3];
+              $proxy_new->auth = 1;
+              $proxy_new->created = $dt->toDateTimeString();
+              $proxy_new->save();
+            }
+
+            //cari proxy old klo ada maka akan di exchange
+            $arr_proxy = explode(":", $row->proxy_old);
+            $proxy_old = Proxies::
+                      where("proxy",$arr_proxy[0])
+                      ->where("port",$arr_proxy[1])
+                      ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
+                      ->where("auth",1)
+                      ->first();
+            if (!is_null($proxy_old)) {
+              $celebgramme_proxies = SettingHelper::where("proxy_id","=",$proxy_old->id)->get();
+              foreach($celebgramme_proxies as $data){
+                $data->cookies = "";
+                $data->is_refresh = 1;
+                $data->proxy_id = $proxy_new->id;
+                $data->save();
+              }
+              $celebpost_proxies = Account::where("proxy_id","=",$proxy_old->id)->get();
+              foreach($celebpost_proxies as $data){
+                $data->proxy_id = $proxy_new->id;
+                $data->save();
+              }
+              
+              
+              $proxy_old->delete();
+            }
+            
+					}
+				}
+      }
+    return $arr;
+  }
+	
 }
