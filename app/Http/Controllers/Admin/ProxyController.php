@@ -350,8 +350,8 @@ class ProxyController extends Controller {
 							$page = curl_exec($c);
 							curl_close($c);
 							
-							$arr = json_decode($page,true);
-							if (count($arr)>0) {
+							$arr_curl = json_decode($page,true);
+							if (count($arr_curl)>0) {
 								unlink($cookiefile);
 							} else {
 								// echo "username not found";
@@ -469,8 +469,8 @@ class ProxyController extends Controller {
 							$page = curl_exec($c);
 							curl_close($c);
 							
-							$arr = json_decode($page,true);
-							if (count($arr)>0) {
+							$arr_curl = json_decode($page,true);
+							if (count($arr_curl)>0) {
 								unlink($cookiefile);
 							} else {
 								// echo "username not found";
@@ -592,8 +592,8 @@ class ProxyController extends Controller {
 							$page = curl_exec($c);
 							curl_close($c);
 							
-							$arr = json_decode($page,true);
-							if (count($arr)>0) {
+							$arr_curl = json_decode($page,true);
+							if (count($arr_curl)>0) {
 								unlink($cookiefile);
 							} else {
 								// echo "username not found";
@@ -608,7 +608,7 @@ class ProxyController extends Controller {
 				}
       }
 			
-		$arr["message"] = "success add proxy".$error_message;
+		$arr["message"] = "process finish".$error_message;
     return $arr;
   }
 }
