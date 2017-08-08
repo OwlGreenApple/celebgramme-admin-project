@@ -524,4 +524,91 @@ class ProxyController extends Controller {
     return $arr;
   }
 	
+  public function check_proxy_excel(){
+		$arr["type"]="success";
+		$arr["message"]="success add proxy";
+    $dt = Carbon::now()->setTimezone('Asia/Jakarta');
+    
+			if (Input::file('fileExcel')->isValid()) {
+				// $destinationPath = 'uploads'; // upload path
+				$destinationPath = base_path().'/public/admin/uploads/temp/';
+				$extension = Input::file('fileExcel')->getClientOriginalExtension(); 
+				$fileName = 'file-proxy-new-'.date('Y_m_d_H_i_s').'.'.$extension; 
+				Input::file('fileExcel')->move($destinationPath, $fileName);
+			} else {
+				$arr['type'] = "error";
+				$arr['message'] = "File tidak valid";
+				return $arr;
+			}
+			
+			Config::set('excel.import.startRow', '1');
+			$readers = Excel::load($destinationPath.$fileName, function($reader) {
+			})->get();
+
+			$flag = false;
+			$error_message="";
+			foreach($readers as $sheet)
+			{
+				if ($sheet->getTitle()=='Sheet1') {
+					foreach($sheet as $row)
+					{
+						if ($row->proxy=="") {
+							continue;
+						}
+            
+						
+            $arr_proxy = explode(":", $row->proxy);
+            $proxy = Proxies::
+                      where("proxy",$arr_proxy[0])
+                      ->where("port",$arr_proxy[1])
+                      ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
+                      ->where("auth",1)
+                      ->first();
+            if (!is_null($proxy)) {
+							$error_message.="sudah ada di database:".$row->proxy_new." ,";
+              continue;
+            } else {
+							$port = $arr_proxy[1];
+							$cred = $arr_proxy[2].":".$arr_proxy[3];
+							$proxy = $arr_proxy[0];
+							
+							
+							$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
+							$url = "https://www.instagram.com/joshwebdev/?__a=1";
+							$c = curl_init();
+
+
+							curl_setopt($c, CURLOPT_PROXY, $proxy);
+							curl_setopt($c, CURLOPT_PROXYPORT, $port);
+							curl_setopt($c, CURLOPT_PROXYUSERPWD, $cred);
+							curl_setopt($c, CURLOPT_PROXYTYPE, 'HTTP');
+							curl_setopt($c, CURLOPT_URL, $url);
+							curl_setopt($c, CURLOPT_REFERER, $url);
+							curl_setopt($c, CURLOPT_FOLLOWLOCATION, true);
+							curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+							curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+							curl_setopt($c, CURLOPT_COOKIEFILE, $cookiefile);
+							curl_setopt($c, CURLOPT_COOKIEJAR, $cookiefile);
+							$page = curl_exec($c);
+							curl_close($c);
+							
+							$arr = json_decode($page,true);
+							if (count($arr)>0) {
+								unlink($cookiefile);
+							} else {
+								// echo "username not found";
+								$error_message.="Error proxy :".$row->proxy_new." ,";
+								continue;
+							}
+							
+							
+            }
+
+					}
+				}
+      }
+			
+		$arr["message"] = "success add proxy".$error_message;
+    return $arr;
+  }
 }
