@@ -323,7 +323,7 @@ class ProxyController extends Controller {
                       ->where("auth",1)
                       ->first();
             if (!is_null($proxy)) {
-							$error_message.="sudah ada di database:".$row->proxy_new." ,";
+							$error_message.="sudah ada di database:".$row->proxy." ,";
               continue;
             } else {
 							$port = $arr_proxy[1];
@@ -355,7 +355,7 @@ class ProxyController extends Controller {
 								unlink($cookiefile);
 							} else {
 								// echo "username not found";
-								$error_message.="Error proxy :".$row->proxy_new." ,";
+								$error_message.="Error proxy :".$row->proxy." ,";
 								continue;
 							}
 							
@@ -565,7 +565,7 @@ class ProxyController extends Controller {
                       ->where("auth",1)
                       ->first();
             if (!is_null($proxy)) {
-							$error_message.="sudah ada di database:".$row->proxy_new." ,";
+							$error_message.="sudah ada di database:".$row->proxy." ,";
               continue;
             } else {
 							$port = $arr_proxy[1];
@@ -597,7 +597,7 @@ class ProxyController extends Controller {
 								unlink($cookiefile);
 							} else {
 								// echo "username not found";
-								$error_message.="Error proxy :".$row->proxy_new." ,";
+								$error_message.="Error proxy :".$row->proxy." ,";
 								continue;
 							}
 							
