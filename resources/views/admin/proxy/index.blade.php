@@ -245,6 +245,8 @@
     <div class="input-group fl">
       <input type="button" value="Check All proxy" id="button-check-all" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalAllError" > 
     </div>  
+  </div>
+  <div class="cover-input-group">
     <div class="input-group fl">
       <input type="button" value="Add proxy excel" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalAddProxyUsingExcel" > 
     </div>  
