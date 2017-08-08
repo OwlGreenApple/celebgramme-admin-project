@@ -164,7 +164,7 @@ class ProxyController extends Controller {
 		
 		
 		$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
-		$url = "https://www.instagram.com/fonnytan86/?__a=1";
+		$url = "https://www.instagram.com/joshwebdev/?__a=1";
 		$c = curl_init();
 
 
@@ -209,7 +209,7 @@ class ProxyController extends Controller {
 			if (file_exists($cookiefile)) {
 				unlink($cookiefile);
 			}
-			$url = "https://www.instagram.com/fonnytan86/?__a=1";
+			$url = "https://www.instagram.com/joshwebdev/?__a=1";
 			$c = curl_init();
 
 
@@ -323,8 +323,43 @@ class ProxyController extends Controller {
                       ->where("auth",1)
                       ->first();
             if (!is_null($proxy)) {
+							$error_message.="sudah ada di database:".$row->proxy_new." ,";
               continue;
             } else {
+							$port = $arr_proxy[1];
+							$cred = $arr_proxy[2].":".$arr_proxy[3];
+							$proxy = $arr_proxy[0];
+							
+							
+							$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
+							$url = "https://www.instagram.com/joshwebdev/?__a=1";
+							$c = curl_init();
+
+
+							curl_setopt($c, CURLOPT_PROXY, $proxy);
+							curl_setopt($c, CURLOPT_PROXYPORT, $port);
+							curl_setopt($c, CURLOPT_PROXYUSERPWD, $cred);
+							curl_setopt($c, CURLOPT_PROXYTYPE, 'HTTP');
+							curl_setopt($c, CURLOPT_URL, $url);
+							curl_setopt($c, CURLOPT_REFERER, $url);
+							curl_setopt($c, CURLOPT_FOLLOWLOCATION, true);
+							curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+							curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+							curl_setopt($c, CURLOPT_COOKIEFILE, $cookiefile);
+							curl_setopt($c, CURLOPT_COOKIEJAR, $cookiefile);
+							$page = curl_exec($c);
+							curl_close($c);
+							
+							$arr = json_decode($page,true);
+							if (count($arr)>0) {
+								unlink($cookiefile);
+							} else {
+								// echo "username not found";
+								$error_message.="Error proxy :".$row->proxy_new." ,";
+								continue;
+							}
+							
+							
               $proxy = new Proxies;
               $proxy->proxy = $arr_proxy[0];
               $proxy->port = $arr_proxy[1];
@@ -359,6 +394,8 @@ class ProxyController extends Controller {
 					}
 				}
       }
+			
+		$arr["message"] = "success add proxy".$error_message;
     return $arr;
   }
 
@@ -403,8 +440,47 @@ class ProxyController extends Controller {
                       ->where("auth",1)
                       ->first();
             if (!is_null($proxy_new)) {
-              continue; //diasumsikan benar2 ga ada di database
+							//klo ada di database, ditulis error log di return message
+							$error_message.="sudah ada di database:".$row->proxy_new." ,";
+
+              continue;
             } else {
+							$port = $arr_proxy[1];
+							$cred = $arr_proxy[2].":".$arr_proxy[3];
+							$proxy = $arr_proxy[0];
+							
+							
+							$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
+							$url = "https://www.instagram.com/joshwebdev/?__a=1";
+							$c = curl_init();
+
+
+							curl_setopt($c, CURLOPT_PROXY, $proxy);
+							curl_setopt($c, CURLOPT_PROXYPORT, $port);
+							curl_setopt($c, CURLOPT_PROXYUSERPWD, $cred);
+							curl_setopt($c, CURLOPT_PROXYTYPE, 'HTTP');
+							curl_setopt($c, CURLOPT_URL, $url);
+							curl_setopt($c, CURLOPT_REFERER, $url);
+							curl_setopt($c, CURLOPT_FOLLOWLOCATION, true);
+							curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+							curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+							curl_setopt($c, CURLOPT_COOKIEFILE, $cookiefile);
+							curl_setopt($c, CURLOPT_COOKIEJAR, $cookiefile);
+							$page = curl_exec($c);
+							curl_close($c);
+							
+							$arr = json_decode($page,true);
+							if (count($arr)>0) {
+								unlink($cookiefile);
+							} else {
+								// echo "username not found";
+								$error_message.="Error proxy :".$row->proxy_new." ,";
+								continue;
+							}
+							
+							
+							
+							
               $proxy_new = new Proxies;
               $proxy_new->proxy = $arr_proxy[0];
               $proxy_new->port = $arr_proxy[1];
@@ -443,6 +519,8 @@ class ProxyController extends Controller {
 					}
 				}
       }
+			
+		$arr["message"] = "success replace proxy".$error_message;
     return $arr;
   }
 	
