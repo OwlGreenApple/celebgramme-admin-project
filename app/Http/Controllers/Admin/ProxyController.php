@@ -568,7 +568,7 @@ class ProxyController extends Controller {
 							$error_message.="sudah ada di database:".$row->proxy." ,";
               continue;
             } else {
-							$port = $arr_proxy[1];
+							/*$port = $arr_proxy[1];
 							$cred = $arr_proxy[2].":".$arr_proxy[3];
 							$proxy = $arr_proxy[0];
 							
@@ -601,7 +601,7 @@ class ProxyController extends Controller {
 								continue;
 							}
 							
-							
+							*/
             }
 
 					}
