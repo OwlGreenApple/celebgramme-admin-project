@@ -565,7 +565,8 @@ class ProxyController extends Controller {
                       ->where("auth",1)
                       ->first();
             if (!is_null($proxy)) {
-							$error_message.="sudah ada di database:".$row->proxy." ,";
+							// $error_message.="sudah ada di database:".$row->proxy." ,";
+							$error_message.=$row->proxy." ";
               continue;
             } else {
 							/*$port = $arr_proxy[1];
@@ -608,7 +609,8 @@ class ProxyController extends Controller {
 				}
       }
 			
-		$arr["message"] = "process finish".$error_message;
+		// $arr["message"] = "process finish".$error_message;
+		$arr["message"] = $error_message;
     return $arr;
   }
 }
