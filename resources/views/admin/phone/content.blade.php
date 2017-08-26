@@ -11,7 +11,7 @@
         {{$i}}
       </td>
       <td align="center">
-			{{$arr->email}}
+			{{$arr->phone}}
       </td>
       <td align="center">
 			{{$arr->fullname}}

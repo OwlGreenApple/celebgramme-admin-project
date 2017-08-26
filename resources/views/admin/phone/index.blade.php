@@ -30,7 +30,7 @@
 			<div class="modal-dialog">
 					<div class="modal-content">
 							<div class="modal-header">
-									Delete Email
+									Delete Phone
 							</div>
 							<div class="modal-body">
 									Are you sure want to delete ?
@@ -45,7 +45,7 @@
 	</div>	
 	
   <div class="page-header">
-    <h1>Email User</h1>
+    <h1>Phone Data</h1>
   </div>  
   <div class="cover-input-group">
     <div class="input-group fl">
@@ -55,7 +55,7 @@
       <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
     </div>  
     <div class="input-group fl">
-      <input type="button" value="Add Email Fullname" id="button-Add" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#modal-proxy" > 
+      <input type="button" value="Add Phone Fullname" id="button-Add" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#modal-proxy" > 
     </div>  
     <div class="input-group fl">
       <input type="button" value="Delete All" id="button-delete-all" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#confirm-delete" > 
@@ -73,7 +73,7 @@
     <thead>
       <tr>
         <th>No.</th>
-        <th>Email</th>
+        <th>Phone</th>
         <th>Fullname</th>
         <th></th>
       </tr>      
@@ -98,7 +98,7 @@
     function refresh_page(page)
     {
       $.ajax({                                      
-        url: '<?php echo url('load-email-users'); ?>',
+        url: '<?php echo url('load-phone-users'); ?>',
         type: 'get',
         data: {
           keyword : $("#search-text").val(),
@@ -119,7 +119,7 @@
     function create_pagination(page)
     {
       $.ajax({
-        url: '<?php echo url('pagination-email-users'); ?>',
+        url: '<?php echo url('pagination-phone-users'); ?>',
         type: 'get',
         data: {
           keyword : $("#search-text").val(),
@@ -168,7 +168,7 @@
       });
       $( "body" ).on( "click", "#button-delete", function() {
         $.ajax({                                      
-          url: '<?php echo url('delete-email-users'); ?>',
+          url: '<?php echo url('delete-phone-users'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
@@ -197,7 +197,7 @@
 				var fd = new FormData(uf[0]);
 				
         $.ajax({
-          url: '<?php echo url('add-email-users'); ?>',
+          url: '<?php echo url('add-phone-users'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
@@ -230,7 +230,7 @@
       });
 
 			$( "body" ).on( "click", "#button-export-data", function() {
-				window.location="<?php echo url('export-email-users'); ?>";
+				window.location="<?php echo url('export-phone-users'); ?>";
       });
 			
     });

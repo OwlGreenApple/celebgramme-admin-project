@@ -6,8 +6,9 @@ use Celebgramme\Http\Controllers\Controller;
 use Celebgramme\Helpers\GeneralHelper;
 
 use Celebgramme\Models\EmailUser;
+use Celebgramme\Models\Phone;
 
-use View,Auth,Request,DB,Carbon,Excel, Mail, Validator;
+use View,Auth,Request,DB,Carbon,Excel, Mail, Validator, Input, Config;
 
 class EmailController extends Controller {
 
@@ -39,7 +40,14 @@ class EmailController extends Controller {
 	public function load_email_users()
   {
     $user = Auth::user();
-		$data = EmailUser::paginate(15);
+		if (Request::input('keyword')=="") {
+			$data = EmailUser::paginate(15);
+		}else {
+			$data = EmailUser::
+								where("email",'like',"%".Request::input('keyword')."%")
+								->orWhere("fullname",'like',"%".Request::input('keyword')."%")
+								->paginate(15);
+		}
     return view('admin.email.content')->with(
                 array(
                   'user'=>$user,
@@ -50,7 +58,14 @@ class EmailController extends Controller {
 
 	public function pagination_email_users()
   {
-		$data = EmailUser::paginate(15);
+		if (Request::input('keyword')=="") {
+			$data = EmailUser::paginate(15);
+		}else {
+			$data = EmailUser::
+								where("email",'like',"%".Request::input('keyword')."%")
+								->orWhere("fullname",'like',"%".Request::input('keyword')."%")
+								->paginate(15);
+		}
     return view('admin.email.pagination')->with(
                 array(
                   'data'=>$data,
@@ -62,13 +77,61 @@ class EmailController extends Controller {
     $arr["type"] = "success";
     $arr["message"] = "Proses add user email berhasil dilakukan";
 		
-		return $arr;
-	}
+			if (Input::file('fileExcel')->isValid()) {
+				// $destinationPath = 'uploads'; // upload path
+				$destinationPath = base_path().'/public/admin/uploads/temp/';
+				$extension = Input::file('fileExcel')->getClientOriginalExtension(); 
+				$fileName = Input::file('fileExcel')->getClientOriginalName().date('Y_m_d_H_i_s').'.'.$extension; 
+				Input::file('fileExcel')->move($destinationPath, $fileName);
+			} else {
+				$arr['type'] = "error";
+				$arr['message'] = "File tidak valid";
+				return $arr;
+			}
+			
+			Config::set('excel.import.startRow', '1');
+			$readers = Excel::load($destinationPath.$fileName, function($reader) {
+			})->get();
 
-	public function edit_email_users()
-  {
-    $arr["type"] = "success";
-    $arr["message"] = "Proses edit user email berhasil dilakukan";
+			$flag = false;
+			$error_message="";
+			foreach($readers as $sheet)
+			{
+				if ($sheet->getTitle()=='Sheet1') {
+					foreach($sheet as $row)
+					{
+						if ( ($row->name=="") && ($row->email=="") )  {
+							continue;
+						}
+						
+
+						$data = array (
+							"email" => $row->email,
+						);
+						$validator = Validator::make($data, [
+							'email' => 'required|email|max:255',
+						]);
+						if ($validator->fails()){
+							// $arr["type"] = "error";
+							// $arr["message"] = "Email sudah terdaftar atau tidak valid";
+							// return $arr;
+							continue;
+						}
+
+
+						$email_user = EmailUser::where("email","=",strtolower($row->email))->first();
+						if (is_null($email_user)) {
+							$email_user = new EmailUser;
+							$email_user->email = $row->email;
+							$email_user->fullname = $row->name;
+							$email_user->save();
+						} else {
+						}
+
+						
+					}
+				}
+			}
 		
 		return $arr;
 	}
@@ -76,7 +139,157 @@ class EmailController extends Controller {
 	public function delete_email_users()
   {
     $arr["type"] = "success";
-    $arr["message"] = "Proses delete user email berhasil dilakukan";
+    $arr["message"] = "Proses delete email berhasil dilakukan";
+		
+		$email_user = EmailUser::truncate();
+		
+		return $arr;
+	}
+
+	public function export_email_users()
+  {
+		$arr = EmailUser::all();
+		Excel::create(date("F j, Y, g:i a"), function($excel) use ($arr) {
+      $excel->sheet('keywords', function($sheet)use ($arr)  {
+				foreach ($arr as $data) { 
+					$sheet->appendRow(array(
+							$data->fullname,$data->email
+					));
+				}
+      });
+		})->download('xls');
+	}
+
+	
+	/*
+	PHONE
+	*/
+	public function index_phone()
+	{
+    $user = Auth::user();
+		return View::make('admin.phone.index')->with(
+                  array(
+                    'user'=>$user,
+                  ));
+  }
+  
+	public function load_phone_users()
+  {
+    $user = Auth::user();
+		if (Request::input('keyword')=="") {
+			$data = Phone::paginate(15);
+		}else {
+			$data = Phone::
+								where("Phone",'like',"%".Request::input('keyword')."%")
+								->orWhere("fullname",'like',"%".Request::input('keyword')."%")
+								->paginate(15);
+		}
+    return view('admin.Phone.content')->with(
+                array(
+                  'user'=>$user,
+                  'data'=>$data,
+                  'page'=>Request::input('page'),
+                ));
+  }
+
+	public function pagination_phone_users()
+  {
+		if (Request::input('keyword')=="") {
+			$data = Phone::paginate(15);
+		}else {
+			$data = Phone::
+								where("Phone",'like',"%".Request::input('keyword')."%")
+								->orWhere("fullname",'like',"%".Request::input('keyword')."%")
+								->paginate(15);
+		}
+    return view('admin.Phone.pagination')->with(
+                array(
+                  'data'=>$data,
+                ));
+  }
+
+	public function add_phone_users()
+  {
+    $arr["type"] = "success";
+    $arr["message"] = "Proses add user email berhasil dilakukan";
+		
+			if (Input::file('fileExcel')->isValid()) {
+				// $destinationPath = 'uploads'; // upload path
+				$destinationPath = base_path().'/public/admin/uploads/temp/';
+				$extension = Input::file('fileExcel')->getClientOriginalExtension(); 
+				$fileName = Input::file('fileExcel')->getClientOriginalName().date('Y_m_d_H_i_s').'.'.$extension; 
+				Input::file('fileExcel')->move($destinationPath, $fileName);
+			} else {
+				$arr['type'] = "error";
+				$arr['message'] = "File tidak valid";
+				return $arr;
+			}
+			
+			Config::set('excel.import.startRow', '1');
+			$readers = Excel::load($destinationPath.$fileName, function($reader) {
+			})->get();
+
+			$flag = false;
+			$error_message="";
+			foreach($readers as $sheet)
+			{
+				if ($sheet->getTitle()=='Sheet1') {
+					foreach($sheet as $row)
+					{
+						if ( ($row->name=="") && ($row->phone=="") )  {
+							continue;
+						}
+						
+
+
+
+						$email_user = Phone::where("phone","=",$row->phone)->first();
+						if (is_null($email_user)) {
+							$email_user = new Phone;
+							$email_user->phone = $row->phone;
+							$email_user->fullname = $row->name;
+							$email_user->save();
+						} else {
+						}
+
+						
+					}
+				}
+			}
+		
+		return $arr;
+	}
+
+	public function delete_phone_users()
+  {
+    $arr["type"] = "success";
+    $arr["message"] = "Proses delete email berhasil dilakukan";
+		
+		$email_user = Phone::truncate();
+		
+		return $arr;
+	}
+
+	public function export_phone_users()
+  {
+		$arr = Phone::all();
+		Excel::create(date("F j, Y, g:i a"), function($excel) use ($arr) {
+      $excel->sheet('keywords', function($sheet)use ($arr)  {
+				foreach ($arr as $data) { 
+					$sheet->appendRow(array(
+							$data->fullname,$data->phone
+					));
+				}
+      });
+		})->download('xls');
+	}
+
+	
+	
+	public function edit_email_users()
+  {
+    $arr["type"] = "success";
+    $arr["message"] = "Proses edit user email berhasil dilakukan";
 		
 		return $arr;
 	}
@@ -111,4 +324,7 @@ class EmailController extends Controller {
 		}
 		return "";
 	}
+
+	
+	
 }

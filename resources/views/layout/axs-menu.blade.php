@@ -51,8 +51,9 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
                 Email<span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="{{url('email-users', $parameters = [], $secure = null)}}">Users</a></li>
-                <li><a href="{{url('blast-email', $parameters = [], $secure = null)}}">Blast Email</a></li>
+                <li><a href="{{url('email-users', $parameters = [], $secure = null)}}">Email Data</a></li>
+                <li><a href="{{url('phone-users', $parameters = [], $secure = null)}}">Phone Data</a></li>
+                <!--<li><a href="{{url('blast-email', $parameters = [], $secure = null)}}">Blast Email</a></li>-->
               </ul>
           </li>
 					<?php } ?>

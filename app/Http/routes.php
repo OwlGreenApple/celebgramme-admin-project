@@ -182,11 +182,20 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('load-email-users', 'Admin\EmailController@load_email_users');
 	Route::get('pagination-email-users', 'Admin\EmailController@pagination_email_users');
 	Route::post('add-email-users', 'Admin\EmailController@add_email_users');
-	Route::post('edit-email-users', 'Admin\EmailController@edit_email_users');
 	Route::post('delete-email-users', 'Admin\EmailController@delete_email_users');
+	Route::get('export-email-users', 'Admin\EmailController@export_email_users');
+	Route::post('edit-email-users', 'Admin\EmailController@edit_email_users');
 	Route::get('blast-email', 'Admin\EmailController@blast_email');
 	Route::post('send-blast-email', 'Admin\EmailController@send_blast_email');
 
+	/* Phone  */
+	Route::get('phone-users', 'Admin\EmailController@index_phone');
+	Route::get('load-phone-users', 'Admin\EmailController@load_phone_users');
+	Route::get('pagination-phone-users', 'Admin\EmailController@pagination_phone_users');
+	Route::post('add-phone-users', 'Admin\EmailController@add_phone_users');
+	Route::post('delete-phone-users', 'Admin\EmailController@delete_phone_users');
+	Route::get('export-phone-users', 'Admin\EmailController@export_phone_users');
+	
 	Route::get('invoice', 'Admin\InvoiceController@index');
 	Route::get('load-invoice', 'Admin\InvoiceController@load_invoice');
 	Route::get('pagination-invoice', 'Admin\InvoiceController@pagination_invoice');
