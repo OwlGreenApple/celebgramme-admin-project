@@ -91,8 +91,8 @@ class EmailController extends Controller {
 			
 			Config::set('excel.import.startRow', '1');
 			$readers = Excel::load($destinationPath.$fileName, function($reader) {
+				$reader->calculate(false);
 			})->get();
-
 			$flag = false;
 			$error_message="";
 			foreach($readers as $sheet)
@@ -100,34 +100,37 @@ class EmailController extends Controller {
 				if ($sheet->getTitle()=='Sheet1') {
 					foreach($sheet as $row)
 					{
-						if ( ($row->name=="") && ($row->email=="") )  {
+						try {
+							if ( ($row->name=="") && ($row->email=="") )  {
+								continue;
+							}
+							
+
+							$data = array (
+								"email" => $row->email,
+							);
+							$validator = Validator::make($data, [
+								'email' => 'required|email|max:255',
+							]);
+							if ($validator->fails()){
+								// $arr["type"] = "error";
+								// $arr["message"] = "Email sudah terdaftar atau tidak valid";
+								// return $arr;
+								continue;
+							}
+
+
+							$email_user = EmailUser::where("email","=",strtolower($row->email))->first();
+							if (is_null($email_user)) {
+								$email_user = new EmailUser;
+								$email_user->email = $row->email;
+								$email_user->fullname = $row->name;
+								$email_user->save();
+							} else {
+							}
+						} catch (Exception $e) {
 							continue;
 						}
-						
-
-						$data = array (
-							"email" => $row->email,
-						);
-						$validator = Validator::make($data, [
-							'email' => 'required|email|max:255',
-						]);
-						if ($validator->fails()){
-							// $arr["type"] = "error";
-							// $arr["message"] = "Email sudah terdaftar atau tidak valid";
-							// return $arr;
-							continue;
-						}
-
-
-						$email_user = EmailUser::where("email","=",strtolower($row->email))->first();
-						if (is_null($email_user)) {
-							$email_user = new EmailUser;
-							$email_user->email = $row->email;
-							$email_user->fullname = $row->name;
-							$email_user->save();
-						} else {
-						}
-
 						
 					}
 				}
@@ -227,6 +230,7 @@ class EmailController extends Controller {
 			
 			Config::set('excel.import.startRow', '1');
 			$readers = Excel::load($destinationPath.$fileName, function($reader) {
+				$reader->calculate(false);
 			})->get();
 
 			$flag = false;
