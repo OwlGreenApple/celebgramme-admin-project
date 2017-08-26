@@ -45,7 +45,7 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
                 <li><a href="{{url('affiliate', $parameters = [], $secure = null)}}">Affiliate</a></li>
               </ul>
           </li>
-					<?php if ( ($user->email == "celebgramme.dev@gmail.com") || ($user->email == "admin@admin.com") ) { ?>
+					<?php //if ( ($user->email == "celebgramme.dev@gmail.com") || ($user->email == "admin@admin.com") ) { ?>
           <li class='dropdown'>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Email<span class="caret"></span>
@@ -56,7 +56,7 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
                 <!--<li><a href="{{url('blast-email', $parameters = [], $secure = null)}}">Blast Email</a></li>-->
               </ul>
           </li>
-					<?php } ?>
+					<?php //} ?>
           <li class='dropdown'>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Package<span class="caret"></span>
