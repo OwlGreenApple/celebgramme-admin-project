@@ -184,6 +184,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('add-email-users', 'Admin\EmailController@add_email_users');
 	Route::post('delete-email-users', 'Admin\EmailController@delete_email_users');
 	Route::get('export-email-users', 'Admin\EmailController@export_email_users');
+	Route::get('download-template-email', 'Admin\EmailController@download_template_email');
 	Route::post('edit-email-users', 'Admin\EmailController@edit_email_users');
 	Route::get('blast-email', 'Admin\EmailController@blast_email');
 	Route::post('send-blast-email', 'Admin\EmailController@send_blast_email');
@@ -195,6 +196,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('add-phone-users', 'Admin\EmailController@add_phone_users');
 	Route::post('delete-phone-users', 'Admin\EmailController@delete_phone_users');
 	Route::get('export-phone-users', 'Admin\EmailController@export_phone_users');
+	Route::get('download-template-phone', 'Admin\EmailController@download_template_phone');
 	
 	Route::get('invoice', 'Admin\InvoiceController@index');
 	Route::get('load-invoice', 'Admin\InvoiceController@load_invoice');

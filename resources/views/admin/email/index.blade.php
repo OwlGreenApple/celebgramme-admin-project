@@ -63,6 +63,9 @@
     <div class="input-group fl">
       <input type="button" value="Export" id="button-export-data" class="btn btn-primary"> 
     </div>  
+    <div class="input-group fl">
+      <input type="button" value="Download Template" id="button-download-template" class="btn btn-primary"> 
+    </div>  
     <div class="none"></div>
   </div>
   
@@ -231,6 +234,10 @@
 
 			$( "body" ).on( "click", "#button-export-data", function() {
 				window.location="<?php echo url('export-email-users'); ?>";
+      });
+			
+			$( "body" ).on( "click", "#button-download-template", function() {
+				window.location="<?php echo url('download-template-email'); ?>";
       });
 			
     });

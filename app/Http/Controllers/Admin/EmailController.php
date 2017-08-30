@@ -163,6 +163,17 @@ class EmailController extends Controller {
 		})->download('xls');
 	}
 
+	public function download_template_email()
+  {
+		Excel::create("Email Template", function($excel) use ($arr) {
+      $excel->sheet('Sheet1', function($sheet)  {
+				$sheet->appendRow(array(
+						"name","email"
+				));
+      });
+		})->download('xlsx');
+	}
+
 	
 	/*
 	PHONE
@@ -286,6 +297,17 @@ class EmailController extends Controller {
 				}
       });
 		})->download('xls');
+	}
+
+	public function download_template_phone()
+  {
+		Excel::create("Phone Template", function($excel) use ($arr) {
+      $excel->sheet('Sheet1', function($sheet)  {
+				$sheet->appendRow(array(
+						"name","phone"
+				));
+      });
+		})->download('xlsx');
 	}
 
 	
