@@ -95,12 +95,13 @@ class EmailController extends Controller {
 			})->get();
 			$flag = false;
 			$error_message="";
+			// dd($readers);
 			foreach($readers as $sheet)
 			{
 				if ($sheet->getTitle()=='Sheet1') {
 					foreach($sheet as $row)
 					{
-						try {
+						// try {
 							if ( ($row->name=="") && ($row->email=="") )  {
 								continue;
 							}
@@ -128,9 +129,9 @@ class EmailController extends Controller {
 								$email_user->save();
 							} else {
 							}
-						} catch (Exception $e) {
-							continue;
-						}
+						// } catch (Exception $e) {
+							// continue;
+						// }
 						
 					}
 				}
@@ -166,13 +167,16 @@ class EmailController extends Controller {
 	public function download_template_email()
   {
 		Excel::create("Email Template", function($excel) {
-		  $excel->setTitle('Sheet1');
       $excel->sheet('Sheet1', function($sheet)  {
 				$sheet->appendRow(array(
 						"name","email"
 				));
       });
-		})->download('xlsx');
+      $excel->sheet('Sheet2', function($sheet)  {
+      });
+      $excel->sheet('Sheet3', function($sheet)  {
+      });
+		})->export('xlsx');
 	}
 
 	
@@ -249,7 +253,7 @@ class EmailController extends Controller {
 			$error_message="";
 			foreach($readers as $sheet)
 			{
-				if ($sheet->getTitle()=='Sheet1') {
+				// if ($sheet->getTitle()=='Sheet1') {
 					foreach($sheet as $row)
 					{
 						if ( ($row->name=="") && ($row->phone=="") )  {
@@ -270,7 +274,7 @@ class EmailController extends Controller {
 
 						
 					}
-				}
+				// }
 			}
 		
 		return $arr;
@@ -303,13 +307,16 @@ class EmailController extends Controller {
 	public function download_template_phone()
   {
 		Excel::create("Phone Template", function($excel) {
-			$excel->setTitle('Sheet1');
       $excel->sheet('Sheet1', function($sheet)  {
 				$sheet->appendRow(array(
 						"name","phone"
 				));
       });
-		})->download('xlsx');
+      $excel->sheet('Sheet2', function($sheet)  {
+      });
+      $excel->sheet('Sheet3', function($sheet)  {
+      });
+		})->export('xlsx');
 	}
 
 	

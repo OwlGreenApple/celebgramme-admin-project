@@ -216,6 +216,7 @@
           success: function(result)
           {
             var data = jQuery.parseJSON(result);
+						// console.log(result); return "";
             $("#alert").show();
             $("#alert").html(data.message);
             if(data.type=='success') {
