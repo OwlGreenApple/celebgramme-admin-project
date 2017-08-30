@@ -165,7 +165,7 @@ class EmailController extends Controller {
 
 	public function download_template_email()
   {
-		Excel::create("Email Template", function($excel) use ($arr) {
+		Excel::create("Email Template", function($excel) {
       $excel->sheet('Sheet1', function($sheet)  {
 				$sheet->appendRow(array(
 						"name","email"
@@ -301,7 +301,7 @@ class EmailController extends Controller {
 
 	public function download_template_phone()
   {
-		Excel::create("Phone Template", function($excel) use ($arr) {
+		Excel::create("Phone Template", function($excel) {
       $excel->sheet('Sheet1', function($sheet)  {
 				$sheet->appendRow(array(
 						"name","phone"
