@@ -322,7 +322,7 @@ class PaymentController extends Controller {
 
   public function load_coupon()
   {
-    $arr = Coupon::where("user_id","<>",0)->paginate(15);
+    $arr = Coupon::where("user_id",0)->paginate(15);
 
     return view('admin.coupon.content')->with(
                 array(
@@ -333,7 +333,7 @@ class PaymentController extends Controller {
   
   public function pagination_coupon()
   {
-    $arr = Coupon::where("user_id","<>",0)->paginate(15);
+    $arr = Coupon::where("user_id",0)->paginate(15);
     
                               
     return view('admin.coupon.pagination')->with(
