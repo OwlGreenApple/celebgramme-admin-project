@@ -9,6 +9,12 @@
     //search by username
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
+		$user = User::find($data_arr->last_user);
+		if (!is_null($user)) {
+			if ($user->id == 1267) {
+				continue;
+			}
+		}
 ?>
     <tr class="row{{$data_arr->id}} setting-id{{$data_arr->setting_id}}">
       <td>
@@ -24,7 +30,6 @@
       <td align="center">
         {{$data_arr->insta_username." / "}} 
 				<?php 
-					$user = User::find($data_arr->last_user);
 					if (!is_null($user)) {
 						echo $user->fullname."(".$user->email.") / ";?>
 				<?php						
