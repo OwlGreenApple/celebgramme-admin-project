@@ -51,6 +51,13 @@
 		foreach ($temps as $temp) {
 			$auto_responder_message .= $temp->num_of_day."-".$temp->message.";";
 		}
+		
+		$user = User::find($data_arr->last_user);
+		if (!is_null($user)) {
+			if ($user->id == 1267) {
+				continue;
+			}
+		}
 ?>
     <tr class="row{{$data_arr->id}}">
       <td>
@@ -65,7 +72,6 @@
       </td>
       <td align="center">
 				<?php 
-					$user = User::find($data_arr->last_user);
 					if (!is_null($user)) {
 						echo $user->fullname."(".$user->email.") / ";?><br>
 				<input type="button" value="Send email" data-loading-text="Loading..." class="btn btn-primary btn-send-email" data-toggle="modal" data-target="#myModalSendEmail" data-email="{{$user->email}}" data-fullname="{{$user->fullname}}" data-igaccount="{{$data_arr->insta_username}}"> 
