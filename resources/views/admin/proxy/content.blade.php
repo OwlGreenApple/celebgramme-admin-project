@@ -56,7 +56,7 @@
 			{{$arr->created}}
       </td>
       <td align="center">
-				<input type="button" class="btn btn-info button-edit-proxy" value="Edit" data-toggle="modal" data-target="#modal-proxy" data-id="{{$arr->id}}" data-proxy="{{$arr->proxy}}" data-cred="{{$arr->cred}}" data-port="{{$arr->port}}">
+				<input type="button" class="btn btn-info button-edit-proxy" value="Edit" data-toggle="modal" data-target="#modal-proxy" data-id="{{$arr->id}}" data-proxy="{{$arr->proxy}}" data-cred="{{$arr->cred}}" data-port="{{$arr->port}}" data-is_local_proxy="{{$arr->is_local_proxy}}">
 				
 				<input type="button" class="btn btn-danger btn-delete" value="Delete" data-toggle="modal" data-target="#confirm-delete" data-id="{{$arr->id}}">
 

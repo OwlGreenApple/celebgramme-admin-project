@@ -461,12 +461,14 @@
       $('#button-add').click(function(e){
         e.preventDefault();
         $("#id-proxy").val("new");
+        $("#is_local_proxy").val(0);
       });
       $( "body" ).on( "click", ".button-edit-proxy", function() {
         $("#id-proxy").val($(this).attr("data-id"));
         $("#proxy").val($(this).attr("data-proxy")+":"+$(this).attr("data-port")+":"+$(this).attr("data-cred"));
-        // $("#cred").val($(this).attr("data-cred"));
-        // $("#port").val($(this).attr("data-port"));
+        $("#cred").val($(this).attr("data-cred"));
+        $("#port").val($(this).attr("data-port"));
+        $("#is_local_proxy").val($(this).attr("data-is_local_proxy"));
       });
       $( "body" ).on( "click", "#button-submit-proxy", function() {
         temp = $(this);
