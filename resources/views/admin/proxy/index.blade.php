@@ -465,7 +465,7 @@
       });
       $( "body" ).on( "click", ".button-edit-proxy", function() {
         $("#id-proxy").val($(this).attr("data-id"));
-        $("#proxy").val($(this).attr("data-proxy")+":"+$(this).attr("data-port")+":"+$(this).attr("data-cred"));
+        $("#proxy").val($(this).attr("data-proxy"));
         $("#cred").val($(this).attr("data-cred"));
         $("#port").val($(this).attr("data-port"));
         $("#is_local_proxy").val($(this).attr("data-is_local_proxy"));
