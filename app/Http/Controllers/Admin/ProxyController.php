@@ -135,7 +135,8 @@ class ProxyController extends Controller {
 		} else {
 			$proxy->auth = false;
 		}
-		if (isset(Request::input("is_local_proxy"))) {
+		$check = Request::input("is_local_proxy");
+		if (isset($check)) {
 			$proxy->is_local_proxy = 1;
 		} 
 		else{
