@@ -135,6 +135,7 @@ class ProxyController extends Controller {
 		} else {
 			$proxy->auth = false;
 		}
+		$proxy->is_proxy_local = Request::input("is_proxy_local");
 		$proxy->created = $dt->toDateTimeString();
 		$proxy->save();
 

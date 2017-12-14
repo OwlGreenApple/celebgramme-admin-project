@@ -108,6 +108,12 @@
 											<input type="text" class="form-control" placeholder="port" name="port" id="port">
 										</div>
 									</div>
+									<div class="form-group form-group-sm row">
+										<label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Proxy Local</label>
+										<div class="col-sm-8 col-md-6">
+											<input type="checkbox" class="" name="is_proxy_local" id="is_proxy_local">
+										</div>
+									</div>
 									<input type="hidden" class="" name="id_proxy" id="id-proxy">
 								</form>
 									
