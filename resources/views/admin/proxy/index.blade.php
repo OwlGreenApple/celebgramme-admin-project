@@ -468,7 +468,7 @@
         $("#proxy").val($(this).attr("data-proxy"));
         $("#cred").val($(this).attr("data-cred"));
         $("#port").val($(this).attr("data-port"));
-        $("#is_local_proxy").val($(this).attr("data-is_local_proxy"));
+				$("#is_local_proxy").prop('checked', $(this).attr("data-is_local_proxy"));
       });
       $( "body" ).on( "click", "#button-submit-proxy", function() {
         temp = $(this);
