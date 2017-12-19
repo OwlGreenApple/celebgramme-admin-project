@@ -248,6 +248,7 @@ class PaymentController extends Controller {
 			if ($user->max_account<=$package->max_account) {
 				$user->max_account = $package->max_account;
 			}
+			$user->link_affiliate = "";
       $user->save();
     }
 
