@@ -177,7 +177,9 @@ class ProxyController extends Controller {
 
 		curl_setopt($c, CURLOPT_PROXY, $proxy);
 		curl_setopt($c, CURLOPT_PROXYPORT, $port);
-		curl_setopt($c, CURLOPT_PROXYUSERPWD, $cred);
+		if ($cred<>"") {
+			curl_setopt($c, CURLOPT_PROXYUSERPWD, $cred);
+		}
 		curl_setopt($c, CURLOPT_PROXYTYPE, 'HTTP');
 		curl_setopt($c, CURLOPT_URL, $url);
 		curl_setopt($c, CURLOPT_REFERER, $url);
