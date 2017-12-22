@@ -93,7 +93,7 @@ class SettingController extends Controller {
 				if ($data->auth) {
 					$dataNew["value"] = $data->proxy.":".$data->port.":".$data->cred;
 				} else {
-					$dataNew["value"] = $data->proxy;
+					$dataNew["value"] = $data->proxy.":".$data->port;
 				}
 				$arrAvailableProxy[] = $dataNew;	
 			}
