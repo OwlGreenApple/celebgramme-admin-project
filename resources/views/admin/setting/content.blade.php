@@ -21,7 +21,7 @@
 				if ($proxies->auth) {
 					$proxy = $proxies->proxy.":".$proxies->port.":".$proxies->cred;
 				} else {
-					$proxy = $proxies->proxy;
+					$proxy = $proxies->proxy.":".$proxies->port;
 				}
 			}
 			
