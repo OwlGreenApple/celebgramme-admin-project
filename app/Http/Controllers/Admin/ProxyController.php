@@ -567,7 +567,27 @@ class ProxyController extends Controller {
             
 						
             $arr_proxy = explode(":", $row->proxy);
-            $proxy = Proxies::
+						
+						$proxy = Proxies::
+                      where("proxy",$arr_proxy[0])
+                      ->where("port",$arr_proxy[1])
+                      ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
+                      ->where("auth",1)
+                      ->first();				
+						if (!is_null($proxy)) {
+							$celebgramme_count = SettingHelper::join("settings","settings.id","=","setting_helpers.setting_id")
+												->where("proxy_id","=",$proxy->id)
+												->count();
+							$celebpost_count = Account::where("proxy_id","=",$proxy->id)->where("is_on_celebgramme","=",0)->count();
+							if ( ($celebgramme_count==0) && ($celebpost_count==0) ) {
+								$error_message.="Proxy 0 : ".$row->proxy." ,";
+							}
+						} 
+						else {
+							$error_message.="Proxy Ga ada didatabase:".$row->proxy." ,";
+						}
+ 
+            /*$proxy = Proxies::
                       where("proxy",$arr_proxy[0])
                       ->where("port",$arr_proxy[1])
                       ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
@@ -611,13 +631,13 @@ class ProxyController extends Controller {
 							}
 							
 							
-            }
+            }*/
 
 					}
 				}
       }
 			
-		$arr["message"] = "process finish".$error_message;
+		$arr["message"] = "process finish ".$error_message;
     return $arr;
   }
 }
