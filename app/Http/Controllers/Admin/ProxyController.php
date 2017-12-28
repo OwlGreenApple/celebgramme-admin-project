@@ -450,6 +450,7 @@ class ProxyController extends Controller {
 						$proxy_new->port = $arr_proxy[1];
 						$proxy_new->cred = "";
 						$proxy_new->auth = 0;
+						$proxy_new->is_local_proxy = 1;
 						$proxy_new->created = $dt->toDateTimeString();
 						$proxy_new->save();
 						
