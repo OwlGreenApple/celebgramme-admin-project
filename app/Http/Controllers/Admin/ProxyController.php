@@ -442,6 +442,45 @@ class ProxyController extends Controller {
             
 						
             $arr_proxy = explode(":", $row->proxy_new);
+						/* 
+						exchange proxy new (proxy auth old dengan proxy non auth new) 
+						*/
+						$proxy_new = new Proxies;
+						$proxy_new->proxy = $arr_proxy[0];
+						$proxy_new->port = $arr_proxy[1];
+						$proxy_new->cred = "";
+						$proxy_new->auth = 0;
+						$proxy_new->created = $dt->toDateTimeString();
+						$proxy_new->save();
+						
+            //cari proxy old klo ada maka akan di exchange
+            $arr_proxy = explode(":", $row->proxy_old);
+            $proxy_old = Proxies::
+                      where("proxy",$arr_proxy[0])
+                      ->where("port",$arr_proxy[1])
+                      ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
+                      ->where("auth",1)
+                      ->first();
+            if (!is_null($proxy_old)) {
+              $celebgramme_proxies = SettingHelper::where("proxy_id","=",$proxy_old->id)->get();
+              foreach($celebgramme_proxies as $data){
+                $data->cookies = "";
+                $data->is_refresh = 1;
+                $data->proxy_id = $proxy_new->id;
+                $data->save();
+              }
+              $celebpost_proxies = Account::where("proxy_id","=",$proxy_old->id)->get();
+              foreach($celebpost_proxies as $data){
+                $data->proxy_id = $proxy_new->id;
+                $data->save();
+              }
+              
+              
+              $proxy_old->delete();
+            }
+						
+						
+						/* exchange proxy old (proxy auth dengan proxy auth)
             $proxy_new = Proxies::
                       where("proxy",$arr_proxy[0])
                       ->where("port",$arr_proxy[1])
@@ -524,7 +563,7 @@ class ProxyController extends Controller {
               
               $proxy_old->delete();
             }
-            
+            */
 					}
 				}
       }
