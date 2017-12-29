@@ -8,31 +8,28 @@
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
 		if ($data_arr->server_automation == "AA1(automation-1)") {
-			$server = "http://188.210.215.100/";
+			$server = "http://185.225.104.62/";
 		}
 		if ($data_arr->server_automation == "AA2(automation-2)") {
-			$server = "http://188.210.215.105/";
+			$server = "http://185.206.83.2/";
 		}
 		if ($data_arr->server_automation == "AA3(automation-3)") {
-			$server = "http://188.210.215.112/";
+			$server = "http://185.225.104.57/";
 		}
 		if ($data_arr->server_automation == "A4(automation-4)") {
-			$server = "http://188.210.215.115/";
+			$server = "http://185.206.83.5/";
 		}
 		if ($data_arr->server_automation == "AA5(automation-5)") {
-			$server = "http://188.210.215.118/";
+			$server = "http://185.225.104.54/";
 		}
 		if ($data_arr->server_automation == "AA6(automation-6)") {
-			$server = "http://188.210.215.121/";
+			$server = "http://185.206.82.66/";
 		}
 		if ($data_arr->server_automation == "AA7(automation-7)") {
-			$server = "http://188.210.215.124/";
+			$server = "http://185.225.104.51/";
 		}
 		if ($data_arr->server_automation == "AA8(automation-8)") {
-			$server = "http://89.32.179.132/";
-		}
-		if ($data_arr->server_automation == "AA12(automation-12)") {
-			$server = "http://89.32.179.145/";
+			$server = "http://185.206.82.69/";
 		}
 		
 ?>

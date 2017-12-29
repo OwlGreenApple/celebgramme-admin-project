@@ -468,31 +468,28 @@ class SettingController extends Controller {
 		$setting = Setting::find(Request::input('id'));
 		
 		if ($setting_helper->server_automation == "AA1(automation-1)") {
-			$file_server = "http://188.210.215.100/";
+			$file_server = "http://185.225.104.62/";
 		}
 		if ($setting_helper->server_automation == "AA2(automation-2)") {
-			$file_server = "http://188.210.215.105/";
+			$file_server = "http://185.206.83.2/";
 		}
 		if ($setting_helper->server_automation == "AA3(automation-3)") {
-			$file_server = "http://188.210.215.112/";
+			$file_server = "http://185.225.104.57/";
 		}
 		if ($setting_helper->server_automation == "AA4(automation-4)") {
-			$file_server = "http://188.210.215.115/";
+			$file_server = "http://185.206.83.5/";
 		}
 		if ($setting_helper->server_automation == "AA5(automation-5)") {
-			$file_server = "http://188.210.215.118/";
+			$file_server = "http://185.225.104.54/";
 		}
 		if ($setting_helper->server_automation == "AA6(automation-6)") {
-			$file_server = "http://188.210.215.121/";
+			$file_server = "http://185.206.82.66/";
 		}
 		if ($setting_helper->server_automation == "AA7(automation-7)") {
-			$file_server = "http://188.210.215.124/";
+			$file_server = "http://185.225.104.51/";
 		}
 		if ($setting_helper->server_automation == "AA8(automation-8)") {
-			$file_server = "http://89.32.179.132/";
-		}
-		if ($setting_helper->server_automation == "AA12(automation-12)") {
-			$file_server = "http://89.32.179.145/";
+			$file_server = "http://185.206.82.69/";
 		}
 
 		$file_server .= "logs-IG-account/".$setting->insta_username.".txt";
@@ -521,31 +518,28 @@ class SettingController extends Controller {
 		$setting = Setting::find(Request::input('id'));
 		
 		if ($setting_helper->server_automation == "AA1(automation-1)") {
-			$server = "http://188.210.215.100/";
+			$server = "http://185.225.104.62/";
 		}
 		if ($setting_helper->server_automation == "AA2(automation-2)") {
-			$server = "http://188.210.215.105/";
+			$server = "http://185.206.83.2/";
 		}
 		if ($setting_helper->server_automation == "AA3(automation-3)") {
-			$server = "http://188.210.215.112/";
+			$server = "http://185.225.104.57/";
 		}
 		if ($setting_helper->server_automation == "AA4(automation-4)") {
-			$server = "http://188.210.215.115/";
+			$server = "http://185.206.83.5/";
 		}
 		if ($setting_helper->server_automation == "AA5(automation-5)") {
-			$server = "http://188.210.215.118/";
+			$server = "http://185.225.104.54/";
 		}
 		if ($setting_helper->server_automation == "AA6(automation-6)") {
-			$server = "http://188.210.215.121/";
+			$server = "http://185.206.82.66/";
 		}
 		if ($setting_helper->server_automation == "AA7(automation-7)") {
-			$server = "http://188.210.215.124/";
+			$server = "http://185.225.104.51/";
 		}
 		if ($setting_helper->server_automation == "AA8(automation-8)") {
-			$server = "http://89.32.179.132/";
-		}
-		if ($setting_helper->server_automation == "AA12(automation-12)") {
-			$server = "http://89.32.179.145/";
+			$server = "http://185.206.82.69/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -625,31 +619,28 @@ class SettingController extends Controller {
 		$setting = Setting::find(Request::input('id'));
 		
 		if ($setting_helper->server_automation == "AA1(automation-1)") {
-			$server = "http://188.210.215.100/";
+			$server = "http://185.225.104.62/";
 		}
 		if ($setting_helper->server_automation == "AA2(automation-2)") {
-			$server = "http://188.210.215.105/";
+			$server = "http://185.206.83.2/";
 		}
 		if ($setting_helper->server_automation == "AA3(automation-3)") {
-			$server = "http://188.210.215.112/";
+			$server = "http://185.225.104.57/";
 		}
 		if ($setting_helper->server_automation == "AA4(automation-4)") {
-			$server = "http://188.210.215.115/";
+			$server = "http://185.206.83.5/";
 		}
 		if ($setting_helper->server_automation == "AA5(automation-5)") {
-			$server = "http://188.210.215.118/";
+			$server = "http://185.225.104.54/";
 		}
 		if ($setting_helper->server_automation == "AA6(automation-6)") {
-			$server = "http://188.210.215.121/";
+			$server = "http://185.206.82.66/";
 		}
 		if ($setting_helper->server_automation == "AA7(automation-7)") {
-			$server = "http://188.210.215.124/";
+			$server = "http://185.225.104.51/";
 		}
 		if ($setting_helper->server_automation == "AA8(automation-8)") {
-			$server = "http://89.32.179.132/";
-		}
-		if ($setting_helper->server_automation == "AA12(automation-12)") {
-			$server = "http://89.32.179.145/";
+			$server = "http://185.206.82.69/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -756,31 +747,28 @@ class SettingController extends Controller {
 			
     foreach ($settings as $setting) {					
 			if ($setting->server_automation == "AA1(automation-1)") {
-				$server = "http://188.210.215.100/";
+				$server = "http://185.225.104.62/";
 			}
 			if ($setting->server_automation == "AA2(automation-2)") {
-				$server = "http://188.210.215.105/";
+				$server = "http://185.206.83.2/";
 			}
 			if ($setting->server_automation == "AA3(automation-3)") {
-				$server = "http://188.210.215.112/";
+				$server = "http://185.225.104.57/";
 			}
 			if ($setting->server_automation == "AA4(automation-4)") {
-				$server = "http://188.210.215.115/";
+				$server = "http://185.206.83.5/";
 			}
 			if ($setting->server_automation == "AA5(automation-5)") {
-				$server = "http://188.210.215.118/";
+				$server = "http://185.225.104.54/";
 			}
 			if ($setting->server_automation == "AA6(automation-6)") {
-				$server = "http://188.210.215.121/";
+				$server = "http://185.206.82.66/";
 			}
 			if ($setting->server_automation == "AA7(automation-7)") {
-				$server = "http://188.210.215.124/";
+				$server = "http://185.225.104.51/";
 			}
 			if ($setting->server_automation == "AA8(automation-8)") {
-				$server = "http://89.32.179.132/";
-			}
-			if ($setting->server_automation == "AA12(automation-12)") {
-				$server = "http://89.32.179.145/";
+				$server = "http://185.206.82.69/";
 			}
 			
 			$unfollow_counter = 0; $follow_counter = 0; $like_counter = 0; $comment_counter = 0;
