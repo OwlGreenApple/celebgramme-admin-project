@@ -7,6 +7,7 @@ use Celebgramme\Helpers\GeneralHelper;
 
 use Celebgramme\Models\Account;
 use Celebgramme\Models\Proxies;
+use Celebgramme\Models\ProxyTemp;
 use Celebgramme\Models\SettingHelper; 
 use Celebgramme\Models\ViewProxyUses;
 
@@ -622,6 +623,11 @@ class ProxyController extends Controller {
 							if ( ($celebgramme_count==0) && ($celebpost_count==0) ) {
 								$error_message.="Proxy 0 : ".$row->proxy." ,";
 							}
+							else {
+								$proxyTemp = new ProxyTemp;
+								$proxyTemp->proxy = $row->proxy;
+								$proxyTemp->save();
+							}
 						} 
 						else {
 							$error_message.="Proxy Ga ada didatabase:".$row->proxy." ,";
@@ -681,3 +687,4 @@ class ProxyController extends Controller {
     return $arr;
   }
 }
+
