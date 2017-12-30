@@ -622,13 +622,13 @@ class ProxyController extends Controller {
 							$celebpost_count = Account::where("proxy_id","=",$proxy->id)->where("is_on_celebgramme","=",0)->count();
 							if ( ($celebgramme_count==0) && ($celebpost_count==0) ) {
 								$error_message.="Proxy 0 : ".$row->proxy." ,";
-								$proxy->delete();
+								// $proxy->delete();
 							} 
-							else {
-								$proxyTemp = new ProxyTemp;
-								$proxyTemp->proxy = $row->proxy;
-								$proxyTemp->save();
-							}
+							// else {
+								// $proxyTemp = new ProxyTemp;
+								// $proxyTemp->proxy = $row->proxy;
+								// $proxyTemp->save();
+							// }
 						} 
 						else {
 							$error_message.="Proxy Ga ada didatabase:".$row->proxy." ,";
