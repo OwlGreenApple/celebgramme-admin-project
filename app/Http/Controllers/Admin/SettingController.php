@@ -972,13 +972,13 @@ class SettingController extends Controller {
 		$setting_helper->cookies = "" ;
 		$setting_helper->save();
 		
-		// $setting = Setting::find(Request::input('id'));
-		// if (!is_null($setting)) {
-			// $user_setting = UserSetting::where("username",strtolower($setting->insta_username))->first();
-			// if (!is_null($user_setting)) {
-				// $user_setting->delete();
-			// }
-		// }
+		$setting = Setting::find(Request::input('id'));
+		if (!is_null($setting)) {
+			$user_setting = UserSetting::where("username",strtolower($setting->insta_username))->first();
+			if (!is_null($user_setting)) {
+				$user_setting->delete();
+			}
+		}
 		
 		//assign proxy ulang
 		$ssetting = serialize(Setting::find(Request::input('id')));
