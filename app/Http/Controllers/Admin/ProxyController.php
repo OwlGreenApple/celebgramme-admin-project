@@ -39,10 +39,10 @@ class ProxyController extends Controller {
 		$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(									"sum(count_proxy) as countP"))
 											->groupBy("id","proxy","cred","port","auth")
 											->orderBy("countP","asc")
-											->having('countP', '<', 3)
+											->having('countP', '<', 1)
 											->get();
 		foreach($availableProxy as $data) {
-			$total += (3 - $data->countP);
+			$total += (1 - $data->countP);
 		}
 		
 		
