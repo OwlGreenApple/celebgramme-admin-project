@@ -326,6 +326,22 @@ class ProxyController extends Controller {
             
 						
             $arr_proxy = explode(":", $row->proxy);
+						/*
+						add dari yang di excel seperti biasa
+						*/
+						$proxy_new = new Proxies;
+						$proxy_new->proxy = $arr_proxy[0];
+						$proxy_new->port = $arr_proxy[1];
+						$proxy_new->cred = "";
+						$proxy_new->auth = 0;
+						$proxy_new->is_local_proxy = 1;
+						$proxy_new->created = $dt->toDateTimeString();
+						$proxy_new->save();
+						
+						/*
+						add proxy ganti dengan yang error dengan yang bisa
+						*/
+						/*
             $proxy = Proxies::
                       where("proxy",$arr_proxy[0])
                       ->where("port",$arr_proxy[1])
@@ -399,7 +415,7 @@ class ProxyController extends Controller {
               
               
               $proxy_error->delete();
-            }
+            }*/
             
 					}
 				}
