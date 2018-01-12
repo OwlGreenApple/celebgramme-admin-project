@@ -249,8 +249,7 @@
 	</div>	
 	
   <div class="page-header">
-    <h1>Proxy Manager</h1>
-		<p>Free proxy : {{$numAvailableProxy}}</p>
+    <h1>Proxy Login</h1>
   </div>  
   <div class="cover-input-group">
     <div class="input-group fl">

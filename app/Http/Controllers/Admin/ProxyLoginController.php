@@ -35,22 +35,11 @@ class ProxyLoginController extends Controller {
 	public function index()
 	{
     $user = Auth::user();
-
-		$total = 0;
-		$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(									"sum(count_proxy) as countP"))
-											->groupBy("id","proxy","cred","port","auth")
-											->orderBy("countP","asc")
-											->having('countP', '<', 1)
-											->get();
-		foreach($availableProxy as $data) {
-			$total += (1 - $data->countP);
-		}
 		
 		
 		return View::make('admin.proxy-login.index')->with(
                   array(
                     'user'=>$user,
-                    'numAvailableProxy'=> $total,
                   ));
   }
   
