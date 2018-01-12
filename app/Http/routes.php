@@ -170,6 +170,19 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('exchange-replace-proxy', 'Admin\ProxyController@exchange_replace_proxy');
 	Route::post('check-proxy-excel', 'Admin\ProxyController@check_proxy_excel');
 	
+	/* Proxy Pool Login  */
+	Route::get('proxylogin', 'Admin\ProxyLoginController@index');
+	Route::get('load-proxylogin', 'Admin\ProxyLoginController@load_proxy_manager');
+	Route::get('pagination-proxylogin', 'Admin\ProxyLoginController@pagination_proxy_manager');
+	Route::post('add-proxylogin', 'Admin\ProxyLoginController@add_proxy');
+	Route::post('delete-proxylogin', 'Admin\ProxyLoginController@delete_proxy');
+	Route::post('check-proxylogin', 'Admin\ProxyLoginController@check_proxy');
+	Route::get('check-proxylogin-all', 'Admin\ProxyLoginController@check_proxy_all');
+	Route::get('exchange-proxylogin', 'Admin\ProxyLoginController@exchange_proxy');
+	Route::post('exchange-error-proxylogin', 'Admin\ProxyLoginController@exchange_error_proxy');
+	Route::post('exchange-replace-proxylogin', 'Admin\ProxyLoginController@exchange_replace_proxy');
+	Route::post('check-proxylogin-excel', 'Admin\ProxyLoginController@check_proxy_excel');
+	
 	/* Affiliate  */
 	Route::get('affiliate', 'Admin\AffiliateController@index');
 	Route::get('load-affiliate', 'Admin\AffiliateController@load_affiliate');

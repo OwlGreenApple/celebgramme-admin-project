@@ -72,11 +72,21 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
                 Automation<span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="{{url('proxy-manager', $parameters = [], $secure = null)}}">Proxy Manager</a></li>
                 <li><a href="{{url('categories', $parameters = [], $secure = null)}}">Categories</a></li>
 								<li><a href="{{url('setting-automation', $parameters = [], $secure = null)}}">Status IG automation</a></li>
 								<li><a href="{{url('setting-automation-daily', $parameters = [], $secure = null)}}">Daily IG automation</a></li>
 								<li><a href="#" data-target="#modalChangeConfig" data-toggle="modal">Change Config</a></li>
+              </ul>
+          </li>
+					<?php } ?>
+					<?php if ( ($user->email == "celebgramme.dev@gmail.com") || ($user->email == "admin@admin.com") || ($user->email == "it.axiapro@gmail.com") ) { ?>
+          <li class='dropdown'>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                Proxy Manager<span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{{url('proxy-manager', $parameters = [], $secure = null)}}">Proxy Automation</a></li>
+                <li><a href="{{url('proxylogin', $parameters = [], $secure = null)}}">Proxy Login</a></li>
               </ul>
           </li>
 					<?php } ?>
