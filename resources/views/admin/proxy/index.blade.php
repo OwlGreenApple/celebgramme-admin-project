@@ -15,7 +15,7 @@
             <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Excel</label>
               <div class="col-sm-8 col-md-6">
-								<input type="file" id="" name="fileExcel" class="form-control"> 
+								<input type="file" name="fileExcel" class="form-control"> 
               </div>
             </div>  
           </form>
@@ -41,7 +41,7 @@
             <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Excel</label>
               <div class="col-sm-8 col-md-6">
-								<input type="file" id="" name="fileExcel" class="form-control"> 
+								<input type="file" name="fileExcel" class="form-control"> 
               </div>
             </div>  
           </form>
@@ -68,7 +68,7 @@
             <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Excel</label>
               <div class="col-sm-8 col-md-6">
-								<input type="file" id="" name="fileExcel" class="form-control"> 
+								<input type="file" name="fileExcel" class="form-control"> 
               </div>
             </div>  
           </form>

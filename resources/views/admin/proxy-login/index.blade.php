@@ -15,7 +15,7 @@
             <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Excel</label>
               <div class="col-sm-8 col-md-6">
-								<input type="file" id="" name="fileExcel" class="form-control"> 
+								<input type="file" name="fileExcel" class="form-control"> 
               </div>
             </div>  
           </form>
@@ -41,7 +41,7 @@
             <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Excel</label>
               <div class="col-sm-8 col-md-6">
-								<input type="file" id="" name="fileExcel" class="form-control"> 
+								<input type="file" name="fileExcel" class="form-control"> 
               </div>
             </div>  
           </form>
@@ -68,7 +68,7 @@
             <div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Excel</label>
               <div class="col-sm-8 col-md-6">
-								<input type="file" id="" name="fileExcel" class="form-control"> 
+								<input type="file" name="fileExcel" class="form-control"> 
               </div>
             </div>  
           </form>
@@ -327,7 +327,7 @@
     function refresh_page(page)
     {
       $.ajax({                                      
-        url: '<?php echo url('load-proxy-manager'); ?>',
+        url: '<?php echo url('load-proxylogin'); ?>',
         type: 'get',
         data: {
           search : $("#search-text").val(),
@@ -349,7 +349,7 @@
     function create_pagination(page)
     {
       $.ajax({
-        url: '<?php echo url('pagination-proxy-manager'); ?>',
+        url: '<?php echo url('pagination-proxylogin'); ?>',
         type: 'get',
         data: {
           search : $("#search-text").val(),
@@ -396,7 +396,7 @@
 
       $('#button-submit-check-proxy').click(function(e){
         $.ajax({
-          url: '<?php echo url('check-proxy'); ?>',
+          url: '<?php echo url('check-proxylogin'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
@@ -433,7 +433,7 @@
       });
       $( "body" ).on( "click", "#button-delete", function() {
         $.ajax({                                      
-          url: '<?php echo url('delete-proxy'); ?>',
+          url: '<?php echo url('delete-proxylogin'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
@@ -472,7 +472,7 @@
       $( "body" ).on( "click", "#button-submit-proxy", function() {
         temp = $(this);
         $.ajax({                                      
-          url: '<?php echo url('add-proxy'); ?>',
+          url: '<?php echo url('add-proxylogin'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
@@ -504,7 +504,7 @@
 			
       $('#button-check-all').click(function(e){
         $.ajax({
-          url: '<?php echo url('check-proxy-all'); ?>',
+          url: '<?php echo url('check-proxylogin-all'); ?>',
           type: 'get',
           data: {
 						id : ""
@@ -532,7 +532,7 @@
       });
       $('#button-submit-exchange-proxy').click(function(e){
         $.ajax({
-          url: '<?php echo url('exchange-proxy'); ?>',
+          url: '<?php echo url('exchange-proxylogin'); ?>',
           type: 'get',
           data: $("#form-exchange-proxy").serialize(),
           beforeSend: function()
@@ -563,7 +563,7 @@
 					var uf = $('#form-add-proxy-using-excel');
 					var fd = new FormData(uf[0]);
         $.ajax({
-          url: '<?php echo url('exchange-error-proxy'); ?>',
+          url: '<?php echo url('exchange-error-proxylogin'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
@@ -601,7 +601,7 @@
 					var uf = $('#form-replace-proxy-using-excel');
 					var fd = new FormData(uf[0]);
         $.ajax({
-          url: '<?php echo url('exchange-replace-proxy'); ?>',
+          url: '<?php echo url('exchange-replace-proxylogin'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
@@ -639,7 +639,7 @@
 					var uf = $('#form-check-proxy-using-excel');
 					var fd = new FormData(uf[0]);
         $.ajax({
-          url: '<?php echo url('check-proxy-excel'); ?>',
+          url: '<?php echo url('check-proxylogin-excel'); ?>',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
