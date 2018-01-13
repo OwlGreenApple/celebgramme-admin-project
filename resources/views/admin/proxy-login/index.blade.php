@@ -301,8 +301,6 @@
         <th>Proxy</th>
         <th>Username & Password Proxy</th>
         <th>Port</th>
-        <th>Count used</th>
-        <th>Insta Username used</th>
         <th>Created</th>
         <th></th>
       </tr>      
