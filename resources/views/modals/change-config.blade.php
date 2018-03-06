@@ -617,6 +617,35 @@ use Celebgramme\Models\Meta;
                 <input type="number" class="form-control" placeholder="" name="delay_like_on_same_account" value="{{Meta::getMeta('delay_like_on_same_account')}}">
               </div>
             </div>  
+						<hr>
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Check Account(auto like) min
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="check_account_auto_like_min" value="{{Meta::getMeta('check_account_auto_like_min')}}">
+              </div>
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Check Account(auto like) max
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="check_account_auto_like_max" value="{{Meta::getMeta('check_account_auto_like_max')}}">
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Minute check(auto like) min
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="minute_check_auto_like_min" value="{{Meta::getMeta('minute_check_auto_like_min')}}">
+              </div>
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+							Minute check(auto like) max
+							</label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="minute_check_auto_like_max" value="{{Meta::getMeta('minute_check_auto_like_max')}}">
+              </div>
+            </div>  
           </form>
         </div>
         <div class="modal-footer">

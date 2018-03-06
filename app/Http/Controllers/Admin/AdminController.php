@@ -151,6 +151,10 @@ class AdminController extends Controller {
 		$temp = Meta::createMeta("daily_like_turbo_limit_max",Request::input("daily_like_turbo_limit_max"));
 		
 
+		$temp = Meta::createMeta("check_account_auto_like_min",Request::input("check_account_auto_like_min")); 
+		$temp = Meta::createMeta("check_account_auto_like_max",Request::input("check_account_auto_like_max")); 
+		$temp = Meta::createMeta("minute_check_auto_like_min",Request::input("minute_check_auto_like_min")); 
+		$temp = Meta::createMeta("minute_check_auto_like_max",Request::input("minute_check_auto_like_max")); 
 		
 		return "success";
 	}
