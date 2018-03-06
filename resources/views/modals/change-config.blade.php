@@ -645,6 +645,7 @@ use Celebgramme\Models\Meta;
               <div class="col-xs-2 col-sm-2 col-md-2">
                 <input type="number" class="form-control" placeholder="" name="minute_check_auto_like_max" value="{{Meta::getMeta('minute_check_auto_like_max')}}">
               </div>
+            </div>  
             <div class="form-group form-group-sm row">
               <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
 							Minute check(auto like celebfans) min
