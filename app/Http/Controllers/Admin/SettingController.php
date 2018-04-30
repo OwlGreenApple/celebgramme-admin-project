@@ -129,10 +129,10 @@ class SettingController extends Controller {
 							 ->paginate(15);
 			} else {
 				$arr = Setting::
-								// leftJoin('setting_metas', function ($join) {
-										// $join->on('settings.id', '=', 'setting_metas.setting_id');
-								// })							
-							 ->leftJoin("users","users.id","=","settings.user_id")
+								/* leftJoin('setting_metas', function ($join) {
+										$join->on('settings.id', '=', 'setting_metas.setting_id');
+								})							
+							 ->*/leftJoin("users","users.id","=","settings.user_id")
 							 ->select("settings.*")
 							 // ->where('setting_metas.meta_name', '=', "fl_filename")
 							 ->where("settings.type","=","temp")
