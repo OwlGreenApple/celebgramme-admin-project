@@ -154,6 +154,24 @@
 					<?php } ?>
 					<li class="wrap"><strong>usernames whitelist : </strong>{{$data_arr->usernames_whitelist}}</li>
 					<li class="wrap"><strong>usernames blacklist : </strong>{{$data_arr->usernames_blacklist}}</li>
+					<li class="wrap"><strong>Follow Sunday : </strong><?php if ($data_arr->is_sunday_follow) { echo "ON"; } else { echo "OFF"; } ?></li>
+					<li class="wrap"><strong>Follow Monday : </strong><?php if ($data_arr->is_monday_follow) { echo "ON"; } else { echo "OFF"; } ?></li>
+					<li class="wrap"><strong>Follow Tuesday : </strong><?php if ($data_arr->is_tuesday_follow) { echo "ON"; } else { echo "OFF"; } ?></li>
+					<li class="wrap"><strong>Follow Wednesday : </strong><?php if ($data_arr->is_wednesday_follow) { echo "ON"; } else { echo "OFF"; } ?></li>
+					<li class="wrap"><strong>Follow Thursday : </strong><?php if ($data_arr->is_thursday_follow) { echo "ON"; } else { echo "OFF"; } ?></li>
+					<li class="wrap"><strong>Follow Friday : </strong><?php if ($data_arr->is_friday_follow) { echo "ON"; } else { echo "OFF"; } ?></li>
+					<li class="wrap"><strong>Follow Saturday : </strong><?php if ($data_arr->is_saturday_follow) { echo "ON"; } else { echo "OFF"; } ?></li>
+					
+					<li class="wrap"><strong>Like Sunday : </strong><?php if ($data_arr->is_sunday_like) { echo "ON"; } else { echo "OFF"; } ?></li>
+					<li class="wrap"><strong>Like Monday : </strong><?php if ($data_arr->is_monday_like) { echo "ON"; } else { echo "OFF"; } ?></li>
+					<li class="wrap"><strong>Like Tuesday : </strong><?php if ($data_arr->is_tuesday_like) { echo "ON"; } else { echo "OFF"; } ?></li>
+					<li class="wrap"><strong>Like Wednesday : </strong><?php if ($data_arr->is_wednesday_like) { echo "ON"; } else { echo "OFF"; } ?></li>
+					<li class="wrap"><strong>Like Thursday : </strong><?php if ($data_arr->is_thursday_like) { echo "ON"; } else { echo "OFF"; } ?></li>
+					<li class="wrap"><strong>Like Friday : </strong><?php if ($data_arr->is_friday_like) { echo "ON"; } else { echo "OFF"; } ?></li>
+					<li class="wrap"><strong>Like Saturday : </strong><?php if ($data_arr->is_saturday_like) { echo "ON"; } else { echo "OFF"; } ?></li>
+					
+					<li class="wrap"><strong>Max Follow : </strong>{{$data_arr->max_follow}}</li>
+					<li class="wrap"><strong>Auto Switch Follow-Unfollow : </strong><?php if ($data_arr->is_auto_follow) { echo "ON"; } else { echo "OFF"; } ?></li>
 				</ul>
       </td>
 
