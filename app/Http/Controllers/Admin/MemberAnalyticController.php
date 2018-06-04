@@ -74,7 +74,7 @@ class MemberAnalyticController extends Controller {
 					 ->where("type","<>","admin")
 					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->where("orders.status","<>","pending")
+					 ->where("orders.order_status","<>","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
@@ -86,7 +86,7 @@ class MemberAnalyticController extends Controller {
 					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
 					 ->where('users.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->where("orders.status","<>","pending")
+					 ->where("orders.order_status","<>","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
@@ -97,7 +97,7 @@ class MemberAnalyticController extends Controller {
 					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
 					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('from'))))
-					 ->where("orders.status","<>","pending")
+					 ->where("orders.order_status","<>","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
@@ -107,7 +107,7 @@ class MemberAnalyticController extends Controller {
 					 ->where("type","<>","admin")
 					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->where("orders.status","pending")
+					 ->where("orders.order_status","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
@@ -119,7 +119,7 @@ class MemberAnalyticController extends Controller {
 					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
 					 ->where('users.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->where("orders.status","pending")
+					 ->where("orders.order_status","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
@@ -130,7 +130,7 @@ class MemberAnalyticController extends Controller {
 					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
 					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('from'))))
-					 ->where("orders.status","pending")
+					 ->where("orders.order_status","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
@@ -140,7 +140,7 @@ class MemberAnalyticController extends Controller {
 					 ->where("type","<>","admin")
 					 ->where('users.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->where("orders.status","pending")
+					 ->where("orders.order_status","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
@@ -179,7 +179,7 @@ class MemberAnalyticController extends Controller {
 					 ->where("type","<>","admin")
 					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->where("orders.status","<>","pending")
+					 ->where("orders.order_status","<>","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
@@ -191,7 +191,7 @@ class MemberAnalyticController extends Controller {
 					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
 					 ->where('users.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->where("orders.status","<>","pending")
+					 ->where("orders.order_status","<>","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
@@ -202,7 +202,7 @@ class MemberAnalyticController extends Controller {
 					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
 					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('from'))))
-					 ->where("orders.status","<>","pending")
+					 ->where("orders.order_status","<>","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
@@ -212,7 +212,7 @@ class MemberAnalyticController extends Controller {
 					 ->where("type","<>","admin")
 					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->where("orders.status","pending")
+					 ->where("orders.order_status","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
@@ -224,7 +224,7 @@ class MemberAnalyticController extends Controller {
 					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
 					 ->where('users.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->where("orders.status","pending")
+					 ->where("orders.order_status","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
@@ -235,7 +235,7 @@ class MemberAnalyticController extends Controller {
 					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
 					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('from'))))
-					 ->where("orders.status","pending")
+					 ->where("orders.order_status","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
@@ -245,7 +245,7 @@ class MemberAnalyticController extends Controller {
 					 ->where("type","<>","admin")
 					 ->where('users.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->where("orders.status","pending")
+					 ->where("orders.order_status","pending")
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
