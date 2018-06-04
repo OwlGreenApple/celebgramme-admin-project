@@ -292,6 +292,7 @@ class ProxyController extends Controller {
 		return $arr;
 	}
   
+	//ini add proxy pake excel
   public function exchange_error_proxy(){
 		$arr["type"]="success";
 		$arr["message"]="success add proxy";

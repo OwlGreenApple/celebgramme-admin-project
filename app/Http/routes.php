@@ -97,6 +97,11 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('ads-page', 'Admin\MemberController@ads_page');
 	Route::post('save-ads-page', 'Admin\MemberController@save_ads_page');
 
+	/* Member Analytic*/
+	Route::get('member-analytic', 'Admin\MemberAnalyticController@index');
+	Route::get('load-member-analytic', 'Admin\MemberAnalyticController@load_member');
+	Route::get('pagination-member-analytic', 'Admin\MemberAnalyticController@pagination_member');
+	
 	/* Coupon */
 	Route::get('coupon', 'Admin\PaymentController@coupon');
 	Route::get('load-coupon', 'Admin\PaymentController@load_coupon');
