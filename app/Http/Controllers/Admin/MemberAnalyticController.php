@@ -59,16 +59,8 @@ class MemberAnalyticController extends Controller {
   public function load_member()
   {
 		$admin = Auth::user();
-		//new register
 		if (Request::input("searchBy") == "1") {
-			$arr = User::where("type","<>","admin")
-					 ->where('created_at','>=',date("Y-m-d", intval(Request::input('from'))))
-					 ->where('created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->orderBy('created_at', 'desc')
-					 ->paginate(15);
-		}
-		//renew register
-		else if (Request::input("searchBy") == "2") {
+			//All Order
 			$arr = User::join("orders","users.id","=","orders.user_id")
 					 ->where("type","<>","admin")
 					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
@@ -76,14 +68,90 @@ class MemberAnalyticController extends Controller {
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
-		//Not Extend user
+		else if (Request::input("searchBy") == "2") {
+			//Paid
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where("orders.status","<>","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
 		else if (Request::input("searchBy") == "3") {
+			//New users Paid
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where('users.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where("orders.status","<>","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
+		else if (Request::input("searchBy") == "4") {
+			//renew users Paid
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where("orders.status","<>","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
+		else if (Request::input("searchBy") == "5") {
+			//Not Paid
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where("orders.status","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
+		else if (Request::input("searchBy") == "6") {
+			//New Users (Not Paid)
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where('users.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where("orders.status","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
+		else if (Request::input("searchBy") == "7") {
+			//Renew Users (Not Paid)
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where("orders.status","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
+		else if (Request::input("searchBy") == "8") {
+			//Free User
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('users.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where("orders.status","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
+		else if (Request::input("searchBy") == "9") {
+			//Not Extend user
 			$arr = User::join("settings","settings.last_user","=","users.id")
 					 ->where("type","<>","admin")
 					 ->where('active_auto_manage',0)
 					 ->where('running_time','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('running_time','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->orderBy('created_at', 'desc')
+					 ->orderBy('users.created_at', 'desc')
 					 ->paginate(15);
 		}
     return view('admin.member-analytic.content')->with(
@@ -96,16 +164,8 @@ class MemberAnalyticController extends Controller {
   
   public function pagination_member()
   {
-		//new register
 		if (Request::input("searchBy") == "1") {
-			$arr = User::where("type","<>","admin")
-					 ->where('created_at','>=',date("Y-m-d", intval(Request::input('from'))))
-					 ->where('created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->orderBy('created_at', 'desc')
-					 ->paginate(15);
-		}
-		//renew register
-		else if (Request::input("searchBy") == "2") {
+			//All Order
 			$arr = User::join("orders","users.id","=","orders.user_id")
 					 ->where("type","<>","admin")
 					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
@@ -113,14 +173,90 @@ class MemberAnalyticController extends Controller {
 					 ->orderBy('orders.created_at', 'desc')
 					 ->paginate(15);
 		}
-		//Not Extend user
+		else if (Request::input("searchBy") == "2") {
+			//Paid
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where("orders.status","<>","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
 		else if (Request::input("searchBy") == "3") {
+			//New users Paid
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where('users.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where("orders.status","<>","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
+		else if (Request::input("searchBy") == "4") {
+			//renew users Paid
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where("orders.status","<>","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
+		else if (Request::input("searchBy") == "5") {
+			//Not Paid
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where("orders.status","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
+		else if (Request::input("searchBy") == "6") {
+			//New Users (Not Paid)
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where('users.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where("orders.status","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
+		else if (Request::input("searchBy") == "7") {
+			//Renew Users (Not Paid)
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('orders.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where("orders.status","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
+		else if (Request::input("searchBy") == "8") {
+			//Free User
+			$arr = User::join("orders","users.id","=","orders.user_id")
+					 ->where("type","<>","admin")
+					 ->where('users.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
+					 ->where('users.created_at','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
+					 ->where("orders.status","pending")
+					 ->orderBy('orders.created_at', 'desc')
+					 ->paginate(15);
+		}
+		else if (Request::input("searchBy") == "9") {
+			//Not Extend user
 			$arr = User::join("settings","settings.last_user","=","users.id")
 					 ->where("type","<>","admin")
 					 ->where('active_auto_manage',0)
 					 ->where('running_time','>=',date("Y-m-d", intval(Request::input('from'))))
 					 ->where('running_time','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
-					 ->orderBy('created_at', 'desc')
+					 ->orderBy('users.created_at', 'desc')
 					 ->paginate(15);
 		}
 

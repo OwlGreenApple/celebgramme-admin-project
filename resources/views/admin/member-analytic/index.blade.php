@@ -1,8 +1,6 @@
 @extends('layout.main')
 
 @section('content')
-
-	
   <div class="page-header">
     <h1>Member analytic</h1>
   </div>  
@@ -25,9 +23,15 @@
     </p>
     <div class="input-group fl">
       <select class="form-control" id="search-by">
-				<option value="1"> Register User </option>
-				<option value="2"> Renew User </option>
-				<option value="3"> Not extended User </option>
+				<option value="1"> All Order </option>
+				<option value="2"> Paid </option>
+				<option value="3"> New Users (Paid) </option>
+				<option value="4"> Renew Users (Paid) </option>
+				<option value="5"> Not Paid </option>
+				<option value="6"> New Users (Not Paid) </option>
+				<option value="7"> Renew Users (Not Paid) </option>
+				<option value="8"> Free User </option>
+				<option value="9"> Not extended User </option>
       </select>
     </div>
 		<!--
