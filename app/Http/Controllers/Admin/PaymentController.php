@@ -236,21 +236,28 @@ class PaymentController extends Controller {
       $user->save();
     }
     
-    // klo beli paket auto manage
-    $package = Package::find($order->package_manage_id);
-    if (!is_null($package)) {
-      $packageuser = new PackageUser;
-      $packageuser->package_id = $order->package_manage_id;
-      $packageuser->user_id = $order->user_id;
-      $packageuser->save();
+		if ($order->type == "daily-activity") {
+			// klo beli paket auto manage
+			$package = Package::find($order->package_manage_id);
+			if (!is_null($package)) {
+				$packageuser = new PackageUser;
+				$packageuser->package_id = $order->package_manage_id;
+				$packageuser->user_id = $order->user_id;
+				$packageuser->save();
 
-      $user->active_auto_manage += $package->active_days * 86400;
-			if ($user->max_account<=$package->max_account) {
-				$user->max_account = $package->max_account;
+				$user->active_auto_manage += $package->active_days * 86400;
+				if ($user->max_account<=$package->max_account) {
+					$user->max_account = $package->max_account;
+				}
+				$user->link_affiliate = "";
+				$user->save();
 			}
+		}
+		else if ($order->type == "max-account") {
+			$user->max_account += $order->added_account;
 			$user->link_affiliate = "";
-      $user->save();
-    }
+			$user->save();
+		}
 
 		$coupon = Coupon::find($order->coupon_id);
 		$coupon_value = 0 ;

@@ -41,8 +41,13 @@
       </td>
       <td align="center">
         <?php 
-          $package = Package::find($arr->package_manage_id);
-          if (!is_null($package)) { echo $package->package_name;} else { echo "-";}
+					if ($arr->type == "daily-activity") {
+						$package = Package::find($arr->package_manage_id);
+						if (!is_null($package)) { echo $package->package_name;} else { echo "-";}
+					}
+					else if ($arr->type == "max-account") {
+						echo $arr->added_account." Akun";
+					}
         ?>
       </td>
       <td align="center">
