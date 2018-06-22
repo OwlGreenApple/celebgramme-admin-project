@@ -1090,7 +1090,7 @@ class SettingController extends Controller {
 			$arr = Setting::join("users","users.id","=","settings.user_id")
 						 ->join("user_logs","users.email","=","user_logs.email")
 						 ->select("users.email,description,settings.status,user_logs.created","settings.insta_username")
-						 ->where("type","=","temp")
+						 ->where("settings.type","=","temp")
 						 ->where("description","like","%Success add%")
 						 ->orderBy('id', 'asc')
 						 ->paginate(15);
@@ -1099,7 +1099,7 @@ class SettingController extends Controller {
 			$arr = Setting::join("users","users.id","=","settings.user_id")
 						 ->join("user_logs","users.email","=","user_logs.email")
 						 ->select("users.email,description,settings.status,user_logs.created","settings.insta_username")
-						 ->where("type","=","temp")
+						 ->where("settings.type","=","temp")
 						 ->where("description","like","%Success add%")
 						 ->where(function ($query){
 							 $query->orWhere("insta_username","like","%".Request::input('keyword')."%")
@@ -1123,7 +1123,7 @@ class SettingController extends Controller {
 		if (Request::input('keyword')=="") {
 			$arr = Setting::join("users","users.id","=","settings.user_id")
 						 ->join("user_logs","users.email","=","user_logs.email")
-						 ->where("type","=","temp")
+						 ->where("settings.type","=","temp")
 						 ->where("description","like","%Success add%")
 						 ->orderBy('id', 'asc')
 						 ->paginate(15);
@@ -1131,7 +1131,7 @@ class SettingController extends Controller {
 		else {
 			$arr = Setting::join("users","users.id","=","settings.user_id")
 						 ->join("user_logs","users.email","=","user_logs.email")
-						 ->where("type","=","temp")
+						 ->where("settings.type","=","temp")
 						 ->where("description","like","%Success add%")
 						 ->where(function ($query){
 							 $query->orWhere("insta_username","like","%".Request::input('keyword')."%")
