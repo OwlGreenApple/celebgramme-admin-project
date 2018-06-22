@@ -1092,7 +1092,6 @@ class SettingController extends Controller {
 						 ->select("users.email","description","settings.status","user_logs.created","settings.insta_username")
 						 ->where("settings.type","=","temp")
 						 ->where("description","like","%Success add%")
-						 ->orderBy('id', 'asc')
 						 ->paginate(15);
 		}
 		else {
@@ -1106,7 +1105,6 @@ class SettingController extends Controller {
 							 // ->orWhere("meta_value","like","%".Request::input('keyword')."%")
 							 ->orWhere("users.email","like","%".Request::input('keyword')."%");
 						 })
-						 ->orderBy('id', 'asc')
 						 ->paginate(15);
 		}
 			
@@ -1125,7 +1123,6 @@ class SettingController extends Controller {
 						 ->join("user_logs","users.email","=","user_logs.email")
 						 ->where("settings.type","=","temp")
 						 ->where("description","like","%Success add%")
-						 ->orderBy('id', 'asc')
 						 ->paginate(15);
 		}
 		else {
@@ -1138,7 +1135,6 @@ class SettingController extends Controller {
 							 // ->orWhere("meta_value","like","%".Request::input('keyword')."%")
 							 ->orWhere("users.email","like","%".Request::input('keyword')."%");
 						 })
-						 ->orderBy('id', 'asc')
 						 ->paginate(15);
 		}
 			
