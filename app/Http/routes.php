@@ -143,6 +143,12 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('delete-action-IG-account', 'Admin\SettingController@delete_action');
 	Route::post('edit-method-automation', 'Admin\SettingController@change_method_automation');
 	
+	/* Log Account IG All*/
+	Route::get('log-setting', 'Admin\SettingController@log_index');
+	Route::get('log-setting/{search}', 'Admin\SettingController@log_index');
+	Route::get('load-log-setting', 'Admin\SettingController@log_load_setting');
+	Route::get('pagination-log-setting', 'Admin\SettingController@log_pagination_setting');
+	
 	/* Status Setting Account IG Automation*/
 	Route::get('setting-automation', 'Admin\SettingController@automation');
 	Route::get('setting-automation/{search}', 'Admin\SettingController@automation');
