@@ -1089,7 +1089,7 @@ class SettingController extends Controller {
 		if (Request::input('keyword')=="") {
 			$arr = Setting::join("users","users.id","=","settings.user_id")
 						 ->join("user_logs","users.email","=","user_logs.email")
-						 ->select("users.email,description,settings.status,user_logs.created","settings.insta_username")
+						 ->select("users.email,description,settings.status,user_logs.created,settings.insta_username")
 						 ->where("settings.type","=","temp")
 						 ->where("description","like","%Success add%")
 						 ->orderBy('id', 'asc')
@@ -1098,7 +1098,7 @@ class SettingController extends Controller {
 		else {
 			$arr = Setting::join("users","users.id","=","settings.user_id")
 						 ->join("user_logs","users.email","=","user_logs.email")
-						 ->select("users.email,description,settings.status,user_logs.created","settings.insta_username")
+						 ->select("users.email,description,settings.status,user_logs.created,settings.insta_username")
 						 ->where("settings.type","=","temp")
 						 ->where("description","like","%Success add%")
 						 ->where(function ($query){
