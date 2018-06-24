@@ -83,25 +83,12 @@
 				<br>
         {{$data_arr->insta_username}}/{{$data_arr->insta_password}}/{{$data_arr->start_time}}
       </td>
+			<!--
       <td align="center">
-				<!--
-				<p class="fl-filename">
-				<span class="edit-fl-filename">
-				<?php 
-					$filename = "";
-					// if (SettingMeta::getMeta($data_arr->id,"fl_filename") <> "0" ) {
-						// $filename = SettingMeta::getMeta($data_arr->id,"fl_filename");
-						// echo $filename."";
-					// }
-				?>
-				</span>
-				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-fl-edit" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}"
-				data-filename="{{$filename}}" style="cursor:pointer;">  </span>
-				</p>
-				-->
 				<input type="button" class="btn btn-success btn-check-method-automation" data-toggle="modal" data-target="#myModalEditAutomationMethod" data-id="{{$data_arr->id}}" data-method="{{$data_arr->method}}" value="Change"> 
 				
       </td>
+			-->
       <td align="center" style="width:350px!important;">
 				<a href="#" class="see-all">lihat semua </a>
 				<!-- merah =#ea0000   biru = #1212e8  hijau = #15ca26     -->
@@ -174,13 +161,11 @@
 					<li class="wrap"><strong>Auto Switch Follow-Unfollow : </strong><?php if ($data_arr->is_auto_follow) { echo "ON"; } else { echo "OFF"; } ?></li>
 				</ul>
       </td>
-
+<!--
       <td align="center">
 				Hashtags
 				<select>
-					<!--<option data-val="Users Who Tagged">Follow # Hashtags (new)</option>-->
 					<option data-val="Users Who Tagged (Only Follow)">Follow # Hashtags (Only Follow)</option>
-					<!--<option data-val="Normal Search">Follow # Normal Search</option>-->
 					<option data-val="Relevant">Like Comment # Relevant</option>
 				</select>
         <span class="glyphicon glyphicon-save download-hashtags" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>
@@ -196,8 +181,11 @@
 				Comment
         <span class="glyphicon glyphicon-save download-comments" style="cursor:pointer;" data-id="{{$data_arr->id}}"></span>
       </td>
+			-->
       <td align="center" class="setting-proxy">
 				<input type="button" class="btn btn-info button-setting-proxy" value="Assign" data-toggle="modal" data-target="#myModalAutomation" data-id="{{$data_arr->id}}" data-proxy="{{$proxy}}">
+				<br>
+				{{$proxy}}
 			</td>
       <td align="center">
 				<p class="server-automation-name">
@@ -221,6 +209,48 @@
 				</p>
 			</td>
       <td align="center">
+        <?php 
+					$followers = SettingMeta::getMeta($data_arr->setting_id,"followers");
+					echo number_format($followers,0,'','.');
+				?>
+			</td>
+      <td align="center">
+        <?php 
+					$following = SettingMeta::getMeta($data_arr->setting_id,"following");
+					echo number_format($following,0,'','.');
+				?>
+			</td>
+      <td align="center">
+				<?php 
+					if ($data_arr->cookies=="error login status :check") {
+						echo "Error Password Reset";
+					} else
+					if ($data_arr->cookies=="success") {
+						echo "OK";
+					} else
+					if ($data_arr->cookies=="error csrf status : new") {
+						echo "Error Konfirmasi Telepon / Email";
+					} else
+					if ($data_arr->cookies=="") {
+						echo "OFF";
+					} else {
+						echo $data_arr->cookies;
+					}
+				?>
+			</td>
+      <td align="center">
+				<input type="button" value="Open" data-loading-text="Loading..." class="btn btn-primary btn-show-log" data-toggle="modal" data-target="#myModalLog" data-id="{{$data_arr->setting_id}}"> 
+				<input type="button" value="Setting Logs" data-loading-text="Loading..." class="btn btn-primary btn-show-log-settings" data-toggle="modal" data-target="#myModalSettingLogs" data-id="{{$data_arr->setting_id}}"> 
+				<input type="button" value="Daily" data-loading-text="Loading..." class="btn btn-primary btn-show-log-daily" data-toggle="modal" data-target="#myModalDaily" data-id="{{$data_arr->setting_id}}"> 
+				<input type="button" value="Hourly" data-loading-text="Loading..." class="btn btn-primary btn-show-log-hourly" data-toggle="modal" data-target="#myModalHourly" data-id="{{$data_arr->setting_id}}"> 
+				<input type="button" value="Refresh" data-loading-text="Loading..." class="btn btn-primary btn-refresh-account"  data-id="{{$data_arr->setting_id}}"> 
+				<input type="button" value="Refresh Auth" data-loading-text="Loading..." class="btn btn-primary btn-refresh-auth"  data-id="{{$data_arr->setting_id}}"> 
+			</td>
+      <td align="center">
+				klo stopped ada button started
+			</td>
+			<!--
+      <td align="center">
 				<input type="button" class="btn btn-primary button-method" data-id="{{$data_arr->id}}" value="Automation" data-toggle="modal" data-target="#myModalMethodAutomation" <?php if ($use_automation) {echo "data-automation='yes'";} else { echo "data-automation='no'"; } ?>>
 			</td>
       <td align="center">
@@ -229,6 +259,7 @@
 
 				<?php //} ?>
       </td>
+			-->
 <!-- glyphicon glyphicon-hand-right manual glyphicon-wrench auto -->
 			
 			

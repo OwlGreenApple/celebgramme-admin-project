@@ -14,6 +14,113 @@
     z-index:9050!important;
 }	
 </style>
+  <div class="modal fade" id="myModalLog" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">History Logs</h4>
+        </div>
+        <div class="modal-body">
+					<div class="form-group form-group-sm row">
+						<p id="p-logs" style="margin-left:10px;"></p>
+					</div>  
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="modal fade" id="myModalSettingLogs" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">History Logs</h4>
+        </div>
+        <div class="modal-body">
+					<div class="form-group form-group-sm" id="setting-log-div">
+					</div>  
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="myModalDaily" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">History Logs Daily</h4>
+        </div>
+        <div class="modal-body">
+					<div class="form-group form-group-sm row">
+						<table class="table table-bordered">  
+							<thead>
+								<tr style="font-weight:bold;">
+									<th>Date time</th>
+									<th>Unfollows counter</th>
+									<th>Follows counter</th>
+									<th>Likes Counter</th>
+									<th>Comments Counter</th>
+								</tr>      
+							</thead>
+							<tbody id="p-logs-daily">
+							</tbody>
+							
+						</table>  
+						
+						
+					</div>  
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="modal fade" id="myModalHourly" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">History Logs Hourly</h4>
+        </div>
+        <div class="modal-body">
+					<div class="form-group form-group-sm row">
+						<table class="table table-bordered">  
+							<thead>
+								<tr style="font-weight:bold;">
+									<th>Date time</th>
+									<th>Unfollows counter</th>
+									<th>Follows counter</th>
+									<th>Likes Counter</th>
+									<th>Comments Counter</th>
+								</tr>      
+							</thead>
+							<tbody id="p-logs-hourly">
+							</tbody>
+							
+						</table>  
+					</div>  
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
   <div class="modal fade" id="myModalEditAutomationMethod" role="dialog">
     <div class="modal-dialog">
     
@@ -276,13 +383,17 @@
         <th>No. </th>
         <th>Password Error</th>
         <th>Fullname (email) / Insta username / Insta password / start time</th>
-        <th><!--Server Name--> Method Automation</th>
+        <!--<th>Method Automation</th>-->
         <th>Updates</th>
 				
-        <th>Download </th>
-        <th>Setting</th>
+        <!--<th>Download </th>-->
+        <th>Proxy</th>
         <th>Server Automation / Server Liker AutoLike</th>
-        <th colspan=2>Method</th>
+        <th>Followers</th>
+        <th>Following</th>
+        <th>Status</th>
+        <th></th>
+        <th></th>
 				
       </tr>      
     </thead>
@@ -742,6 +853,173 @@
         });
 
 
+      });
+			
+			
+			
+			
+			
+			
+			
+      $( "body" ).on( "click", ".btn-show-log", function() {
+        temp = $(this);
+        $.ajax({                                      
+          url: '<?php echo url('load-automation-logs'); ?>',
+          type: 'get',
+          data: {
+						id : $(this).attr("data-id")
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+							$("#p-logs").html(data.logs);
+            } else if (data.type=='error') {
+            }
+						$("#div-loading").hide();
+          }
+        });
+      });
+
+			
+      $( "body" ).on( "click", ".btn-show-log-daily", function() {
+        temp = $(this);
+        $.ajax({                                      
+          url: '<?php echo url('load-automation-logs-daily'); ?>',
+          type: 'get',
+          data: {
+						id : $(this).attr("data-id")
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+							$("#p-logs-daily").html(data.logs);
+            } else if (data.type=='error') {
+            }
+						$("#div-loading").hide();
+          }
+        });
+      });
+
+			
+      $( "body" ).on( "click", ".btn-show-log-hourly", function() {
+        temp = $(this);
+        $.ajax({                                      
+          url: '<?php echo url('load-automation-logs-hourly'); ?>',
+          type: 'get',
+          data: {
+						id : $(this).attr("data-id")
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+							$("#p-logs-hourly").html(data.logs);
+            } else if (data.type=='error') {
+            }
+						$("#div-loading").hide();
+          }
+        });
+      });
+			
+      $( "body" ).on( "click", ".btn-show-log-settings", function() {
+        temp = $(this);
+				$("#setting-log-div").html("");
+        $.ajax({                                      
+          url: '<?php echo url('load-setting-logs'); ?>',
+          type: 'get',
+          data: {
+						id : $(this).attr("data-id")
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+							$("#setting-log-div").html('<table class="table table-bordered table-data-default"><thead><tr style="font-weight:bold;"><th>Date time</th><th>Activity</th></tr></thead><tbody id="p-setting-logs"></tbody></table>');
+							$("#p-setting-logs").html(data.logs);
+							$('.table-data-default').DataTable();
+            } else if (data.type=='error') {
+            }
+						$("#div-loading").hide();
+          }
+        });
+      });
+			
+      $( "body" ).on( "click", ".btn-refresh-account", function() {
+        temp = $(this);
+        $.ajax({
+          url: '<?php echo url('refresh-automation-IG-account'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: {
+						id : $(this).attr("data-id")
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+							alert("account berhasil direfresh");
+            } else if (data.type=='error') {
+            }
+						$("#div-loading").hide();
+          }
+        });
+      });
+
+      $( "body" ).on( "click", ".btn-refresh-auth", function() {
+        temp = $(this);
+        $.ajax({
+          url: '<?php echo url('refresh-auth-IG-account'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: {
+						id : $(this).attr("data-id")
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            if(data.type=='success') {
+							alert("auth account berhasil direfresh");
+            } else if (data.type=='error') {
+            }
+						$("#div-loading").hide();
+          }
+        });
       });
 			
     });

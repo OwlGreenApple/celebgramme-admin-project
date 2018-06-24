@@ -15,7 +15,7 @@
 }	
 </style>
   <div class="page-header">
-    <h1>ALL Setting IG account</h1>
+    <h1>IP Flow</h1>
   </div>  
 	<br>
   <div class="cover-input-group">
