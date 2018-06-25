@@ -1021,6 +1021,41 @@
         });
       });
 			
+      $( "body" ).on( "click", ".btn-start", function() {
+        temp = $(this);
+        $.ajax({                                      
+          url: '<?php echo url('start-account'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: {
+						id : $(this).attr("data-id")
+					},
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              create_pagination(1);
+              refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
+            }
+            $("#div-loading").hide();
+          }
+        });
+      });
+			
     });
   </script>		
   

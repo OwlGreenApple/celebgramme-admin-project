@@ -71,7 +71,7 @@ class GlobalHelper {
 	*	for clear Proxy and assign with new proxy
 	*
 	*/
-	public static function clearProxy($ssetting,$status){
+	public static function clearProxy($ssetting, $status){
 		$setting = unserialize($ssetting);
 		$setting_helper = SettingHelper::where("setting_id","=",$setting->id)->first();
 		
@@ -83,9 +83,12 @@ class GlobalHelper {
 											->get();
 		$arrAvailableProxy = array();
 		foreach($availableProxy as $data) {
-			$dataNew = array();
-			$dataNew["id"] = $data->id;
-			$arrAvailableProxy[] = $dataNew;	
+			$check_proxy = Proxies::find($data->id);
+			if ($check_proxy->is_error == 0){
+				$dataNew = array();
+				$dataNew["id"] = $data->id;
+				$arrAvailableProxy[] = $dataNew;	
+			}
 		}
 		if (count($arrAvailableProxy)>0) {
 			$proxy_id = $arrAvailableProxy[array_rand($arrAvailableProxy)]["id"];
@@ -123,6 +126,16 @@ class GlobalHelper {
 			
 		}
 		
+		$arr["proxy_id"] = $proxy_id;
+		$full_proxy =  Proxies::find($proxy_id);
+		if (!is_null($full_proxy)) {
+			$arr["port"] = $full_proxy->port;
+			$arr["cred"] = $full_proxy->cred;
+			$arr["proxy"] = $full_proxy->proxy;
+			$arr["auth"] = $full_proxy->auth;
+		}
+	
+		return $arr;
 		
 		/*
 		*
@@ -132,7 +145,7 @@ class GlobalHelper {
 		$setting = null; $setting_helper = null; $proxy_id = null; $availableProxy = null; 
 		$arrAvailableProxy = null;
 	}
-	
+
 	/*
 	*
 	*	for get array cookie

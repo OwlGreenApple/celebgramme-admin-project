@@ -142,6 +142,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('refresh-auth-IG-account', 'Admin\SettingController@refresh_auth');
 	Route::post('delete-action-IG-account', 'Admin\SettingController@delete_action');
 	Route::post('edit-method-automation', 'Admin\SettingController@change_method_automation');
+	Route::post('start-account', 'Admin\SettingController@start_account');
 	
 	/* Log Account IG All*/
 	Route::get('log-setting', 'Admin\SettingController@log_index');

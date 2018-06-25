@@ -1145,4 +1145,69 @@ class SettingController extends Controller {
   }
   
 	
+  public function start_account()
+  {
+		$admin = Auth::user();
+		$dt = Carbon::now()->setTimezone('Asia/Jakarta');
+		$setting_temp = Setting::find(Request::input("id"));
+		
+		$user = User::find($setting_temp->last_user);
+    if ( ($user->active_auto_manage==0) && ((Request::input('action')=='start')) ) {
+      $arr["message"]= "Anda tidak dapat menjalankan program, silahkan upgrade waktu anda";
+      $arr["type"]= "error";
+      return $arr;
+    }
+		
+		if ($setting_temp->is_active) {
+			if ($setting_temp->error_cred==1) {
+				$url = url('dashboard');
+				$arr["message"]= "Anda tidak dapat menjalankan program, silahkan update login credential account anda";
+				$arr["type"]= "error";
+				return $arr;
+			}
+			if ( (!$setting_temp->status_auto)&&($setting_temp->status_follow_unfollow=="off")&&($setting_temp->status_like=="off") ) {
+				$arr["message"]= "Anda tidak dapat menjalankan program, silahkan pilih aktifitas yang akan dilakukan (follow/like). Jangan lupa di SAVE sesudahnya. ";
+				$arr["type"]= "error";
+				return $arr;
+			}
+			$setting_temp->status = "started";
+			$setting_temp->start_time = $dt->toDateTimeString();
+			$setting_temp->running_time = $dt->toDateTimeString();
+
+			//for automation purpose
+			$setting_helper = SettingHelper::where("setting_id","=",$setting_temp->id)->first();
+			if (!is_null($setting_helper)) {
+
+				// ONLY for init assign proxy
+				if ($setting_helper->proxy_id == 0) {
+					$setting_helper->cookies = ""; //trying to fixing error "ubah setting instagram anda"
+					$setting_helper->save();
+					GlobalHelper::clearProxy(serialize($setting_temp),"new");
+				}
+			}
+
+			$setting_temp->save();
+
+			//create log 
+			$settingLog = new SettingLog;
+			$settingLog->setting_id = $setting_temp->id;
+			$settingLog->status = "Start setting by admin ".$admin->fullname;
+			$settingLog->description = "settings log";
+			$settingLog->created = $dt->toDateTimeString();
+			$settingLog->save();
+
+		}
+		else {
+			$arr["message"]= "Pastikan anda telah menambahkan IG account anda terlebih dahulu. Kemudian START kembali ".$setting_temp->insta_username;
+			$arr["type"]= "error";
+			return $arr;
+		}
+		
+		
+		
+		$arr["type"] = "success";
+		$arr["message"] = "Account berhasil distart";
+		return $arr;
+	}
+
 }
