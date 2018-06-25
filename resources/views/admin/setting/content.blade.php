@@ -211,13 +211,13 @@
 			</td>
       <td align="center">
         <?php 
-					$followers = SettingMeta::getMeta($data_arr->setting_id,"followers");
+					$followers = SettingMeta::getMeta($data_arr->id,"followers");
 					echo number_format($followers,0,'','.');
 				?>
 			</td>
       <td align="center">
         <?php 
-					$following = SettingMeta::getMeta($data_arr->setting_id,"following");
+					$following = SettingMeta::getMeta($data_arr->id,"following");
 					echo number_format($following,0,'','.');
 				?>
 			</td>
