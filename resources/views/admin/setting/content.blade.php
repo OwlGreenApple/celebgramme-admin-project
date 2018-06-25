@@ -38,6 +38,7 @@
 			
 			$is_auto_get_likes = $settingHelper->is_auto_get_likes;
 			
+			$cookies = $settingHelper->cookies;
 		}
 		$is_auto_responder = false;
 		if (!is_null($data_arr->is_auto_responder)) {
@@ -222,19 +223,19 @@
 			</td>
       <td align="center">
 				<?php 
-					if ($data_arr->cookies=="error login status :check") {
+					if ($cookies=="error login status :check") {
 						echo "Error Password Reset";
 					} else
-					if ($data_arr->cookies=="success") {
+					if ($cookies=="success") {
 						echo "OK";
 					} else
-					if ($data_arr->cookies=="error csrf status : new") {
+					if ($cookies=="error csrf status : new") {
 						echo "Error Konfirmasi Telepon / Email";
 					} else
-					if ($data_arr->cookies=="") {
+					if ($cookies=="") {
 						echo "OFF";
 					} else {
-						echo $data_arr->cookies;
+						echo $cookies;
 					}
 				?>
 			</td>

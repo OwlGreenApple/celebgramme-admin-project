@@ -53,7 +53,6 @@
         <th>IP Activity</th>
         <th>Status</th>
         <th>Created </th>
-				
       </tr>      
     </thead>
     
