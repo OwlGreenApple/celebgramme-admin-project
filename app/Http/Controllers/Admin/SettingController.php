@@ -266,6 +266,8 @@ class SettingController extends Controller {
 
 	public function update_setting_proxy()
 	{
+		$admin = Auth::user();
+		$dt = Carbon::now()->setTimezone('Asia/Jakarta');
 		if (Request::input("hiddenIdProxy") <> "" ) {
 			$proxy = Proxies::find(Request::input("hiddenIdProxy"));
 			if (is_null($proxy)) {
@@ -279,7 +281,7 @@ class SettingController extends Controller {
 				}
 				$settingHelper->proxy_id = Request::input("hiddenIdProxy");
 				$settingHelper->save();
-				
+
 				//change yang dicelebpost juga 
 				$setting = Setting::find(Request::input("setting-id"));
 				$account = Account::where("username","=",$setting->insta_username)->first();
@@ -300,6 +302,15 @@ class SettingController extends Controller {
 			$settingHelper->save();
 			$arr["proxy"] = "";
 		}
+		//create log 
+		$settingLog = new SettingLog;
+		$settingLog->setting_id = Request::input("setting-id");
+		$settingLog->status = "ganti proxy by admin ".$admin->fullname." proxy: ".Request::input("hiddenIdProxy");
+		$settingLog->description = "settings log";
+		$settingLog->created = $dt->toDateTimeString();
+		$settingLog->save();
+			
+		
 		$arr["message"] = "success";
 		$arr["id"] = Request::input("setting-id");
 		
