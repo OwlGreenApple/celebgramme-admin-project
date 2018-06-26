@@ -172,7 +172,7 @@ class ProxyController extends Controller {
 		
 		
 		$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
-		$url = "https://www.instagram.com/joshwebdev/?__a=1";
+		$url = "https://www.instagram.com/rizky_redjo";
 		$c = curl_init();
 
 
@@ -219,7 +219,7 @@ class ProxyController extends Controller {
 			if (file_exists($cookiefile)) {
 				unlink($cookiefile);
 			}
-			$url = "https://www.instagram.com/joshwebdev/?__a=1";
+			$url = "https://www.instagram.com/rizky_redjo";
 			$c = curl_init();
 
 
@@ -359,7 +359,7 @@ class ProxyController extends Controller {
 							
 							
 							$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
-							$url = "https://www.instagram.com/joshwebdev/?__a=1";
+							$url = "https://www.instagram.com/rizky_redjo";
 							$c = curl_init();
 
 
@@ -518,7 +518,7 @@ class ProxyController extends Controller {
 							
 							
 							$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
-							$url = "https://www.instagram.com/joshwebdev/?__a=1";
+							$url = "https://www.instagram.com/rizky_redjo";
 							$c = curl_init();
 
 
@@ -667,7 +667,7 @@ class ProxyController extends Controller {
 							
 							
 							$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
-							$url = "https://www.instagram.com/joshwebdev/?__a=1";
+							$url = "https://www.instagram.com/rizky_redjo";
 							$c = curl_init();
 
 
