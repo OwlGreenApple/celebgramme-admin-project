@@ -36,14 +36,14 @@ class ProxyController extends Controller {
     $user = Auth::user();
 
 		$total = 0;
-		$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(									"sum(count_proxy) as countP"))
-											->groupBy("id","proxy","cred","port","auth")
-											->orderBy("countP","asc")
-											->having('countP', '<', 1)
-											->get();
-		foreach($availableProxy as $data) {
-			$total += (1 - $data->countP);
-		}
+		// $availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(									"sum(count_proxy) as countP"))
+											// ->groupBy("id","proxy","cred","port","auth")
+											// ->orderBy("countP","asc")
+											// ->having('countP', '<', 1)
+											// ->get();
+		// foreach($availableProxy as $data) {
+			// $total += (1 - $data->countP);
+		// }
 		
 		
 		return View::make('admin.proxy.index')->with(
@@ -172,7 +172,7 @@ class ProxyController extends Controller {
 		
 		
 		$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
-		$url = "https://www.instagram.com/rizky_redjo";
+		$url = "http://cmx.space/get-username-available/test";
 		$c = curl_init();
 
 
@@ -667,6 +667,7 @@ class ProxyController extends Controller {
 							
 							
 							$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
+							$url = "https://www.instagram.com/rizky_redjo/?__a=1";
 							$url = "https://www.instagram.com/rizky_redjo";
 							$c = curl_init();
 
