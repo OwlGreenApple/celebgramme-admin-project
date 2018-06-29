@@ -17,8 +17,7 @@
       </td>
       <td>
         <?php 
-					$data_arr->email;
-					$email = "";
+					$email = $data_arr->email;
 					$insta_username = "";
 					$url_setting = url("setting")."/".$insta_username;
 					echo $email." / <a href='".$url_setting."' target='_blank'>".$insta_username."</a>";
