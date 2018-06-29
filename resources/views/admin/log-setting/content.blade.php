@@ -17,18 +17,17 @@
       </td>
       <td>
         <?php 
+					$data_arr->email;
+					$email = "";
 					$insta_username = "";
 					$url_setting = url("setting")."/".$insta_username;
-					echo $data_arr->email." / <a href='".$url_setting."' target='_blank'>".$insta_username."</a>";
+					echo $email." / <a href='".$url_setting."' target='_blank'>".$insta_username."</a>";
 				?>
       </td>
       <td>
         <?php 
 					echo $data_arr->description;
 				?>
-      </td>
-      <td>
-        {{$data_arr->status}}
       </td>
       <td>
         {{$data_arr->created}}

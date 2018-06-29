@@ -1100,6 +1100,8 @@ class SettingController extends Controller {
 		if (Request::input('keyword')=="") {
 			$arr = User::join("user_logs","users.email","=","user_logs.email")
 						 ->where("description","like","%Success add%")
+						 ->where('created','>=',date("Y-m-d", intval(Request::input('from'))))
+						 ->where('created','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
 						 ->paginate(15);
 		}
 		else {
@@ -1109,6 +1111,8 @@ class SettingController extends Controller {
 							 $query->orWhere("description","like","%".Request::input('keyword')."%")
 							 ->orWhere("users.email","like","%".Request::input('keyword')."%");
 						 })
+						 ->where('created','>=',date("Y-m-d", intval(Request::input('from'))))
+						 ->where('created','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
 						 ->paginate(15);
 		}
 		
@@ -1125,6 +1129,8 @@ class SettingController extends Controller {
 		if (Request::input('keyword')=="") {
 			$arr = User::join("user_logs","users.email","=","user_logs.email")
 						 ->where("description","like","%Success add%")
+						 ->where('created','>=',date("Y-m-d", intval(Request::input('from'))))
+						 ->where('created','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
 						 ->paginate(15);
 		}
 		else {
@@ -1134,6 +1140,8 @@ class SettingController extends Controller {
 							 $query->orWhere("description","like","%".Request::input('keyword')."%")
 							 ->orWhere("users.email","like","%".Request::input('keyword')."%");
 						 })
+						 ->where('created','>=',date("Y-m-d", intval(Request::input('from'))))
+						 ->where('created','<=',date("Y-m-d", intval(Request::input('to'))).' 23:59:59')
 						 ->paginate(15);
 		}
 			

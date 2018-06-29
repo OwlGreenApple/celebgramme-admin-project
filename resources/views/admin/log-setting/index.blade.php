@@ -20,6 +20,18 @@
 	<br>
   <div class="cover-input-group">
     <div class="input-group fl">
+      <input type="text" id="from" class="form-control"> 
+    </div>
+    <div class="input-group fl">
+      <p>hingga</p>
+    </div>
+    <div class="input-group fl">
+      <input type="text" id="to" class="form-control"> 
+    </div>  
+    <div class="none"></div>
+  </div>
+  <div class="cover-input-group">
+    <div class="input-group fl">
 			<input type="text" id="keyword-search" class="form-control" placeholder="insta username" value="{{$search}}">
 		</div>  
 		<!--
@@ -50,7 +62,6 @@
         <th>No. </th>
         <th>Email</th>
         <th>Description</th>
-        <th>Status</th>
         <th>Created </th>
       </tr>      
     </thead>
@@ -65,6 +76,39 @@
   </nav>  
 	
   <script>
+    $(function() {
+      $("#from").datepicker({
+        dateFormat: 'dd-mm-yy',
+        showWeek: true,
+        changeMonth: true,
+        changeYear: true,        
+        onSelect: function(d) {
+          var from = $('#from').datepicker('getDate');
+          var to = $('#to').datepicker('getDate');
+          if (from.getTime() > to.getTime()){
+            $("#from").datepicker('setDate', to);
+          }
+        }
+      });
+      $("#to").datepicker({
+        dateFormat: 'dd-mm-yy',
+        showWeek: true,
+        changeMonth: true,
+        changeYear: true,        
+        onSelect: function(d) {
+          var from = $('#store_order_list_fromdate').datepicker('getDate');
+          var to = $('#store_order_list_todate').datepicker('getDate');
+          if (from.getTime() > to.getTime()){
+            $("#to").datepicker('setDate', from);
+          }
+        }
+      });
+      var d = new Date();
+      d.setDate(1);
+      d.setMonth(-1);
+      $("#from").datepicker('setDate', d);
+      $("#to").datepicker('setDate', new Date());
+    });
     function refresh_page(page)
     {
       $.ajax({                                      
@@ -73,7 +117,8 @@
         data: {
           page: page,
 					keyword: $("#keyword-search").val(),
-					// filename: $("#file-name").val(),
+          from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
+          to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
         },
         beforeSend: function()
         {
@@ -95,7 +140,8 @@
         data: {
           page : page,
 					keyword: $("#keyword-search").val(),
-					// filename: $("#file-name").val(),
+          from: ($('#from').datepicker('getDate').getTime()/1000+(3600*24+1)),
+          to: ($('#to').datepicker('getDate').getTime()/1000+(3600*24+1)),
         },
         beforeSend: function()
         {
