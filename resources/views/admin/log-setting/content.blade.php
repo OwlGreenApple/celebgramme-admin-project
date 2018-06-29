@@ -17,19 +17,13 @@
       </td>
       <td>
         <?php 
-					$url_setting = url("setting")."/".$data_arr->insta_username;
-					echo $data_arr->email." / <a href='".$url_setting."'>".$data_arr->insta_username."</a>";
+					$insta_username = "";
+					$url_setting = url("setting")."/".$insta_username;
+					echo $data_arr->email." / <a href='".$url_setting."' target='_blank'>".$insta_username."</a>";
 				?>
       </td>
       <td>
         <?php 
-					$ip_login="";
-					echo $data_arr->description;
-				?>
-      </td>
-      <td>
-        <?php 
-					$ip_activity="";
 					echo $data_arr->description;
 				?>
       </td>

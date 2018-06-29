@@ -49,8 +49,7 @@
       <tr style="font-weight:bold;">
         <th>No. </th>
         <th>Email</th>
-        <th>IP Login</th>
-        <th>IP Activity</th>
+        <th>Description</th>
         <th>Status</th>
         <th>Created </th>
       </tr>      

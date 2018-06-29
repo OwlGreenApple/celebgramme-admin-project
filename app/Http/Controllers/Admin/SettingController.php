@@ -1098,27 +1098,20 @@ class SettingController extends Controller {
   {
 		$admin = Auth::user();
 		if (Request::input('keyword')=="") {
-			$arr = Setting::join("users","users.id","=","settings.user_id")
-						 ->join("user_logs","users.email","=","user_logs.email")
-						 ->select("users.email","description","settings.status","user_logs.created","settings.insta_username")
-						 ->where("settings.type","=","temp")
+			$arr = User::join("user_logs","users.email","=","user_logs.email")
 						 ->where("description","like","%Success add%")
 						 ->paginate(15);
 		}
 		else {
-			$arr = Setting::join("users","users.id","=","settings.user_id")
-						 ->join("user_logs","users.email","=","user_logs.email")
-						 ->select("users.email","description","settings.status","user_logs.created","settings.insta_username")
-						 ->where("settings.type","=","temp")
+			$arr = User::join("user_logs","users.email","=","user_logs.email")
 						 ->where("description","like","%Success add%")
 						 ->where(function ($query){
-							 $query->orWhere("insta_username","like","%".Request::input('keyword')."%")
-							 // ->orWhere("meta_value","like","%".Request::input('keyword')."%")
+							 $query->orWhere("description","like","%".Request::input('keyword')."%")
 							 ->orWhere("users.email","like","%".Request::input('keyword')."%");
 						 })
 						 ->paginate(15);
 		}
-			
+		
     return view('admin.log-setting.content')->with(
                 array(
                   'admin'=>$admin,
@@ -1130,20 +1123,15 @@ class SettingController extends Controller {
 	public function log_pagination_setting()
   {
 		if (Request::input('keyword')=="") {
-			$arr = Setting::join("users","users.id","=","settings.user_id")
-						 ->join("user_logs","users.email","=","user_logs.email")
-						 ->where("settings.type","=","temp")
+			$arr = User::join("user_logs","users.email","=","user_logs.email")
 						 ->where("description","like","%Success add%")
 						 ->paginate(15);
 		}
 		else {
-			$arr = Setting::join("users","users.id","=","settings.user_id")
-						 ->join("user_logs","users.email","=","user_logs.email")
-						 ->where("settings.type","=","temp")
+			$arr = User::join("user_logs","users.email","=","user_logs.email")
 						 ->where("description","like","%Success add%")
 						 ->where(function ($query){
-							 $query->orWhere("insta_username","like","%".Request::input('keyword')."%")
-							 // ->orWhere("meta_value","like","%".Request::input('keyword')."%")
+							 $query->orWhere("description","like","%".Request::input('keyword')."%")
 							 ->orWhere("users.email","like","%".Request::input('keyword')."%");
 						 })
 						 ->paginate(15);
