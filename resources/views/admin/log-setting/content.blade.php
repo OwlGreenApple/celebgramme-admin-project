@@ -10,16 +10,16 @@
     //search by username
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
-		if ($i>=300){
-			break;
-		}
 ?>
-    <tr class="row{{$data_arr->id}}">
+    <tr class="{{$data_arr->id}}">
       <td>
         {{$i}}
       </td>
       <td>
-        {{$data_arr->email." / ".$data_arr->insta_username}}
+        <?php 
+					$url_setting = url("setting")."/".$data_arr->insta_username;
+					echo $data_arr->email." / <a href='".$url_setting."'>".$data_arr->insta_username."</a>";
+				?>
       </td>
       <td>
         <?php 
