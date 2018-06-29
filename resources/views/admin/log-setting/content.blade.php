@@ -10,6 +10,9 @@
     //search by username
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
+		if ($i>=300){
+			break;
+		}
 ?>
     <tr class="row{{$data_arr->id}}">
       <td>
