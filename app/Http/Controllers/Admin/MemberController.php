@@ -3,6 +3,8 @@
 use Celebgramme\Http\Requests;
 use Celebgramme\Http\Controllers\Controller;
 
+use Celebgramme\Helpers\GeneralHelper;
+
 use Celebgramme\Models\User;
 use Celebgramme\Models\Order;
 use Celebgramme\Models\Package;
@@ -16,7 +18,9 @@ use Celebgramme\Models\Coupon;
 use Celebgramme\Models\TimeLog;
 use Celebgramme\Models\Affiliate;
 
-use View,Auth,Request,DB,Carbon,Mail,Validator, Input, Excel, Config;
+use Celebgramme\Models\UserCelebpost;
+
+use View,Auth,Hash,Request,DB,Carbon,Mail,Validator, Input, Excel, Config;
 
 class MemberController extends Controller {
 
@@ -240,6 +244,204 @@ class MemberController extends Controller {
   }
 
 
+  public function add_member_rico()
+  {
+    $arr["type"] = "success";
+    $arr["message"] = "Proses add member berhasil dilakukan";
+
+
+			if (Input::file('fileExcel')->isValid()) {
+				// $destinationPath = 'uploads'; // upload path
+				$destinationPath = base_path().'/public/admin/uploads/temp/';
+				$extension = Input::file('fileExcel')->getClientOriginalExtension(); 
+				$fileName = 'file-list-bonus-member'.date('Y_m_d_H_i_s').'.'.$extension; 
+				Input::file('fileExcel')->move($destinationPath, $fileName);
+			} else {
+				$arr['type'] = "error";
+				$arr['message'] = "File tidak valid";
+				return $arr;
+			}
+			
+			Config::set('excel.import.startRow', '1');
+			$readers = Excel::load($destinationPath.$fileName, function($reader) {
+			})->get();
+
+			$flag = false;
+			$error_message="";
+			foreach($readers as $sheet)
+			{
+				if ($sheet->getTitle()=='Sheet1') {
+					foreach($sheet as $row)
+					{
+						if ( ($row->name=="") && ($row->email=="") )  {
+							continue;
+						}
+						
+
+						$data = array (
+							"email" => $row->email,
+						);
+						$validator = Validator::make($data, [
+							'email' => 'required|email|max:255',
+						]);
+						if ($validator->fails()){
+							// $arr["type"] = "error";
+							// $arr["message"] = "Email sudah terdaftar atau tidak valid";
+							// return $arr;
+							continue;
+						}
+
+
+						//create user dicelebgramme
+						$user = User::where("email","=",$row->email)->first();
+						$string = '';
+						if (is_null($user)) {
+							//password
+							$karakter= 'abcdefghjklmnpqrstuvwxyz123456789';
+							for ($i = 0; $i < 8 ; $i++) {
+								$pos = rand(0, strlen($karakter)-1);
+								$string .= $karakter{$pos};
+							}
+							
+							$user = new User;
+							$user->password = $string;
+							$user->email = $row->email;
+							$user->fullname = $row->name;
+							$user->type = "confirmed-email";
+							if (Input::get("package-rico") == 349000) {
+								$user->max_account = 3;
+								$user->active_auto_manage = 90 * 86400;
+							}
+							if (Input::get("package-rico") == 449000) {
+								$user->max_account = 6;
+								$user->active_auto_manage = 90 * 86400;
+							}
+							if (Input::get("package-rico") == 599000) {
+								$user->max_account = 3;
+								$user->active_auto_manage = 180 * 86400;
+							}
+							if (Input::get("package-rico") == 799000) {
+								$user->max_account = 6;
+								$user->active_auto_manage = 180 * 86400;
+							}
+							$user->link_affiliate = "";
+						} else {
+							if (Input::get("package-rico") == 349000) {
+								$user->max_account = 3;
+								$user->active_auto_manage += 90 * 86400;
+							}
+							if (Input::get("package-rico") == 449000) {
+								if ($user->max_account<6) {
+									$user->max_account = 6;
+								}
+								$user->active_auto_manage += 90 * 86400;
+							}
+							if (Input::get("package-rico") == 599000) {
+								$user->max_account = 3;
+								$user->active_auto_manage += 180 * 86400;
+							}
+							if (Input::get("package-rico") == 799000) {
+								if ($user->max_account<6) {
+									$user->max_account = 6;
+								}
+								$user->active_auto_manage += 180 * 86400;
+							}
+						}
+						$user->is_member_rico = 1;
+						$user->save();
+						
+						UserMeta::createMeta("add_rico",Input::get("jumlahHari") * 86400,$user->id);
+			
+						//create order dicelebgramme
+						$dt = Carbon::now();
+						$order = new Order;
+						$str = 'OCLB'.$dt->format('ymdHi');
+						$order_number = GeneralHelper::autoGenerateID($order, 'no_order', $str, 3, '0');
+						$order->no_order = $order_number;
+					
+						if (Input::get("package-rico") == 349000) {
+							$order->package_manage_id = 9991;
+							$order->total = 349000;
+						}
+						if (Input::get("package-rico") == 449000) {
+							$order->package_manage_id = 9992;
+							$order->total = 449000;
+						}
+						if (Input::get("package-rico") == 599000) {
+							$order->package_manage_id = 9993;
+							$order->total = 599000;
+						}
+						if (Input::get("package-rico") == 799000) {
+							$order->package_manage_id = 9994;
+							$order->total = 799000;
+						}
+						$order->image = "no image, from admin";
+						$order->order_type = "rico-from-admin";
+						$order->save();
+						$order->checked = 1;
+						$order->order_status = "success";
+						$invoice = Invoice::where("order_id","=",$order->id)->first();
+						if (is_null($invoice)){
+							$invoice = new Invoice;
+							$invoice->order_id = $order->id;
+
+							$str = 'ICLB'.$dt->format('ymdHi');
+							$invoice_number = GeneralHelper::autoGenerateID($invoice, 'no_invoice', $str, 3, '0');
+							$invoice->no_invoice = $invoice_number;
+						} 
+						$invoice->total = $order->total;
+						$invoice->save();
+						
+						$order->user_id = $user->id;
+						$order->save();
+									
+									
+						//create user dicelebpost
+						$user_celebpost = Users::where('email', '=', $user->email)->first();
+						if ( is_null($user_celebpost) ) {
+							$user_celebpost = new UserCelebpost;
+							$user_celebpost->username = $user->email;
+							$user_celebpost->name = $row->name;
+							$user_celebpost->email = $user->email;
+							$pas = $user->email.$row->name;
+							$gh = substr($pas, 0,6);
+							$chrnd =substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',5)),0,5);
+							$password_celebpost = str_replace(' ','', $gh.$chrnd) ;
+							
+							$user_celebpost->password = Hash::make($password_celebpost);
+							$user_celebpost->is_confirmed = 1;
+							$user_celebpost->is_admin = 0;
+							$user_celebpost->is_started = 0;
+							$user_celebpost->active_time = $user->active_auto_manage;
+							$user_celebpost->remember_token = $value->remember_token;
+							$user_celebpost->timezone = "Asia/Jakarta";
+							$user_celebpost->verificationcode = "";
+							$user_celebpost->max_account = $user->max_account;
+							$user_celebpost->last_seen = 0;
+							$user_celebpost->save();
+						}
+						
+
+						$emaildata = [
+								'user' => $user,
+								'password' => $string,
+								'user_celebpost' => $user_celebpost,
+								'password_celebpost' => $password_celebpost,
+								'jumlah_hari' => Input::get("jumlahHari"),
+						];
+						Mail::queue('emails.add-rico', $emaildata, function ($message) use ($user) {
+							$message->from('no-reply@celebgramme.com', 'Celebgramme');
+							$message->to($user->email);
+							$message->subject('[Celebgramme] Welcome to Celebgramme / Celebpost (Info username & password)');
+						});
+					}
+				}
+			}
+
+		
+    return $arr;
+	}
+	
   public function bonus_member()
   {
     $arr["type"] = "success";

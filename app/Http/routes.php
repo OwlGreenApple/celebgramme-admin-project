@@ -84,6 +84,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('give-bonus', 'Admin\MemberController@give_bonus');
 	Route::post('add-member', 'Admin\MemberController@add_member');
 	Route::post('bonus-member', 'Admin\MemberController@bonus_member');
+	Route::post('add-member-rico', 'Admin\MemberController@add_member_rico');
 	Route::post('edit-member', 'Admin\MemberController@edit_member');
 	Route::post('delete-member', 'Admin\MemberController@delete_member');
 	Route::post('edit-member-login-webstame', 'Admin\MemberController@edit_member_login_webstame');

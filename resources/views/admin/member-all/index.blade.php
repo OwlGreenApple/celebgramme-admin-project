@@ -242,6 +242,45 @@
   </div>
 	
 	
+  <div class="modal fade" id="myModalAddRico" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Member Rico</h4>
+        </div>
+        <div class="modal-body">
+					{!! Form::open(array('url'=>'add-member-rico','method'=>'POST', 'files'=>true, 'id'=>'form-add-rico')) !!}
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Jenis Paket</label>
+              <div class="col-sm-8 col-md-6">
+                <select class="form-control" name="package-rico" id="select-rico-package">
+										<option value="349000" >Paket 349rb 3akun 3 bulan</option>
+										<option value="449000" >Paket 449rb 6akun 3 bulan</option>
+										<option value="599000" >Paket 599rb 3akun 6 bulan</option>
+										<option value="799000" >Paket 799rb 6akun 6 bulan</option>
+								</select>
+								
+              </div>
+            </div>  
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Excel</label>
+              <div class="col-sm-8 col-md-6">
+								<input type="file" id="" name="fileExcel" class="form-control"> 
+              </div>
+            </div>  
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-add-rico" data-check="auto">Add</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+	
+	
 
   <div class="modal fade" id="myModalEditMember" role="dialog">
     <div class="modal-dialog">
@@ -398,6 +437,9 @@
 		<?php if($user->email == "celebgramme.dev@gmail.com") { ?>
 			<div class="input-group fl">
 				<input type="button" value="Add member" id="" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalBonusMember" > 
+			</div>  
+			<div class="input-group fl">
+				<input type="button" value="Add member(rico)" id="" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalAddRico" > 
 			</div>  
 		<?php } ?>
 	
@@ -673,6 +715,43 @@
 				
       });
 			
+      $( "body" ).on( "click", "#btn-add-rico", function() {
+					var uf = $('#form-add-rico');
+					var fd = new FormData(uf[0]);
+        $.ajax({
+          url: '<?php echo url('add-member-rico'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data : fd,
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+					processData:false,
+					contentType: false,
+					
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              create_pagination(1);
+              refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
+            }
+            $("#div-loading").hide();
+          }
+        });
+				
+      });
 			
       $( "body" ).on( "click", "#btn-edit-member", function() {
 

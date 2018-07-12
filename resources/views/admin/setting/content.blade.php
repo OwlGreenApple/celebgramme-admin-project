@@ -251,6 +251,9 @@
 				?>
 				<input type="button" value="Start" data-loading-text="Loading..." class="btn btn-primary btn-start"  data-id="{{$data_arr->id}}"> 
 				<?php } ?>
+				<?php if ($admin->email == "celebgramme.dev@gmail.com") { ?>
+				<input type="button" value="Delete Session" data-loading-text="Loading..." class="btn btn-primary btn-delete-session"  data-id="{{$data_arr->id}}"> 
+				<?php } ?>
 			</td>
 			<!--
       <td align="center">
