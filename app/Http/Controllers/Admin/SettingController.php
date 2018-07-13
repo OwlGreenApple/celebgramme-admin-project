@@ -186,9 +186,10 @@ class SettingController extends Controller {
   {
 		// if (Request::input('filename')=="all") {
 			if (Request::input('keyword')=="") {
-				$arr = Setting::where("type","=","temp")
+				/*$arr = Setting::where("type","=","temp")
 							 ->orderBy('id', 'asc')
-							 ->paginate(15);
+							 ->paginate(15);*/
+					$arr = [];
 			} else if (Request::input('keyword')=="update") {
 				$arr = Setting::where("type","=","temp")
 							 ->where("status_follow_unfollow","=","on")

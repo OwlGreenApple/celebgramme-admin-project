@@ -134,7 +134,7 @@ class PaymentController extends Controller {
     // if (Request::input('status')==1) { $temp_s = "<>"; }
     // if (Request::input('status')==0) { $temp_s = "="; }
     if (Request::input('search')=="") {
-      if (Request::input('status')==2) {
+      /*if (Request::input('status')==2) {
         $order = Order::join('users',"users.id","=","orders.user_id")
                  ->select("orders.*","users.fullname","users.phone_number","users.email")
                  ->where('orders.created_at','>=',date("Y-m-d", intval(Request::input('from'))))
@@ -160,7 +160,8 @@ class PaymentController extends Controller {
                  ->where('orders.image',"=", "")
 								 ->where('orders.order_status','<>',"cron dari affiliate")
                  ->orderBy('orders.updated_at', 'desc')->paginate(15);
-      }
+      }*/
+			$order = [] ;
     } else {
       if (Request::input('status')==2) {
         $order = Order::join('users',"users.id","=","orders.user_id")
