@@ -418,6 +418,7 @@ class MemberController extends Controller {
 							$user_celebpost->verificationcode = "";
 							$user_celebpost->max_account = $user->max_account;
 							$user_celebpost->last_seen = 0;
+							$user_celebpost->is_member_rico = 1;
 							$user_celebpost->save();
 						}
 						
