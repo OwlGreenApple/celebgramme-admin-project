@@ -7,6 +7,7 @@ use Celebgramme\Helpers\GeneralHelper;
 
 use Celebgramme\Models\User;
 use Celebgramme\Models\Order;
+use Celebgramme\Models\Invoice;
 use Celebgramme\Models\Package;
 use Celebgramme\Models\RequestModel;
 use Celebgramme\Models\Post;
