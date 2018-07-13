@@ -255,7 +255,9 @@
 				<option value="AA6(automation-6)">AA6(automation-6)</option>
 				<option value="AA7(automation-7)">AA7(automation-7)</option>
 				<option value="AA8(automation-8)">AA8(automation-8)</option>
-				<option value="AA12(automation-12)">AA12(automation-12)</option>
+				<option value="AA9(automation-9)">AA9(automation-9)</option>
+				<option value="AA10(automation-10)">AA10(automation-10)</option>
+				<!--<option value="AA12(automation-12)">AA12(automation-12)</option>-->
 			</select>
     </div>  
 		<?php } ?>

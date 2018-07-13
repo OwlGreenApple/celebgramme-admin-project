@@ -413,7 +413,7 @@ class MemberController extends Controller {
 							$user_celebpost->is_admin = 0;
 							$user_celebpost->is_started = 0;
 							$user_celebpost->active_time = $user->active_auto_manage;
-							$user_celebpost->remember_token = $value->remember_token;
+							$user_celebpost->remember_token = "";
 							$user_celebpost->timezone = "Asia/Jakarta";
 							$user_celebpost->verificationcode = "";
 							$user_celebpost->max_account = $user->max_account;
