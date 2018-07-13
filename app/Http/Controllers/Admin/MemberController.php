@@ -254,7 +254,7 @@ class MemberController extends Controller {
 				// $destinationPath = 'uploads'; // upload path
 				$destinationPath = base_path().'/public/admin/uploads/temp/';
 				$extension = Input::file('fileExcel')->getClientOriginalExtension(); 
-				$fileName = 'file-list-bonus-member'.date('Y_m_d_H_i_s').'.'.$extension; 
+				$fileName = 'file-add-rico-member'.date('Y_m_d_H_i_s').'.'.$extension; 
 				Input::file('fileExcel')->move($destinationPath, $fileName);
 			} else {
 				$arr['type'] = "error";
