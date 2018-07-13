@@ -398,7 +398,7 @@ class MemberController extends Controller {
 									
 									
 						//create user dicelebpost
-						$user_celebpost = Users::where('email', '=', $user->email)->first();
+						$user_celebpost = UserCelebpost::where('email', '=', $user->email)->first();
 						if ( is_null($user_celebpost) ) {
 							$user_celebpost = new UserCelebpost;
 							$user_celebpost->username = $user->email;
