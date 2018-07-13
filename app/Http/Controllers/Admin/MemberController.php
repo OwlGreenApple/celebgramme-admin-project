@@ -429,7 +429,6 @@ class MemberController extends Controller {
 								'password' => $string,
 								'user_celebpost' => $user_celebpost,
 								'password_celebpost' => $password_celebpost,
-								'jumlah_hari' => Input::get("jumlahHari"),
 						];
 						Mail::queue('emails.add-rico', $emaildata, function ($message) use ($user) {
 							$message->from('no-reply@celebgramme.com', 'Celebgramme');
