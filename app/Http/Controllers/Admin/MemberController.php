@@ -307,7 +307,7 @@ class MemberController extends Controller {
 							
 							$user = new User;
 							$user->password = $string;
-							$user->email = $row->email;
+							$user->email = str_replace(" ", "", $row->email);
 							$user->fullname = $row->name;
 							$user->type = "confirmed-email";
 							if (Input::get("package-rico") == 349000) {
@@ -444,8 +444,8 @@ class MemberController extends Controller {
 			];
 			Mail::queue('emails.add-rico', $emaildata, function ($message) {
 				$message->from('no-reply@celebgramme.com', 'Celebgramme');
-				// $message->to("support@amelia.id");
-				$message->to("celebgramme.dev@gmail.com");
+				$message->to("support@amelia.id");
+				// $message->to("celebgramme.dev@gmail.com");
 				$message->bcc("celebgramme.dev@gmail.com");
 				// $message->subject('[Celebgramme] Welcome to Celebgramme / Celebpost (Info username & password)');
 				$message->subject('[Celebgramme] Data username password celebgramme & celebpost');
