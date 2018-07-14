@@ -1,7 +1,3 @@
-Hi , {{ucfirst(strtolower($user->fullname))}} <br>
-<br>
-<br>
-<br>
 <strong>Link to login Celebgramme</strong><a href="https://celebgramme.com/celebgramme">-----> Click Link Login Disini <----- </a><br>
 <br>
 <strong>Link to login Celebpost</strong><a href="https://celebpost.in/dashboard">-----> Click Link Login Disini <----- </a><br>
