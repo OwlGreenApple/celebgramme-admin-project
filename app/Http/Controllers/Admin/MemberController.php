@@ -269,6 +269,7 @@ class MemberController extends Controller {
 
 			$flag = false;
 			$error_message="";
+			$arr_user=[];
 			foreach($readers as $sheet)
 			{
 				if ($sheet->getTitle()=='Sheet1') {
@@ -417,27 +418,37 @@ class MemberController extends Controller {
 							$user_celebpost->remember_token = "";
 							$user_celebpost->timezone = "Asia/Jakarta";
 							$user_celebpost->verificationcode = "";
-							$user_celebpost->max_account = $user->max_account;
 							$user_celebpost->last_seen = 0;
-							$user_celebpost->is_member_rico = 1;
-							$user_celebpost->save();
 						}
+						else {
+							$user_celebpost->active_time += $user->active_auto_manage;
+						}
+						$user_celebpost->max_account = $user->max_account;
+						$user_celebpost->is_member_rico = 1;
+						$user_celebpost->save();
 						
-
-						$emaildata = [
+						$arr_user[] = [
 								'user' => $user,
 								'password' => $string,
 								'user_celebpost' => $user_celebpost,
 								'password_celebpost' => $password_celebpost,
 						];
-						Mail::queue('emails.add-rico', $emaildata, function ($message) use ($user) {
-							$message->from('no-reply@celebgramme.com', 'Celebgramme');
-							$message->to($user->email);
-							$message->subject('[Celebgramme] Welcome to Celebgramme / Celebpost (Info username & password)');
-						});
+
 					}
 				}
 			}
+			
+			$emaildata = [
+					'arr_user' => $arr_user,
+			];
+			Mail::queue('emails.add-rico', $emaildata, function ($message) {
+				$message->from('no-reply@celebgramme.com', 'Celebgramme');
+				// $message->to("support@amelia.id");
+				$message->to("celebgramme.dev@gmail.com");
+				$message->bcc("celebgramme.dev@gmail.com");
+				// $message->subject('[Celebgramme] Welcome to Celebgramme / Celebpost (Info username & password)');
+				$message->subject('[Celebgramme] Data username password celebgramme & celebpost');
+			});
 
 		
     return $arr;
