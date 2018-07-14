@@ -279,9 +279,9 @@ class MemberController extends Controller {
 							continue;
 						}
 						
-
+						$email = str_replace(" ", "", $row->email);
 						$data = array (
-							"email" => $row->email,
+							"email" => $email,
 						);
 						$validator = Validator::make($data, [
 							'email' => 'required|email|max:255',
@@ -295,7 +295,7 @@ class MemberController extends Controller {
 
 
 						//create user dicelebgramme
-						$user = User::where("email","=",$row->email)->first();
+						$user = User::where("email","=",$email)->first();
 						$string = '';
 						if (is_null($user)) {
 							//password
@@ -307,7 +307,7 @@ class MemberController extends Controller {
 							
 							$user = new User;
 							$user->password = $string;
-							$user->email = str_replace(" ", "", $row->email);
+							$user->email = $email;
 							$user->fullname = $row->name;
 							$user->type = "confirmed-email";
 							if (Input::get("package-rico") == 349000) {
