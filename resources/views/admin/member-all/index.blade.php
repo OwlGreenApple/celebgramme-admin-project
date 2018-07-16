@@ -261,6 +261,7 @@
 										<option value="449000" >Paket 449rb 6akun 3 bulan</option>
 										<option value="599000" >Paket 599rb 3akun 6 bulan</option>
 										<option value="799000" >Paket 799rb 6akun 6 bulan</option>
+										<option value="1285000" >Paket 1285rb 3akun 12 bulan</option>
 								</select>
 								
               </div>

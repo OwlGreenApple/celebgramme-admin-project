@@ -330,14 +330,22 @@ class MemberController extends Controller {
 								$user->max_account = 6;
 								$user->active_auto_manage = 180 * 86400;
 							}
+							if (Input::get("package-rico") == 1285000) {
+								$user->max_account = 3;
+								$user->active_auto_manage = 360 * 86400;
+							}
 							$user->link_affiliate = "";
 						} else {
 							if (Input::get("package-rico") == 195000) {
-								$user->max_account = 3;
+								if ($user->max_account<3) {
+									$user->max_account = 3;
+								}
 								$user->active_auto_manage += 30 * 86400;
 							}
 							if (Input::get("package-rico") == 349000) {
-								$user->max_account = 3;
+								if ($user->max_account<3) {
+									$user->max_account = 3;
+								}
 								$user->active_auto_manage += 90 * 86400;
 							}
 							if (Input::get("package-rico") == 449000) {
@@ -347,7 +355,9 @@ class MemberController extends Controller {
 								$user->active_auto_manage += 90 * 86400;
 							}
 							if (Input::get("package-rico") == 599000) {
-								$user->max_account = 3;
+								if ($user->max_account<3) {
+									$user->max_account = 3;
+								}
 								$user->active_auto_manage += 180 * 86400;
 							}
 							if (Input::get("package-rico") == 799000) {
@@ -355,6 +365,12 @@ class MemberController extends Controller {
 									$user->max_account = 6;
 								}
 								$user->active_auto_manage += 180 * 86400;
+							}
+							if (Input::get("package-rico") == 1285000) {
+								if ($user->max_account<3) {
+									$user->max_account = 3;
+								}
+								$user->active_auto_manage += 360 * 86400;
 							}
 						}
 						$user->is_member_rico = 1;
@@ -388,6 +404,10 @@ class MemberController extends Controller {
 						if (Input::get("package-rico") == 799000) {
 							$order->package_manage_id = 9994;
 							$order->total = 799000;
+						}
+						if (Input::get("package-rico") == 1285000) {
+							$order->package_manage_id = 9996;
+							$order->total = 1285000;
 						}
 						$order->image = "no image, from admin";
 						$order->order_type = "rico-from-admin";
