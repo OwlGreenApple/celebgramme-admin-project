@@ -257,7 +257,7 @@
               <div class="col-sm-8 col-md-6">
                 <select class="form-control" name="package-rico" id="select-rico-package">
 										<option value="195000" >Paket 195rb 3akun 1 bulan</option>
-										<option value="349000" >Paket 349rb 3akun 3 bulan</option>
+										<option value="395000" >Paket 395rb 3akun 3 bulan</option>
 										<option value="449000" >Paket 449rb 6akun 3 bulan</option>
 										<option value="599000" >Paket 599rb 3akun 6 bulan</option>
 										<option value="799000" >Paket 799rb 6akun 6 bulan</option>
