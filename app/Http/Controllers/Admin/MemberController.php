@@ -310,6 +310,10 @@ class MemberController extends Controller {
 							$user->email = $email;
 							$user->fullname = $row->name;
 							$user->type = "confirmed-email";
+							if (Input::get("package-rico") == 195000) {
+								$user->max_account = 3;
+								$user->active_auto_manage = 30 * 86400;
+							}
 							if (Input::get("package-rico") == 349000) {
 								$user->max_account = 3;
 								$user->active_auto_manage = 90 * 86400;
@@ -328,6 +332,10 @@ class MemberController extends Controller {
 							}
 							$user->link_affiliate = "";
 						} else {
+							if (Input::get("package-rico") == 195000) {
+								$user->max_account = 3;
+								$user->active_auto_manage += 30 * 86400;
+							}
 							if (Input::get("package-rico") == 349000) {
 								$user->max_account = 3;
 								$user->active_auto_manage += 90 * 86400;
@@ -361,6 +369,10 @@ class MemberController extends Controller {
 						$order_number = GeneralHelper::autoGenerateID($order, 'no_order', $str, 3, '0');
 						$order->no_order = $order_number;
 					
+						if (Input::get("package-rico") == 195000) {
+							$order->package_manage_id = 9995;
+							$order->total = 195000;
+						}
 						if (Input::get("package-rico") == 349000) {
 							$order->package_manage_id = 9991;
 							$order->total = 349000;
