@@ -471,7 +471,7 @@ class MemberController extends Controller {
 				}
 			}
 			
-			$emaildata = [
+			/*$emaildata = [
 					'arr_user' => $arr_user,
 			];
 			Mail::queue('emails.add-rico', $emaildata, function ($message) {
@@ -481,10 +481,50 @@ class MemberController extends Controller {
 				$message->bcc("celebgramme.dev@gmail.com");
 				// $message->subject('[Celebgramme] Welcome to Celebgramme / Celebpost (Info username & password)');
 				$message->subject('[Celebgramme] Data username password celebgramme & celebpost');
-			});
+			});*/
 
+			Excel::create(date("F j, Y, g:i a")." Data User Celebgramme Celebpost", function($excel) use ($arr_user) {
+				$excel->sheet('keywords', function($sheet)use ($arr_user)  {
+					foreach ($arr_user as $data_user) { 
+						$password_celebgramme = "*";
+						if ($data_user['password']<>"") {
+							$password_celebgramme = $data_user['password'];
+						}
+						$password_celebpost = "*";
+						if ($data_user['password']<>"") {
+							$password_celebpost = $data_user['password_celebpost'];
+						}
+						$sheet->appendRow(array(
+							$data_user['user']->email, "Celebgramme pass :", $password_celebgramme,"","Celebpost pass:", $password_celebpost
+						));
+					}
+					$sheet->appendRow(array(
+						"*user dengan email ini sudah punya login celebgramme" 
+					));
+				});
+			})->download('csv');
+			
 		
-    return $arr;
+    // return $arr;
+	}
+	
+  public function generate_member_rico()
+  {
+		$users = User::where("is_member_rico",1)
+						->get();
+		Excel::create(date("F j, Y, g:i a")." Data User Celebgramme Celebpost", function($excel) use ($users) {
+			$excel->sheet('keywords', function($sheet)use ($users)  {
+				$sheet->appendRow(array(
+					"email", "password"
+				));
+				foreach ($users as $user) { 
+					$sheet->appendRow(array(
+						// $user->email, "Celebgramme pass :", $password_celebgramme,"","Celebpost pass:", $password_celebpost
+						$user->email, $user->getAuthPassword(),
+					));
+				}
+			});
+		})->download('csv');
 	}
 	
   public function bonus_member()
