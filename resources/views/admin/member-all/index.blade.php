@@ -444,7 +444,7 @@
 				<input type="button" value="Add member(rico)" id="" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalAddRico" > 
 			</div>  
 			<div class="input-group fl">
-				<input type="button" value="List member(rico)" id="" data-loading-text="Loading..." class="btn btn-primary" id="button-list-member"> 
+				<input type="button" value="List member(rico)" data-loading-text="Loading..." class="btn btn-primary" id="button-list-member"> 
 			</div>  
 		<?php } ?>
 	
