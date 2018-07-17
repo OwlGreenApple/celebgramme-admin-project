@@ -97,6 +97,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('load-time-logs', 'Admin\MemberController@get_time_logs');
 	Route::get('ads-page', 'Admin\MemberController@ads_page');
 	Route::post('save-ads-page', 'Admin\MemberController@save_ads_page');
+	Route::get('list-rico-excel', 'Admin\MemberController@generate_member_rico');
 
 	/* Member Analytic*/
 	Route::get('member-analytic', 'Admin\MemberAnalyticController@index');

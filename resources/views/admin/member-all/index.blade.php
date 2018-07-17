@@ -443,6 +443,9 @@
 			<div class="input-group fl">
 				<input type="button" value="Add member(rico)" id="" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalAddRico" > 
 			</div>  
+			<div class="input-group fl">
+				<input type="button" value="List member(rico)" id="" data-loading-text="Loading..." class="btn btn-primary" id="button-list-member"> 
+			</div>  
 		<?php } ?>
 	
     <div class="none"></div>
@@ -902,6 +905,10 @@
       });
 			
       
+      $( "body" ).on( "click", "#button-list-member", function() {
+        window.location="<?php echo url('list-rico-excel'); ?>/";
+      });
+			
       $( "body" ).on( "click", ".btn-time-logs", function() {
         temp = $(this);
 				$("#time-log-div").html("");
