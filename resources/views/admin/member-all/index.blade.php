@@ -578,6 +578,10 @@
       $("#alert").hide();
       create_pagination(1);
       refresh_page(1);
+      $( "body" ).on( "click", "#button-list-member", function() {
+        window.location="<?php echo url('list-rico-excel'); ?>";
+      });
+			
       $('#button-search').click(function(e){
         e.preventDefault();
         create_pagination(1);
@@ -905,10 +909,6 @@
       });
 			
       
-      $( "body" ).on( "click", "#button-list-member", function() {
-        window.location="<?php echo url('list-rico-excel'); ?>/";
-      });
-			
       $( "body" ).on( "click", ".btn-time-logs", function() {
         temp = $(this);
 				$("#time-log-div").html("");
