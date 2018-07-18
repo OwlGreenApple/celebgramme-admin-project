@@ -322,7 +322,7 @@ class MemberController extends Controller {
 								$user->max_account = 6;
 								$user->active_auto_manage = 90 * 86400;
 							}
-							if (Input::get("package-rico") == 599000) {
+							if (Input::get("package-rico") == 695000) {
 								$user->max_account = 3;
 								$user->active_auto_manage = 180 * 86400;
 							}
@@ -354,7 +354,7 @@ class MemberController extends Controller {
 								}
 								$user->active_auto_manage += 90 * 86400;
 							}
-							if (Input::get("package-rico") == 599000) {
+							if (Input::get("package-rico") == 695000) {
 								if ($user->max_account<3) {
 									$user->max_account = 3;
 								}
@@ -397,9 +397,9 @@ class MemberController extends Controller {
 							$order->package_manage_id = 9992;
 							$order->total = 449000;
 						}
-						if (Input::get("package-rico") == 599000) {
+						if (Input::get("package-rico") == 695000) {
 							$order->package_manage_id = 9993;
-							$order->total = 599000;
+							$order->total = 695000;
 						}
 						if (Input::get("package-rico") == 799000) {
 							$order->package_manage_id = 9994;
