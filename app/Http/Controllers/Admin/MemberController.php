@@ -471,17 +471,17 @@ class MemberController extends Controller {
 				}
 			}
 			
-			/*$emaildata = [
+			$emaildata = [
 					'arr_user' => $arr_user,
 			];
 			Mail::queue('emails.add-rico', $emaildata, function ($message) {
 				$message->from('no-reply@celebgramme.com', 'Celebgramme');
-				$message->to("support@amelia.id");
-				// $message->to("celebgramme.dev@gmail.com");
-				$message->bcc("celebgramme.dev@gmail.com");
+				// $message->to("support@amelia.id");
+				$message->to("celebgramme.dev@gmail.com");
+				// $message->bcc("celebgramme.dev@gmail.com");
 				// $message->subject('[Celebgramme] Welcome to Celebgramme / Celebpost (Info username & password)');
 				$message->subject('[Celebgramme] Data username password celebgramme & celebpost');
-			});*/
+			});
 
 			Excel::create(date("F j, Y, g:i a")." Data User Celebgramme Celebpost", function($excel) use ($arr_user) {
 				$excel->sheet('keywords', function($sheet)use ($arr_user)  {
@@ -502,17 +502,20 @@ class MemberController extends Controller {
 						"*user dengan email ini sudah punya login celebgramme" 
 					));
 				});
-			})->download('csv');
+			})->store('csv');
 			
 		
-    // return $arr;
+    return $arr;
 	}
 	
   public function generate_member_rico()
   {
 		$users = User::where("is_member_rico",1)
 						->get();
-		Excel::create(date("F j, Y, g:i a")." Data User Celebgramme Celebpost", function($excel) use ($users) {
+		foreach ($users as $user) {
+		}
+						
+		/*Excel::create(date("F j, Y, g:i a")." Data User Celebgramme Celebpost", function($excel) use ($users) {
 			$excel->sheet('keywords', function($sheet)use ($users)  {
 				$sheet->appendRow(array(
 					"email", "password"
@@ -524,7 +527,7 @@ class MemberController extends Controller {
 					));
 				}
 			});
-		})->download('csv');
+		})->download('csv');*/
 	}
 	
   public function bonus_member()
