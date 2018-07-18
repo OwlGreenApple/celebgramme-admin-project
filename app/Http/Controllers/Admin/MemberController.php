@@ -441,7 +441,7 @@ class MemberController extends Controller {
 							$pas = $user->email.$row->name;
 							$gh = substr($pas, 0,6);
 							$chrnd =substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',5)),0,5);
-							$password_celebpost = str_replace(' ','', $gh.$chrnd) ;
+							$password_celebpost = str_replace(' ','', $gh.$chrnd);
 							
 							$user_celebpost->password = Hash::make($password_celebpost);
 							$user_celebpost->is_confirmed = 1;
@@ -465,6 +465,7 @@ class MemberController extends Controller {
 								'password' => $string,
 								'user_celebpost' => $user_celebpost,
 								'password_celebpost' => $password_celebpost,
+								'harga' => $order->total,
 						];
 
 					}
@@ -485,6 +486,9 @@ class MemberController extends Controller {
 
 			Excel::create(date("F j, Y, g:i a")." Data User Celebgramme Celebpost", function($excel) use ($arr_user) {
 				$excel->sheet('keywords', function($sheet)use ($arr_user)  {
+					$sheet->appendRow(array(
+						"Email", "Celebgramme password", "Celebpost password", "Harga"
+					));
 					foreach ($arr_user as $data_user) { 
 						$password_celebgramme = "*";
 						if ($data_user['password']<>"") {
@@ -495,9 +499,12 @@ class MemberController extends Controller {
 							$password_celebpost = $data_user['password_celebpost'];
 						}
 						$sheet->appendRow(array(
-							$data_user['user']->email, "Celebgramme pass :", $password_celebgramme,"","Celebpost pass:", $password_celebpost
+							$data_user['user']->email, $password_celebgramme,$password_celebpost,$data_user['harga']
 						));
 					}
+					$sheet->appendRow(array(
+						"" 
+					));
 					$sheet->appendRow(array(
 						"*user dengan email ini sudah punya login celebgramme" 
 					));
