@@ -125,14 +125,14 @@ class SettingController extends Controller {
 			if (Request::input('keyword')=="") {
 				$arr = Setting::leftJoin("users","users.id","=","settings.user_id")
 							 ->select("settings.*","users.email","users.fullname")
-							 ->where("type","=","temp")
+							 ->where("settings.type","=","temp")
 							 ->where("last_user","<>",1267)
 							 ->orderBy('id', 'asc')
 							 ->paginate(15);
 			} else if (Request::input('keyword')=="update") {
 				$arr = Setting::leftJoin("users","users.id","=","settings.user_id")
 							 ->select("settings.*","users.email","users.fullname")
-							 ->where("type","=","temp")
+							 ->where("settings.type","=","temp")
 							 ->where("status_follow_unfollow","=","on")
 							 ->where("activity","=","follow")
 							 ->where("status","=","started")
