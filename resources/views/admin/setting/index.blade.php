@@ -718,7 +718,6 @@
 
 			$( "body" ).on( "click", ".button-setting-proxy", function() {
 				$(".setting-id").val($(this).attr("data-id"));
-				$("#proxy").val($(this).attr("data-proxy"));
         $.ajax({
           url: '<?php echo url('get-proxy-data'); ?>',
           headers: {
@@ -735,7 +734,8 @@
           dataType: 'text',
           success: function(result)
           {
-            alert(result);
+            // alert(result);
+						$("#proxy").val($(this).attr("data-proxy"));
           }
         });
       });
