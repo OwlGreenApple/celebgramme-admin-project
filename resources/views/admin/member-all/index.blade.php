@@ -501,7 +501,10 @@
         dataType: 'text',
         success: function(result)
         {
-          $('#content').html(result);
+          var data = jQuery.parseJSON(result);
+
+          $('#content').html(data.view);
+          $('#pagination').html(data.pagination);
           $("#div-loading").hide();
         }
       });
@@ -526,22 +529,7 @@
         success: function(result)
         {
           $('#pagination').html(result);
-          
-          $('#pagination a').click(function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            if ($(this).html() == "«") {
-              page -= 1; 
-            } else 
-            if ($(this).html() == "»") {
-              page += 1; 
-            } else {
-              page = parseInt($(this).html());
-            }
-            create_pagination(page);
-            refresh_page(page);
-          });
-          
+      
           // $("#div-loading").hide();
         }
       });
@@ -576,15 +564,31 @@
     }
     $(document).ready(function(){
       $("#alert").hide();
-      create_pagination(1);
+      //create_pagination(1);
       refresh_page(1);
+
+      $(document).on('click', '#pagination a', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if ($(this).html() == "«") {
+          page -= 1; 
+        } else 
+        if ($(this).html() == "»") {
+          page += 1; 
+        } else {
+          page = parseInt($(this).html());
+        }
+        //create_pagination(page);
+        refresh_page(page);
+      });
+
       $( "body" ).on( "click", "#button-list-member", function() {
         window.location="<?php echo url('list-rico-excel'); ?>";
       });
 			
       $('#button-search').click(function(e){
         e.preventDefault();
-        create_pagination(1);
+        //create_pagination(1);
         refresh_page(1);
       });
       $( "body" ).on( "click", ".btn-update", function() {
@@ -614,7 +618,7 @@
           {
             var data = jQuery.parseJSON(result);
             if(data.type=='success') {
-              create_pagination(1);
+              //create_pagination(1);
               refresh_page(1);
             }
             $("#div-loading").hide();
@@ -669,7 +673,7 @@
             $("#alert").show();
             $("#alert").html(data.message);
             if(data.type=='success') {
-              create_pagination(1);
+              //create_pagination(1);
               refresh_page(1);
               $("#alert").addClass("alert-success");
               $("#alert").removeClass("alert-danger");
@@ -710,7 +714,7 @@
             $("#alert").show();
             $("#alert").html(data.message);
             if(data.type=='success') {
-              create_pagination(1);
+              //create_pagination(1);
               refresh_page(1);
               $("#alert").addClass("alert-success");
               $("#alert").removeClass("alert-danger");
@@ -748,7 +752,7 @@
             $("#alert").show();
             $("#alert").html(data.message);
             if(data.type=='success') {
-              create_pagination(1);
+              //create_pagination(1);
               refresh_page(1);
               $("#alert").addClass("alert-success");
               $("#alert").removeClass("alert-danger");
@@ -782,7 +786,7 @@
             $("#alert").show();
             $("#alert").html(data.message);
             if(data.type=='success') {
-              create_pagination(1);
+              //create_pagination(1);
               refresh_page(1);
               $("#alert").addClass("alert-success");
               $("#alert").removeClass("alert-danger");
@@ -829,7 +833,7 @@
             $("#alert").show();
             $("#alert").html(data.message);
             if(data.type=='success') {
-              create_pagination(1);
+              //create_pagination(1);
               refresh_page(1);
               $("#alert").addClass("alert-success");
               $("#alert").removeClass("alert-danger");
@@ -900,7 +904,7 @@
           {
             var data = jQuery.parseJSON(result);
             if(data.type=='success') {
-              create_pagination(1);
+              //create_pagination(1);
               refresh_page(1);
             }
             $("#div-loading").hide();

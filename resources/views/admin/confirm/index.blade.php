@@ -130,7 +130,10 @@
         dataType: 'text',
         success: function(result)
         {
-          $('#content').html(result);
+          var data = jQuery.parseJSON(result);
+
+          $('#content').html(data.view);
+          $('#pagination').html(data.pagination);
           $("#div-loading").hide();
         }
       });
@@ -156,22 +159,7 @@
         success: function(result)
         {
           $('#pagination').html(result);
-          
-          $('#pagination a').click(function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            if ($(this).html() == "«") {
-              page -= 1; 
-            } else 
-            if ($(this).html() == "»") {
-              page += 1; 
-            } else {
-              page = parseInt($(this).html());
-            }
-            create_pagination(page);
-            refresh_page(page);
-          });
-          
+           
           // $("#div-loading").hide();
         }
       });
@@ -179,10 +167,24 @@
     $(document).ready(function(){
       $("#alert").hide();
       refresh_page(1);
-      create_pagination();
+      //create_pagination();
+      $(document).on('click', '#pagination a', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if ($(this).html() == "«") {
+          page -= 1; 
+        } else 
+        if ($(this).html() == "»") {
+          page += 1; 
+        } else {
+          page = parseInt($(this).html());
+        }
+        //create_pagination(page);
+        refresh_page(page);
+      });
       $('#button-search').click(function(e){
         e.preventDefault();
-        create_pagination();
+        //create_pagination();
         refresh_page(1);
       });
       $( "body" ).on( "click", ".x-icon", function() {

@@ -114,12 +114,23 @@ class PaymentController extends Controller {
     }
 
     $user = Auth::user();
-    return view('admin.confirm.content')->with(
+    /*return view('admin.confirm.content')->with(
+                array(
+                  'user'=>$user,
+                  'order'=>$order,
+                  'page'=>Request::input('page'),
+                ));*/
+    $arr2['view'] = (string) view('admin.confirm.content')->with(
                 array(
                   'user'=>$user,
                   'order'=>$order,
                   'page'=>Request::input('page'),
                 ));
+    $arr2['pagination'] = (string) view('admin.confirm.pagination')->with(
+                array(
+                  'order'=>$order,
+                ));
+    return $arr2;
   }
   
 	public function pagination_payment()
@@ -425,12 +436,23 @@ class PaymentController extends Controller {
 							->orderBy('orders.id', 'desc')->paginate(15);
 		}
 
-    return view('admin.order.content')->with(
+    /*return view('admin.order.content')->with(
+                array(
+                  'admin'=>$admin,
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                ));*/
+      $arr2['view'] = (string) view('admin.order.content')->with(
                 array(
                   'admin'=>$admin,
                   'arr'=>$arr,
                   'page'=>Request::input('page'),
                 ));
+      $arr2['pagination'] = (string) view('admin.order.pagination')->with(
+                array(
+                  'arr'=>$arr,
+                ));
+      return $arr2;
   }
   
   public function pagination_order()

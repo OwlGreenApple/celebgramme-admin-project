@@ -168,12 +168,24 @@ class MemberController extends Controller {
 			}
 		}
 
-    return view('admin.member-all.content')->with(
+    /*return view('admin.member-all.content')->with(
+                array(
+                  'admin'=>$admin,
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                ));*/
+    $arr2['view'] = (string) view('admin.member-all.content')->with(
                 array(
                   'admin'=>$admin,
                   'arr'=>$arr,
                   'page'=>Request::input('page'),
                 ));
+    $arr2['pagination'] = (string) view('admin.member-all.pagination')->with(
+                array(
+                  'arr'=>$arr,
+                ));
+
+    return $arr2;
   }
   
   public function pagination_member_all()

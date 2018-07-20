@@ -22,7 +22,7 @@ use Celebgramme\Models\UserSetting;
 
 use Celebgramme\Helpers\GlobalHelper;
 
-use View,Auth,Request,DB,Carbon,Excel,Mail,Input;
+use View,Auth,Request,DB,Carbon,Excel,Mail,Input,App;
 
 class SettingController extends Controller {
 
@@ -46,7 +46,12 @@ class SettingController extends Controller {
 	{
     $user = Auth::user();
 		$filenames = Meta::where("meta_name","=","fl_name")->get();
-		$status_server = Meta::where("meta_name","=","status_server")->first()->meta_value;
+		$status_server = '';
+    $meta = Meta::where("meta_name","=","status_server")->first();
+    if(!is_null($meta)){
+      $status_server = $meta->meta_value;
+    }
+    
 		$template = TemplateEmail::all();
 		
 		// $availableProxy = Proxies::leftJoin("link_proxies_settings","link_proxies_settings.proxy_id","=","proxies.id")
@@ -79,26 +84,28 @@ class SettingController extends Controller {
 			}
 		}*/
 		$arrAvailableProxy = array();
-		$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(									"sum(count_proxy) as countP"))
-											->groupBy("id","proxy","cred","port","auth")
-											->orderBy("countP","asc")
-											->having('countP', '<', 1)
-											->get();
-		foreach($availableProxy as $data) {
-			$check_proxy = Proxies::find($data->id);
-			if ($check_proxy->is_error == 0){
-				$dataNew = array();
-				// $dataNew[] = $data->id;
-				$dataNew["id"] = $data->id;
-				if ($data->auth) {
-					$dataNew["value"] = $data->proxy.":".$data->port.":".$data->cred;
-				} else {
-					$dataNew["value"] = $data->proxy.":".$data->port;
-				}
-				$arrAvailableProxy[] = $dataNew;	
-			}
-		}
-		
+
+    if(!App::environment('local')){
+      $availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw("sum(count_proxy) as countP"))
+                      ->groupBy("id","proxy","cred","port","auth")
+                      ->orderBy("countP","asc")
+                      ->having('countP', '<', 1)
+                      ->get();
+      foreach($availableProxy as $data) {
+        $check_proxy = Proxies::find($data->id);
+        if ($check_proxy->is_error == 0){
+          $dataNew = array();
+          // $dataNew[] = $data->id;
+          $dataNew["id"] = $data->id;
+          if ($data->auth) {
+            $dataNew["value"] = $data->proxy.":".$data->port.":".$data->cred;
+          } else {
+            $dataNew["value"] = $data->proxy.":".$data->port;
+          }
+          $arrAvailableProxy[] = $dataNew;  
+        }
+      }
+    }
 								
 		return View::make('admin.setting.index')->with(
                   array(
@@ -174,22 +181,35 @@ class SettingController extends Controller {
 			}
 		}
     */
-    return view('admin.setting.content')->with(
+    /*return view('admin.setting.content')->with(
+                array(
+                  'admin'=>$admin,
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                ));*/
+
+    $arr2['view'] = (string) view('admin.setting.content')->with(
                 array(
                   'admin'=>$admin,
                   'arr'=>$arr,
                   'page'=>Request::input('page'),
                 ));
+
+    $arr2['pagination'] = (string) view('admin.setting.pagination')->with(
+                array(
+                  'arr'=>$arr,
+                ));
+    return $arr2;
   }
   
 	public function pagination_setting()
   {
 		// if (Request::input('filename')=="all") {
 			if (Request::input('keyword')=="") {
-				/*$arr = Setting::where("type","=","temp")
+				$arr = Setting::where("type","=","temp")
 							 ->orderBy('id', 'asc')
-							 ->paginate(15);*/
-					$arr = [];
+							 ->paginate(15);
+					//$arr = [];
 			} else if (Request::input('keyword')=="update") {
 				$arr = Setting::where("type","=","temp")
 							 ->where("status_follow_unfollow","=","on")
@@ -245,7 +265,7 @@ class SettingController extends Controller {
 			}
 		}
 */
-
+    //dd($arr);
     return view('admin.setting.pagination')->with(
                 array(
                   'arr'=>$arr,
