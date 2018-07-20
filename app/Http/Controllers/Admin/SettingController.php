@@ -123,15 +123,21 @@ class SettingController extends Controller {
 		$admin = Auth::user();
 		// if (Request::input('filename')=="all") {
 			if (Request::input('keyword')=="") {
-				$arr = Setting::where("type","=","temp")
+				$arr = Setting::leftJoin("users","users.id","=","settings.user_id")
+							 ->select("settings.*","users.email","users.fullname")
+							 ->where("type","=","temp")
+							 ->where("last_user","<>",1267)
 							 ->orderBy('id', 'asc')
 							 ->paginate(15);
 			} else if (Request::input('keyword')=="update") {
-				$arr = Setting::where("type","=","temp")
+				$arr = Setting::leftJoin("users","users.id","=","settings.user_id")
+							 ->select("settings.*","users.email","users.fullname")
+							 ->where("type","=","temp")
 							 ->where("status_follow_unfollow","=","on")
 							 ->where("activity","=","follow")
 							 ->where("status","=","started")
 							 ->where("follow_source","=","hashtags")
+							 ->where("last_user","<>",1267)
 							 ->orderBy('id', 'asc')
 							 ->paginate(15);
 			} else {
@@ -140,9 +146,10 @@ class SettingController extends Controller {
 										$join->on('settings.id', '=', 'setting_metas.setting_id');
 								})							
 							 ->*/leftJoin("users","users.id","=","settings.user_id")
-							 ->select("settings.*")
+							 ->select("settings.*","users.email","users.fullname")
 							 // ->where('setting_metas.meta_name', '=', "fl_filename")
 							 ->where("settings.type","=","temp")
+							 ->where("last_user","<>",1267)
 							 ->where(function ($query){
 								 $query->orWhere("insta_username","like","%".Request::input('keyword')."%")
 								 // ->orWhere("meta_value","like","%".Request::input('keyword')."%")

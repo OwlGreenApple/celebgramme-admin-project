@@ -54,12 +54,12 @@
 			$auto_responder_message .= $temp->num_of_day."-".$temp->message.";";
 		}
 		
-		$user = User::find($data_arr->last_user);
+		/*$user = User::find($data_arr->last_user);
 		if (!is_null($user)) {
 			if ($user->id == 1267) {
 				continue;
 			}
-		}
+		}*/
 ?>
     <tr class="row{{$data_arr->id}}">
       <td>
@@ -74,13 +74,13 @@
       </td>
       <td align="center">
 				<?php 
-					if (!is_null($user)) {
-						echo $user->fullname."(".$user->email.") / ";?><br>
-				<input type="button" value="Send email" data-loading-text="Loading..." class="btn btn-primary btn-send-email" data-toggle="modal" data-target="#myModalSendEmail" data-email="{{$user->email}}" data-fullname="{{$user->fullname}}" data-igaccount="{{$data_arr->insta_username}}"> 
+					// if (!is_null($user)) {
+						if (!is_null($data_arr->fullname)) { echo $data_arr->fullname;} else {echo"-";}."(".if (!is_null($data_arr->email)) { echo $data_arr->email;} else {echo"-";}.") / ";?><br>
+				<input type="button" value="Send email" data-loading-text="Loading..." class="btn btn-primary btn-send-email" data-toggle="modal" data-target="#myModalSendEmail" data-email="{{$data_arr->email}}" data-fullname="{{$data_arr->fullname}}" data-igaccount="{{$data_arr->insta_username}}"> 
 				<?php						
-					} else {
-						echo "Email account celebgramme deleted / ";
-					}
+					// } else {
+						// echo "Email account celebgramme deleted / ";
+					// }
 				?>
 				<br>
         {{$data_arr->insta_username}}/{{$data_arr->insta_password}}/{{$data_arr->start_time}}
