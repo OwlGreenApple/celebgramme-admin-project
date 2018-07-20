@@ -1,7 +1,7 @@
 <?php 
 	use Celebgramme\Models\SettingMeta; 
 	use Celebgramme\Models\User;
-	use Celebgramme\Models\SettingHelper; 
+	// use Celebgramme\Models\SettingHelper; 
 	use Celebgramme\Models\Proxies; 
 	use Celebgramme\Models\AutoResponderSetting; 
   if ( $arr->count()==0  ) {
@@ -12,7 +12,7 @@
   foreach ($arr as $data_arr) {
 		$server="";$proxy="";$use_automation=""; $server_automation = ""; 
 		$identity = ""; $target=""; $number_likes = 0; $is_auto_get_likes = 0; $cookies = "";
-		$settingHelper = SettingHelper::where("setting_id","=",$data_arr->id)->first();
+		/*$settingHelper = SettingHelper::where("setting_id","=",$data_arr->id)->first();
 		if ( !is_null($settingHelper) ) {
 			$use_automation = $settingHelper->use_automation;
 			$proxies = Proxies::find($settingHelper->proxy_id);
@@ -39,7 +39,8 @@
 			$is_auto_get_likes = $settingHelper->is_auto_get_likes;
 			
 			$cookies = $settingHelper->cookies;
-		}
+		}*/
+		
 		$is_auto_responder = false;
 		if (!is_null($data_arr->is_auto_responder)) {
 			if ($data_arr->is_auto_responder) {
@@ -184,9 +185,8 @@
       </td>
 			-->
       <td align="center" class="setting-proxy">
-				<input type="button" class="btn btn-info button-setting-proxy" value="Assign" data-toggle="modal" data-target="#myModalAutomation" data-id="{{$data_arr->id}}" data-proxy="{{$proxy}}">
+				<input type="button" class="btn btn-info button-setting-proxy" value="Assign" data-toggle="modal" data-target="#myModalAutomation" data-id="{{$data_arr->id}}">
 				<br>
-				{{$proxy}}
 			</td>
       <td align="center">
 				<p class="server-automation-name">
@@ -257,7 +257,10 @@
 			</td>
 			<!--
       <td align="center">
-				<input type="button" class="btn btn-primary button-method" data-id="{{$data_arr->id}}" value="Automation" data-toggle="modal" data-target="#myModalMethodAutomation" <?php if ($use_automation) {echo "data-automation='yes'";} else { echo "data-automation='no'"; } ?>>
+				<input type="button" class="btn btn-primary button-method" data-id="{{$data_arr->id}}" value="Automation" data-toggle="modal" data-target="#myModalMethodAutomation" 
+				<?php 
+				// if ($use_automation) {echo "data-automation='yes'";} else { echo "data-automation='no'"; } 
+				?>>
 			</td>
       <td align="center">
 				<?php //if ( ($admin->email == "celebgramme.dev@gmail.com") || ($admin->email == "admin@admin.com") ) { ?>

@@ -1262,4 +1262,21 @@ class SettingController extends Controller {
 		return $arr;
 	}
 
+  public function get_proxy_data()
+  {
+		$proxy = "-";
+		$settingHelper = SettingHelper::where("setting_id","=",Request::input("id"))->first();
+		if ( !is_null($settingHelper) ) {
+			$proxies = Proxies::find($settingHelper->proxy_id);
+			if (!is_null($proxies)) {
+				if ($proxies->auth) {
+					$proxy = $proxies->proxy.":".$proxies->port.":".$proxies->cred;
+				} else {
+					$proxy = $proxies->proxy.":".$proxies->port;
+				}
+			}
+		}
+		return $proxy;
+	}
+	
 }
