@@ -739,6 +739,28 @@
           }
         });
       });
+			$( "body" ).on( "click", ".button-show-server_automation", function() {
+				$(".setting-id").val($(this).attr("data-id"));
+        $.ajax({
+          url: '<?php echo url('get-server-automation'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'get',
+          data: {
+            id :$(this).attr("data-id"),
+          },
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            alert(result);
+          }
+        });
+      });
       $( "body" ).on( "click", "#button-process-setting-proxy", function() {
         temp = $(this);
         $.ajax({

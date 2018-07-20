@@ -108,13 +108,13 @@
 					<li class="wrap"><strong>Activity speed : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->activity_speed)}} </span> </strong> </li> 
 					
 					<?php if ($data_arr->status_auto) { ?>
-					<li class="wrap"><strong>Identity Categories : </strong><?php echo $identity ?></li>
-					<li class="wrap"><strong>Target Categories : </strong><?php echo $target ?></li>
+					<li class="wrap"><strong>Identity Categories : </strong><?php //echo $identity ?></li>
+					<li class="wrap"><strong>Target Categories : </strong><?php //echo $target ?></li>
 					<?php } ?>
 					
 					
-					<li class="wrap"><strong>is Auto Likes : </strong><?php if ($is_auto_get_likes) { echo "Yes"; } else { echo "No";} ?></li>
-					<li class="wrap"><strong>Number Likes : </strong><?php echo $number_likes; ?></li>
+					<li class="wrap"><strong>is Auto Likes : </strong><?php //if ($is_auto_get_likes) { echo "Yes"; } else { echo "No";} ?></li>
+					<li class="wrap"><strong>Number Likes : </strong><?php //echo $number_likes; ?></li>
 					<li class="wrap"><strong>is Auto Responder : </strong><?php if ($is_auto_responder) { echo "Yes"; } else { echo "No";} ?></li>
 					<li class="wrap"><strong>Welcome Message : </strong><?php  echo $data_arr->messages;  ?></li>
 					<li class="wrap"><strong>Auto Responder Message : </strong><?php  echo $auto_responder_message; ?></li>
@@ -186,14 +186,15 @@
 			-->
       <td align="center" class="setting-proxy">
 				<input type="button" class="btn btn-info button-setting-proxy" value="Assign" data-toggle="modal" data-target="#myModalAutomation" data-id="{{$data_arr->id}}">
-				<br>
 			</td>
       <td align="center">
 				<p class="server-automation-name">
 				<span class="edit-server-automation">
 				<?php 
-					echo $server_automation;
+					// echo $server_automation;
 				?>
+				<input type="button" class="btn btn-info button-show-server_automation" value="Show Server Automation" data-id="{{$data_arr->id}}">
+				
 				</span>
 				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-server-automation-edit" data-toggle="modal" data-target="#serverAutomationModal" data-id="{{$data_arr->id}}"
 				data-filename="{{$server_automation}}" style="cursor:pointer;">  </span>
@@ -223,7 +224,7 @@
 			</td>
       <td align="center">
 				<?php 
-					if ($cookies=="error login status :check") {
+					/*if ($cookies=="error login status :check") {
 						echo "Error Password Reset";
 					} else
 					if ($cookies=="success") {
@@ -236,7 +237,7 @@
 						echo "OFF";
 					} else {
 						echo $cookies;
-					}
+					}*/
 				?>
 			</td>
       <td align="center">

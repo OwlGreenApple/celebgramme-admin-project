@@ -1279,4 +1279,14 @@ class SettingController extends Controller {
 		return $proxy;
 	}
 	
+  public function get_server_automation()
+  {
+		$server_automation = "-";
+		$settingHelper = SettingHelper::where("setting_id","=",Request::input("id"))->first();
+		if ( !is_null($settingHelper) ) {
+			$server_automation = $settingHelper->server_automation;
+		}
+		return $server_automation;
+	}
+	
 }
