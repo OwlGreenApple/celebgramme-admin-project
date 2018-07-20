@@ -736,6 +736,7 @@
           {
             // alert(result);
 						$("#proxy").val(result);
+						$("#div-loading").hide();
           }
         });
       });
@@ -758,6 +759,30 @@
           success: function(result)
           {
             alert(result);
+						$("#div-loading").hide();
+          }
+        });
+      });
+			$( "body" ).on( "click", ".button-show-cookies", function() {
+				$(".setting-id").val($(this).attr("data-id"));
+        $.ajax({
+          url: '<?php echo url('get-cookies-automation'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'get',
+          data: {
+            id :$(this).attr("data-id"),
+          },
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            alert(result);
+						$("#div-loading").hide();
           }
         });
       });

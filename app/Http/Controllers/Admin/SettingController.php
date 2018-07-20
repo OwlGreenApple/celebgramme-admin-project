@@ -1289,4 +1289,30 @@ class SettingController extends Controller {
 		return $server_automation;
 	}
 	
+  public function get_cookies_automation()
+  {
+		$cookies = "-";
+		$settingHelper = SettingHelper::where("setting_id","=",Request::input("id"))->first();
+		if ( !is_null($settingHelper) ) {
+			$temp = $settingHelper->cookies;
+
+			if ($temp=="error login status :check") {
+				$cookies = "Error Password Reset";
+			} else
+			if ($temp=="success") {
+				$cookies = "OK";
+			} else
+			if ($temp=="error csrf status : new") {
+				$cookies = "Error Konfirmasi Telepon / Email";
+			} else
+			if ($temp=="") {
+				$cookies = "OFF";
+			} else {
+				$cookies = $temp;
+			}			
+			
+		}
+		return $cookies;
+	}
+	
 }

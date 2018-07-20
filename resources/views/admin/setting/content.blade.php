@@ -223,6 +223,7 @@
 				?>
 			</td>
       <td align="center">
+				<input type="button" class="btn btn-info button-show-cookies" value="Show" data-id="{{$data_arr->id}}">
 				<?php 
 					/*if ($cookies=="error login status :check") {
 						echo "Error Password Reset";
