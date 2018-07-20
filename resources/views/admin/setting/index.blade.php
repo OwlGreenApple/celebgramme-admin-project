@@ -735,7 +735,7 @@
           success: function(result)
           {
             // alert(result);
-						$("#proxy").val($(this).attr("data-proxy"));
+						$("#proxy").val(result);
           }
         });
       });
