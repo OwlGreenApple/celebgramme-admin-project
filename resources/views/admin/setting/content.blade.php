@@ -199,28 +199,32 @@
 				<span type="button" value="edit" data-loading-text="Loading..." class="glyphicon glyphicon-pencil btn-server-automation-edit" data-toggle="modal" data-target="#serverAutomationModal" data-id="{{$data_arr->id}}"
 				data-filename="{{$server_automation}}" style="cursor:pointer;">  </span>
 				/
-				<?php 
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-setting" data-header="Server Automation" data-id="{{$data_arr->id}}" data-action="server_liker"> Show </button>
+				<!--<?php 
 					if ($is_auto_get_likes) { 
 						echo SettingMeta::getMeta($data_arr->id,"server_liker");
 					} 
 					else { 
 						echo "-";
 					} 
-				?>
+				?>-->
 				
 				</p>
 			</td>
       <td align="center">
-        <?php 
+        <button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-setting" data-header="Followers" data-id="{{$data_arr->id}}" data-action="followers"> Show </button>
+        <!--<?php 
 					$followers = SettingMeta::getMeta($data_arr->id,"followers");
 					echo number_format($followers,0,'','.');
-				?>
+				?>-->
 			</td>
       <td align="center">
-        <?php 
+        <button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-setting" data-header="Following" data-id="{{$data_arr->id}}" data-action="following"> Show </button>
+        <!--<?php 
 					$following = SettingMeta::getMeta($data_arr->id,"following");
 					echo number_format($following,0,'','.');
-				?>
+				?>-->
 			</td>
       <td align="center">
 				<input type="button" class="btn btn-info button-show-cookies" value="Show" data-id="{{$data_arr->id}}">

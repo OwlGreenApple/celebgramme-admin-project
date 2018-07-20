@@ -14,6 +14,7 @@
     z-index:9050!important;
 }	
 </style>
+<?php use Celebgramme\Models\SettingMeta;  ?>
   <div class="modal fade" id="myModalLog" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
@@ -33,6 +34,24 @@
       
     </div>
   </div>
+
+  <div class="modal fade" id="show-setting" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" id="header-setting"></h4>
+        </div>
+        <div class="modal-body">
+          <span id="content-setting"></span>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="modal fade" id="myModalSettingLogs" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
@@ -491,7 +510,33 @@
       $("#alert").hide();
       //create_pagination(1);
       refresh_page(1);
-			
+      
+      $("#show-setting").on("show.bs.modal", function(e) {
+        var id = $(e.relatedTarget).data('id');
+        var action = $(e.relatedTarget).data('action');
+        var header = $(e.relatedTarget).data('header');
+
+        $.ajax({
+          url: '<?php echo url('show-setting-modal'); ?>',
+          type: 'get',
+          data: {
+            id:id,
+            action:action,
+          },
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            $("#div-loading").hide();
+            $("#header-setting").html(header);
+            $("#content-setting").html(result);
+          }
+        });
+      });
+
       $(document).on('click', '#pagination1 a', function (e) {
         e.preventDefault();
         e.stopPropagation();
