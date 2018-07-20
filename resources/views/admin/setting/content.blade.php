@@ -1,8 +1,8 @@
 <?php 
-	use Celebgramme\Models\SettingMeta; 
-	use Celebgramme\Models\User;
+	// use Celebgramme\Models\SettingMeta; 
+	// use Celebgramme\Models\User;
 	// use Celebgramme\Models\SettingHelper; 
-	use Celebgramme\Models\Proxies; 
+	// use Celebgramme\Models\Proxies; 
 	use Celebgramme\Models\AutoResponderSetting; 
   if ( $arr->count()==0  ) {
     echo "<tr><td colspan='8' align='center'>Data tidak ada</td></tr>";
@@ -206,12 +206,12 @@
 
         <button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-setting" data-header="Server Automation" data-id="{{$data_arr->id}}" data-action="server_liker"> Show </button>
 				<!--<?php 
-					if ($is_auto_get_likes) { 
-						echo SettingMeta::getMeta($data_arr->id,"server_liker");
-					} 
-					else { 
-						echo "-";
-					} 
+					// if ($is_auto_get_likes) { 
+						// echo SettingMeta::getMeta($data_arr->id,"server_liker");
+					// } 
+					// else { 
+						// echo "-";
+					// } 
 				?>-->
 				
 				</p>
@@ -219,15 +219,15 @@
       <td align="center">
         <button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-setting" data-header="Followers" data-id="{{$data_arr->id}}" data-action="followers"> Show </button>
         <!--<?php 
-					$followers = SettingMeta::getMeta($data_arr->id,"followers");
-					echo number_format($followers,0,'','.');
+					// $followers = SettingMeta::getMeta($data_arr->id,"followers");
+					// echo number_format($followers,0,'','.');
 				?>-->
 			</td>
       <td align="center">
         <button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-setting" data-header="Following" data-id="{{$data_arr->id}}" data-action="following"> Show </button>
         <!--<?php 
-					$following = SettingMeta::getMeta($data_arr->id,"following");
-					echo number_format($following,0,'','.');
+					// $following = SettingMeta::getMeta($data_arr->id,"following");
+					// echo number_format($following,0,'','.');
 				?>-->
 			</td>
       <td align="center">
