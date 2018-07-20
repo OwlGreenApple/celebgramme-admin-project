@@ -75,7 +75,11 @@
       <td align="center">
 				<?php 
 					// if (!is_null($user)) {
-						if (!is_null($data_arr->fullname)) { echo $data_arr->fullname;} else {echo"-";}."(".if (!is_null($data_arr->email)) { echo $data_arr->email;} else {echo"-";}.") / ";?><br>
+						if (!is_null($data_arr->fullname)) { echo $data_arr->fullname;} else {echo"-";}
+						echo "(";
+						if (!is_null($data_arr->email)) { echo $data_arr->email;} else {echo"-";}
+						echo ") / ";
+						?><br>
 				<input type="button" value="Send email" data-loading-text="Loading..." class="btn btn-primary btn-send-email" data-toggle="modal" data-target="#myModalSendEmail" data-email="{{$data_arr->email}}" data-fullname="{{$data_arr->fullname}}" data-igaccount="{{$data_arr->insta_username}}"> 
 				<?php						
 					// } else {
