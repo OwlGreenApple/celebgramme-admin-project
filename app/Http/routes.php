@@ -148,6 +148,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('get-proxy-data', 'Admin\SettingController@get_proxy_data');
 	Route::get('get-server-automation', 'Admin\SettingController@get_server_automation');
 	Route::get('get-cookies-automation', 'Admin\SettingController@get_cookies_automation');
+	Route::get('show-setting-modal','Admin\SettingController@show_setting_modal');
 	
 	/* Log Account IG All*/
 	Route::get('log-setting', 'Admin\SettingController@log_index');

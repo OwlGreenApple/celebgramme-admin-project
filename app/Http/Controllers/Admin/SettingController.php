@@ -1315,4 +1315,22 @@ class SettingController extends Controller {
 		return $cookies;
 	}
 	
+  public function show_setting_modal(){
+    if(Request::input('action')=='server_liker'){
+      $is_auto_get_likes = 0;
+      $settingHelper = SettingHelper::where("setting_id","=",Request::input("id"))->first();
+      if ( !is_null($settingHelper) ) {
+        $is_auto_get_likes = $settingHelper->is_auto_get_likes;
+      }
+
+      $server_liker = '-';
+      if ($is_auto_get_likes) { 
+        $server_liker = SettingMeta::getMeta(Request::input('id'),"server_liker");
+      } 
+      return $server_liker;
+    }
+
+    $value = SettingMeta::getMeta(Request::input('id'),Request::input('action'));
+    return $value;
+  }
 }
