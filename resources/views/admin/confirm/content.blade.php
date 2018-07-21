@@ -1,7 +1,6 @@
 <?php 
   use Celebgramme\Models\Coupon;
   use Celebgramme\Models\Package;
-  use Celebgramme\Models\OrderMeta;
   if ( ($order->count()==0) ) {
     echo "<tr><td colspan='15' align='center'>Data tidak ada</td></tr>";
   } else {
@@ -24,13 +23,13 @@
 				{{$arr->no_order}}
       </td>
       <td align="center">
-        {{OrderMeta::getMeta($arr->id,"nama bank") }}
+        <button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-more" data-header="Nama Bank" data-id="{{$arr->id}}" data-action="nama bank"> Show </button>
       </td>
       <td align="center">
-        {{OrderMeta::getMeta($arr->id,"no rekening") }}
+        <button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-more" data-header="No Rekening" data-id="{{$arr->id}}" data-action="no rekening"> Show </button>
       </td>
       <td align="center">
-        {{OrderMeta::getMeta($arr->id,"nama pemilik rekening") }}
+        <button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-more" data-header="Nama Pemilik Rekening" data-id="{{$arr->id}}" data-action="nama pemilik rekening"> Show </button>
       </td>
       <td align="center">
         {{$arr->email." ".$arr->fullname}}

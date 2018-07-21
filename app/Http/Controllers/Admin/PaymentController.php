@@ -425,7 +425,14 @@ class PaymentController extends Controller {
   public function load_order()
   {
 		$admin = Auth::user();
-		if (Request::input('keyword') == "" ) {
+    $arr = Order::select("orders.*","users.email","users.fullname")
+              ->leftJoin("users","users.id","=","orders.user_id")
+              ->where("no_order","like","%".Request::input('keyword')."%")
+              ->orWhere("email","like","%".Request::input('keyword')."%")
+              ->orWhere("fullname","like","%".Request::input('keyword')."%")
+              ->orderBy('orders.id', 'desc')->paginate(15);
+      //dd($arr);
+		/*if (Request::input('keyword') == "" ) {
 			$arr = Order::orderBy('id', 'desc')->paginate(15);
 		} else {
 			$arr = Order::select("orders.*")
@@ -434,7 +441,7 @@ class PaymentController extends Controller {
 							->orWhere("email","like","%".Request::input('keyword')."%")
 							->orWhere("fullname","like","%".Request::input('keyword')."%")
 							->orderBy('orders.id', 'desc')->paginate(15);
-		}
+		}*/
 
     /*return view('admin.order.content')->with(
                 array(
@@ -442,6 +449,7 @@ class PaymentController extends Controller {
                   'arr'=>$arr,
                   'page'=>Request::input('page'),
                 ));*/
+
       $arr2['view'] = (string) view('admin.order.content')->with(
                 array(
                   'admin'=>$admin,
@@ -593,7 +601,7 @@ class PaymentController extends Controller {
     return $arr;    
   }
 
-
-
-  
+  public function show_more(){
+    return OrderMeta::getMeta(Request::input('id'),Request::input('action'));
+  }
 }

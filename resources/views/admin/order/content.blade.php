@@ -1,19 +1,18 @@
 <?php 
   use Celebgramme\Models\Package;
   use Celebgramme\Models\User;
-  use Celebgramme\Models\OrderMeta;
   if ( $arr->count()==0  ) {
     echo "<tr><td colspan='7' align='center'>Data tidak ada</td></tr>";
   } else {
     //search by username
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
-			$email = ""; $fullname = "";
+			/*$email = ""; $fullname = "";
 			$user = User::find($data_arr->user_id);	
 			if (!is_null($user)) {
 				$email = $user->email; 
 				$fullname = $user->fullname;
-			}
+			}*/
 		?>
     <tr class="row{{$data_arr->id}}">
       <td>
@@ -26,10 +25,10 @@
         {{$data_arr->no_order}}
       </td>
       <td>
-        {{$email}}
+        {{$data_arr->email}}
       </td>
       <td>
-        {{$fullname}}
+        {{$data_arr->fullname}}
       </td>
       <td align="right">
         {{number_format($data_arr->total-$data_arr->discount,0,'','.')}}
@@ -50,8 +49,8 @@
 				if ($data_arr->order_status == "pending") { echo "<span style='color:#c12e2a;font-weight:Bold;'>Pending order</span>";}
 				else { echo "<span style='color:#1e80e1;font-weight:Bold;'>".$data_arr->order_status."</span>"; }
 				echo "<br>";
-				echo OrderMeta::getMeta($data_arr->id,"logs");
 			?>
+        <button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-more" data-header="Keterangan" data-id="{{$data_arr->id}}" data-action="logs"> Show </button>
       </td>
       <td align="center">
 				<?php if ( ($admin->email == "celebgramme.dev@gmail.com") || ($admin->email == "admin@admin.com") ) { ?>

@@ -117,6 +117,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-order', 'Admin\PaymentController@pagination_order');
 	Route::post('add-order', 'Admin\PaymentController@add_order');
 	Route::post('delete-order', 'Admin\PaymentController@delete_order');
+	Route::get('show-more','Admin\PaymentController@show_more');
 	
 	/* Package auto manage */
 	Route::get('package-auto-manage', 'Admin\PackageController@package_auto_manage');

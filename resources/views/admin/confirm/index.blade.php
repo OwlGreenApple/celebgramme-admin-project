@@ -1,6 +1,24 @@
 @extends('layout.main')
 
 @section('content')
+  <!-- Modal Show More -->  
+  <div class="modal fade" id="show-more" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" id="header-more"></h4>
+        </div>
+        <div class="modal-body">
+          <span id="content-more"></span>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="page-header">
     <h1>Confirm payment</h1>
   </div>  
@@ -168,6 +186,34 @@
       $("#alert").hide();
       refresh_page(1);
       //create_pagination();
+
+       $("#show-more").on("show.bs.modal", function(e) {
+        var id = $(e.relatedTarget).data('id');
+        var action = $(e.relatedTarget).data('action');
+        var header = $(e.relatedTarget).data('header');
+
+        $.ajax({
+          url: '<?php echo url('show-more'); ?>',
+          type: 'get',
+          data: {
+            id:id,
+            action:action,
+          },
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            $("#div-loading").hide();
+            $("#header-more").html(header);
+            $("#content-more").html(result);
+          }
+        });
+      });
+
+
       $(document).on('click', '#pagination a', function (e) {
         e.preventDefault();
         e.stopPropagation();
