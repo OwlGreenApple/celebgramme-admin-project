@@ -7,12 +7,12 @@
     //search by username
   $i=($page-1)*15 + 1;
   foreach ($arr as $data_arr) {
-			/*$email = ""; $fullname = "";
+			$email = ""; $fullname = "";
 			$user = User::find($data_arr->user_id);	
 			if (!is_null($user)) {
 				$email = $user->email; 
 				$fullname = $user->fullname;
-			}*/
+			}
 		?>
     <tr class="row{{$data_arr->id}}">
       <td>
@@ -25,10 +25,10 @@
         {{$data_arr->no_order}}
       </td>
       <td>
-        {{$data_arr->email}}
+        {{$email}}
       </td>
       <td>
-        {{$data_arr->fullname}}
+        {{$fullname}}
       </td>
       <td align="right">
         {{number_format($data_arr->total-$data_arr->discount,0,'','.')}}
