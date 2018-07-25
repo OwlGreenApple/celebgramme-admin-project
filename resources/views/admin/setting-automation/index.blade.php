@@ -258,6 +258,7 @@
 				<option value="AA9(automation-9)">AA9(automation-9)</option>
 				<option value="AA10(automation-10)">AA10(automation-10)</option>
 				<option value="AA12(automation-12)">AA12(automation-12)</option>
+				<option value="AA12(automation-13)">AA13(automation-13)</option>
 			</select>
     </div>  
 		<?php } ?>
