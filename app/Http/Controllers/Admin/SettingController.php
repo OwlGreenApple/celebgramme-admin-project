@@ -126,7 +126,7 @@ class SettingController extends Controller {
 				$arr = Setting::leftJoin("users","users.id","=","settings.user_id")
 							 ->select("settings.*","users.email","users.fullname")
 							 ->where("settings.type","=","temp")
-							 ->where("last_user","<>",1267)
+							 // ->where("last_user","<>",1267)
 							 ->orderBy('id', 'asc')
 							 ->paginate(15);
 			} else if (Request::input('keyword')=="update") {
@@ -137,7 +137,7 @@ class SettingController extends Controller {
 							 ->where("activity","=","follow")
 							 ->where("status","=","started")
 							 ->where("follow_source","=","hashtags")
-							 ->where("last_user","<>",1267)
+							 // ->where("last_user","<>",1267)
 							 ->orderBy('id', 'asc')
 							 ->paginate(15);
 			} else {
@@ -149,7 +149,7 @@ class SettingController extends Controller {
 							 ->select("settings.*","users.email","users.fullname")
 							 // ->where('setting_metas.meta_name', '=', "fl_filename")
 							 ->where("settings.type","=","temp")
-							 ->where("last_user","<>",1267)
+							 // ->where("last_user","<>",1267)
 							 ->where(function ($query){
 								 $query->orWhere("insta_username","like","%".Request::input('keyword')."%")
 								 // ->orWhere("meta_value","like","%".Request::input('keyword')."%")
