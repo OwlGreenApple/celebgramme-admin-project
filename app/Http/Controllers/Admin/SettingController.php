@@ -86,25 +86,25 @@ class SettingController extends Controller {
 		$arrAvailableProxy = array();
 
     if(!App::environment('local')){
-      // $availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw("sum(count_proxy) as countP"))
-                      // ->groupBy("id","proxy","cred","port","auth")
-                      // ->orderBy("countP","asc")
-                      // ->having('countP', '<', 1)
-                      // ->get();
-      // foreach($availableProxy as $data) {
-        // $check_proxy = Proxies::find($data->id);
-        // if ($check_proxy->is_error == 0){
-          // $dataNew = array();
-          $dataNew[] = $data->id;
-          // $dataNew["id"] = $data->id;
-          // if ($data->auth) {
-            // $dataNew["value"] = $data->proxy.":".$data->port.":".$data->cred;
-          // } else {
-            // $dataNew["value"] = $data->proxy.":".$data->port;
-          // }
-          // $arrAvailableProxy[] = $dataNew;  
-        // }
-      // }
+      /*$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw("sum(count_proxy) as countP"))
+                      ->groupBy("id","proxy","cred","port","auth")
+                      ->orderBy("countP","asc")
+                      ->having('countP', '<', 1)
+                      ->get();
+      foreach($availableProxy as $data) {
+        $check_proxy = Proxies::find($data->id);
+        if ($check_proxy->is_error == 0){
+          $dataNew = array();
+          // $dataNew[] = $data->id;
+          $dataNew["id"] = $data->id;
+          if ($data->auth) {
+            $dataNew["value"] = $data->proxy.":".$data->port.":".$data->cred;
+          } else {
+            $dataNew["value"] = $data->proxy.":".$data->port;
+          }
+          $arrAvailableProxy[] = $dataNew;  
+        }
+      }*/
     }
 								
 		return View::make('admin.setting.index')->with(
