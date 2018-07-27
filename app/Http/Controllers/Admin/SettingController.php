@@ -126,7 +126,7 @@ class SettingController extends Controller {
 		}*/
 		$arrAvailableProxy = array();
 
-    if(!App::environment('local')){
+    if(!App::environment('local')){/*
 			try {
 			
       $availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw("sum(count_proxy) as countP"))
@@ -153,7 +153,7 @@ class SettingController extends Controller {
 			catch (Exception $e) {
 				echo $e->getMessage();
 			}
-			
+			*/
     }
 								
 		return View::make('admin.setting.index')->with(
@@ -591,6 +591,12 @@ class SettingController extends Controller {
 		if ($setting_helper->server_automation == "AA13(automation-13)") {
 			$file_server = "http://103.102.46.153/";
 		}
+		if ($setting_helper->server_automation == "AA14(automation-14)") {
+			$file_server = "http://103.102.46.220/";
+		}
+		if ($setting_helper->server_automation == "AA15(automation-15)") {
+			$file_server = "http://103.102.46.138/";
+		}
 
 		$file_server .= "logs-IG-account/".$setting->insta_username.".txt";
 		$ch = curl_init($file_server);
@@ -652,6 +658,12 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "AA13(automation-13)") {
 			$server = "http://103.102.46.153/";
+		}
+		if ($setting_helper->server_automation == "AA14(automation-14)") {
+			$server = "http://103.102.46.220/";
+		}
+		if ($setting_helper->server_automation == "AA15(automation-15)") {
+			$server = "http://103.102.46.138/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -765,6 +777,12 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "AA13(automation-13)") {
 			$server = "http://103.102.46.153/";
+		}
+		if ($setting_helper->server_automation == "AA14(automation-14)") {
+			$server = "http://103.102.46.220/";
+		}
+		if ($setting_helper->server_automation == "AA15(automation-15)") {
+			$server = "http://103.102.46.138/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -905,6 +923,12 @@ class SettingController extends Controller {
 			}
 			if ($setting_helper->server_automation == "AA13(automation-13)") {
 				$file_server = "http://103.102.46.153/";
+			}
+			if ($setting_helper->server_automation == "AA14(automation-14)") {
+				$file_server = "http://103.102.46.220/";
+			}
+			if ($setting_helper->server_automation == "AA15(automation-15)") {
+				$file_server = "http://103.102.46.138/";
 			}
 			
 			$unfollow_counter = 0; $follow_counter = 0; $like_counter = 0; $comment_counter = 0;

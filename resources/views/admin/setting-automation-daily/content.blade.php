@@ -43,6 +43,12 @@
 		if ($data_arr->server_automation == "AA13(automation-13)") {
 			$server = "http://103.102.46.153/";
 		}
+		if ($data_arr->server_automation == "AA14(automation-14)") {
+			$server = "http://103.102.46.220/";
+		}
+		if ($data_arr->server_automation == "AA15(automation-15)") {
+			$server = "http://103.102.46.138/";
+		}
 		
 ?>
     <tr class="row{{$data_arr->id}}">
