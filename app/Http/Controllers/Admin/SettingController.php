@@ -22,7 +22,7 @@ use Celebgramme\Models\UserSetting;
 
 use Celebgramme\Helpers\GlobalHelper;
 
-use View,Auth,Request,DB,Carbon,Excel,Mail,Input,App;
+use View,Auth,Request,DB,Carbon,Excel,Mail,Input,App,Exception;
 
 class SettingController extends Controller {
 
@@ -86,6 +86,8 @@ class SettingController extends Controller {
 		$arrAvailableProxy = array();
 
     if(!App::environment('local')){
+			try {
+			
       $availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw("sum(count_proxy) as countP"))
                       ->groupBy("id","proxy","cred","port","auth")
                       ->orderBy("countP","asc")
@@ -105,6 +107,12 @@ class SettingController extends Controller {
           $arrAvailableProxy[] = $dataNew;  
         }
       }
+			
+			}
+			catch (Exception $e) {
+				echo $e->getMessage();
+			}
+			
     }
 								
 		return View::make('admin.setting.index')->with(
@@ -126,7 +134,7 @@ class SettingController extends Controller {
 				$arr = Setting::leftJoin("users","users.id","=","settings.user_id")
 							 ->select("settings.*","users.email","users.fullname")
 							 ->where("settings.type","=","temp")
-							 // ->where("last_user","<>",1267)
+							 ->where("last_user","<>",1267)
 							 ->orderBy('id', 'asc')
 							 ->paginate(15);
 			} else if (Request::input('keyword')=="update") {
@@ -137,7 +145,7 @@ class SettingController extends Controller {
 							 ->where("activity","=","follow")
 							 ->where("status","=","started")
 							 ->where("follow_source","=","hashtags")
-							 // ->where("last_user","<>",1267)
+							 ->where("last_user","<>",1267)
 							 ->orderBy('id', 'asc')
 							 ->paginate(15);
 			} else {
@@ -149,7 +157,7 @@ class SettingController extends Controller {
 							 ->select("settings.*","users.email","users.fullname")
 							 // ->where('setting_metas.meta_name', '=', "fl_filename")
 							 ->where("settings.type","=","temp")
-							 // ->where("last_user","<>",1267)
+							 ->where("last_user","<>",1267)
 							 ->where(function ($query){
 								 $query->orWhere("insta_username","like","%".Request::input('keyword')."%")
 								 // ->orWhere("meta_value","like","%".Request::input('keyword')."%")
