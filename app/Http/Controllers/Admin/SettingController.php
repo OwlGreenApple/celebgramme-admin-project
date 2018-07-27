@@ -38,6 +38,47 @@ class SettingController extends Controller {
 	}
 
 	/**
+	 * Show testing Page.
+	 *
+	 * @return Response
+	 */
+	public function testing()
+	{
+		$arrAvailableProxy = array();
+		$counter = 0;
+		try {
+			$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw("sum(count_proxy) as countP"))
+											->groupBy("id","proxy","cred","port","auth")
+											->orderBy("countP","asc")
+											->having('countP', '<', 1)
+											->get();
+			foreach($availableProxy as $data) {
+				$check_proxy = Proxies::find($data->id);
+				if ($check_proxy->is_error == 0){
+					$dataNew = array();
+					// $dataNew[] = $data->id;
+					$dataNew["id"] = $data->id;
+					if ($data->auth) {
+						$dataNew["value"] = $data->proxy.":".$data->port.":".$data->cred;
+					} else {
+						$dataNew["value"] = $data->proxy.":".$data->port;
+					}
+					$arrAvailableProxy[] = $dataNew;  
+				}
+				$counter += 1;
+				if ($counter>=200){
+					break;
+				}
+			}
+		
+		}
+		catch (Exception $e) {
+			echo $e->getMessage();
+		}
+		dd($arrAvailableProxy);
+	}
+	
+	/**
 	 * Show Setting Page.
 	 *
 	 * @return Response
