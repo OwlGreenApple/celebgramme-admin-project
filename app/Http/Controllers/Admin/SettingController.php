@@ -86,7 +86,7 @@ class SettingController extends Controller {
 		$arrAvailableProxy = array();
 
     if(!App::environment('local')){
-      /*$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw("sum(count_proxy) as countP"))
+      $availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw("sum(count_proxy) as countP"))
                       ->groupBy("id","proxy","cred","port","auth")
                       ->orderBy("countP","asc")
                       ->having('countP', '<', 1)
@@ -104,7 +104,7 @@ class SettingController extends Controller {
           }
           $arrAvailableProxy[] = $dataNew;  
         }
-      }*/
+      }
     }
 								
 		return View::make('admin.setting.index')->with(
