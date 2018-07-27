@@ -53,7 +53,7 @@ class SettingController extends Controller {
 											->having('countP', '<', 1)
 											->get();
 			foreach($availableProxy as $data) {
-				/*$check_proxy = Proxies::find($data->id);
+				$check_proxy = Proxies::find($data->id);
 				if ($check_proxy->is_error == 0){
 					$dataNew = array();
 					// $dataNew[] = $data->id;
@@ -66,9 +66,9 @@ class SettingController extends Controller {
 					$arrAvailableProxy[] = $dataNew;  
 				}
 				$counter += 1;
-				if ($counter>=200){
-					break;
-				}*/
+				// if ($counter>=200){
+					// break;
+				// }
 			}
 		
 		}
