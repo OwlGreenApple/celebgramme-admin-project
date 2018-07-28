@@ -194,8 +194,12 @@ class MemberController extends Controller {
     $arr = User::where("type","<>","admin")
              ->where("is_member_rico",1)
              ->select(DB::raw("sum(active_auto_manage) as total_time_manage"))
-             ->orderBy('id', 'desc')
-             ->get();
+             ->orderBy('id', 'desc')->get();
+    $total_user = User::where("type","<>","admin")
+             ->where("is_member_rico",1)
+             ->select(DB::raw("sum(active_auto_manage) as total_time_manage"))
+             ->orderBy('id', 'desc')->count();
+    
     
     $packages = Package::where("package_group","=","auto-manage")
                 ->orderBy('price', 'asc')->get();
@@ -206,7 +210,7 @@ class MemberController extends Controller {
                     'affiliates'=>$affiliates,
                     'packages'=>$packages,
                     'total_auto_manage'=>$arr[0]->total_time_manage,
-                    'total_user' => $arr->count(),
+                    'total_user' => $total_user,
                   ));
   }
 
