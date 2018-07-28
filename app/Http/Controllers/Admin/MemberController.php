@@ -188,6 +188,83 @@ class MemberController extends Controller {
     return $arr2;
   }
   
+  public function member_affiliate()
+  {
+    $user = Auth::user();
+    $arr = User::where("type","<>","admin")
+             ->where("is_member_rico",1)
+             ->select(DB::raw("sum(active_auto_manage) as total_time_manage"))
+             ->orderBy('id', 'desc')->get();
+    $total_user = User::where("type","<>","admin")
+             ->where("is_member_rico",1)
+             ->select(DB::raw("sum(active_auto_manage) as total_time_manage"))
+             ->orderBy('id', 'desc')->count();
+    
+    
+    $packages = Package::where("package_group","=","auto-manage")
+                ->orderBy('price', 'asc')->get();
+    $affiliates = Affiliate::all();
+    return View::make('admin.member-affiliate.index')->with(
+                  array(
+                    'user'=>$user,
+                    'affiliates'=>$affiliates,
+                    'packages'=>$packages,
+                    'total_auto_manage'=>$arr[0]->total_time_manage,
+                    'total_user' => $total_user,
+                  ));
+  }
+
+  public function load_member_affiliate()
+  {
+    $admin = Auth::user();
+    if (Request::input('sort')==1) {
+      if (Request::input('keyword')=="") {
+        $arr = User::where("type","<>","admin")
+               ->where("is_member_rico",1)
+               ->orderBy('created_at', 'desc')
+               ->paginate(15);
+      } else {      
+        $arr = User::where("type","<>","admin")
+               ->where("is_member_rico",1)
+               ->where("email",'like',Request::input('keyword')."%")
+               ->orderBy('created_at', 'desc')
+               ->paginate(15);
+      }
+    } else {
+      if (Request::input('keyword')=="") {
+        $arr = User::where("type","<>","admin")
+               ->where("is_member_rico",1)
+               ->orderBy('active_auto_manage', 'desc')
+               ->paginate(15);
+      } else {      
+        $arr = User::where("type","<>","admin")
+               ->where("is_member_rico",1)
+               ->where("email",'like',Request::input('keyword')."%")
+               ->orderBy('active_auto_manage', 'desc')
+               ->paginate(15);
+      }
+    }
+
+    /*return view('admin.member-all.content')->with(
+                array(
+                  'admin'=>$admin,
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                ));*/
+    $arr2['view'] = (string) view('admin.member-affiliate.content')->with(
+                array(
+                  'admin'=>$admin,
+                  'arr'=>$arr,
+                  'page'=>Request::input('page'),
+                ));
+    $arr2['pagination'] = (string) view('admin.member-all.pagination')->with(
+                array(
+                  'arr'=>$arr,
+                ));
+
+    return $arr2;
+  }
+
   public function pagination_member_all()
   {
 		if (Request::input('sort')==1) {

@@ -80,6 +80,8 @@ Route::group(['middleware' => 'auth'], function()
 	/* Member */
 	Route::get('member-all', 'Admin\MemberController@member_all');
 	Route::get('load-member-all', 'Admin\MemberController@load_member_all');
+  Route::get('member-affiliate', 'Admin\MemberController@member_affiliate');
+  Route::get('load-member-affiliate', 'Admin\MemberController@load_member_affiliate');
 	Route::get('pagination-member-all', 'Admin\MemberController@pagination_member_all');
 	Route::post('give-bonus', 'Admin\MemberController@give_bonus');
 	Route::post('add-member', 'Admin\MemberController@add_member');
