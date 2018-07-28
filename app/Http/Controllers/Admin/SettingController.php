@@ -22,7 +22,7 @@ use Celebgramme\Models\UserSetting;
 
 use Celebgramme\Helpers\GlobalHelper;
 
-use View,Auth,Request,DB,Carbon,Excel,Mail,Input,App;
+use View,Auth,Request,DB,Carbon,Excel,Mail,Input,App,Exception;
 
 class SettingController extends Controller {
 
@@ -37,6 +37,47 @@ class SettingController extends Controller {
 		$this->middleware('auth');
 	}
 
+	/**
+	 * Show testing Page.
+	 *
+	 * @return Response
+	 */
+	public function testing()
+	{
+		$arrAvailableProxy = array();
+		$counter = 0;
+		try {
+			$availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw("sum(count_proxy) as countP"))
+											->groupBy("id","proxy","cred","port","auth")
+											->orderBy("countP","asc")
+											->having('countP', '<', 1)
+											->get();
+			foreach($availableProxy as $data) {
+				$check_proxy = Proxies::find($data->id);
+				if ($check_proxy->is_error == 0){
+					$dataNew = array();
+					// $dataNew[] = $data->id;
+					$dataNew["id"] = $data->id;
+					if ($data->auth) {
+						$dataNew["value"] = $data->proxy.":".$data->port.":".$data->cred;
+					} else {
+						$dataNew["value"] = $data->proxy.":".$data->port;
+					}
+					$arrAvailableProxy[] = $dataNew;  
+				}
+				$counter += 1;
+				// if ($counter>=200){
+					// break;
+				// }
+			}
+		
+		}
+		catch (Exception $e) {
+			echo $e->getMessage();
+		}
+		dd($arrAvailableProxy);
+	}
+	
 	/**
 	 * Show Setting Page.
 	 *
@@ -85,7 +126,9 @@ class SettingController extends Controller {
 		}*/
 		$arrAvailableProxy = array();
 
-    if(!App::environment('local')){
+    if(!App::environment('local')){/*
+			try {
+			
       $availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw("sum(count_proxy) as countP"))
                       ->groupBy("id","proxy","cred","port","auth")
                       ->orderBy("countP","asc")
@@ -105,6 +148,12 @@ class SettingController extends Controller {
           $arrAvailableProxy[] = $dataNew;  
         }
       }
+			
+			}
+			catch (Exception $e) {
+				echo $e->getMessage();
+			}
+			*/
     }
 								
 		return View::make('admin.setting.index')->with(
@@ -536,6 +585,18 @@ class SettingController extends Controller {
 		if ($setting_helper->server_automation == "AA10(automation-10)") {
 			$file_server = "http://185.206.83.8/";
 		}
+		if ($setting_helper->server_automation == "AA12(automation-12)") {
+			$file_server = "http://185.225.104.45/";
+		}
+		if ($setting_helper->server_automation == "AA13(automation-13)") {
+			$file_server = "http://103.102.46.153/";
+		}
+		if ($setting_helper->server_automation == "AA14(automation-14)") {
+			$file_server = "http://103.102.46.220/";
+		}
+		if ($setting_helper->server_automation == "AA15(automation-15)") {
+			$file_server = "http://103.102.46.138/";
+		}
 
 		$file_server .= "logs-IG-account/".$setting->insta_username.".txt";
 		$ch = curl_init($file_server);
@@ -591,6 +652,18 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "AA10(automation-10)") {
 			$server = "http://185.206.83.8/";
+		}
+		if ($setting_helper->server_automation == "AA12(automation-12)") {
+			$server = "http://185.225.104.45/";
+		}
+		if ($setting_helper->server_automation == "AA13(automation-13)") {
+			$server = "http://103.102.46.153/";
+		}
+		if ($setting_helper->server_automation == "AA14(automation-14)") {
+			$server = "http://103.102.46.220/";
+		}
+		if ($setting_helper->server_automation == "AA15(automation-15)") {
+			$server = "http://103.102.46.138/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -698,6 +771,18 @@ class SettingController extends Controller {
 		}
 		if ($setting_helper->server_automation == "AA10(automation-10)") {
 			$server = "http://185.206.83.8/";
+		}
+		if ($setting_helper->server_automation == "AA12(automation-12)") {
+			$server = "http://185.225.104.45/";
+		}
+		if ($setting_helper->server_automation == "AA13(automation-13)") {
+			$server = "http://103.102.46.153/";
+		}
+		if ($setting_helper->server_automation == "AA14(automation-14)") {
+			$server = "http://103.102.46.220/";
+		}
+		if ($setting_helper->server_automation == "AA15(automation-15)") {
+			$server = "http://103.102.46.138/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -832,6 +917,18 @@ class SettingController extends Controller {
 			}
 			if ($setting->server_automation == "AA10(automation-10)") {
 				$server = "http://185.206.83.8/";
+			}
+			if ($setting->server_automation == "AA12(automation-12)") {
+				$file_server = "http://185.225.104.45/";
+			}
+			if ($setting_helper->server_automation == "AA13(automation-13)") {
+				$file_server = "http://103.102.46.153/";
+			}
+			if ($setting_helper->server_automation == "AA14(automation-14)") {
+				$file_server = "http://103.102.46.220/";
+			}
+			if ($setting_helper->server_automation == "AA15(automation-15)") {
+				$file_server = "http://103.102.46.138/";
 			}
 			
 			$unfollow_counter = 0; $follow_counter = 0; $like_counter = 0; $comment_counter = 0;

@@ -135,6 +135,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::patch('update-payment/{konfirmasiId}', 'Admin\PaymentController@update_payment');
   
 	/* Setting Account IG All*/
+	Route::get('testing', 'Admin\SettingController@testing');
 	Route::get('setting', 'Admin\SettingController@index');
 	Route::get('setting/{search}', 'Admin\SettingController@index');
 	Route::get('load-setting', 'Admin\SettingController@load_setting');

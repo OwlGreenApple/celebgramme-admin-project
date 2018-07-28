@@ -54,7 +54,7 @@
       </td>
       <td align="center">
 				<?php if ( ($admin->email == "celebgramme.dev@gmail.com") || ($admin->email == "admin@admin.com") ) { ?>
-				<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}" data-total="{{$data_arr->total}}" data-affiliate="{{$data_arr->affiliate}}" data-package-manage-id="{{$data_arr->package_manage_id}}" data-email="{{$email}}" data-fullname="{{$fullname}}">
+				<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModal" data-id="{{$data_arr->id}}" data-total="{{$data_arr->total}}" data-affiliate="{{$data_arr->affiliate}}" data-package-manage-id="{{$data_arr->package_manage_id}}" data-email="{{$data_arr->email}}" data-fullname="{{$data_arr->fullname}}">
 					<span class='glyphicon glyphicon-pencil'></span> 
 				</button>
 				<button type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#confirm-delete" data-id="{{$data_arr->id}}" <?php if ( ($data_arr->order_status == "success") || ($data_arr->order_status == "cron dari affiliate") ) { echo "disabled"; } ?>>

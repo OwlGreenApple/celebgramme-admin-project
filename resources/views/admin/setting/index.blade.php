@@ -705,7 +705,28 @@
       });
       $( "body" ).on( "click", ".btn-server-automation-edit", function() {
 				$(".setting-id").val($(this).attr("data-id"));
-				$("#server-automation").val($(this).attr("data-filename"));
+        $.ajax({
+          url: '<?php echo url('get-server-automation'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'get',
+          data: {
+            id :$(this).attr("data-id"),
+          },
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+						$("#server-automation").val(result);
+						$("#div-loading").hide();
+          }
+        });
+				
+				
 			});
       $( "body" ).on( "click", "#button-server-automation", function() {
         temp = $(this);
