@@ -66,9 +66,9 @@ class SettingController extends Controller {
 					$arrAvailableProxy[] = $dataNew;  
 				}
 				$counter += 1;
-				if ($counter>=200){
-					break;
-				}
+				// if ($counter>=200){
+					// break;
+				// }
 			}
 		
 		}
