@@ -404,7 +404,7 @@
 	</div>	
 
   <div class="page-header">
-    <h1>Member all</h1>
+    <h1>Member affiliate</h1>
   </div>  
   <p>Total waktu : 
     <?php 
@@ -447,7 +447,9 @@
 				<input type="button" value="List member(rico)" data-loading-text="Loading..." class="btn btn-primary" id="button-list-member"> 
 			</div>  
 		<?php } ?>
-    
+	  <div class="jumlahuser" align="right">
+      Jumlah user = <?php echo $total_user; ?>
+    </div>
     <div class="none"></div>
   </div>
 	
@@ -485,7 +487,7 @@
     function refresh_page(page)
     {
       $.ajax({                                      
-        url: '<?php echo url('load-member-all'); ?>',
+        url: '<?php echo url('load-member-affiliate'); ?>',
         type: 'get',
         data: {
           page: page,
