@@ -126,16 +126,35 @@ class SettingController extends Controller {
 		}*/
 		$arrAvailableProxy = array();
 
-    if(!App::environment('local')){/*
-			try {
+    if(!App::environment('local')){
 			
-      $availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw("sum(count_proxy) as countP"))
+			//data id yang pake proxy di celebgramme
+			$array_clb = array();
+			$data_setting_helper = SettingHelper::select('proxy_id')
+														 ->where('proxy_id','<>',0)->get();
+			foreach($data_setting_helper as $data) {
+				$array_clb[] = $data->proxy_id;
+			}
+
+			//data id yang pake proxy di celebpost
+			$array_clp = array();
+			$accounts = Account::select('proxy_id')
+									->where('proxy_id','<>',0)->get();
+			foreach($accounts as $data) {
+				$array_clp[] = $data->proxy_id;
+			}
+
+      /*error migration $availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw("sum(count_proxy) as countP"))
                       ->groupBy("id","proxy","cred","port","auth")
                       ->orderBy("countP","asc")
                       ->having('countP', '<', 1)
-                      ->get();
+                      ->get();*/
+			$availableProxy = Proxies::
+											whereNotIn('id',$array_clb)
+											->whereNotIn('id',$array_clp)
+											->get();
       foreach($availableProxy as $data) {
-        $check_proxy = Proxies::find($data->id);
+        /*error migration $check_proxy = Proxies::find($data->id);
         if ($check_proxy->is_error == 0){
           $dataNew = array();
           // $dataNew[] = $data->id;
@@ -146,14 +165,19 @@ class SettingController extends Controller {
             $dataNew["value"] = $data->proxy.":".$data->port;
           }
           $arrAvailableProxy[] = $dataNew;  
-        }
+        }*/
+				$dataNew = array();
+				$dataNew["id"] = $data->id;
+				if ($data->auth) {
+					$dataNew["value"] = $data->proxy.":".$data->port.":".$data->cred;
+				} else {
+					$dataNew["value"] = $data->proxy.":".$data->port;
+				}
+				$arrAvailableProxy[] = $dataNew;	
+				
       }
 			
-			}
-			catch (Exception $e) {
-				echo $e->getMessage();
-			}
-			*/
+			
     }
 								
 		return View::make('admin.setting.index')->with(
