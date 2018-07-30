@@ -172,7 +172,8 @@ class ProxyController extends Controller {
 		
 		
 		$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
-		$url = "http://cmx.space/get-username-available/test";
+		// $url = "http://cmx.space/get-username-available/test";
+		$url = "https://www.instagram.com/rizky_redjo/?__a=1";
 		$c = curl_init();
 
 
@@ -219,7 +220,7 @@ class ProxyController extends Controller {
 			if (file_exists($cookiefile)) {
 				unlink($cookiefile);
 			}
-			$url = "https://www.instagram.com/rizky_redjo";
+			$url = "https://www.instagram.com/rizky_redjo/?__a=1";
 			$c = curl_init();
 
 
