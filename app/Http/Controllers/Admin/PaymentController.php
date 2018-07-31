@@ -604,4 +604,31 @@ class PaymentController extends Controller {
   public function show_more(){
     return OrderMeta::getMeta(Request::input('id'),Request::input('action'));
   }
+
+  public function success_order(){
+    $user = Auth::user();
+
+    return view('admin.success-order.index')->with('user',$user);
+  }
+
+  public function load_success_order(){
+    //dd(Request::input('bulan'));
+    $orders = Order::where('updated_at','like',Request::input('bulan').'%')
+                ->where(function($q) {
+                  $q->where('order_status','success')
+                    ->orWhere('order_status','like','cron%');
+                })
+                ->where('total','!=',0)
+                ->paginate(15);
+
+    $arr['view'] = (string)view('admin.success-order.content')
+                            ->with(array(
+                                  'arr'=>$orders,
+                                  'page'=>Request::input('page'),
+                              ));
+    $arr['pagination'] = (string) view('admin.success-order.pagination')
+                            ->with('arr',$orders);
+    return $arr;
+  }
+
 }

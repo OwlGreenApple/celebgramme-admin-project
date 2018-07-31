@@ -5,6 +5,7 @@ use Celebgramme\Http\Controllers\Controller;
 
 use Celebgramme\Models\Meta;
 use Celebgramme\Models\User;
+use Celebgramme\Models\UserLog;
 use Celebgramme\Models\RequestModel;
 use Celebgramme\Models\Post;
 use Celebgramme\Models\Setting;
@@ -1460,5 +1461,78 @@ class SettingController extends Controller {
 
     $value = SettingMeta::getMeta(Request::input('id'),Request::input('action'));
     return $value;
+  }
+
+  public function list_add_account(){
+    $user = Auth::user();
+
+    return view('admin.list-add-account.index')
+          ->with('user',$user);
+  }
+
+  public function load_list_add_account(){
+
+    if(Request::input('status')=='success') {
+      // Success proxy sejak 
+      $logs = UserLog::where('created','>=',Request::input('tanggal'))
+                ->where('description','like','%Success%')
+                ->groupBy('email')
+                ->orderBy('created','desc')->paginate(15);
+    } else {
+      // error proxy sejak 
+      $logs = UserLog::where('created','>=',Request::input('tanggal'))
+                ->where('description','like','%Error%')
+                ->whereNotIn('email', function($q){
+                    $q->select('email')->from('user_logs')
+                      ->where('created','>=',Request::input('tanggal'))
+                      ->where('description','like','%Success%')
+                      ->groupBy('email');
+                })
+                ->groupBy('email')
+                ->orderBy('created','desc')->paginate(15);  
+    }
+
+    $arr['view'] = (string)view('admin.list-add-account.content')
+                            ->with(array(
+                                  'arr'=>$logs,
+                                  'page'=>Request::input('page'),
+                              ));
+    $arr['pagination'] = (string) view('admin.list-add-account.pagination')
+                            ->with('arr',$logs);
+    return $arr;
+  }
+
+  public function list_ig_active(){
+    $user = Auth::user();
+    $arr = Meta::where("meta_name","=","fl_name")
+           ->orderBy('id', 'asc')
+           ->get();
+
+    return view('admin.list-ig-active.index')
+          ->with('user',$user)
+          ->with('arr',$arr);
+  }
+
+  public function load_list_ig_active(){
+
+    $logs = SettingHelper::join('settings','settings.id','=','setting_helpers.setting_id')
+              ->where('setting_helpers.cookies','like','%success%')
+              ->where('settings.status','started');
+
+    if(Request::input('server')=='All') {
+      $logs = $logs->paginate(15);
+    } else {
+      $logs = $logs->where('setting_helpers.server_automation','like','%'.Request::input('server').'%')
+              ->paginate(15);
+    }
+
+    $arr['view'] = (string)view('admin.list-ig-active.content')
+                            ->with(array(
+                                  'arr'=>$logs,
+                                  'page'=>Request::input('page'),
+                              ));
+    $arr['pagination'] = (string) view('admin.list-ig-active.pagination')
+                            ->with('arr',$logs);
+    return $arr;
   }
 }

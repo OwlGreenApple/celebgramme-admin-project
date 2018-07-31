@@ -10,6 +10,11 @@
                 <li><a href="{{url('payment', $parameters = [], $secure = null)}}">Confirm Payment</a></li>
                 <!--<li><a href="{{url('invoice', $parameters = [], $secure = null)}}">Invoice</a></li>-->
                 <li><a href="{{url('coupon', $parameters = [], $secure = null)}}">Coupon</a></li>
+                <li>
+                  <a href="{{url('success-order')}}">
+                    Success Order
+                  </a>
+                </li>
               </ul>
           </li>
 				<?php } ?>
@@ -82,6 +87,23 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
               </ul>
           </li>
 					<?php } ?>
+          <li>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                Logs<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href="{{url('list-add-account')}}">
+                  List Add Account
+                </a>
+              </li>
+              <li>
+                <a href="{{url('list-ig-active')}}">
+                  List Account IG Active
+                </a>
+              </li>  
+            </ul>
+          </li>
 					<?php if ( ($user->email == "celebgramme.dev@gmail.com") || ($user->email == "admin@admin.com") || ($user->email == "it.axiapro@gmail.com") ) { ?>
           <li class='dropdown'>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

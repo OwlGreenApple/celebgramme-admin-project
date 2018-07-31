@@ -120,6 +120,10 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('add-order', 'Admin\PaymentController@add_order');
 	Route::post('delete-order', 'Admin\PaymentController@delete_order');
 	Route::get('show-more','Admin\PaymentController@show_more');
+
+  /* Success Order */
+  Route::get('success-order','Admin\PaymentController@success_order');
+  Route::get('success-order/load-order','Admin\PaymentController@load_success_order');  
 	
 	/* Package auto manage */
 	Route::get('package-auto-manage', 'Admin\PackageController@package_auto_manage');
@@ -259,4 +263,11 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('update-categories', 'Admin\CategoriesController@update');
 	Route::post('delete-categories', 'Admin\CategoriesController@delete');
 	
+  /* Logs */
+  Route::get('list-add-account', 'Admin\SettingController@list_add_account');
+  Route::get('list-add-account/load-account', 'Admin\SettingController@load_list_add_account');
+  Route::get('list-ig-active', 'Admin\SettingController@list_ig_active');
+  Route::get('list-ig-active/load-account', 'Admin\SettingController@load_list_ig_active');
+
+
 });
