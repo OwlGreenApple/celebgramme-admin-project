@@ -328,7 +328,7 @@ class ProxyLoginController extends Controller {
 							$proxy_new->cred = $arr_proxy[2].":".$arr_proxy[3];
 							$proxy_new->auth = 1;
 						}
-						else if (count($arr_proxy)<3) { {
+						else if (count($arr_proxy)<3) { 
 							$proxy_new->cred = "";
 							$proxy_new->auth = 0;
 						}
