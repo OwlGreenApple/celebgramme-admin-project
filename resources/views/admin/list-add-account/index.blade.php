@@ -61,13 +61,7 @@
         showWeek: true,
         changeMonth: true,
         changeYear: true,        
-        onSelect: function(d) {
-          var from = $('#from').datepicker('getDate');
-          var to = $('#to').datepicker('getDate');
-          if (from.getTime() > to.getTime()){
-            $("#from").datepicker('setDate', to);
-          }
-        }
+
       });
       $("#tanggal").datepicker('setDate', new Date());
     });
