@@ -637,7 +637,7 @@ class PaymentController extends Controller {
                 ->where('total','!=',0)
                 ->get()->sum("discount");
 		
-		$arr['total'] = number_format($total);
+		$arr['total'] = number_format($total,0,'','.');
 
     $arr['view'] = (string)view('admin.success-order.content')
                             ->with(array(
