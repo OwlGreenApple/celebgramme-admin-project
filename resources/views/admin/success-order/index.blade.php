@@ -76,7 +76,8 @@
 
           $('#content').html(data.view);
           $('#pagination').html(data.pagination);
-          $('#total_order').html('Rp. '+$('#total').val());
+          // $('#total_order').html('Rp. '+$('#total').val());
+          $('#total_order').html('Rp. '+data.total);
           $("#div-loading").hide();
         }
       });
