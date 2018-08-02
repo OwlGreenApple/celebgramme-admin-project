@@ -217,20 +217,20 @@
 				</p>
 			</td>
       <td align="center">
-        <button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-setting" data-header="Followers" data-id="{{$data_arr->id}}" data-action="followers"> Show </button>
-        <!--<?php 
+        <!--<button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-setting" data-header="Followers" data-id="{{$data_arr->id}}" data-action="followers"> Show </button>-->
+        <?php 
 					// $followers = SettingMeta::getMeta($data_arr->id,"followers");
 					// echo number_format($followers,0,'','.');
 					echo number_format($data_arr->num_of_followers,0,'','.');
-				?>-->
+				?>
 			</td>
       <td align="center">
-        <button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-setting" data-header="Following" data-id="{{$data_arr->id}}" data-action="following"> Show </button>
-        <!--<?php 
+        <!--<button type="button" class="btn btn-primary" data-toggle="modal" id="btn-show" data-target="#show-setting" data-header="Following" data-id="{{$data_arr->id}}" data-action="following"> Show </button>-->
+        <?php 
 					// $following = SettingMeta::getMeta($data_arr->id,"following");
 					// echo number_format($following,0,'','.');
 					echo number_format($data_arr->num_of_following,0,'','.');
-				?>-->
+				?>
 			</td>
       <td align="center">
 				<input type="button" class="btn btn-info button-show-cookies" value="Show" data-id="{{$data_arr->id}}">
