@@ -24,6 +24,9 @@
       <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
     </div>  
     <div class="none"></div>
+    <div align="right">
+      Total = <span id="total">0</span>
+    </div>
   </div>
 
   <div class="alert alert-danger" id="alert">
@@ -70,6 +73,7 @@
 
           $('#content').html(data.view);
           $('#pagination').html(data.pagination);
+          $('#total').html(data.count);
           $("#div-loading").hide();
         }
       });
