@@ -97,6 +97,7 @@
             $(this).datepicker('setDate', new Date(year, month, 1));
         }
       });
+      $("#bulan").datepicker('setDate', new Date());
 
       $(document).on('click', '#pagination a', function (e) {
         e.preventDefault();

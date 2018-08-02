@@ -1477,7 +1477,9 @@ class SettingController extends Controller {
       $logs = UserLog::where('created','>=',Request::input('tanggal'))
                 ->where('description','like','%Success%')
                 ->groupBy('email')
-                ->orderBy('created','desc')->paginate(15);
+                ->orderBy('created','desc');
+      $total_logs = $logs->get()->count();
+      $logs = $logs->paginate(15);
     } else {
       // error proxy sejak 
       $logs = UserLog::where('created','>=',Request::input('tanggal'))
@@ -1489,7 +1491,9 @@ class SettingController extends Controller {
                       ->groupBy('email');
                 })
                 ->groupBy('email')
-                ->orderBy('created','desc')->paginate(15);  
+                ->orderBy('created','desc');  
+      $total_logs = $logs->get()->count();
+      $logs = $logs->paginate(15);
     }
 
     $arr['view'] = (string)view('admin.list-add-account.content')
@@ -1499,6 +1503,7 @@ class SettingController extends Controller {
                               ));
     $arr['pagination'] = (string) view('admin.list-add-account.pagination')
                             ->with('arr',$logs);
+    $arr['count'] = $total_logs;
     return $arr;
   }
 
@@ -1520,10 +1525,12 @@ class SettingController extends Controller {
               ->where('settings.status','started');
 
     if(Request::input('server')=='All') {
+      $total_logs = $logs->get()->count();
       $logs = $logs->paginate(15);
     } else {
-      $logs = $logs->where('setting_helpers.server_automation','like','%'.Request::input('server').'%')
-              ->paginate(15);
+      $logs = $logs->where('setting_helpers.server_automation','like','%'.Request::input('server').'%');
+      $total_logs = $logs->get()->count();
+      $logs = $logs->paginate(15);
     }
 
     $arr['view'] = (string)view('admin.list-ig-active.content')
@@ -1533,6 +1540,7 @@ class SettingController extends Controller {
                               ));
     $arr['pagination'] = (string) view('admin.list-ig-active.pagination')
                             ->with('arr',$logs);
+    $arr['count'] = $total_logs;
     return $arr;
   }
 }
