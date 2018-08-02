@@ -324,11 +324,11 @@ class ProxyLoginController extends Controller {
 						$proxy_new = new ProxyLogin;
 						$proxy_new->proxy = $arr_proxy[0];
 						$proxy_new->port = $arr_proxy[1];
-						if (!is_null($arr_proxy[2])) {
+						if (count($arr_proxy)>=3) {
 							$proxy_new->cred = $arr_proxy[2].":".$arr_proxy[3];
 							$proxy_new->auth = 1;
 						}
-						else {
+						else if (count($arr_proxy)<3) { 
 							$proxy_new->cred = "";
 							$proxy_new->auth = 0;
 						}

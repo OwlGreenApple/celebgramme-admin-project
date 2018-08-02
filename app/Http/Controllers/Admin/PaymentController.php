@@ -620,6 +620,24 @@ class PaymentController extends Controller {
                 })
                 ->where('total','!=',0)
                 ->paginate(15);
+    $total = Order::select("total")
+								->where('updated_at','like',Request::input('bulan').'%')
+                ->where(function($q) {
+                  $q->where('order_status','success')
+                    ->orWhere('order_status','like','cron%');
+                })
+                ->where('total','!=',0)
+                ->get()->sum("total");
+    $total -= Order::select("discount")
+								->where('updated_at','like',Request::input('bulan').'%')
+                ->where(function($q) {
+                  $q->where('order_status','success')
+                    ->orWhere('order_status','like','cron%');
+                })
+                ->where('total','!=',0)
+                ->get()->sum("discount");
+		
+		$arr['total'] = number_format($total,0,'','.');
 
     $arr['view'] = (string)view('admin.success-order.content')
                             ->with(array(

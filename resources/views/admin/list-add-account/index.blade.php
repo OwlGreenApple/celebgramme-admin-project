@@ -62,7 +62,7 @@
       $("#tanggal").datepicker({
         dateFormat: 'yy-mm-dd',
         changeMonth: true,
-        changeYear: true,   
+        changeYear: true,
       });
       $("#tanggal").datepicker('setDate', new Date());
     });

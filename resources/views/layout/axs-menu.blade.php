@@ -10,11 +10,13 @@
                 <li><a href="{{url('payment', $parameters = [], $secure = null)}}">Confirm Payment</a></li>
                 <!--<li><a href="{{url('invoice', $parameters = [], $secure = null)}}">Invoice</a></li>-->
                 <li><a href="{{url('coupon', $parameters = [], $secure = null)}}">Coupon</a></li>
+								<?php if ($user->email == "celebgramme.dev@gmail.com") { ?>
                 <li>
                   <a href="{{url('success-order')}}">
                     Success Order
                   </a>
                 </li>
+								<?php } ?>
               </ul>
           </li>
 				<?php } ?>

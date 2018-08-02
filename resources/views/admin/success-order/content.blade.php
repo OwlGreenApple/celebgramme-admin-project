@@ -21,10 +21,10 @@
         {{$data_arr->order_status}}
       </td>
       <td>
-        {{$data_arr->total}}
+        {{number_format($data_arr->total,0,'','.')}}
       </td>
       <td>
-        {{$data_arr->discount}}
+        {{number_format($data_arr->discount,0,'','.')}}
       </td>
       <td>
         {{$data_arr->updated_at}}
