@@ -104,7 +104,7 @@
 					if ($data_arr->status=="started") { $colorstatus="1212e8"; } else if ( ($data_arr->status=="stopped")||($data_arr->status=="deleted")) { $colorstatus="ea0000"; } ?>
 					<li class="wrap"><strong>Status : <span style="color:#{{$colorstatus}}"> {{strtoupper($data_arr->status)}} </span> </strong> </li> 
 					<li class="wrap"><strong>Insta username : </strong>{{$data_arr->insta_username}}</li>
-					<!--<li class="wrap"><strong>Insta password : </strong>{{$data_arr->insta_password}}</li>-->
+					<!--<li class="wrap"><strong>Insta password : </strong></li>-->
 					
 					<li class="wrap"><strong>Full auto : </strong><?php if ($data_arr->status_auto) { echo "Full Auto";} else { echo "Manual";} ?></li>
 

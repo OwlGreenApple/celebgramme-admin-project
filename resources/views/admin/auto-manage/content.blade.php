@@ -55,7 +55,7 @@
       </td>
       <td align="center">{{strtolower($data_arr->insta_username)}}</td>
       <td align="center">
-        {{$data_arr->insta_password}}
+        
       </td>
       <td align="center">
 				<?php 
@@ -178,7 +178,6 @@
 					<?php if ($setting->status=="started") { $colorstatus="1212e8"; } else if ( ($setting->status=="stopped") || ($setting->status=="deleted") ){ $colorstatus="ea0000"; } ?>
 					<li class="wrap"><strong>Status : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status)}} </span> </strong> </li> 
 					<li class="wrap"><strong>Insta username : </strong>{{$setting->insta_username}}</li>
-					<li class="wrap"><strong>Insta password : </strong>{{$setting->insta_password}}</li>
 					
 					<?php if ($setting->status_follow_unfollow=="on") { $colorstatus="1212e8"; } else if ($setting->status_follow_unfollow=="off") { $colorstatus="ea0000"; } ?>
 					<li class="wrap"><strong>Status Follow  : <span style="color:#{{$colorstatus}}"> {{strtoupper($setting->status_follow_unfollow)}} </span> </strong> </li> 

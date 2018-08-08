@@ -1066,7 +1066,7 @@ class SettingController extends Controller {
 			
 		} catch (Exception $e) {
 				// echo 'Caught exception: ',  $e->getMessage(), "\n";
-				$logs .= "<tr><td colspan=3>".$setting->insta_password."</td></tr>";
+				$logs .= "<tr><td colspan=3></td></tr>";
 				continue;
 		}
 			

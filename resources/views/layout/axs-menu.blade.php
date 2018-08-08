@@ -23,7 +23,7 @@
 <?php 
 use Celebgramme\Models\Post;
 $count_post = Post::join("settings","settings.id","=","posts.setting_id")
-				 ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
+				 ->select("posts.*","settings.insta_username","settings.error_cred")
 				 ->where("posts.type","=","pending")
 				 ->orderBy('posts.updated_at', 'asc')
 				 ->count();

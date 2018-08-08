@@ -14,7 +14,7 @@
         {{$data_arr->insta_username}}
       </td>
       <td align="center">
-        {{$data_arr->insta_password}}
+        
       </td>
       <td align="center" id="access-token">
         {{$data_arr->insta_access_token}}

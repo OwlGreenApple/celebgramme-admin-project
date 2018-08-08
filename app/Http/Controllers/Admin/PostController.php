@@ -131,7 +131,7 @@ class PostController extends Controller {
 		$count_post = Post::join("settings","settings.id","=","posts.setting_id")
              //->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
              //->join("users","users.id","=","link_users_settings.user_id")
-             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
+             ->select("posts.*","settings.insta_username","settings.error_cred")
              ->where("posts.type","=","pending")
              ->orderBy('posts.updated_at', 'asc')
              ->count();
@@ -153,13 +153,13 @@ class PostController extends Controller {
       $arr = Post::join("settings","settings.id","=","posts.setting_id")
              //->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
              //->join("users","users.id","=","link_users_settings.user_id")
-             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred","settings.last_user")
+             ->select("posts.*","settings.insta_username","settings.error_cred","settings.last_user")
              ->where("posts.type","=","pending")
              ->orderBy('posts.updated_at', 'asc')
              ->paginate(15);
 		} else {
       $arr = Post::join("settings","settings.id","=","posts.setting_id")
-             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
+             ->select("posts.*","settings.insta_username","settings.error_cred")
              ->where("posts.type","=","pending")
 						 ->where("settings.insta_username","like",Request::input('keyword')."%")
              ->orderBy('posts.updated_at', 'asc')
@@ -169,7 +169,7 @@ class PostController extends Controller {
 		$count_post = Post::join("settings","settings.id","=","posts.setting_id")
              //->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
              //->join("users","users.id","=","link_users_settings.user_id")
-             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
+             ->select("posts.*","settings.insta_username","settings.error_cred")
              ->where("posts.type","=","pending")
              ->orderBy('posts.updated_at', 'asc')
              ->count();
@@ -188,13 +188,13 @@ class PostController extends Controller {
       $arr = Post::join("settings","settings.id","=","posts.setting_id")
              //->join("link_users_settings","link_users_settings.setting_id","=","settings.id")
              //->join("users","users.id","=","link_users_settings.user_id")
-             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
+             ->select("posts.*","settings.insta_username","settings.error_cred")
              ->where("posts.type","=","pending")
              ->orderBy('posts.updated_at', 'asc')
              ->paginate(15);
 		} else {
       $arr = Post::join("settings","settings.id","=","posts.setting_id")
-             ->select("posts.*","settings.insta_username","settings.insta_password","settings.error_cred")
+             ->select("posts.*","settings.insta_username","settings.error_cred")
              ->where("posts.type","=","pending")
 						 ->where("settings.insta_username","like",Request::input('keyword')."%")
              ->orderBy('posts.updated_at', 'asc')
@@ -358,7 +358,7 @@ class PostController extends Controller {
 		Excel::create('Filename', function($excel) use ($setting) {
       $excel->sheet('keywords', function($sheet)use ($setting)  {
 					$sheet->appendRow(array( "insta username : ".$setting->insta_username ));
-					$sheet->appendRow(array( "insta password : ".$setting->insta_password ));
+					$sheet->appendRow(array( "insta password : "));
 					$sheet->appendRow(array( "Status follow unfollow : ".$setting->status_follow_unfollow ));
 					$sheet->appendRow(array( "Status Like : ".$setting->status_like ));
 					$sheet->appendRow(array( "Status Comment : ".$setting->status_comment ));
