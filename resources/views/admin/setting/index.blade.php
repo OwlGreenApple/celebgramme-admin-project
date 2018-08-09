@@ -401,7 +401,7 @@
       <tr style="font-weight:bold;">
         <th>No. </th>
         <th>Password Error</th>
-        <th>Fullname (email) / Insta username / Insta password / start time</th>
+        <th>Fullname (email) / Insta username / start time</th>
         <!--<th>Method Automation</th>-->
         <th>Updates</th>
 				
