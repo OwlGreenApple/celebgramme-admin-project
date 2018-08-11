@@ -25,7 +25,18 @@
     </div>  
     <div class="none"></div>
     <div align="right">
-      Total = <span id="total_order"></span>
+			<div class="row">
+				Total = <span id="total_order"></span>
+			</div>
+			<div class="row">
+				Total Celebgramme non affiliate = <span id="total_non_affiliate"></span>
+			</div>
+			<div class="row">
+				Total Celebgramme affiliate = <span id="total_affiliate"></span>
+			</div>
+			<div class="row">
+				Total Celebgramme amelia = <span id="total_amelia"></span>
+			</div>
     </div>
   </div>
 
@@ -77,6 +88,9 @@
           $('#content').html(data.view);
           $('#pagination').html(data.pagination);
           // $('#total_order').html('Rp. '+$('#total').val());
+          $('#total_non_affiliate').html('Rp. '+data.totalnonaffiliate);
+          $('#total_amelia').html('Rp. '+data.totalamelia);
+          $('#total_affiliate').html('Rp. '+data.totalaffiliate);
           $('#total_order').html('Rp. '+data.total);
           $("#div-loading").hide();
         }
