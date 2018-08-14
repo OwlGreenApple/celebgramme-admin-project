@@ -19,6 +19,7 @@ use Celebgramme\Models\Category;
 use Celebgramme\Models\SettingLog;
 use Celebgramme\Models\Account;
 use Celebgramme\Models\ViewProxyUses;
+use Celebgramme\Models\ViewSettingStarted;
 use Celebgramme\Models\UserSetting;
 
 use Celebgramme\Helpers\GlobalHelper;
@@ -1496,15 +1497,16 @@ class SettingController extends Controller {
 
   public function load_list_ig_active(){
 
-    $logs = SettingHelper::join('settings','settings.id','=','setting_helpers.setting_id')
-              ->where('setting_helpers.cookies','like','%success%')
-              ->where('settings.status','started');
+    // $logs = SettingHelper::join('settings','settings.id','=','setting_helpers.setting_id')
+              // ->where('setting_helpers.cookies','like','%success%')
+              // ->where('settings.status','started');
+    $logs = ViewSettingStarted;
 
     if(Request::input('server')=='All') {
       $total_logs = $logs->get()->count();
       $logs = $logs->paginate(15);
     } else {
-      $logs = $logs->where('setting_helpers.server_automation','like','%'.Request::input('server').'%');
+      $logs = $logs->where('server_automation','like','%'.Request::input('server').'%');
       $total_logs = $logs->get()->count();
       $logs = $logs->paginate(15);
     }
