@@ -1503,11 +1503,11 @@ class SettingController extends Controller {
     $logs = ViewSettingStarted;
 
     if(Request::input('server')=='All') {
-      $total_logs = $logs->get()->count();
+      $total_logs = $logs::get()->count();
       $logs = $logs->paginate(15);
     } else {
       $logs = $logs->where('server_automation','like','%'.Request::input('server').'%');
-      $total_logs = $logs->get()->count();
+      $total_logs = $logs::get()->count();
       $logs = $logs->paginate(15);
     }
 
