@@ -1500,7 +1500,7 @@ class SettingController extends Controller {
     // $logs = SettingHelper::join('settings','settings.id','=','setting_helpers.setting_id')
               // ->where('setting_helpers.cookies','like','%success%')
               // ->where('settings.status','started');
-    $logs = ViewSettingStarted;
+    $logs = ViewSettingStarted::where('cookies','like','%success%');
 
     if(Request::input('server')=='All') {
       $total_logs = $logs::get()->count();
