@@ -54,15 +54,6 @@
       </div>
 
       <div class="col-md-12 form-group row">
-        <label for="status" class="col-md-2 col-form-label text-md-left">
-          Status
-        </label>
-        <div class="col-md-2 col-12">
-          <input type="text" class="form-control" name="status" id="status">
-        </div>
-      </div>
-
-      <div class="col-md-12 form-group row">
         <label for="grand_total" class="col-md-2 col-form-label text-md-left">
           Grand Total
         </label>

@@ -747,7 +747,7 @@ class PaymentController extends Controller {
     $idaff->name = Request::input("cname");
     $idaff->email = Request::input("cemail");
     $idaff->phone = Request::input("cmphone");
-    $idaff->status = Request::input("status");
+    $idaff->status = "success";
     $idaff->grand_total = Request::input("grand_total");
     $idaff->save();
     
