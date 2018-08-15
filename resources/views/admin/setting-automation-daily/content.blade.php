@@ -40,6 +40,9 @@
 		if ($data_arr->server_automation == "AA12(automation-12)") {
 			$server = "http://185.225.104.45/";
 		}
+		if ($data_arr->server_automation == "AA13(automation-13)") {
+			$server = "http://185.225.105.226/";
+		}
 		if ($data_arr->server_automation == "AA16(automation-16)") {
 			$server = "http://185.225.105.210/";
 		}
