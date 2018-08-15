@@ -857,6 +857,7 @@ class PaymentController extends Controller {
       $idaff->save();
     }
 
+		$arr['status'] = 'success';
     $arr['message'] = 'Success';
     return $arr;
   }
