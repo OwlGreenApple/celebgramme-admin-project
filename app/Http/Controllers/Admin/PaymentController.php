@@ -9,6 +9,7 @@ use Celebgramme\Models\Invoice;
 use Celebgramme\Models\Order;
 use Celebgramme\Models\OrderMeta;
 use Celebgramme\Models\User;
+use Celebgramme\Models\UserLog;
 use Celebgramme\Models\Package;
 use Celebgramme\Models\PackageUser;
 use Celebgramme\Models\Coupon;
