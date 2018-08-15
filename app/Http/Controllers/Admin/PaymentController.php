@@ -13,6 +13,7 @@ use Celebgramme\Models\Package;
 use Celebgramme\Models\PackageUser;
 use Celebgramme\Models\Coupon;
 use Celebgramme\Models\Meta;
+use Celebgramme\Models\Idaff;
 
 use View,Auth,Request,DB,Carbon,Excel, Mail, Validator;
 
@@ -719,4 +720,143 @@ class PaymentController extends Controller {
     return $arr;
   }
 
+  public function index_idaff(){
+    $user = Auth::user();
+
+    return view('admin.idaff.index')->with('user',$user);
+  }
+
+  public function post_back_idaff(){  
+    $idaff = Idaff::where("invoice","=",Request::input("invoice"))->first();
+    if (is_null($idaff)){
+      $idaff = new Idaff;
+      $idaff->trans_id = Request::input("transid");
+      $idaff->invoice = Request::input("invoice");
+      $idaff->executed = 0;
+    } else {
+      $idaff = Idaff::where("invoice","=",Request::input("invoice"))->first();
+    }
+    
+    if($idaff->executed){
+      $arr['status'] = 'error';
+      $arr['message'] = 'Invoice telah dieksekusi';
+      return $arr;
+    }
+
+    $idaff->name = Request::input("cname");
+    $idaff->email = Request::input("cemail");
+    $idaff->phone = Request::input("cmphone");
+    $idaff->status = Request::input("status");
+    $idaff->grand_total = Request::input("grand_total");
+    $idaff->save();
+    
+    if ( (strtolower($idaff->status) == "success") && (!$idaff->executed) ) {
+      $flag = false;
+      $isi_form_kaos = false;
+      $user = User::where("email","=",$idaff->email)->first();
+      if (is_null($user)) {
+        $flag = true;
+        $karakter= 'abcdefghjklmnpqrstuvwxyz123456789';
+        $string = '';
+        for ($i = 0; $i < 8 ; $i++) {
+          $pos = rand(0, strlen($karakter)-1);
+          $string .= $karakter{$pos};
+        }
+
+        $user = new User;
+        $user->email = $idaff->email;
+        $user->password = $string;
+        $user->fullname = $idaff->name;
+        $user->type = "confirmed-email";
+        $user->save();
+      }
+      
+      $dt = Carbon::now()->setTimezone('Asia/Jakarta');
+      $order = new Order;
+      $str = 'OCLB'.$dt->format('ymdHi');
+      $order_number = GeneralHelper::autoGenerateID($order, 'no_order', $str, 3, '0');
+      $order->no_order = $order_number;
+      $order->order_status = "cron dari affiliate";
+      
+      $package = null;
+      if ( (intval(Request::input("grand_total")) <500000 ) && (intval(Request::input("grand_total")) >=495000 ) ) {
+        $order->package_manage_id = 41;
+        $package = Package::find(41);
+      }
+      else if ( (intval(Request::input("grand_total")) <600000 ) && (intval(Request::input("grand_total")) >=595000 ) ) {
+        $order->package_manage_id = 43;
+        $package = Package::find(43);
+      }
+      else if ( (intval(Request::input("grand_total")) <700000 ) && (intval(Request::input("grand_total")) >=695000 ) ) {
+        $order->package_manage_id = 42;
+        $package = Package::find(42);
+      }
+      
+      if(is_null($package)){
+        $arr['status'] = 'error';
+        $arr['message'] = 'Paket tidak ada';
+        return $arr;
+      }
+
+      $order->total = $package->price;
+      $order->user_id = $user->id;
+      $order->save();
+      
+      OrderMeta::createMeta("logs","create order from affiliate",$order->id);
+      
+      if ($flag) {
+        $user->active_auto_manage = $package->active_days * 86400;
+        $user->max_account = $package->max_account;
+        $user->save();
+        
+        $emaildata = [
+            'user' => $user,
+            'password' => $string,
+            'isi_form_kaos' => $isi_form_kaos,
+        ];
+        Mail::queue('emails.create-user', $emaildata, function ($message) use ($user) {
+          $message->from('no-reply@celebgramme.com', 'Celebgramme');
+          $message->to($user->email);
+          $message->subject('[Celebgramme] Welcome to celebgramme.com (Info Login & Password)');
+        });
+      
+      } else {
+        $t = $package->active_days * 86400;
+        $days = floor($t / (60*60*24));
+        $hours = floor(($t / (60*60)) % 24);
+        $minutes = floor(($t / (60)) % 60);
+        $seconds = floor($t  % 60);
+        $time = $days."D ".$hours."H ".$minutes."M ".$seconds."S ";
+
+        $user_log = new UserLog;
+        $user_log->email = $user->email;
+        $user_log->admin = "Adding time from cron";
+        $user_log->description = "give time to member. ".$time;
+        $user_log->created = $dt->toDateTimeString();
+        $user_log->save();
+        
+        
+        $user->active_auto_manage += $package->active_days * 86400;
+        $user->save();
+        
+        
+        $emaildata = [
+            'user' => $user,
+            'isi_form_kaos' => $isi_form_kaos,
+        ];
+        Mail::queue('emails.adding-time-user', $emaildata, function ($message) use ($user) {
+          $message->from('no-reply@celebgramme.com', 'Celebgramme');
+          $message->to($user->email);
+          $message->subject('[Celebgramme] Congratulation Pembelian Sukses, & Kredit waktu sudah ditambahkan');
+        });
+        
+      }
+      
+      $idaff->executed = 1;
+      $idaff->save();
+    }
+
+    $arr['message'] = 'Success';
+    return $arr;
+  }
 }

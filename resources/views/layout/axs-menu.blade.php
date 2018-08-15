@@ -17,6 +17,9 @@
                   </a>
                 </li>
 								<?php } ?>
+                <li>
+                  <a href="{{url('idaff', $parameters = [], $secure = null)}}">Idaff</a>
+                </li>
               </ul>
           </li>
 				<?php } ?>

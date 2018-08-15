@@ -124,7 +124,10 @@ Route::group(['middleware' => 'auth'], function()
   /* Success Order */
   Route::get('success-order','Admin\PaymentController@success_order');
   Route::get('success-order/load-order','Admin\PaymentController@load_success_order');  
-	
+
+  /* Idaff */
+  Route::get('idaff','Admin\PaymentController@index_idaff');
+  Route::get('idaff/post-back','Admin\PaymentController@post_back_idaff');    
 	/* Package auto manage */
 	Route::get('package-auto-manage', 'Admin\PackageController@package_auto_manage');
 	Route::get('load-package-auto-manage', 'Admin\PackageController@load_package_auto_manage');
