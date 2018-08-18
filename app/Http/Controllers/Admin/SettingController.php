@@ -202,7 +202,7 @@ class SettingController extends Controller {
 							 ->select("settings.*","users.email","users.fullname")
 							 ->where("settings.type","=","temp")
 							 ->where("last_user","<>",1267)
-							 ->orderBy('id', 'asc')
+							 ->orderBy('id', 'desc')
 							 ->paginate(15);
 			} else if (Request::input('keyword')=="update") {
 				$arr = Setting::leftJoin("users","users.id","=","settings.user_id")
