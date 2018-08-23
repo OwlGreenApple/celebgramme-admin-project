@@ -246,8 +246,8 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-invoice', 'Admin\InvoiceController@pagination_invoice');
 
 	/* Admin */
-	Route::get('admin', 'Admin\MemberController@admin');
-  Route::get('admin/show-log', 'Admin\MemberController@show_log');
+	Route::get('admin-form', 'Admin\MemberController@admin');
+  Route::get('show-log', 'Admin\MemberController@show_log');
 	Route::get('load-admin', 'Admin\MemberController@load_admin');
 	Route::get('pagination-admin', 'Admin\MemberController@pagination_admin');
 	Route::post('add-admin', 'Admin\MemberController@add_admin');

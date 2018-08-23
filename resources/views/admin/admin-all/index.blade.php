@@ -349,7 +349,7 @@
 
     function refresh_log(url=''){
       if(url==''){
-        url = '<?php echo url('/admin/show-log'); ?>';
+        url = '<?php echo url('show-log'); ?>';
       }
       
       $.ajax({                                      

@@ -135,7 +135,7 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#" data-target="#modalChangePassword" data-toggle="modal">Change Password</a></li>
-                <li><a href="{{url('admin', $parameters = [], $secure = null)}}">Admin</a></li>
+                <li><a href="{{url('admin-form', $parameters = [], $secure = null)}}">Admin</a></li>
 								<li><a href="{{url('auth/logout', $parameters = [], $secure = null)}}">Logout</a></li>
               </ul>
           </li>
