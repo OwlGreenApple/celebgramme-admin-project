@@ -1279,22 +1279,34 @@ class MemberController extends Controller {
     $arr["type"] = "success";
     $arr["message"] = "Proses edit email berhasil dilakukan";
 
-    $cekemail = User::where('email',Request::input("email"))->first();
-    if(is_null($cekemail)){
-      $user = User::find(Request::input("id-edit"));
-      
-      $adminlog = new AdminLog;
-      $adminlog->user_id = Auth::user()->id;
-      $adminlog->description = 'Ubah email, '.$user->email.'->'.Request::input("email").', userID:'.$user->id;
-      $adminlog->save();
+    $data = array (
+      "email" => Request::input('email'),
+    );
+    $validator = Validator::make($data, [
+      'email' => 'required|email|max:255',
+    ]);
 
-      $user->email = Request::input("email");
-      $user->save();
-    } else {
+    if ($validator->fails()){
       $arr["type"] = "error";
-      $arr["message"] = "Email sudah terdaftar";
-    }
+      $arr["message"] = "Format email salah";
+    } else {
+      $cekemail = User::where('email',Request::input("email"))->first();
+      if(is_null($cekemail)){
+        $user = User::find(Request::input("id-edit"));
+        
+        $adminlog = new AdminLog;
+        $adminlog->user_id = Auth::user()->id;
+        $adminlog->description = 'Ubah email, '.$user->email.'->'.Request::input("email").', userID:'.$user->id;
+        $adminlog->save();
 
+        $user->email = Request::input("email");
+        $user->save();
+      } else {
+        $arr["type"] = "error";
+        $arr["message"] = "Email sudah terdaftar";
+      }
+    }
+  
     return $arr;
   }
 
