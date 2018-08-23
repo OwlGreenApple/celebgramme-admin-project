@@ -384,6 +384,34 @@
     </div>
   </div>
 	
+  <div class="modal fade" id="myModalEditEmail" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Email</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-edit-email">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Email</label>
+              <div class="col-sm-8 col-md-6">
+                <input class="form-control" type="text" name="email" id="edit-email-input">
+              </div>
+            </div>  
+            <input type="hidden" class="id-edit" name="id-edit" id="id-edit">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-edit-email-ok" data-check="auto">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
   <!-- Modal confirm delete-->
 	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -436,10 +464,10 @@
     <div class="input-group fl">
       <input type="button" value="Add member" id="button-add-member" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalCreateMember" > 
     </div>  
-		<?php if($user->email == "celebgramme.dev@gmail.com") { ?>
-			<div class="input-group fl">
-				<input type="button" value="Add member" id="" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalBonusMember" > 
-			</div>  
+    <div class="input-group fl">
+      <input type="button" value="Add member Excel" id="" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalBonusMember" > 
+    </div> 
+		<?php if($user->email == "celebgramme.dev@gmail.com") { ?> 
 			<div class="input-group fl">
 				<input type="button" value="Add member(rico)" id="" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalAddRico" > 
 			</div>  
@@ -803,6 +831,41 @@
 
       $( "body" ).on( "click", ".btn-max-account", function() {
         $(".user-id").val($(this).attr("data-id"));
+      });
+      $( "body" ).on( "click", ".btn-edit-email", function() {
+        $("#id-edit").val($(this).attr("data-id"));
+        $("#edit-email-input").val($(this).attr("data-email"));
+      });
+      $( "body" ).on( "click", "#btn-edit-email-ok", function() {
+        $.ajax({
+          url: '<?php echo url('edit-email'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: $("#form-edit-email").serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              //create_pagination(1);
+              refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
+            }
+            $("#div-loading").hide();
+          }
+        });
       });
       $( "body" ).on( "click", ".btn-check-login-websta", function() {
         $(".user-id").val($(this).attr("data-id"));

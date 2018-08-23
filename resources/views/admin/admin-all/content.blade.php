@@ -46,6 +46,7 @@
 				{{$data_arr->created_at}}
       </td>
       <td align="center">
+        <input type="button" class="btn btn-info btn-show-log" value="Show Log" data-toggle="modal" data-target="#myModalShowLog" data-id="{{$data_arr->id}}">
         <input type="button" class="btn btn-info btn-auto-manage" value="+ times" data-toggle="modal" data-target="#myModalAutoManage" data-id="{{$data_arr->id}}" >
 				<button type="button" class="btn btn-warning btn-update" data-toggle="modal" data-target="#myModalEditMember" data-id="{{$data_arr->id}}" data-email="{{$data_arr->email}}" data-nama="{{$data_arr->fullname}}" data-color="{{$color}}">
 					<span class='glyphicon glyphicon-pencil'></span> 

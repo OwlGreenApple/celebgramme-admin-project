@@ -2,6 +2,60 @@
 
 @section('content')
 
+  
+  <div class="modal fade" id="myModalShowLog" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Show Log</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-log" style="margin-bottom: 15px">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Tanggal</label>
+              <div class="col-sm-8 col-md-3">
+                <input type="text" class="form-control formatted-date" name="from-log" id="from-log">
+              </div>
+              <div class="col-sm-1 col-md-1">s/d</div>
+              <div class="col-sm-8 col-md-3">
+                <input type="text" class="form-control formatted-date" name="to-log" id="to-log">
+              </div>
+            </div> 
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Description</label>
+              <div class="col-sm-8 col-md-7">
+                <input type="text" class="form-control" name="description" id="description">
+              </div>
+            </div> 
+
+            <input type="hidden" name="id_log" id="id_log">
+
+            <input type="button" value="Search" id="btn-search-log" data-loading-text="Loading..." class="btn btn-primary"> 
+          </form>
+
+          <table class="table table-bordered">
+            <thead>
+              <th>Tanggal</th>
+              <th>Log</th>
+            </thead>
+
+            <tbody id="content-log">
+            </tbody>
+          </table>
+
+          <div id="pager-log"></div>
+
+        </div>
+
+        <div class="modal-footer">
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
   <div class="modal fade" id="myModalAutoManage" role="dialog">
     <div class="modal-dialog">
@@ -292,15 +346,69 @@
           }
         });
     }
+
+    function refresh_log(url=''){
+      if(url==''){
+        url = '<?php echo url('/admin/show-log'); ?>';
+      }
+      
+      $.ajax({                                      
+        url: url,
+        type: 'get',
+        data: $('#form-log').serialize(),
+        beforeSend: function()
+        {
+          $("#div-loading").show();
+        },
+        dataType: 'text',
+        success: function(result)
+        {
+          var data = jQuery.parseJSON(result);
+          $('#content-log').html(data.view);
+          $('#pager-log').html(data.pagination);
+
+          $("#div-loading").hide();
+        }
+      });
+    }
+
     $(document).ready(function(){
       $("#alert").hide();
       create_pagination(1);
       refresh_page(1);
+
+      $('#pager-log').on('click', '.pagination a', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        refresh_log($(this).attr('href'));
+      });
+
+      $("#from-log").datepicker({
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear: true,
+      });
+      $("#from-log").datepicker('setDate', new Date());
+      $("#to-log").datepicker({
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear: true,
+      });
+      $("#to-log").datepicker('setDate', new Date());
+
       $('#button-search').click(function(e){
         e.preventDefault();
         create_pagination(1);
         refresh_page(1);
       });
+      $( "body" ).on( "click", ".btn-show-log", function() {
+        $('#id_log').val($(this).attr("data-id"));
+        refresh_log();
+      });
+      $( "body" ).on( "click", "#btn-search-log", function() {
+        refresh_log();
+      });
+
       $( "body" ).on( "click", ".btn-update", function() {
         $(".user-id").val($(this).attr("data-id"));
         $("#emailedit").val($(this).attr("data-email"));

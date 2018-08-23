@@ -15,6 +15,7 @@ use Celebgramme\Models\Setting;
 use Celebgramme\Models\LinkUserSetting;
 use Celebgramme\Models\UserMeta;
 use Celebgramme\Models\UserLog;
+use Celebgramme\Models\AdminLog;
 use Celebgramme\Models\Coupon;
 use Celebgramme\Models\TimeLog;
 use Celebgramme\Models\Affiliate;
@@ -330,6 +331,12 @@ class MemberController extends Controller {
       $arr["view"] = $user->balance;
     }
     $user->save();
+
+    $adminlog = new AdminLog;
+    $adminlog->user_id = Auth::user()->id;
+    $adminlog->description = 'Tambah waktu, '.$user->email.', '.Request::input("active-days")."D ".Request::input("active-hours")."H ".Request::input("active-minutes")."M ";
+    $adminlog->save();
+
     return $arr;
   }
 
@@ -652,7 +659,7 @@ class MemberController extends Controller {
 			$error_message="";
 			foreach($readers as $sheet)
 			{
-				if ($sheet->getTitle()=='Sheet1') {
+				//if ($sheet->getTitle()=='Sheet1') {
 					foreach($sheet as $row)
 					{
 						if ( ($row->name=="") && ($row->email=="") )  {
@@ -692,12 +699,21 @@ class MemberController extends Controller {
 							$user->max_account = 3;
 							$user->link_affiliate = "";
 							$user->active_auto_manage = Input::get("jumlahHari") * 86400;
+
+              $status = 'new';
 						} else {
 							$user->active_auto_manage += Input::get("jumlahHari") * 86400;
+              $status = 'add';
 						}
 
 						$user->save();
 						
+            $jmlhari = Input::get("jumlahHari") * 86400;
+            $adminlog = new AdminLog;
+            $adminlog->user_id = Auth::user()->id;
+            $adminlog->description = 'Add member excel, '.$user->email.', '.$jmlhari.' hari ('.$status.')';
+            $adminlog->save();
+
 						UserMeta::createMeta("bonus_waktu",Input::get("jumlahHari") * 86400,$user->id);
 
 						$emaildata = [
@@ -711,7 +727,7 @@ class MemberController extends Controller {
 							$message->subject('[Celebgramme] Bonus celebgramme.com');
 						});
 					}
-				}
+				//}
 			}
 
 		
@@ -923,6 +939,11 @@ class MemberController extends Controller {
 		$user = User::find(Request::input("user-id"));
 		$user->max_account = Request::input("max-account-user");
 		$user->save();
+
+    $adminlog = new AdminLog;
+    $adminlog->user_id = Auth::user()->id;
+    $adminlog->description = 'Tambah Max Account, '.$user->email.', '.Request::input("max-account-user").' account';
+    $adminlog->save();
 
     return $arr;
 	}
@@ -1254,4 +1275,41 @@ class MemberController extends Controller {
 		return $arr;
 	}
 	
+  public function edit_email(){
+    $arr["type"] = "success";
+    $arr["message"] = "Proses edit email berhasil dilakukan";
+
+    $cekemail = User::where('email',Request::input("email"))->first();
+    if(is_null($cekemail)){
+      $user = User::find(Request::input("id-edit"));
+      
+      $adminlog = new AdminLog;
+      $adminlog->user_id = Auth::user()->id;
+      $adminlog->description = 'Ubah email, '.$user->email.'->'.Request::input("email").', userID:'.$user->id;
+      $adminlog->save();
+
+      $user->email = Request::input("email");
+      $user->save();
+    } else {
+      $arr["type"] = "error";
+      $arr["message"] = "Email sudah terdaftar";
+    }
+
+    return $arr;
+  }
+
+  public function show_log(){
+    $adminlog = AdminLog::where('user_id',Request::input('id_log'))
+                  ->whereDate('created_at','>=',Request::input('from-log'))
+                  ->whereDate('created_at','<=',Request::input('to-log'))
+                  ->where('description','like','%'.Request::input('description').'%')
+                  ->paginate(10);
+    
+    $arr['view'] = (string) view('admin.admin-all.content-log')
+                      ->with('arr',$adminlog);
+    $arr['pagination'] = (string) view('admin.admin-all.pagination-log')
+                      ->with('arr',$adminlog);
+
+    return $arr;
+  }
 }

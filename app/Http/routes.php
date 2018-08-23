@@ -91,6 +91,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('delete-member', 'Admin\MemberController@delete_member');
 	Route::post('edit-member-login-webstame', 'Admin\MemberController@edit_member_login_webstame');
 	Route::post('edit-member-max-account', 'Admin\MemberController@edit_member_max_account');
+  Route::post('edit-email', 'Admin\MemberController@edit_email');
 	Route::get('home-page', 'Admin\MemberController@home_page');
 	Route::post('save-home-page', 'Admin\MemberController@save_home_page');
 	Route::get('footer-ads', 'Admin\MemberController@footer_ads');
@@ -246,6 +247,7 @@ Route::group(['middleware' => 'auth'], function()
 
 	/* Admin */
 	Route::get('admin', 'Admin\MemberController@admin');
+  Route::get('admin/show-log', 'Admin\MemberController@show_log');
 	Route::get('load-admin', 'Admin\MemberController@load_admin');
 	Route::get('pagination-admin', 'Admin\MemberController@pagination_admin');
 	Route::post('add-admin', 'Admin\MemberController@add_admin');
