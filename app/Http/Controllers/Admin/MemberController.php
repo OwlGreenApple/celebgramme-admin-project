@@ -19,6 +19,7 @@ use Celebgramme\Models\AdminLog;
 use Celebgramme\Models\Coupon;
 use Celebgramme\Models\TimeLog;
 use Celebgramme\Models\Affiliate;
+use Celebgramme\Models\Refund;
 
 use Celebgramme\Models\UserCelebpost;
 
@@ -1321,6 +1322,57 @@ class MemberController extends Controller {
                       ->with('arr',$adminlog);
     $arr['pagination'] = (string) view('admin.admin-all.pagination-log')
                       ->with('arr',$adminlog);
+
+    return $arr;
+  }
+
+  public function submit_refund(){
+    $refund = new Refund;
+    $refund->user_id = Request::input('id_refund');
+    $refund->total = Request::input('total');
+    $refund->save();
+
+    $user = User::find(Request::input('id_refund'));
+
+    $adminlog = new AdminLog;
+    $adminlog->user_id = Auth::user()->id;
+    $adminlog->description = 'Refund, '.$user->email.', total = Rp.'.number_format(Request::input("total"));
+    $adminlog->save();
+
+    $arr['type'] = 'success';
+    $arr['message'] = 'Refund berhasil dilakukan';
+
+    return $arr;
+  }
+
+  public function member_refund(){
+    $user = Auth::user();
+  
+    return View::make('admin.member-refund.index')->with(
+                  array(
+                    'user'=>$user,
+                  ));
+  }
+
+  public function load_member_refund(){
+    $admin = Auth::user();
+    $refund = Refund::join('users','refund.user_id','=','users.id')
+                ->select('refund.*','users.fullname','users.email')
+                ->where(function($query) {
+                  $query->where('email','like','%'.Request::input('keyword').'%')
+                        ->orWhere('fullname','like','%'.Request::input('keyword').'%');
+                  })
+                ->orderBy('created_at','desc')
+                ->paginate(15);
+
+    $arr['view'] = (string) view('admin.member-refund.content')
+                    ->with(array(
+                      'admin'=>$admin,
+                      'arr'=>$refund,
+                      'page'=>Request::input('page'),
+                    ));
+    $arr['pagination'] = (string) view('admin.member-refund.pagination')
+                        ->with('arr',$refund);
 
     return $arr;
   }

@@ -63,6 +63,7 @@
 				<input type="button" class="btn btn-info btn-order-package" value="Order" data-toggle="modal" data-target="#myModalOrderPackage" data-id="{{$data_arr->id}}">
 				<?php } ?>
 				<input type="button" class="btn btn-info btn-time-logs" value="Time Logs" data-toggle="modal" data-target="#myModalTimeLogs" data-id="{{$data_arr->id}}">
+        <input type="button" class="btn btn-info btn-refund" value="Refund" data-toggle="modal" data-target="#myModalRefund" data-id="{{$data_arr->id}}">
       </td>
     </tr>    
 

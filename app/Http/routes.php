@@ -101,6 +101,11 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('ads-page', 'Admin\MemberController@ads_page');
 	Route::post('save-ads-page', 'Admin\MemberController@save_ads_page');
 	Route::get('list-rico-excel', 'Admin\MemberController@generate_member_rico');
+  Route::post('submit-refund', 'Admin\MemberController@submit_refund');
+
+  /* Member Refund */
+  Route::get('member-refund', 'Admin\MemberController@member_refund');
+  Route::get('load-member-refund', 'Admin\MemberController@load_member_refund');
 
 	/* Member Analytic*/
 	Route::get('member-analytic', 'Admin\MemberAnalyticController@index');

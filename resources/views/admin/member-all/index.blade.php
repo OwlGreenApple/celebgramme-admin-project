@@ -1,6 +1,41 @@
 @extends('layout.main')
 
 @section('content')
+  
+  <!-- Modal Refund-->
+  <div class="modal fade" id="myModalRefund" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Refund</h4>
+        </div>
+
+        <div class="modal-body">
+          <form id="formrefund"> 
+            <input type="hidden" name="id_refund" id="id_refund">
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label text-md-right">
+                Total Refund
+              </label>
+              <div class="col-md-5">
+                <input class="form-control" type="text" name="total" id="total">  
+              </div>
+            </div>
+          </form>  
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Cancel
+          </button>
+          <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-refund-ok">
+            Refund
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="modal fade" id="myModalTimeLogs" role="dialog">
     <div class="modal-dialog">
@@ -717,7 +752,42 @@
 
       });
 
-			
+			$( "body" ).on( "click", ".btn-refund", function() {
+        $('#id_refund').val($(this).attr('data-id'));
+      });
+
+      $( "body" ).on( "click", "#btn-refund-ok", function() {
+        $.ajax({
+          url: "{{url('submit-refund')}}",
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data:  $('#formrefund').serialize(),
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              //create_pagination(1);
+              refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
+            }
+            $("#div-loading").hide();
+          }        
+        });
+      });
+
       $( "body" ).on( "click", "#btn-bonus-member", function() {
 					var uf = $('#form-bonus-member');
 					var fd = new FormData(uf[0]);
