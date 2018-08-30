@@ -744,6 +744,19 @@ class SettingController extends Controller {
 			}
 			curl_close($ch);
 			
+			$file_server = $server."daily-action-counter/".$setting->insta_username."/".strval($dt->day)."/"."send-dm.txt";
+			$ch = curl_init($file_server);
+			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+			$content = curl_exec($ch);
+			$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			if ($retcode==200) { // $retcode >= 400 -> not found, $retcode = 200, found.
+				// $logs .= "<td>".file_get_contents($file_server)."</td>";	
+				$logs .= "<td>".$content."</td>";	
+			} else {
+				$logs .= "<td> 0 </td>";
+			}
+			curl_close($ch);
+			
 			$logs .= "</tr>";
 			
 			

@@ -87,6 +87,7 @@
 									<th>Follows counter</th>
 									<th>Likes Counter</th>
 									<th>Comments Counter</th>
+									<th>DM Counter</th>
 								</tr>      
 							</thead>
 							<tbody id="p-logs-daily">
