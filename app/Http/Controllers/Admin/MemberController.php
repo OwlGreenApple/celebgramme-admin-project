@@ -1002,14 +1002,20 @@ class MemberController extends Controller {
    */
   public function admin()
   {
-    $user = Auth::user();
-		$orders = Order::where("affiliate","=","1")->
-						 where("user_id","=","0");
-    return View::make('admin.admin-all.index')->with(
-                  array(
-                    'user'=>$user,
-                    'orders'=>$orders,
-                  ));
+    $email = Auth::user()->email;
+    if($email=='admin@admin.com' || $email=='celebgramme.dev@gmail.com' || $email=='puspita.celebgramme@gmail.com' || $email==' it.axiapro@gmail.com'){
+
+      $user = Auth::user();
+      $orders = Order::where("affiliate","=","1")->
+               where("user_id","=","0");
+      return View::make('admin.admin-all.index')->with(
+                    array(
+                      'user'=>$user,
+                      'orders'=>$orders,
+                    ));
+    } else {
+      return response('Unauthorized.', 401);
+    }
   }
 
   public function load_admin()
