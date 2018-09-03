@@ -14,6 +14,7 @@ use Celebgramme\Models\Package;
 use Celebgramme\Models\PackageUser;
 use Celebgramme\Models\Coupon;
 use Celebgramme\Models\Meta;
+use Celebgramme\Models\AdminLog;
 use Celebgramme\Models\Idaff;
 
 use View,Auth,Request,DB,Carbon,Excel, Mail, Validator;
@@ -580,6 +581,11 @@ class PaymentController extends Controller {
 					$message->subject('[Celebgramme] Welcome to celebgramme.com');
 				});
 			}
+			$adminlog = new AdminLog;
+			$adminlog->user_id = Auth::user()->id;
+			$adminlog->description = 'Create Order, '.$user->email.', '.$order->total.", ".$order->no_order;
+			$adminlog->save();
+		
 		}
 		
 		OrderMeta::createMeta("logs","create order by admin",$order->id);

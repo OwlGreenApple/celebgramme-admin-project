@@ -55,6 +55,7 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),
+						'port' => '3306',
             'database'  => env('DB_DATABASE', 'forge'),
             'username'  => env('DB_USERNAME', 'forge'),
             'password'  => env('DB_PASSWORD', ''),
@@ -67,6 +68,7 @@ return [
 				'mysql_axs' => [
             'driver'    => 'mysql',
             'host'      => env('DB_AXS_HOST', 'localhost'),
+						'port' => '3306',
             'database'  => env('DB_AXS_DATABASE', 'forge'),
             'username'  => env('DB_AXS_USERNAME', 'forge'),
             'password'  => env('DB_AXS_PASSWORD', ''),
@@ -79,6 +81,7 @@ return [
 				'mysql_celebpost' => [
             'driver'    => 'mysql',
             'host'      => env('DB_CELEBPOST_HOST', 'localhost'),
+						'port' => '3306',
             'database'  => env('DB_CELEBPOST_DATABASE', 'forge'),
             'username'  => env('DB_CELEBPOST_USERNAME', 'forge'),
             'password'  => env('DB_CELEBPOST_PASSWORD', ''),
