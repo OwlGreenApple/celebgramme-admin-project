@@ -916,6 +916,11 @@ class MemberController extends Controller {
 		$user_log->description = "Edit Member. email : ".Request::input("emailedit").", fullname : ".Request::input("fullnameedit").", time : ".Request::input("member-days") ."days";
 		$user_log->created = $dt->toDateTimeString();
 		$user_log->save();
+
+    $adminlog = new AdminLog;
+    $adminlog->user_id = Auth::user()->id;
+    $adminlog->description = "Edit Member. email : ".Request::input("emailedit").", fullname : ".Request::input("fullnameedit").", time : ".Request::input("member-days") ."days";
+    $adminlog->save();
 		
     return $arr;
 	}
@@ -1003,7 +1008,7 @@ class MemberController extends Controller {
   public function admin()
   {
     $email = Auth::user()->email;
-    if($email=='admin@admin.com' || $email=='celebgramme.dev@gmail.com' || $email=='puspita.celebgramme@gmail.com' || $email==' it.axiapro@gmail.com'){
+    if($email=='admin@admin.com' || $email=='celebgramme.dev@gmail.com' || $email=='puspita.celebgramme@gmail.com' || $email=='it.axiapro@gmail.com'){
 
       $user = Auth::user();
       $orders = Order::where("affiliate","=","1")->

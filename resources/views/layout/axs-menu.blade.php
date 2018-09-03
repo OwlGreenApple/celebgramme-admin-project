@@ -132,14 +132,14 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
           </li>
           <li class='dropdown'>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                Account<span class="caret"></span>
+                Hi, <?php echo Auth::user()->fullname ?><span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#" data-target="#modalChangePassword" data-toggle="modal">Change Password</a></li>
                 <?php  ?>
                 <?php 
                   $email = Auth::user()->email;
-                  if($email=='admin@admin.com' || $email=='celebgramme.dev@gmail.com' || $email=='puspita.celebgramme@gmail.com' || $email==' it.axiapro@gmail.com') { ?>
+                  if( ($email=='admin@admin.com') || ($email=='celebgramme.dev@gmail.com') || ($email=='puspita.celebgramme@gmail.com') || ($email=='it.axiapro@gmail.com')) { ?>
                   <li><a href="{{url('admin-form', $parameters = [], $secure = null)}}">Admin</a></li>
                 <?php } ?>
 								<li><a href="{{url('auth/logout', $parameters = [], $secure = null)}}">Logout</a></li>

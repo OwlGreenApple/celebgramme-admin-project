@@ -901,6 +901,7 @@
 
       $( "body" ).on( "click", ".btn-max-account", function() {
         $(".user-id").val($(this).attr("data-id"));
+        $('#max-account-user').val($(this).attr("data-account"));
       });
       $( "body" ).on( "click", ".btn-edit-email", function() {
         $("#id-edit").val($(this).attr("data-id"));
