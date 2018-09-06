@@ -72,10 +72,11 @@ return [
             'database'  => env('DB_AXS_DATABASE', 'forge'),
             'username'  => env('DB_AXS_USERNAME', 'forge'),
             'password'  => env('DB_AXS_PASSWORD', ''),
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
+            'charset'   => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
             'prefix'    => '',
             'strict'    => false,
+						'engine' => null,
         ],
 
 				'mysql_celebpost' => [
