@@ -10,13 +10,18 @@
                 <li><a href="{{url('payment', $parameters = [], $secure = null)}}">Confirm Payment</a></li>
                 <!--<li><a href="{{url('invoice', $parameters = [], $secure = null)}}">Invoice</a></li>-->
                 <li><a href="{{url('coupon', $parameters = [], $secure = null)}}">Coupon</a></li>
-								<?php if ($user->email == "celebgramme.dev@gmail.com") { ?>
+								<?php if ($user->email == "celebgramme.dev@gmail.com" || $user->email == "admin@admin.com") { ?>
                 <li>
                   <a href="{{url('success-order')}}">
                     Success Order
                   </a>
                 </li>
 								<?php } ?>
+                <li>
+                  <a href="{{url('order-chart')}}">
+                    Order Chart
+                  </a>
+                </li>
                 <li>
                   <a href="{{url('idaff', $parameters = [], $secure = null)}}">Idaff</a>
                 </li>

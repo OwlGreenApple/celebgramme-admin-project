@@ -20,6 +20,7 @@
 	<script type="text/javascript" src="{{ asset('/js/bootstrap.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/script.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/ckeditor/ckeditor.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('/canvasjs/canvasjs.min.js') }}"></script>
 	<script>
 		$(document).ready(function(){
 			$("#div-loading").hide();

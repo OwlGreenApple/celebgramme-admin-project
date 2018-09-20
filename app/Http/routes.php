@@ -129,7 +129,11 @@ Route::group(['middleware' => 'auth'], function()
 
   /* Success Order */
   Route::get('success-order','Admin\PaymentController@success_order');
-  Route::get('success-order/load-order','Admin\PaymentController@load_success_order');  
+  Route::get('success-order/load-order','Admin\PaymentController@load_success_order');
+
+  /* Order Chart */  
+  Route::get('order-chart','Admin\PaymentController@order_chart');
+  Route::get('order-chart/load-chart','Admin\PaymentController@load_chart');
 
   /* Idaff */
   Route::get('idaff','Admin\PaymentController@index_idaff');
