@@ -17,7 +17,7 @@ use Celebgramme\Models\Meta;
 use Celebgramme\Models\AdminLog;
 use Celebgramme\Models\Idaff;
 
-use View,Auth,Request,DB,Carbon,Excel, Mail, Validator;
+use DateTime,DatePeriod,DateInterval,View,Auth,Request,DB,Carbon,Excel, Mail, Validator;
 
 class PaymentController extends Controller {
 
@@ -878,6 +878,11 @@ class PaymentController extends Controller {
     $from = date(Request::input('from'));
     $to = date(Request::input('to'));
 
+    $arrbank_pending = [];
+    $arrbank_success = [];
+    $arramelia_success = [];
+    $arrcron = [];
+
     if(Request::input('select_group')=='Daily'){
       $bank_pending = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as orders'))
                 ->where('order_type','transfer_bank')
@@ -885,8 +890,12 @@ class PaymentController extends Controller {
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('date')
                 ->get();
-
-      $bank_pending = str_replace('date', 'label', $bank_pending);
+      
+      foreach ($bank_pending as $order) {
+        $arrbank_pending[] =  array("x"=> strtotime($order->date)*1000, "y"=>$order->orders);
+      }
+      
+      //$bank_pending = str_replace('date', 'label', $bank_pending);
 
       $bank_success = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as orders'))
                 ->where('order_type','transfer_bank')
@@ -895,7 +904,11 @@ class PaymentController extends Controller {
                 ->groupBy('date')
                 ->get();
 
-      $bank_success = str_replace('date', 'label', $bank_success);
+      foreach ($bank_success as $order) {
+        $arrbank_success[] =  array("x"=> strtotime($order->date)*1000, "y"=>$order->orders);
+      }
+
+      //$bank_success = str_replace('date', 'label', $bank_success);
 
       $amelia_success = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as orders'))
                 ->where('order_type','rico-from-admin')
@@ -904,7 +917,11 @@ class PaymentController extends Controller {
                 ->groupBy('date')
                 ->get();
 
-      $amelia_success = str_replace('date', 'label', $amelia_success);
+      foreach ($amelia_success as $order) {
+        $arramelia_success[] =  array("x"=> strtotime($order->date)*1000, "y"=>$order->orders);
+      }
+
+      //$amelia_success = str_replace('date', 'label', $amelia_success);
 
       $cron = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as orders'))
                 ->where('order_type','')
@@ -913,7 +930,11 @@ class PaymentController extends Controller {
                 ->groupBy('date')
                 ->get();
 
-      $cron = str_replace('date', 'label', $cron);
+      foreach ($cron as $order) {
+        $arrcron[] =  array("x"=> strtotime($order->date)*1000, "y"=>$order->orders);
+      }
+
+      //$cron = str_replace('date', 'label', $cron);
 
     } else if(Request::input('select_group')=='Weekly'){
       $data = Order::select('created_at',DB::raw('count(*) as orders'))
@@ -933,7 +954,10 @@ class PaymentController extends Controller {
                 ->groupBy('month')
                 ->get();
 
-      $bank_pending = str_replace('month', 'label', $bank_pending);
+      //$bank_pending = str_replace('month', 'label', $bank_pending);
+      foreach ($bank_pending as $order) {
+        $arrbank_pending[] =  array("x"=> strtotime($order->month)*1000, "y"=>$order->orders);
+      }
 
       $bank_success = Order::select(DB::raw("CONCAT_WS('-',MONTHNAME(created_at),YEAR(created_at)) as month"), DB::raw('count(*) as orders'))
                 ->where('order_type','transfer_bank')
@@ -942,7 +966,10 @@ class PaymentController extends Controller {
                 ->groupBy('month')
                 ->get();
 
-      $bank_success = str_replace('month', 'label', $bank_success);
+      //$bank_success = str_replace('month', 'label', $bank_success);
+      foreach ($bank_success as $order) {
+        $arrbank_success[] =  array("x"=> strtotime($order->month)*1000, "y"=>$order->orders);
+      }
 
       $amelia_success = Order::select(DB::raw("CONCAT_WS('-',MONTHNAME(created_at),YEAR(created_at)) as month"), DB::raw('count(*) as orders'))
                 ->where('order_type','rico-from-admin')
@@ -951,7 +978,10 @@ class PaymentController extends Controller {
                 ->groupBy('month')
                 ->get();
 
-      $amelia_success = str_replace('month', 'label', $amelia_success);
+      //$amelia_success = str_replace('month', 'label', $amelia_success);
+      foreach ($amelia_success as $order) {
+        $arramelia_success[] =  array("x"=> strtotime($order->month)*1000, "y"=>$order->orders);
+      }
 
       $cron = Order::select(DB::raw("CONCAT_WS('-',MONTHNAME(created_at),YEAR(created_at)) as month"), DB::raw('count(*) as orders'))
                 ->where('order_type','')
@@ -960,24 +990,28 @@ class PaymentController extends Controller {
                 ->groupBy('month')
                 ->get();
 
-      $cron = str_replace('month', 'label', $cron);
+      //$cron = str_replace('month', 'label', $cron);
+      foreach ($cron as $order) {
+        $arrcron[] =  array("x"=> strtotime($order->month)*1000, "y"=>$order->orders);
+      }
 
     }
     
-    $bank_pending = str_replace('orders', 'y', $bank_pending);
+    /*$bank_pending = str_replace('orders', 'y', $bank_pending);
     $bank_success = str_replace('orders', 'y', $bank_success);
     $amelia_success = str_replace('orders', 'y', $amelia_success);
-    $cron = str_replace('orders', 'y', $cron);
+    $cron = str_replace('orders', 'y', $cron);*/
 
-    /*$arr['bank_pending'] = json_encode($bank_pending, JSON_NUMERIC_CHECK);
-    $arr['bank_success'] = json_encode($bank_success, JSON_NUMERIC_CHECK);
-    $arr['amelia_success'] = json_encode($amelia_success, JSON_NUMERIC_CHECK);
-    $arr['cron'] = json_encode($cron, JSON_NUMERIC_CHECK);*/
-
-    $arr['bank_pending'] = $bank_pending;
+    /*$arr['bank_pending'] = $bank_pending;
     $arr['bank_success'] = $bank_success;
     $arr['amelia_success'] = $amelia_success;
-    $arr['cron'] = $cron;
+    $arr['cron'] = $cron;*/
+
+    $arr['bank_pending'] = $arrbank_pending;
+    $arr['bank_success'] = $arrbank_success;
+    $arr['amelia_success'] = $arramelia_success;
+    $arr['cron'] = $arrcron;
+    $arr['type'] = Request::input('select_group');
 
     return $arr;
   }

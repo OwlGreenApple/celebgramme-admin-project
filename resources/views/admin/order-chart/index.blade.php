@@ -64,47 +64,63 @@
         dataType: 'json',
         success: function(data)
         {
-          //console.log(jQuery.parseJSON(data.bank_pending));
+          var format = '';
+          if(data.type=='Daily'){
+            format = 'DD-MM-YYYY';
+          } else {
+            format = 'MMM-YYYY';
+          }
+          
+          console.log(data.cron);
           chart = new CanvasJS.Chart("chartContainer", {
-              //animationEnabled: true,
+              animationEnabled: true,
               title:{
                 text: "Charts Success Order"
               },
               axisX:{
-                title: "Hari"
+                title: "Hari",
+                valueFormatString: format  
               }, 
               axisY:{
-                title: "Jumlah Order",
-                includeZero: true
+                title: "Jumlah Order"
               },
               data: [
               {
                 type: "line",
                 showInLegend:true,
                 name: "Bank Pending",
-                //showInLegend: true,
-                dataPoints: jQuery.parseJSON(data.bank_pending)
+                xValueType: "dateTime",
+                xValueFormatString: format,
+                //dataPoints: jQuery.parseJSON(data.bank_pending)
+                dataPoints: data.bank_pending
+                //dataPoints: data
               },
               {
                 type: "line",
                 showInLegend:true,
                 name: "Bank Success",
-                //showInLegend: true,
-                dataPoints: jQuery.parseJSON(data.bank_success)
+                xValueType: "dateTime",
+                xValueFormatString: format,
+                //dataPoints: jQuery.parseJSON(data.bank_success)
+                dataPoints: data.bank_success
               },
               {
                 type: "line",
                 showInLegend:true,
                 name: "Amelia Success",
-                //showInLegend: true,
-                dataPoints: jQuery.parseJSON(data.amelia_success)
+                xValueType: "dateTime",
+                xValueFormatString: format,
+                //dataPoints: jQuery.parseJSON(data.amelia_success)
+                dataPoints: data.amelia_success
               },
               {
                 type: "line",
                 showInLegend:true,
                 name: "wuoymembership",
-                //showInLegend: true,
-                dataPoints: jQuery.parseJSON(data.cron)
+                xValueType: "dateTime",
+                xValueFormatString: format,
+                //dataPoints: jQuery.parseJSON(data.cron)
+                dataPoints: data.cron
               }]
             });
 
