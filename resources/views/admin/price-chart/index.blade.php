@@ -87,6 +87,11 @@
               axisY:{
                 title: "Total"
               },
+							legend:{
+								cursor: "pointer",
+								dockInsidePlotArea: true,
+								itemclick: toggleDataSeries
+							},							
               data: [
               {
                 type: "line",

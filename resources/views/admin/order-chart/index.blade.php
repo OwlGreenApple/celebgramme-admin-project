@@ -84,6 +84,11 @@
               axisY:{
                 title: "Jumlah Order"
               },
+							legend:{
+								cursor: "pointer",
+								dockInsidePlotArea: true,
+								itemclick: toggleDataSeries
+							},							
               data: [
               {
                 type: "line",
