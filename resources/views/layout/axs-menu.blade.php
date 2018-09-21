@@ -21,12 +21,12 @@
                       Order Chart
                     </a>
                   </li>
+                  <li>
+                    <a href="{{url('price-chart')}}">
+                      Price Chart
+                    </a>
+                  </li>
 								<?php } ?>
-                <li>
-                  <a href="{{url('price-chart')}}">
-                    Price Chart
-                  </a>
-                </li>
                 <li>
                   <a href="{{url('idaff', $parameters = [], $secure = null)}}">Idaff</a>
                 </li>
