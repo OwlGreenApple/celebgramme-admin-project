@@ -2,6 +2,41 @@
 
 @section('content')
   
+  <div class="modal fade" id="myModalAddOrder" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Order Excel</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="form-add-order">
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Excel</label>
+              <div class="col-sm-8 col-md-6">
+                <input type="file" name="fileExcel" class="form-control"> 
+              </div>
+            </div>
+
+            <input type="hidden" class="user-id" name="user-id">  
+            
+          </form>
+
+          <a href="{{ url('sample-add-order')}}" target="_blank">
+            <button class="btn btn-primary">Sample File</button>
+          </a>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-add-order-ok" data-check="auto">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
   <!-- Modal Refund-->
   <div class="modal fade" id="myModalRefund" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -79,12 +114,12 @@
 								</select>
               </div>
             </div>  
-            <div class="form-group form-group-sm row">
+            <!--<div class="form-group form-group-sm row">
               <label class="col-xs-8 col-sm-2 control-label" for="formGroupInputSmall">Coupon</label>
               <div class="col-sm-8 col-md-6">
                 <input type="text" class="form-control" placeholder="Code Coupon" name="coupon-code" id="coupon-code">
               </div>
-            </div>  
+            </div>-->
             <input type="hidden" class="user-id" name="user-id">
           </form>
         </div>
@@ -510,6 +545,9 @@
 				<input type="button" value="List member(rico)" data-loading-text="Loading..." class="btn btn-primary" id="button-list-member"> 
 			</div>  
 		<?php } ?>
+    <div class="input-group fl">
+      <input type="button" value="Add Order Excel" id="button-add-order" data-loading-text="Loading..." class="btn btn-primary" data-toggle="modal" data-target="#myModalAddOrder" > 
+    </div>  
     
     <div class="none"></div>
   </div>
@@ -1037,15 +1075,62 @@
           success: function(result)
           {
             var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
             if(data.type=='success') {
               //create_pagination(1);
               refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
             }
             $("#div-loading").hide();
           }
         });
       });
 			
+      $( "body" ).on( "click", "#button-add-order", function() {
+        $(".user-id").val($(this).attr("data-id"));
+      });
+      $( "body" ).on( "click", "#btn-add-order-ok", function() {
+        var form = $('#form-add-order')[0];
+        var formData = new FormData(form);
+
+        $.ajax({                                      
+          url: '<?php echo url('add-order-excel'); ?>',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false,
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $("#alert").show();
+            $("#alert").html(data.message);
+            if(data.type=='success') {
+              //create_pagination(1);
+              refresh_page(1);
+              $("#alert").addClass("alert-success");
+              $("#alert").removeClass("alert-danger");
+            } else if (data.type=='error') {
+              $("#alert").addClass("alert-danger");
+              $("#alert").removeClass("alert-success");
+            }
+            $("#div-loading").hide();
+          }
+        });
+      }); 
       
       $( "body" ).on( "click", ".btn-time-logs", function() {
         temp = $(this);

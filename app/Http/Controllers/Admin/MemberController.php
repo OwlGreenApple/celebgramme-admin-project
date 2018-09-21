@@ -966,7 +966,7 @@ class MemberController extends Controller {
   public function member_order_package()
   {
     //hitung total
-		$total = 0;
+		/*$total = 0;
 		// $package = Package::find(Input::get("package-daily-likes"));
 		// if (!is_null($package)) {
 			// $total += $package->price;
@@ -996,8 +996,118 @@ class MemberController extends Controller {
 		$order = Order::createOrder($data,true);
 		
     $arr['type'] = 'success';
-    $arr['id'] = Request::input("id-coupon");
+    $arr['id'] = Request::input("id-coupon");*/
+
+    $total = 0;
+    $package = Package::find(Input::get("package-auto-manage"));
+    if (!is_null($package)) {
+      $total += $package->price;
+    }
+
+    $data = array (
+      "user_id" => Request::input("user-id"),
+      "order_total" => $total,
+      "package_manage_id" => Input::get("package-auto-manage"),
+    );
+
+    $order = Order::createNewOrder($data);
+
+    $adminlog = new AdminLog;
+    $adminlog->user_id = Auth::user()->id;
+    $adminlog->description = 'Create Order Manual, '.$order;
+    $adminlog->save();
+
+    $arr['type'] = 'success';
+    $arr['message'] = 'Add Order berhasil';
+
     return $arr;    
+  }
+
+  public function add_order_excel(){
+    if(Input::hasFile('fileExcel')){
+      $uploadedFile = Input::file('fileExcel');
+      $path = $uploadedFile->getRealPath();
+
+      $data = Excel::load($path)->get();
+      if(!empty($data) && $data->count()){
+
+        foreach ($data as $key => $value) {
+          if($value->email!='' || $value->paket!='') {
+            $user = User::where('email',$value->email)->first();
+
+            if(!is_null($user)){
+              $total = 0;
+              $package = Package::find($value->paket);
+              if (!is_null($package)) {
+                $total += $package->price;
+              }
+
+              $data = array (
+                "user_id" => $user->id,
+                "order_total" => $total,
+                "package_manage_id" => $value->paket,
+              );
+
+              $order = Order::createNewOrder($data);
+
+              $adminlog = new AdminLog;
+              $adminlog->user_id = Auth::user()->id;
+              $adminlog->description = 'Create Order Excel, '.$order;
+              $adminlog->save();
+            }
+          }
+        }
+
+        $arr['type'] = 'success';
+        $arr['message'] = 'Add Order berhasil';
+
+      }
+
+    } else {
+      $arr['type'] = 'error';
+      $arr['message'] = 'Pilih file terlebih dahulu';
+    }
+
+    return $arr;    
+  }
+
+  public function sample_add_order(){
+    $packages = Package::where("package_group","=","auto-manage")
+                ->orderBy('price', 'asc')->get();
+
+    Excel::create('sample', function($excel) use ($packages) {
+        $excel->sheet('list', function($sheet) use ($packages) {
+          $sheet->cell('A1', function($cell) {
+            $cell->setValue('email');   
+          });
+          $sheet->cell('B1', function($cell) {
+            $cell->setValue('paket');   
+          });
+          $sheet->cell('G1', function($cell) {
+            $cell->setValue('Ket');   
+          });
+
+          if ($packages->count()) {
+            $i=2;
+            foreach ($packages as $package) {
+              $sheet->cell('G'.$i, $package->id); 
+
+              $paket = 'Paket '.$package->package_name.' - Rp '.$package->price;
+              $sheet->cell('H'.$i, $paket);
+
+              $i++;
+            }
+
+            $sheet->cell('A2', 'aa@gmail.com'); 
+            $sheet->cell('A3', 'bb@gmail.com'); 
+            $sheet->cell('A4', 'cc@gmail.com'); 
+          
+            $sheet->cell('B2', $packages[0]->id); 
+            $sheet->cell('B3', $packages[1]->id); 
+            $sheet->cell('B4', $packages[0]->id); 
+          }
+        });
+      })->download('xlsx');
   }
 
   /**

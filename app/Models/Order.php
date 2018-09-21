@@ -115,5 +115,29 @@ class Order extends Model {
         return $order;
   }
   
-	
+  protected function createNewOrder($cdata) {
+    $order = new Order;
+    
+    $dt = Carbon::now();
+    $str = 'OCLB'.$dt->format('ymdHi');
+    $order_number = GeneralHelper::autoGenerateID($order, 'no_order', $str, 3, '0');
+
+    $order->no_order = $order_number;
+    $order->order_type = 'transfer_bank';
+    $order->order_status = 'success';
+    $order->user_id = $cdata["user_id"];
+    $order->total = $cdata["order_total"];
+    $order->image = "no image, from admin" ;
+    $order->discount = 0;
+    $order->package_id = 0;
+    $order->package_manage_id = $cdata["package_manage_id"];
+    $order->coupon_id = 0;
+    $order->checked = 1;
+    $order->type = 'daily-activity';
+    $order->is_remind_email = 0;
+    $order->added_account = 0;
+    $order->save();
+
+    return $order->no_order;
+  }
 }

@@ -97,6 +97,8 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('footer-ads', 'Admin\MemberController@footer_ads');
 	Route::post('save-footer-ads', 'Admin\MemberController@save_footer_ads');
 	Route::post('member-order-package', 'Admin\MemberController@member_order_package');
+  Route::post('add-order-excel', 'Admin\MemberController@add_order_excel');
+  Route::get('sample-add-order', 'Admin\MemberController@sample_add_order');
 	Route::get('load-time-logs', 'Admin\MemberController@get_time_logs');
 	Route::get('ads-page', 'Admin\MemberController@ads_page');
 	Route::post('save-ads-page', 'Admin\MemberController@save_ads_page');
@@ -138,9 +140,6 @@ Route::group(['middleware' => 'auth'], function()
   /* Price Chart */  
   Route::get('price-chart','Admin\PaymentController@price_chart');
   Route::get('price-chart/load-price-chart','Admin\PaymentController@load_price_chart');
-
-  /* Add Order */  
-  //Route::get('add-order','Admin\PaymentController@add_order');
 
   /* Idaff */
   Route::get('idaff','Admin\PaymentController@index_idaff');
