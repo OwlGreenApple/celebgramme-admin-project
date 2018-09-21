@@ -1195,4 +1195,8 @@ class PaymentController extends Controller {
 
     return $arr;
   }
+
+  /*public function add_order(){
+    return view('admin.add-order.index');
+  }*/
 }

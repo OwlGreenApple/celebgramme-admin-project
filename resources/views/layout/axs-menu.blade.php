@@ -28,6 +28,11 @@
                   </li>
 								<?php } ?>
                 <li>
+                  <a href="{{url('add-order')}}">
+                    Add Order
+                  </a>
+                </li>
+                <li>
                   <a href="{{url('idaff', $parameters = [], $secure = null)}}">Idaff</a>
                 </li>
               </ul>

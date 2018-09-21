@@ -139,6 +139,9 @@ Route::group(['middleware' => 'auth'], function()
   Route::get('price-chart','Admin\PaymentController@price_chart');
   Route::get('price-chart/load-price-chart','Admin\PaymentController@load_price_chart');
 
+  /* Add Order */  
+  //Route::get('add-order','Admin\PaymentController@add_order');
+
   /* Idaff */
   Route::get('idaff','Admin\PaymentController@index_idaff');
   Route::get('idaff/post-back','Admin\PaymentController@post_back_idaff');    
