@@ -936,17 +936,57 @@ class PaymentController extends Controller {
 
       //$cron = str_replace('date', 'label', $cron);
 
-    } else if(Request::input('select_group')=='Weekly'){
-      $data = Order::select('created_at',DB::raw('count(*) as orders'))
+    } /*else if(Request::input('select_group')=='Weekly'){
+      $bank_pending = Order::select('created_at',DB::raw("CONCAT_WS('-',YEAR(created_at),WEEK(created_at)) as week"), DB::raw('count(*) as orders'))
+                ->where('order_type','transfer_bank')
+                ->where('order_status','pending')
                 ->whereBetween('created_at', [$from, $to])
-                ->groupBy(function($date) {
-                    return Carbon::parse($date->created_at)->format('W');
-                })
+                ->groupBy('week')
                 ->get();
 
-      $data = str_replace('created_at', 'label', $data);
+      //$bank_pending = str_replace('month', 'label', $bank_pending);
+      foreach ($bank_pending as $order) {
+        $arrbank_pending[] =  array("x"=> strtotime($order->created_at)*1000, "y"=>$order->orders);
+      }
 
-    } else {
+      $bank_success = Order::select('created_at',DB::raw("CONCAT_WS('-',YEAR(created_at),WEEK(created_at)) as week"), DB::raw('count(*) as orders')))
+                ->where('order_type','transfer_bank')
+                ->where('order_status','success')
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('week')
+                ->get();
+
+      //$bank_success = str_replace('month', 'label', $bank_success);
+      foreach ($bank_success as $order) {
+        $arrbank_success[] =  array("x"=> strtotime($order->created_at)*1000, "y"=>$order->orders);
+      }
+
+      $amelia_success = Order::select('created_at',DB::raw("CONCAT_WS('-',YEAR(created_at),WEEK(created_at)) as week"), DB::raw('count(*) as orders')))
+                ->where('order_type','rico-from-admin')
+                ->where('order_status','success')
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('week')
+                ->get();
+
+      //$amelia_success = str_replace('month', 'label', $amelia_success);
+      foreach ($amelia_success as $order) {
+        $arramelia_success[] =  array("x"=> strtotime($order->created_at)*1000, "y"=>$order->orders);
+      }
+
+      $cron = Order::select(DB::raw('created_at',DB::raw("CONCAT_WS('-',YEAR(created_at),WEEK(created_at)) as week"), DB::raw('count(*) as orders'))
+                ->where('order_type','')
+                ->where('order_status','like','%cron%')
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('week')
+                ->get();
+
+      //$cron = str_replace('month', 'label', $cron);
+      foreach ($cron as $order) {
+        $arrcron[] =  array("x"=> strtotime($order->created_at)*1000, "y"=>$order->orders);
+      }
+
+
+    }*/ else {
       $bank_pending = Order::select(DB::raw("CONCAT_WS('-',MONTHNAME(created_at),YEAR(created_at)) as month"), DB::raw('count(*) as orders'))
                 ->where('order_type','transfer_bank')
                 ->where('order_status','pending')

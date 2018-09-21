@@ -27,7 +27,7 @@
     <div class="input-group fl">
       <select name="select_group" id="select_group" class="form-control">
         <option>Daily</option>
-        <option>Weekly</option>
+        <!--<option>Weekly</option>-->
         <option>Monthly</option>
       </select>
     </div>
