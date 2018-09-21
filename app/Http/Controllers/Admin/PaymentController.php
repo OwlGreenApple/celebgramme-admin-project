@@ -871,7 +871,11 @@ class PaymentController extends Controller {
   public function order_chart(){
     $user = Auth::user();
 
-    return view('admin.order-chart.index')->with('user',$user);
+    if($user->email == "celebgramme.dev@gmail.com" || $user->email == "admin@admin.com"){
+      return view('admin.order-chart.index')->with('user',$user);
+    } else {
+      echo 'Not authorized';
+    }
   }
 
   public function load_chart(){
