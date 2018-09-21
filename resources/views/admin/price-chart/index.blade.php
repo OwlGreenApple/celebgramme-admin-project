@@ -5,7 +5,7 @@
   var chart = '';
 </script>
   <div class="page-header">
-    <h1>Order Chart</h1>
+    <h1>Price Chart</h1>
   </div>  
 
   <br>
@@ -50,7 +50,7 @@
     function refresh_page()
     {
       $.ajax({                                      
-        url: '<?php echo url('order-chart/load-chart'); ?>',
+        url: '<?php echo url('price-chart/load-price-chart'); ?>',
         type: 'get',
         data: {
           from: $("#from").val(),
@@ -65,24 +65,27 @@
         success: function(data)
         {
           var format = '';
+          var xtitle='';
+
           if(data.type=='Daily'){
             format = 'DD-MM-YYYY';
+            xtitle = 'Hari';
           } else {
             format = 'MMM-YYYY';
+            xtitle = 'Bulan';
           }
           
-          console.log(data.cron);
           chart = new CanvasJS.Chart("chartContainer", {
               animationEnabled: true,
               title:{
-                text: "Order Chart"
+                text: "Price Chart"
               },
               axisX:{
                 title: "Hari",
                 valueFormatString: format  
               }, 
               axisY:{
-                title: "Jumlah Order"
+                title: "Total"
               },
               data: [
               {

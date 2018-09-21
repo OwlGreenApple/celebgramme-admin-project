@@ -879,6 +879,14 @@ class PaymentController extends Controller {
   }
 
   public function load_chart(){
+    $user = Auth::user();
+
+    if($user->email == "celebgramme.dev@gmail.com" || $user->email == "admin@admin.com"){
+      
+    } else {
+      return 'Not authorized';
+    }
+
     $from = date(Request::input('from'));
     $to = date(Request::input('to'));
 
@@ -1051,6 +1059,134 @@ class PaymentController extends Controller {
     $arr['amelia_success'] = $amelia_success;
     $arr['cron'] = $cron;*/
 
+    $arr['bank_pending'] = $arrbank_pending;
+    $arr['bank_success'] = $arrbank_success;
+    $arr['amelia_success'] = $arramelia_success;
+    $arr['cron'] = $arrcron;
+    $arr['type'] = Request::input('select_group');
+
+    return $arr;
+  }
+
+  public function price_chart(){
+    $user = Auth::user();
+
+    if($user->email == "celebgramme.dev@gmail.com" || $user->email == "admin@admin.com"){
+      return view('admin.price-chart.index')->with('user',$user);
+    } else {
+      echo 'Not authorized';
+    }
+  } 
+
+  public function load_price_chart(){
+    $user = Auth::user();
+
+    if($user->email == "celebgramme.dev@gmail.com" || $user->email == "admin@admin.com"){
+      
+    } else {
+      return 'Not authorized';
+    }
+
+    $from = date(Request::input('from'));
+    $to = date(Request::input('to'));
+
+    $arrbank_pending = [];
+    $arrbank_success = [];
+    $arramelia_success = [];
+    $arrcron = [];
+
+    if(Request::input('select_group')=='Daily'){
+      $bank_pending = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(total) as orders'))
+                ->where('order_type','transfer_bank')
+                ->where('order_status','pending')
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('date')
+                ->get();
+      
+      foreach ($bank_pending as $order) {
+        $arrbank_pending[] =  array("x"=> strtotime($order->date)*1000, "y"=>$order->orders);
+      }
+
+      $bank_success = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(total) as orders'))
+                ->where('order_type','transfer_bank')
+                ->where('order_status','success')
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('date')
+                ->get();
+
+      foreach ($bank_success as $order) {
+        $arrbank_success[] =  array("x"=> strtotime($order->date)*1000, "y"=>$order->orders);
+      }
+
+      $amelia_success = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(total) as orders'))
+                ->where('order_type','rico-from-admin')
+                ->where('order_status','success')
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('date')
+                ->get();
+
+      foreach ($amelia_success as $order) {
+        $arramelia_success[] =  array("x"=> strtotime($order->date)*1000, "y"=>$order->orders);
+      }
+
+      $cron = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(total) as orders'))
+                ->where('order_type','')
+                ->where('order_status','like','%cron%')
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('date')
+                ->get();
+
+      foreach ($cron as $order) {
+        $arrcron[] =  array("x"=> strtotime($order->date)*1000, "y"=>$order->orders);
+      }
+
+    } else {
+      $bank_pending = Order::select(DB::raw("CONCAT_WS('-',MONTHNAME(created_at),YEAR(created_at)) as month"), DB::raw('sum(total) as orders'))
+                ->where('order_type','transfer_bank')
+                ->where('order_status','pending')
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('month')
+                ->get();
+
+      foreach ($bank_pending as $order) {
+        $arrbank_pending[] =  array("x"=> strtotime($order->month)*1000, "y"=>$order->orders);
+      }
+
+      $bank_success = Order::select(DB::raw("CONCAT_WS('-',MONTHNAME(created_at),YEAR(created_at)) as month"), DB::raw('sum(total) as orders'))
+                ->where('order_type','transfer_bank')
+                ->where('order_status','success')
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('month')
+                ->get();
+
+      foreach ($bank_success as $order) {
+        $arrbank_success[] =  array("x"=> strtotime($order->month)*1000, "y"=>$order->orders);
+      }
+
+      $amelia_success = Order::select(DB::raw("CONCAT_WS('-',MONTHNAME(created_at),YEAR(created_at)) as month"), DB::raw('sum(total) as orders'))
+                ->where('order_type','rico-from-admin')
+                ->where('order_status','success')
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('month')
+                ->get();
+
+      foreach ($amelia_success as $order) {
+        $arramelia_success[] =  array("x"=> strtotime($order->month)*1000, "y"=>$order->orders);
+      }
+
+      $cron = Order::select(DB::raw("CONCAT_WS('-',MONTHNAME(created_at),YEAR(created_at)) as month"), DB::raw('sum(total) as orders'))
+                ->where('order_type','')
+                ->where('order_status','like','%cron%')
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('month')
+                ->get();
+
+      foreach ($cron as $order) {
+        $arrcron[] =  array("x"=> strtotime($order->month)*1000, "y"=>$order->orders);
+      }
+
+    }
+    
     $arr['bank_pending'] = $arrbank_pending;
     $arr['bank_success'] = $arrbank_success;
     $arr['amelia_success'] = $arramelia_success;
