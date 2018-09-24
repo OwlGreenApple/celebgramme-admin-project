@@ -115,6 +115,15 @@
               {
                 type: "line",
                 showInLegend:true,
+                name: "wuoymembership",
+                xValueType: "dateTime",
+                xValueFormatString: format,
+                //dataPoints: jQuery.parseJSON(data.cron)
+                dataPoints: data.cron
+              },
+              {
+                type: "line",
+                showInLegend:true,
                 name: "Amelia Success",
                 xValueType: "dateTime",
                 xValueFormatString: format,
@@ -124,11 +133,11 @@
               {
                 type: "line",
                 showInLegend:true,
-                name: "wuoymembership",
+                name: "All",
                 xValueType: "dateTime",
                 xValueFormatString: format,
-                //dataPoints: jQuery.parseJSON(data.cron)
-                dataPoints: data.cron
+                //dataPoints: jQuery.parseJSON(data.amelia_success)
+                dataPoints: data.all
               }]
             });
 

@@ -894,6 +894,7 @@ class PaymentController extends Controller {
     $arrbank_success = [];
     $arramelia_success = [];
     $arrcron = [];
+    $arrall = [];
 
     if(Request::input('select_group')=='Daily'){
       $bank_pending = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as orders'))
@@ -947,6 +948,17 @@ class PaymentController extends Controller {
       }
 
       //$cron = str_replace('date', 'label', $cron);
+
+      $all = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as orders'))
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('date')
+                ->get();
+
+      foreach ($all as $order) {
+        $arrall[] =  array("x"=> strtotime($order->date)*1000, "y"=>$order->orders);
+      }
+
+      //$cron = str_replace('date', 'label', $cron);      
 
     } /*else if(Request::input('select_group')=='Weekly'){
       $bank_pending = Order::select('created_at',DB::raw("CONCAT_WS('-',YEAR(created_at),WEEK(created_at)) as week"), DB::raw('count(*) as orders'))
@@ -1047,6 +1059,16 @@ class PaymentController extends Controller {
         $arrcron[] =  array("x"=> strtotime($order->month)*1000, "y"=>$order->orders);
       }
 
+      $all = Order::select(DB::raw("CONCAT_WS('-',MONTHNAME(created_at),YEAR(created_at)) as month"), DB::raw('count(*) as orders'))
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('month')
+                ->get();
+
+      //$cron = str_replace('month', 'label', $cron);
+      foreach ($all as $order) {
+        $arrall[] =  array("x"=> strtotime($order->month)*1000, "y"=>$order->orders);
+      }
+
     }
     
     /*$bank_pending = str_replace('orders', 'y', $bank_pending);
@@ -1063,6 +1085,7 @@ class PaymentController extends Controller {
     $arr['bank_success'] = $arrbank_success;
     $arr['amelia_success'] = $arramelia_success;
     $arr['cron'] = $arrcron;
+    $arr['all'] = $arrall;
     $arr['type'] = Request::input('select_group');
 
     return $arr;
@@ -1094,6 +1117,7 @@ class PaymentController extends Controller {
     $arrbank_success = [];
     $arramelia_success = [];
     $arrcron = [];
+    $arrall = [];
 
     if(Request::input('select_group')=='Daily'){
       $bank_pending = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(total) as orders'))
@@ -1138,6 +1162,15 @@ class PaymentController extends Controller {
 
       foreach ($cron as $order) {
         $arrcron[] =  array("x"=> strtotime($order->date)*1000, "y"=>$order->orders);
+      }
+
+      $all = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(total) as orders'))
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('date')
+                ->get();
+
+      foreach ($all as $order) {
+        $arrall[] =  array("x"=> strtotime($order->date)*1000, "y"=>$order->orders);
       }
 
     } else {
@@ -1185,12 +1218,22 @@ class PaymentController extends Controller {
         $arrcron[] =  array("x"=> strtotime($order->month)*1000, "y"=>$order->orders);
       }
 
+      $all = Order::select(DB::raw("CONCAT_WS('-',MONTHNAME(created_at),YEAR(created_at)) as month"), DB::raw('sum(total) as orders'))
+                ->whereBetween('created_at', [$from, $to])
+                ->groupBy('month')
+                ->get();
+
+      foreach ($all as $order) {
+        $arrall[] =  array("x"=> strtotime($order->month)*1000, "y"=>$order->orders);
+      }
+
     }
     
     $arr['bank_pending'] = $arrbank_pending;
     $arr['bank_success'] = $arrbank_success;
     $arr['amelia_success'] = $arramelia_success;
     $arr['cron'] = $arrcron;
+    $arr['all'] = $arrall;
     $arr['type'] = Request::input('select_group');
 
     return $arr;

@@ -112,20 +112,28 @@
               {
                 type: "line",
                 showInLegend:true,
-                name: "Amelia Success",
-                xValueType: "dateTime",
-                xValueFormatString: format,
-                //dataPoints: jQuery.parseJSON(data.amelia_success)
-                dataPoints: data.amelia_success
-              },
-              {
-                type: "line",
-                showInLegend:true,
                 name: "wuoymembership",
                 xValueType: "dateTime",
                 xValueFormatString: format,
                 //dataPoints: jQuery.parseJSON(data.cron)
                 dataPoints: data.cron
+              },
+              {
+                type: "line",
+                showInLegend:true,
+                name: "Amelia Success",
+                xValueType: "dateTime",
+                xValueFormatString: format,
+                //dataPoints: jQuery.parseJSON(data.amelia_success)
+                dataPoints: data.amelia_success
+              },{
+                type: "line",
+                showInLegend:true,
+                name: "All",
+                xValueType: "dateTime",
+                xValueFormatString: format,
+                //dataPoints: jQuery.parseJSON(data.amelia_success)
+                dataPoints: data.all
               }]
             });
 
