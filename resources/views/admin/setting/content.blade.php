@@ -122,8 +122,8 @@
 					<?php } ?>
 					
 					
-					<li class="wrap"><strong>is Auto Likes : </strong><?php //if ($is_auto_get_likes) { echo "Yes"; } else { echo "No";} ?></li>
-					<li class="wrap"><strong>Number Likes : </strong><?php //echo $number_likes; ?></li>
+					<li class="wrap"><strong>is Auto Likes : </strong><?php if ($is_auto_get_likes) { echo "Yes"; } else { echo "No";} ?></li>
+					<li class="wrap"><strong>Number Likes : </strong><?php echo $number_likes; ?></li>
 					<li class="wrap"><strong>is Auto Responder : </strong><?php if ($is_auto_responder) { echo "Yes"; } else { echo "No";} ?></li>
 					<li class="wrap"><strong>Welcome Message : </strong><?php  echo $data_arr->messages;  ?></li>
 					<li class="wrap"><strong>Auto Responder Message : </strong><?php  echo $auto_responder_message; ?></li>
