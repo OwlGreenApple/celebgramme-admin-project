@@ -1,7 +1,7 @@
 <?php 
 	// use Celebgramme\Models\SettingMeta; 
 	// use Celebgramme\Models\User;
-	// use Celebgramme\Models\SettingHelper; 
+	use Celebgramme\Models\SettingHelper; 
 	// use Celebgramme\Models\Proxies; 
 	use Celebgramme\Models\AutoResponderSetting; 
   if ( $arr->count()==0  ) {
