@@ -12,6 +12,11 @@
   foreach ($arr as $data_arr) {
 		$server="";$proxy="";$use_automation=""; $server_automation = ""; 
 		$identity = ""; $target=""; $number_likes = 0; $is_auto_get_likes = 0; $cookies = "";
+		$settingHelper = SettingHelper::where("setting_id","=",$data_arr->id)->first();
+		if ( !is_null($settingHelper) ) {
+			$number_likes = $settingHelper->number_likes; 
+			$is_auto_get_likes = $settingHelper->is_auto_get_likes;
+		}
 		/*$settingHelper = SettingHelper::where("setting_id","=",$data_arr->id)->first();
 		if ( !is_null($settingHelper) ) {
 			$use_automation = $settingHelper->use_automation;
