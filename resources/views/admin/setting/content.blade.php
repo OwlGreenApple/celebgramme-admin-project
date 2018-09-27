@@ -1,7 +1,7 @@
 <?php 
 	// use Celebgramme\Models\SettingMeta; 
 	// use Celebgramme\Models\User;
-	// use Celebgramme\Models\SettingHelper; 
+	use Celebgramme\Models\SettingHelper; 
 	// use Celebgramme\Models\Proxies; 
 	use Celebgramme\Models\AutoResponderSetting; 
   if ( $arr->count()==0  ) {
@@ -12,6 +12,11 @@
   foreach ($arr as $data_arr) {
 		$server="";$proxy="";$use_automation=""; $server_automation = ""; 
 		$identity = ""; $target=""; $number_likes = 0; $is_auto_get_likes = 0; $cookies = "";
+		$settingHelper = SettingHelper::where("setting_id","=",$data_arr->id)->first();
+		if ( !is_null($settingHelper) ) {
+			$number_likes = $settingHelper->number_likes; 
+			$is_auto_get_likes = $settingHelper->is_auto_get_likes;
+		}
 		/*$settingHelper = SettingHelper::where("setting_id","=",$data_arr->id)->first();
 		if ( !is_null($settingHelper) ) {
 			$use_automation = $settingHelper->use_automation;
@@ -117,8 +122,8 @@
 					<?php } ?>
 					
 					
-					<li class="wrap"><strong>is Auto Likes : </strong><?php //if ($is_auto_get_likes) { echo "Yes"; } else { echo "No";} ?></li>
-					<li class="wrap"><strong>Number Likes : </strong><?php //echo $number_likes; ?></li>
+					<li class="wrap"><strong>is Auto Likes : </strong><?php if ($is_auto_get_likes) { echo "Yes"; } else { echo "No";} ?></li>
+					<li class="wrap"><strong>Number Likes : </strong><?php echo $number_likes; ?></li>
 					<li class="wrap"><strong>is Auto Responder : </strong><?php if ($is_auto_responder) { echo "Yes"; } else { echo "No";} ?></li>
 					<li class="wrap"><strong>Welcome Message : </strong><?php  echo $data_arr->messages;  ?></li>
 					<li class="wrap"><strong>Auto Responder Message : </strong><?php  echo $auto_responder_message; ?></li>
