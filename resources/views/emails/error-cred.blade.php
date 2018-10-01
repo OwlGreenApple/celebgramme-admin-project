@@ -8,15 +8,15 @@ Ini merupakan bagian dari sistem keamanan Instagram untuk <br>
 mengkonfirmasi kebenaran dari akun tersebut. <br>
 <br>
 Setelah mengganti password  <br>
-silahkan Login ke Celebgramme kembali disini <br>
-click to <a href="http://celebgramme.com/celebgramme"> ---> LOGIN <--- </a> <br>
+silahkan Login ke activfans kembali disini <br>
+click to <a href="http://activfans.com/dashboard"> ---> LOGIN <--- </a> <br>
 <br>
 EDIT username & password anda dengan data yang Baru <br>
 di bagian "Username Box"  ( bagian bawah ) <br>
-Click "START" dan Celebgramme kembali bekerja untuk anda. <br>
+Click "START" dan activfans kembali bekerja untuk anda. <br>
 <br>
 Terima kasih atas perhatiannya, <br>
 <br>
 <br>
 Salam hangat,<br>
-Celebgramme.com 
+activfans.com 

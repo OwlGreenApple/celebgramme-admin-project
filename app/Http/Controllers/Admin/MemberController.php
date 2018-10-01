@@ -573,12 +573,12 @@ class MemberController extends Controller {
 					'arr_user' => $arr_user,
 			];
 			Mail::queue('emails.add-rico', $emaildata, function ($message) {
-				$message->from('no-reply@celebgramme.com', 'Celebgramme');
+				$message->from('no-reply@activfans.com', 'activfans');
 				// $message->to("support@amelia.id");
 				$message->to("celebgramme.dev@gmail.com");
 				// $message->bcc("celebgramme.dev@gmail.com");
 				// $message->subject('[Celebgramme] Welcome to Celebgramme / Celebpost (Info username & password)');
-				$message->subject('[Celebgramme] Data username password celebgramme & celebpost');
+				$message->subject('[activfans] Data username password celebgramme & celebpost');
 			});
 
 			Excel::create(date("F j, Y, g:i a")." Data User Celebgramme Celebpost", function($excel) use ($arr_user) {
@@ -723,9 +723,9 @@ class MemberController extends Controller {
 								'jumlah_hari' => Input::get("jumlahHari"),
 						];
 						Mail::queue('emails.bonus', $emaildata, function ($message) use ($user) {
-							$message->from('no-reply@celebgramme.com', 'Celebgramme');
+							$message->from('no-reply@activfans.com', 'activfans');
 							$message->to($user->email);
-							$message->subject('[Celebgramme] Bonus celebgramme.com');
+							$message->subject('[activfans] Bonus activfans.com');
 						});
 					}
 				//}
@@ -783,9 +783,9 @@ class MemberController extends Controller {
 					'password' => $string,
 			];
 			Mail::queue('emails.create-user-free-trial', $emaildata, function ($message) use ($user) {
-				$message->from('no-reply@celebgramme.com', 'Celebgramme');
+				$message->from('no-reply@activfans.com', 'activfans');
 				$message->to($user->email);
-				$message->subject('[Celebgramme] Welcome to celebgramme.com');
+				$message->subject('[activfans] Welcome to activfans.com');
 			});
 		}
 		
@@ -863,9 +863,9 @@ class MemberController extends Controller {
 								'password' => $string,
 						];
 						Mail::queue('emails.create-user-free-trial', $emaildata, function ($message) use ($user) {
-							$message->from('no-reply@celebgramme.com', 'Celebgramme');
+							$message->from('no-reply@activfans.com', 'activfans');
 							$message->to($user->email);
-							$message->subject('[Celebgramme] Welcome to celebgramme.com');
+							$message->subject('[activfans] Welcome to activfans.com');
 						});
 
 
@@ -1240,9 +1240,9 @@ class MemberController extends Controller {
         'password' => $string,
     ];
     Mail::queue('emails.create-user', $emaildata, function ($message) use ($user) {
-      $message->from('no-reply@celebgramme.com', 'Celebgramme');
+      $message->from('no-reply@activfans.com', 'activfans');
       $message->to($user->email);
-      $message->subject('[Celebgramme] Welcome to celebgramme.com');
+      $message->subject('[activfans] Welcome to activfans.com');
     });
 
 

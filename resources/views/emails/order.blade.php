@@ -26,4 +26,4 @@ Anda telah memesan paket {{$package->package_name}} = <strong>Rp. {{number_forma
 
 <br> Salam hangat, 
 <br>
-Celebgramme.com
+activfans.com

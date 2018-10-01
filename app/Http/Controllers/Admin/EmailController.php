@@ -351,7 +351,7 @@ class EmailController extends Controller {
 							'content' => $replace_content,
 					];
 					Mail::queue('emails.content', $emaildata, function ($message) use ($emailuser,$replace_subject) {
-						$message->from('no-reply@celebgramme.com', 'Celebgramme');
+						$message->from('no-reply@activfans.com', 'activfans');
 						$message->to($emailuser->email);
 						$message->subject($replace_subject);
 					});

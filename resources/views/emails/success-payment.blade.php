@@ -19,7 +19,7 @@ berikut ini adalah INVOICE PEMBAYARAN anda <br>
 <strong>Total : </strong> {{$invoice->total}} <br>
 <br>
 Silahkan akses ke user Dashboard<br>
-Login ke https://celebgramme.com/celebgramme/<br>
+Login ke https://activfans.com/dashboard/<br>
 <br>
 Dan Setup Settings Instagram Auto Manage anda.<br>
 <br>
@@ -28,5 +28,5 @@ Team kami selalu siap membantu anda,<br>
 <br>
 Salam hangat, <br>
 <br>
-Celebgramme.com
+activfans.com
 

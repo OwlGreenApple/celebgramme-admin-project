@@ -163,7 +163,7 @@ class ProxyLoginController extends Controller {
 		
 		$cookiefile = base_path().'/../public_html/general/ig-cookies/check-proxies-cookiess.txt';
 		// $url = "https://www.instagram.com/rizky_redjo/?__a=1";
-		$url = "https://celebgramme.com/celebgramme/get-username-available/test";
+		$url = "https://activfans.com/dashboard/get-username-available/test";
 		$c = curl_init();
 
 
@@ -211,7 +211,7 @@ class ProxyLoginController extends Controller {
 				unlink($cookiefile);
 			}
 			// $url = "https://www.instagram.com/rizky_redjo/?__a=1";
-			$url = "https://celebgramme.com/celebgramme/get-username-available/test";
+			$url = "https://activfans.com/dashboard/get-username-available/test";
 			$c = curl_init();
 
 

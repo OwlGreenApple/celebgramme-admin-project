@@ -307,9 +307,9 @@ class PaymentController extends Controller {
         $emaildata["order_type"] = "Veritrans";
     }
     Mail::queue('emails.success-payment', $emaildata, function ($message) use ($user) {
-      $message->from('no-reply@celebgramme.com', 'Celebgramme');
+      $message->from('no-reply@activfans.com', 'activfans');
       $message->to($user->email);
-      $message->subject('[Celebgramme] Success Payment');
+      $message->subject('[activfans] Success Payment');
     });
 
     return "success";
@@ -576,9 +576,9 @@ class PaymentController extends Controller {
 						'password' => $string,
 				];
 				Mail::queue('emails.create-user', $emaildata, function ($message) use ($user) {
-					$message->from('no-reply@celebgramme.com', 'Celebgramme');
+					$message->from('no-reply@activfans.com', 'activfans');
 					$message->to($user->email);
-					$message->subject('[Celebgramme] Welcome to celebgramme.com');
+					$message->subject('[activfans] Welcome to activfans.com');
 				});
 			}
 			$adminlog = new AdminLog;
@@ -822,9 +822,9 @@ class PaymentController extends Controller {
             'isi_form_kaos' => $isi_form_kaos,
         ];
         Mail::queue('emails.create-user', $emaildata, function ($message) use ($user) {
-          $message->from('no-reply@celebgramme.com', 'Celebgramme');
+          $message->from('no-reply@activfans.com', 'activfans');
           $message->to($user->email);
-          $message->subject('[Celebgramme] Welcome to celebgramme.com (Info Login & Password)');
+          $message->subject('[activfans] Welcome to activfans.com (Info Login & Password)');
         });
       
       } else {
@@ -852,9 +852,9 @@ class PaymentController extends Controller {
             'isi_form_kaos' => $isi_form_kaos,
         ];
         Mail::queue('emails.adding-time-user', $emaildata, function ($message) use ($user) {
-          $message->from('no-reply@celebgramme.com', 'Celebgramme');
+          $message->from('no-reply@activfans.com', 'activfans');
           $message->to($user->email);
-          $message->subject('[Celebgramme] Congratulation Pembelian Sukses, & Kredit waktu sudah ditambahkan');
+          $message->subject('[activfans] Congratulation Pembelian Sukses, & Kredit waktu sudah ditambahkan');
         });
         
       }

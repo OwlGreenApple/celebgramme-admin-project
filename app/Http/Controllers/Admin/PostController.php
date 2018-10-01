@@ -280,7 +280,7 @@ class PostController extends Controller {
         'content' => $text,
     ];
     Mail::queue('emails.content', $emaildata, function ($message) use ($email,$title) {
-      $message->from('no-reply@celebgramme.com', 'Celebgramme');
+      $message->from('no-reply@activfans.com', 'activfans');
       $message->to($email);
       $message->subject($title);
     });
@@ -323,9 +323,9 @@ class PostController extends Controller {
         'insta_username' => $setting_temp->insta_username,
     ];
     Mail::queue('emails.error-cred', $emaildata, function ($message) use ($user) {
-      $message->from('no-reply@celebgramme.com', 'Celebgramme');
+      $message->from('no-reply@activfans.com', 'activfans');
       $message->to($user->email);
-      $message->subject('[Celebgramme] Error Login Instagram Account');
+      $message->subject('[activfans] Error Login Instagram Account');
     });
 
     return "success";
