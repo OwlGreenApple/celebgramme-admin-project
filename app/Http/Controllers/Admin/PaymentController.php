@@ -902,6 +902,7 @@ class PaymentController extends Controller {
                 ->where('order_status','pending')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('date')
+                ->orderBy('date','asc')
                 ->get();
       
       foreach ($bank_pending as $order) {
@@ -915,6 +916,7 @@ class PaymentController extends Controller {
                 ->where('order_status','success')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('date')
+                ->orderBy('date','asc')
                 ->get();
 
       foreach ($bank_success as $order) {
@@ -928,6 +930,7 @@ class PaymentController extends Controller {
                 ->where('order_status','success')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('date')
+                ->orderBy('date','asc')
                 ->get();
 
       foreach ($amelia_success as $order) {
@@ -941,6 +944,7 @@ class PaymentController extends Controller {
                 ->where('order_status','like','%cron%')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('date')
+                ->orderBy('date','asc')
                 ->get();
 
       foreach ($cron as $order) {
@@ -952,6 +956,7 @@ class PaymentController extends Controller {
       $all = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as orders'))
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('date')
+                ->orderBy('date','asc')
                 ->get();
 
       foreach ($all as $order) {
@@ -1016,6 +1021,7 @@ class PaymentController extends Controller {
                 ->where('order_status','pending')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
+                ->orderBy('month','asc')
                 ->get();
 
       //$bank_pending = str_replace('month', 'label', $bank_pending);
@@ -1028,6 +1034,7 @@ class PaymentController extends Controller {
                 ->where('order_status','success')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
+                ->orderBy('month','asc')
                 ->get();
 
       //$bank_success = str_replace('month', 'label', $bank_success);
@@ -1040,6 +1047,7 @@ class PaymentController extends Controller {
                 ->where('order_status','success')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
+                ->orderBy('month','asc')
                 ->get();
 
       //$amelia_success = str_replace('month', 'label', $amelia_success);
@@ -1052,6 +1060,7 @@ class PaymentController extends Controller {
                 ->where('order_status','like','%cron%')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
+                ->orderBy('month','asc')
                 ->get();
 
       //$cron = str_replace('month', 'label', $cron);
@@ -1062,6 +1071,7 @@ class PaymentController extends Controller {
       $all = Order::select(DB::raw("CONCAT_WS('-',MONTHNAME(created_at),YEAR(created_at)) as month"), DB::raw('count(*) as orders'))
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
+                ->orderBy('month','asc')
                 ->get();
 
       //$cron = str_replace('month', 'label', $cron);
@@ -1125,6 +1135,7 @@ class PaymentController extends Controller {
                 ->where('order_status','pending')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('date')
+                ->orderBy('date','asc')
                 ->get();
       
       foreach ($bank_pending as $order) {
@@ -1136,6 +1147,7 @@ class PaymentController extends Controller {
                 ->where('order_status','success')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('date')
+                ->orderBy('date','asc')
                 ->get();
 
       foreach ($bank_success as $order) {
@@ -1147,6 +1159,7 @@ class PaymentController extends Controller {
                 ->where('order_status','success')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('date')
+                ->orderBy('date','asc')
                 ->get();
 
       foreach ($amelia_success as $order) {
@@ -1158,6 +1171,7 @@ class PaymentController extends Controller {
                 ->where('order_status','like','%cron%')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('date')
+                ->orderBy('date','asc')
                 ->get();
 
       foreach ($cron as $order) {
@@ -1167,6 +1181,7 @@ class PaymentController extends Controller {
       $all = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(total) as orders'))
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('date')
+                ->orderBy('date','asc')
                 ->get();
 
       foreach ($all as $order) {
@@ -1179,6 +1194,7 @@ class PaymentController extends Controller {
                 ->where('order_status','pending')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
+                ->orderBy('month','asc')
                 ->get();
 
       foreach ($bank_pending as $order) {
@@ -1190,6 +1206,7 @@ class PaymentController extends Controller {
                 ->where('order_status','success')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
+                ->orderBy('month','asc')
                 ->get();
 
       foreach ($bank_success as $order) {
@@ -1201,6 +1218,7 @@ class PaymentController extends Controller {
                 ->where('order_status','success')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
+                ->orderBy('month','asc')
                 ->get();
 
       foreach ($amelia_success as $order) {
@@ -1212,6 +1230,7 @@ class PaymentController extends Controller {
                 ->where('order_status','like','%cron%')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
+                ->orderBy('month','asc')
                 ->get();
 
       foreach ($cron as $order) {
@@ -1221,6 +1240,7 @@ class PaymentController extends Controller {
       $all = Order::select(DB::raw("CONCAT_WS('-',MONTHNAME(created_at),YEAR(created_at)) as month"), DB::raw('sum(total) as orders'))
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
+                ->orderBy('month','asc')
                 ->get();
 
       foreach ($all as $order) {
