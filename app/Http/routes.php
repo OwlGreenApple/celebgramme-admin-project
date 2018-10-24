@@ -77,6 +77,10 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('pagination-access-token', 'Admin\MemberController@pagination_access_token');
 	Route::post('update-access-token', 'Admin\MemberController@update_access_token');
 
+  /* Data user */
+  Route::get('data-user', 'Admin\MemberController@data_user');
+  Route::get('load-data-user', 'Admin\MemberController@load_data_user');
+
 	/* Member */
 	Route::get('member-all', 'Admin\MemberController@member_all');
 	Route::get('load-member-all', 'Admin\MemberController@load_member_all');

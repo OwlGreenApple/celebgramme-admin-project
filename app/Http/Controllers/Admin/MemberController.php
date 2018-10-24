@@ -1497,4 +1497,56 @@ class MemberController extends Controller {
 
     return $arr;
   }
+
+  public function data_user(){
+    $user = Auth::user();
+
+    return view('admin.data-user.index')->with('user',$user);
+  }
+
+  public function load_data_user(){
+    $users = User::join(env('DB_CELEBPOST_DATABASE').'.users as userclbp','users.email','=','userclbp.email')
+              ->select('users.id','users.created_at','users.fullname','users.email','users.active_auto_manage','userclbp.active_time')
+              ->where("users.type","<>","admin")
+              ->where("users.email",'like',"%".Request::input('keyword')."%");
+
+    if(Request::input('status_user')=='Time Out Activfans'){
+        $users = $users->where('active_auto_manage',0);
+
+    } else if(Request::input('status_user')=='Time Out Activpost') {
+        $users = $users->where('active_time',0);
+
+    } else if(Request::input('status_user')=='Not Active Activfans'){
+        $users = $users->where('active_auto_manage','!=',0)
+                  ->whereRaw('MOD(active_auto_manage, 2592000) = 0');
+
+    } else if(Request::input('status_user')=='Not Active Activpost'){
+        $users = $users->where('active_time','!=',0)
+                  ->whereRaw('MOD(active_time, 2592000) = 0');
+
+    } else if(Request::input('status_user')=='Active'){
+        $users = $users->where('active_auto_manage','!=',0)
+                  ->where('active_time','!=',0)
+                  ->where(function($query) {
+                      $query->whereRaw('MOD(active_auto_manage, 2592000) != 0')
+                        ->orwhereRaw('MOD(active_time, 2592000) != 0'); 
+                  });
+    }
+
+    if(Request::input('sort')==1){
+      $users = $users->orderBy('created_at','desc');
+    } else {
+      $users = $users->orderBy('active_auto_manage','desc');
+    }
+
+    $users = $users->paginate(15);
+
+    $arr['view'] = (string) view('admin.data-user.content')
+                    ->with('arr',$users)
+                    ->with('page',Request::input('page'));
+    $arr['pagination'] = (string) view('admin.data-user.pagination')
+                          ->with('arr',$users);
+
+    return $arr;
+  }
 }

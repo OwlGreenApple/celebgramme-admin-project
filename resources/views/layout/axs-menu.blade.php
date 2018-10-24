@@ -62,6 +62,7 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
                 <li><a href="{{url('member-affiliate', $parameters = [], $secure = null)}}">Member Affiliate</a></li>
                 <li><a href="{{url('member-refund', $parameters = [], $secure = null)}}">Member Refund</a></li>
                 <!--<li><a href="{{url('access-token', $parameters = [], $secure = null)}}">Access Token</a></li>-->
+                <li><a href="{{url('data-user', $parameters = [], $secure = null)}}">Data User</a></li>
 								<li><a href="{{url('member-analytic', $parameters = [], $secure = null)}}">Analytic</a></li>
                 <li><a href="{{url('home-page', $parameters = [], $secure = null)}}">Home Page</a></li>
                 <li><a href="{{url('footer-ads', $parameters = [], $secure = null)}}">Footer Ads</a></li>
