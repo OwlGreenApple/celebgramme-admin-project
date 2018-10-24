@@ -1194,7 +1194,7 @@ class PaymentController extends Controller {
                 ->where('order_status','pending')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
-                ->orderBy('month','asc')
+                ->orderBy('created_at','asc')
                 ->get();
 
       foreach ($bank_pending as $order) {
@@ -1206,7 +1206,7 @@ class PaymentController extends Controller {
                 ->where('order_status','success')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
-                ->orderBy('month','asc')
+                ->orderBy('created_at','asc')
                 ->get();
 
       foreach ($bank_success as $order) {
@@ -1218,7 +1218,7 @@ class PaymentController extends Controller {
                 ->where('order_status','success')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
-                ->orderBy('month','asc')
+                ->orderBy('created_at','asc')
                 ->get();
 
       foreach ($amelia_success as $order) {
@@ -1230,7 +1230,7 @@ class PaymentController extends Controller {
                 ->where('order_status','like','%cron%')
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
-                ->orderBy('month','asc')
+                ->orderBy('created_at','asc')
                 ->get();
 
       foreach ($cron as $order) {
@@ -1240,9 +1240,9 @@ class PaymentController extends Controller {
       $all = Order::select(DB::raw("CONCAT_WS('-',MONTHNAME(created_at),YEAR(created_at)) as month"), DB::raw('sum(total) as orders'))
                 ->whereBetween('created_at', [$from, $to])
                 ->groupBy('month')
-                ->orderBy('month','asc')
+                ->orderBy('created_at','asc')
                 ->get();
-
+      
       foreach ($all as $order) {
         $arrall[] =  array("x"=> strtotime($order->month)*1000, "y"=>$order->orders);
       }

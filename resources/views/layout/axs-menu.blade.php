@@ -120,7 +120,7 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
               </li>  
             </ul>
           </li>
-					<?php if ( ($user->email == "celebgramme.dev@gmail.com") || ($user->email == "admin@admin.com") || ($user->email == "it.axiapro@gmail.com") ) { ?>
+					<?php if ( ($user->email == "celebgramme.dev@gmail.com") || ($user->email == "admin@admin.com") || ($user->email == "it.axiapro@gmail.com") || ($user->email == "puspita.celebgramme@gmail.com")) { ?>
           <li class='dropdown'>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Proxy Manager<span class="caret"></span>
