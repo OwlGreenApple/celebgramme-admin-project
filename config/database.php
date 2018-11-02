@@ -91,6 +91,19 @@ return [
             'prefix'    => '',
             'strict'    => false,
         ],
+
+        'mysql_affiliate' => [
+            'driver'    => 'mysql',
+            'host'      => env('DB_AFFILIATE_HOST', 'localhost'),
+            'port' => '3306',
+            'database'  => env('DB_AFFILIATE_DATABASE', 'forge'),
+            'username'  => env('DB_AFFILIATE_USERNAME', 'forge'),
+            'password'  => env('DB_AFFILIATE_PASSWORD', ''),
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
+        ],
 				
         'pgsql' => [
             'driver'   => 'pgsql',

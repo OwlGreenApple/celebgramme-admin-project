@@ -20,6 +20,7 @@ use Celebgramme\Models\Coupon;
 use Celebgramme\Models\TimeLog;
 use Celebgramme\Models\Affiliate;
 use Celebgramme\Models\Refund;
+use Celebgramme\Models\ViewUserAffiliate;
 
 use Celebgramme\Models\UserCelebpost;
 
@@ -1548,5 +1549,50 @@ class MemberController extends Controller {
                           ->with('arr',$users);
 
     return $arr;
+  }
+
+  public function renewal_rate(){
+    $user = Auth::user();
+
+    return view('admin.renewal-rate.index')->with('user',$user);
+  }
+
+  public function load_renewal(){
+    $users = User::join('orders','users.id','=','orders.user_id')
+              ->select('users.id','orders.user_id','users.created_at','users.fullname','users.email',DB::raw('count(*) as jml'))
+              ->where(function($query) {
+                  $query->where('users.email','like','%'.Request::input('keyword').'%')
+                        ->orWhere('users.fullname','like','%'.Request::input('keyword').'%');
+                })
+              ->where('users.is_member_rico',1)
+              ->groupBy('orders.user_id')
+              ->havingRaw('jml > 1')->get();
+
+    /*$active = User::join(env('DB_CELEBPOST_DATABASE').'.users as userclb','users.email','=','userclb.email')
+                ->where('users.is_member_rico',1)
+                ->where('users.active_auto_manage','!=',0)
+                ->where('userclb.active_time','!=',0)
+                ->whereRaw('MOD(users.active_auto_manage, 2592000) != 0')
+                ->orwhereRaw('MOD(userclb.active_time, 2592000) != 0')
+                ->get(); */
+
+      $active = ViewUserAffiliate::select('id','created_at','name','email','owner_id','active_auto_manage','active_time')
+                //->where('owner_id',Auth::user()->is_admin)
+                ->where('active_auto_manage','!=',0)
+                ->where('active_time','!=',0)
+                ->whereRaw('MOD(active_auto_manage, 2592000) != 0')
+                ->orwhereRaw('MOD(active_time, 2592000) != 0')
+                ->get();  
+
+      $rate = round($users->count() / $active->count() * 100,2);
+
+      $arr['view'] = (string) view('admin.renewal-rate.content')
+                      ->with('arr',$users)
+                      ->with('page',Request::input('page'));
+      $arr['rate'] = $rate;
+      $arr['total'] = $users->count();
+      $arr['active'] = $active->count();
+
+      return $arr;
   }
 }

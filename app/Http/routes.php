@@ -81,6 +81,10 @@ Route::group(['middleware' => 'auth'], function()
   Route::get('data-user', 'Admin\MemberController@data_user');
   Route::get('load-data-user', 'Admin\MemberController@load_data_user');
 
+  /* Renewal Rate */
+  Route::get('renewal-rate', 'Admin\MemberController@renewal_rate');
+  Route::get('load-renewal', 'Admin\MemberController@load_renewal');
+
 	/* Member */
 	Route::get('member-all', 'Admin\MemberController@member_all');
 	Route::get('load-member-all', 'Admin\MemberController@load_member_all');
