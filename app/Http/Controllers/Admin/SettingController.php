@@ -1151,7 +1151,7 @@ class SettingController extends Controller {
 			$setting_helper->save();
 			
 			//assign proxy ulang
-			$ssetting = serialize(Setting::find(Request::input('id')));
+			$ssetting = serialize($setting_helper->setting_id);
 			GlobalHelper::clearProxy($ssetting,"change");
 		}
 		return "success";
