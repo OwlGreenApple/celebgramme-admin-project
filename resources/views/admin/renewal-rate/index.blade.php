@@ -34,7 +34,7 @@
   <div class="alert alert-danger" id="alert">
     <strong>Oh snap!</strong> Change a few things up and try submitting again.
   </div>  
-  <table class="table table-bordered">  
+  <table class="table table-bordered" id="myTable">  
     <thead>
       <tr>
         <th>No. </th>
@@ -54,8 +54,11 @@
   </nav>  
   
   <script>
+    var table;
+
     function refresh_page(page)
     {
+      table.destroy();
       $.ajax({                                      
         url: '<?php echo url('load-renewal'); ?>',
         type: 'get',
@@ -74,7 +77,16 @@
           var data = jQuery.parseJSON(result);
 
           $('#content').html(data.view);
-          $('#pagination').html(data.pagination);
+          table = $('#myTable').DataTable({
+                searching: false,
+                destroy: true,
+                "order": [],
+                "columnDefs": [ {
+                  "targets": [0],
+                  "orderable": false
+                } ],
+            });
+
           $('#span-total').html(data.total);
           $('#span-active').html(data.active);
           $('#span-rate').html(data.rate);
@@ -84,6 +96,24 @@
     }
     
     $(document).ready(function(){
+      table = $('#myTable').DataTable({
+        searching: false,
+        destroy: true,
+        "order": [],
+        "columnDefs": [ {
+          "targets": [0],
+          "orderable": false
+        } ],
+      });
+      $.fn.dataTable.moment( 'ddd, DD MMM YYYY' );
+
+      //supaya nomor table nya nggak berubah
+      table.on( 'order.dt search.dt', function () {
+        table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+          cell.innerHTML = i+1;
+        });
+      }).draw();
+
       $("#alert").hide();
       refresh_page(1);
 

@@ -13,6 +13,7 @@
 	<link href="{{ asset('/css/main.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/bootstrap-theme.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('DataTables/DataTables/css/jquery.dataTables.min.css') }}" rel="stylesheet"></link>
 	
 	<script type="text/javascript" src="{{ asset('/js/jquery-1.11.3.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/jquery-ui.js') }}"></script>
@@ -21,6 +22,9 @@
 	<script type="text/javascript" src="{{ asset('/js/script.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/ckeditor/ckeditor.js') }}"></script>
   <script type="text/javascript" src="{{ asset('/canvasjs/canvasjs.min.js') }}"></script>
+  <script src="{{ asset('DataTables/DataTables/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/datetime-moment.js') }}"></script>
 	<script>
 		$(document).ready(function(){
 			$("#div-loading").hide();
