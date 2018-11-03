@@ -26,6 +26,9 @@ Route::get('auth/logout', 'Auth\LoginController@getLogout');
 Route::get('auth/{provider}/redirect', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
+/* Global refresh */
+Route::get('refresh-global', 'Admin\SettingController@refresh_global');
+
 /*--------- Must Login Routes ---------*/
 Route::group(['middleware' => 'auth'], function()
 {

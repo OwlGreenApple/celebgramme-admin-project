@@ -1143,6 +1143,20 @@ class SettingController extends Controller {
                 ));
   }
   
+	public function refresh_global() {
+		$setting_helpers = SettingHelper::where("proxy_id",999)->get();
+		foreach ($setting_helpers as $setting_helper) {
+			$setting_helper->is_refresh = 1 ;
+			$setting_helper->cookies = "" ;
+			$setting_helper->save();
+			
+			//assign proxy ulang
+			$ssetting = serialize(Setting::find(Request::input('id')));
+			GlobalHelper::clearProxy($ssetting,"change");
+		}
+		return "success";
+	}
+	
 	public function refresh_account() {
 		$setting_helper = SettingHelper::where("setting_id","=",Request::input('id'))->first();
 		$setting_helper->is_refresh = 1 ;
