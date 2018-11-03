@@ -1152,7 +1152,7 @@ class SettingController extends Controller {
 			
 			//assign proxy ulang
 			$ssetting = serialize(Setting::find($setting_helper->setting_id));
-			if (is_null($ssetting)) {
+			if (is_null(Setting::find($setting_helper->setting_id))) {
 				echo $setting_helper->setting_id."<br>";
 				continue;
 			}
