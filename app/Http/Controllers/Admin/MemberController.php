@@ -1578,6 +1578,7 @@ class MemberController extends Controller {
 
       $active = ViewUserAffiliate::select('id','created_at','name','email','owner_id','active_auto_manage','active_time')
                 //->where('owner_id',Auth::user()->is_admin)
+                ->where('is_admin',0)
                 ->where('active_auto_manage','!=',0)
                 ->where('active_time','!=',0)
                 ->whereRaw('MOD(active_auto_manage, 2592000) != 0')

@@ -17,7 +17,11 @@
         {{$data_arr->fullname}}
       </td>
       <td>
-        {{$data_arr->created_at}}
+        <?php 
+              if($data_arr->created_at!=null) { 
+                echo $data_arr->created_at;
+              }
+        ?>
       </td>
     </tr>    
 
