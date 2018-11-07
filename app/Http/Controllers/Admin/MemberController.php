@@ -20,6 +20,7 @@ use Celebgramme\Models\Coupon;
 use Celebgramme\Models\TimeLog;
 use Celebgramme\Models\Affiliate;
 use Celebgramme\Models\Refund;
+use Celebgramme\Models\Referral;
 use Celebgramme\Models\ViewUserAffiliate;
 
 use Celebgramme\Models\UserCelebpost;
@@ -1596,4 +1597,15 @@ class MemberController extends Controller {
 
       return $arr;
   }
+
+  public function load_reflink(){
+    $refers = Referral::join('users','users.id','=','referrals.user_id_taker')
+                ->where('referrals.user_id_giver',Request::input('id'))
+                ->get();
+
+    $arr['view'] = (string) view('admin.member-all.content-reflink')
+                      ->with('refers',$refers);
+    return $arr;
+  }
+
 }

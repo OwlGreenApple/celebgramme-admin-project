@@ -72,6 +72,33 @@
     </div>
   </div>
 
+  <!-- Modal Referral List-->
+  <div class="modal fade" id="myModalReflink" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>Referral List</h4>
+        </div>
+
+        <div class="modal-body">
+          <table class="table" id="myTable">
+            <thead>
+              <th>Nama</th>
+              <th>Email</th>
+              <th>Bonus (hari)</th>
+              <th>Is Confirm</th>
+            </thead>
+            <tbody id="content-reflink"></tbody>
+          </table>
+        </div>
+
+        <div class="modal-footer"></div>
+
+      </div>
+    </div>
+  </div>
+
   <div class="modal fade" id="myModalTimeLogs" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
@@ -583,6 +610,8 @@
   </nav>  
   
   <script>
+    var table;
+
     function refresh_page(page)
     {
       $.ajax({                                      
@@ -664,6 +693,12 @@
         });
     }
     $(document).ready(function(){
+      table = $('#myTable').DataTable({
+        searching: true,
+        destroy: true,
+        "order": [],
+      });
+
       $("#alert").hide();
       //create_pagination(1);
       refresh_page(1);
@@ -1130,8 +1165,38 @@
             $("#div-loading").hide();
           }
         });
-      }); 
-      
+      });
+
+      $( "body" ).on( "click", ".btn-reflink", function() {
+        table.destroy();
+
+        $.ajax({                                      
+          url: '<?php echo url('load-reflink'); ?>',
+          type: 'get',
+          data: {
+            id : $(this).attr("data-id")
+          },
+          beforeSend: function()
+          {
+            $("#div-loading").show();
+          },
+          dataType: 'text',
+          success: function(result)
+          {
+            var data = jQuery.parseJSON(result);
+            $('#content-reflink').html(data.view);
+
+            table = $('#myTable').DataTable({
+              searching: true,
+              destroy: true,
+              "order": [],
+            });
+
+            $("#div-loading").hide();
+          }
+        });
+      });
+
       $( "body" ).on( "click", ".btn-time-logs", function() {
         temp = $(this);
 				$("#time-log-div").html("");

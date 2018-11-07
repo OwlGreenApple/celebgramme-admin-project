@@ -64,6 +64,7 @@
 				<?php } ?>
 				<input type="button" class="btn btn-info btn-time-logs" value="Time Logs" data-toggle="modal" data-target="#myModalTimeLogs" data-id="{{$data_arr->id}}">
         <input type="button" class="btn btn-info btn-refund" value="Refund" data-toggle="modal" data-target="#myModalRefund" data-id="{{$data_arr->id}}">
+        <input type="button" class="btn btn-info btn-reflink" value="Referral List" data-toggle="modal" data-target="#myModalReflink" data-id="{{$data_arr->id}}">
       </td>
     </tr>    
 
