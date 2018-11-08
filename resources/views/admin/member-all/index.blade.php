@@ -88,6 +88,7 @@
               <th>Email</th>
               <th>Bonus (hari)</th>
               <th>Is Confirm</th>
+              <th>Created at</th>
             </thead>
             <tbody id="content-reflink"></tbody>
           </table>

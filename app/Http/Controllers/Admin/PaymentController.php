@@ -16,6 +16,7 @@ use Celebgramme\Models\Coupon;
 use Celebgramme\Models\Meta;
 use Celebgramme\Models\AdminLog;
 use Celebgramme\Models\Idaff;
+use Celebgramme\Models\Referral;
 
 use DateTime,DatePeriod,DateInterval,View,Auth,Request,DB,Carbon,Excel, Mail, Validator;
 
@@ -215,12 +216,42 @@ class PaymentController extends Controller {
 
 	public function update_payment($konfirmasiId)
   {
+    $bonus_hari = 15;
+
     $order = Order::find($konfirmasiId);
     $order->order_status = "success";
     $order->checked = true;
     $order->save();
-    
+
+    //cek referral link 
+    $referral = Referral::where('user_id_taker',$order->user_id)
+                  ->first();
     $user = User::find($order->user_id);
+    if(!is_null($referral)){
+      if($order->is_given==1){
+        $referral->is_confirm = 1;
+        $referral->bonus = $bonus_hari;
+        $referral->save();
+        
+        $user_giver = User::find($referral->user_id_giver);
+
+        $user_giver->active_auto_manage = $user_giver->active_auto_manage+($bonus_hari*86400);
+        $user_giver->save();
+
+        $emaildata = [
+          'bonus_hari'=>$bonus_hari,
+          'user_giver'=>$user_giver,
+          'user_taker_email'=>$user->email,
+          'user_taker_name'=>$user->fullname,
+        ];
+        Mail::send('emails.info-bonus-hari', $emaildata, function ($message) use ($user_giver) {
+          $message->from('no-reply@activfans.com', 'activfans');
+          $message->to($user_giver->email);
+          $message->subject('[activfans] Bonus Referral Link');
+        });
+      }
+    }
+    
     $user->status_auto_manage = "member";
       
     // klo beli paket daily likes

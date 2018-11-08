@@ -19,7 +19,10 @@
               echo 'No';
             }
           ?>
-        </td>    
+        </td> 
+        <td>
+          {{$arr->created_at}}
+        </td>   
       </tr>
 <?php 
   } 
