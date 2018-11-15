@@ -773,7 +773,7 @@
       $( "body" ).on( "click", ".btn-auto-manage", function() {
         $(".user-id").val($(this).attr("data-id"));
         $(".action").val("auto");
-        $("#active-days").val("");
+        $("#active-days").val(0);
       });
       $( "body" ).on( "click", ".button-process", function() {
         temp = $(this);
