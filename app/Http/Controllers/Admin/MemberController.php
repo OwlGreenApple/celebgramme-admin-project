@@ -1035,28 +1035,65 @@ class MemberController extends Controller {
 
         foreach ($data as $key => $value) {
           if($value->email!='' || $value->paket!='') {
-            $user = User::where('email',$value->email)->first();
+						
+						$dataValidator = array (
+							"email" => $value->email,
+						);
+						$validator = Validator::make($dataValidator, [
+							'email' => 'required|email|max:255',
+						]);
+						if ($validator->fails()){
+							continue;
+						}
 
-            if(!is_null($user)){
-              $total = 0;
-              $package = Package::find($value->paket);
-              if (!is_null($package)) {
-                $total += $package->price;
-              }
+						//ita code
+						$total = 0;
+						$package = Package::find($value->paket);
+						if (!is_null($package)) {
+							$total += $package->price;
+						}
 
-              $data = array (
-                "user_id" => $user->id,
-                "order_total" => $total,
-                "package_manage_id" => $value->paket,
-              );
+						$user = User::where("email","=",$value->email)->first();
+						$string = '';
+						if (is_null($user)) {
+							//password
+							$karakter= 'abcdefghjklmnpqrstuvwxyz123456789';
+							for ($i = 0; $i < 8 ; $i++) {
+								$pos = rand(0, strlen($karakter)-1);
+								$string .= $karakter{$pos};
+							}
+							
+							$user = new User;
+							$user->password = $string;
+							$user->email = $value->email;
+							$user->fullname = $value->email;
+							$user->type = "confirmed-email";
+							$user->max_account = 3;
+							$user->link_affiliate = "";
+							$user->active_auto_manage = $package->active_days * 86400;
 
-              $order = Order::createNewOrder($data);
+              $status = 'new';
+						} else {
+							$user->active_auto_manage += $package->active_days * 86400;
+              $status = 'add';
+						}
 
-              $adminlog = new AdminLog;
-              $adminlog->user_id = Auth::user()->id;
-              $adminlog->description = 'Create Order Excel, '.$order;
-              $adminlog->save();
-            }
+						$user->save();
+
+						//ita code
+						$data = array (
+							"user_id" => $user->id,
+							"order_total" => $total,
+							"package_manage_id" => $value->paket,
+						);
+
+						$order = Order::createNewOrder($data);
+
+						$adminlog = new AdminLog;
+						$adminlog->user_id = Auth::user()->id;
+						$adminlog->description = 'Create Order Excel, '.$order.' ('.$status.')';
+						$adminlog->save();
+						//ita code
           }
         }
 
