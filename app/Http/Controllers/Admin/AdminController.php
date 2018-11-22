@@ -158,6 +158,9 @@ class AdminController extends Controller {
 		$temp = Meta::createMeta("minute_check_auto_like_celebfans_min",Request::input("minute_check_auto_like_celebfans_min")); 
 		$temp = Meta::createMeta("minute_check_auto_like_celebfans_max",Request::input("minute_check_auto_like_celebfans_max")); 
 		
+    $temp = Meta::createMeta("promo_referral",Request::input("promo_referral")); 
+    $temp = Meta::createMeta("bonus_referral",Request::input("bonus_referral")); 
+
 		return "success";
 	}
 }

@@ -119,7 +119,12 @@ $count_post = Post::join("settings","settings.id","=","posts.setting_id")
                 <a href="{{url('list-ig-active')}}">
                   List Account IG Active
                 </a>
-              </li>  
+              </li>
+              <li>
+                <a href="{{url('list-referral')}}">
+                  List Referral Link
+                </a>
+              </li>
             </ul>
           </li>
 					<?php if ( ($user->email == "celebgramme.dev@gmail.com") || ($user->email == "admin@admin.com") || ($user->email == "it.axiapro@gmail.com") || ($user->email == "puspita.celebgramme@gmail.com")) { ?>

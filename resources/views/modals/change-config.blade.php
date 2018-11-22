@@ -659,7 +659,36 @@ use Celebgramme\Models\Meta;
               <div class="col-xs-2 col-sm-2 col-md-2">
                 <input type="number" class="form-control" placeholder="" name="minute_check_auto_like_celebfans_max" value="{{Meta::getMeta('minute_check_auto_like_celebfans_max')}}">
               </div>
-            </div>  
+            </div>
+            <hr>
+            <!--<div class="form-group form-group-sm row">
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+              Promo Referral
+              </label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <?php 
+                  $promo = Meta::getMeta('promo_referral');
+                 ?>
+                <select class="form-control" name="promo_referral">
+                  <option <?php if($promo=='On') echo 'selected' ?>>
+                    On
+                  </option>
+                  <option <?php if($promo=='Off') echo 'selected' ?>>
+                    Off
+                  </option>
+                </select>
+              </div>
+            </div>-->  
+
+            <div class="form-group form-group-sm row">
+              <label class="col-xs-2 col-sm-2 col-md-2 control-label" for="">
+                Bonus Referral
+              </label>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <input type="number" class="form-control" placeholder="" name="bonus_referral" value="{{Meta::getMeta('bonus_referral')}}">
+              </div>
+            </div>
+
           </form>
         </div>
         <div class="modal-footer">

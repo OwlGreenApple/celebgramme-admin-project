@@ -1583,7 +1583,7 @@ class MemberController extends Controller {
                 ->where('active_auto_manage','!=',0)
                 ->where('active_time','!=',0)
                 ->whereRaw('MOD(active_auto_manage, 2592000) != 0')
-                ->orwhereRaw('MOD(active_time, 2592000) != 0')
+                //->orwhereRaw('MOD(active_time, 2592000) != 0')
                 ->get();  
 
       $rate = round($users->count() / $active->count() * 100,2);

@@ -216,7 +216,7 @@ class PaymentController extends Controller {
 
 	public function update_payment($konfirmasiId)
   {
-    $bonus_hari = 15;
+    $bonus_hari = Meta::getMeta('bonus_referral');
 
     $order = Order::find($konfirmasiId);
     $order->order_status = "success";

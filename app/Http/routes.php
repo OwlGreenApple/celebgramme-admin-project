@@ -117,6 +117,12 @@ Route::group(['middleware' => 'auth'], function()
   Route::post('submit-refund', 'Admin\MemberController@submit_refund');
   Route::get('load-reflink', 'Admin\MemberController@load_reflink');
 
+  /* List Referral Link */
+  Route::get('list-referral','Admin\ReferralController@index');
+  Route::get('load-referral','Admin\ReferralController@load_referral');
+  
+
+
   /* Member Refund */
   Route::get('member-refund', 'Admin\MemberController@member_refund');
   Route::get('load-member-refund', 'Admin\MemberController@load_member_refund');
