@@ -9,24 +9,41 @@
     <h1>List Referral</h1>
   </div>  
   <div class="cover-input-group">
-    <div class="input-group fl">
-      <input type="text" id="from" class="form-control"> 
+    <div class="row">
+      <div class="input-group fl">
+        <input type="text" id="from" class="form-control"> 
+      </div>
+      <div class="input-group fl">
+        <p>hingga</p>
+      </div>
+      <div class="input-group fl">
+        <input type="text" id="to" class="form-control"> 
+      </div> 
     </div>
-    <div class="input-group fl">
-      <p>hingga</p>
+    <br>
+    <div class="row">
+      <div class="input-group fl">
+        <label>Min. Refer</label>
+      </div>
+      <div class="input-group fl">
+        <input type="number" id="minrefer" class="form-control" value="0" style="width:80px;"> 
+      </div>
+      <div class="input-group fl">
+        <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
+      </div>   
     </div>
-    <div class="input-group fl">
-      <input type="text" id="to" class="form-control"> 
-    </div> 
-    <div class="input-group fl">
-      <input type="button" value="Search" id="button-search" data-loading-text="Loading..." class="btn btn-primary"> 
-    </div> 
+    
     <div class="none"></div>
   </div>
+
+  <br>
   
   <div class="alert alert-danger" id="alert">
     <strong>Oh snap!</strong> Change a few things up and try submitting again.
   </div>  
+
+  <br>
+
   <table class="table table-bordered" id="myTable">  
     <thead>
       <tr>
@@ -96,6 +113,7 @@
           from: $('#from').val(),
           to: $('#to').val(),
           status:$("#confirmed-status").val(),
+          minrefer:$('#minrefer').val(),
         },
         beforeSend: function()
         {

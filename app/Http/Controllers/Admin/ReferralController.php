@@ -34,6 +34,7 @@ class ReferralController extends Controller
                     ->whereDate('referrals.updated_at','>=',$dt)
                     ->whereDate('referrals.updated_at','<=',$dt1)
                     ->groupBy('referrals.user_id_giver')
+                    ->having('jmlrefer','>=',Request::input('minrefer'))
                     ->get();
 
       $arr['view'] = (string) view('admin.referral.content')
