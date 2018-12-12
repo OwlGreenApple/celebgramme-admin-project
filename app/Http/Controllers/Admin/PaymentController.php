@@ -238,6 +238,9 @@ class PaymentController extends Controller {
         $user_giver->active_auto_manage = $user_giver->active_auto_manage+($bonus_hari*86400);
         $user_giver->save();
 
+        $user->active_auto_manage = $user->active_auto_manage+($bonus_hari*86400);
+        $user->save();
+
         $emaildata = [
           'bonus_hari'=>$bonus_hari,
           'user_giver'=>$user_giver,
