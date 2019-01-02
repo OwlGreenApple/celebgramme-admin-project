@@ -658,7 +658,6 @@ class PaymentController extends Controller {
   public function load_success_order(){
     $user = Auth::user();
     if ($user->email == "celebgramme.dev@gmail.com" || $user->email == "admin@admin.com") {
-      return view('admin.success-order.index')->with('user',$user);
     }
     else{
       return "not authorized";
