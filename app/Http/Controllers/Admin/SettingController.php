@@ -582,37 +582,31 @@ class SettingController extends Controller {
 		$setting = Setting::find(Request::input('id'));
 		
 		if ($setting_helper->server_automation == "AA1(automation-1)") {
-			$file_server = "http://185.225.104.62/";
+			$file_server = "http://104.140.100.141/";
 		}
 		if ($setting_helper->server_automation == "AA2(automation-2)") {
-			$file_server = "http://185.206.83.2/";
+			$file_server = "http://104.140.100.144/";
 		}
 		if ($setting_helper->server_automation == "AA3(automation-3)") {
-			$file_server = "http://185.225.104.57/";
+			$file_server = "http://104.140.100.147/";
 		}
 		if ($setting_helper->server_automation == "AA4(automation-4)") {
-			$file_server = "http://185.206.83.5/";
+			$file_server = "http://104.140.100.150/";
 		}
 		if ($setting_helper->server_automation == "AA5(automation-5)") {
-			$file_server = "http://185.225.104.54/";
+			$file_server = "http://104.140.100.153/";
 		}
 		if ($setting_helper->server_automation == "AA6(automation-6)") {
-			$file_server = "http://185.206.82.66/";
+			$file_server = "http://104.140.100.156/";
 		}
 		if ($setting_helper->server_automation == "AA7(automation-7)") {
-			$file_server = "http://185.225.104.51/";
+			$file_server = "http://170.130.127.226/";
 		}
 		if ($setting_helper->server_automation == "AA8(automation-8)") {
-			$file_server = "http://185.206.82.69/";
+			$file_server = "http://170.130.127.229/";
 		}
 		if ($setting_helper->server_automation == "AA9(automation-9)") {
-			$file_server = "http://185.225.104.49/";
-		}
-		if ($setting_helper->server_automation == "AA10(automation-10)") {
-			$file_server = "http://185.206.83.8/";
-		}
-		if ($setting_helper->server_automation == "AA12(automation-12)") {
-			$file_server = "http://185.225.104.45/";
+			$file_server = "http://170.130.127.232/";
 		}
 		if ($setting_helper->server_automation == "AA16(automation-16)") {
 			$file_server = "http://185.225.105.210/";
@@ -647,37 +641,31 @@ class SettingController extends Controller {
 		$setting = Setting::find(Request::input('id'));
 		
 		if ($setting_helper->server_automation == "AA1(automation-1)") {
-			$server = "http://185.225.104.62/";
+			$server = "http://104.140.100.141/";
 		}
 		if ($setting_helper->server_automation == "AA2(automation-2)") {
-			$server = "http://185.206.83.2/";
+			$server = "http://104.140.100.144/";
 		}
 		if ($setting_helper->server_automation == "AA3(automation-3)") {
-			$server = "http://185.225.104.57/";
+			$server = "http://104.140.100.147/";
 		}
 		if ($setting_helper->server_automation == "AA4(automation-4)") {
-			$server = "http://185.206.83.5/";
+			$server = "http://104.140.100.150/";
 		}
 		if ($setting_helper->server_automation == "AA5(automation-5)") {
-			$server = "http://185.225.104.54/";
+			$server = "http://104.140.100.153/";
 		}
 		if ($setting_helper->server_automation == "AA6(automation-6)") {
-			$server = "http://185.206.82.66/";
+			$server = "http://104.140.100.156/";
 		}
 		if ($setting_helper->server_automation == "AA7(automation-7)") {
-			$server = "http://185.225.104.51/";
+			$server = "http://170.130.127.226/";
 		}
 		if ($setting_helper->server_automation == "AA8(automation-8)") {
-			$server = "http://185.206.82.69/";
+			$server = "http://170.130.127.229/";
 		}
 		if ($setting_helper->server_automation == "AA9(automation-9)") {
-			$server = "http://185.225.104.49/";
-		}
-		if ($setting_helper->server_automation == "AA10(automation-10)") {
-			$server = "http://185.206.83.8/";
-		}
-		if ($setting_helper->server_automation == "AA12(automation-12)") {
-			$server = "http://185.225.104.45/";
+			$server = "http://170.130.127.232/";
 		}
 		if ($setting_helper->server_automation == "AA16(automation-16)") {
 			$server = "http://185.225.105.210/";
@@ -776,37 +764,31 @@ class SettingController extends Controller {
 		$setting = Setting::find(Request::input('id'));
 		
 		if ($setting_helper->server_automation == "AA1(automation-1)") {
-			$server = "http://185.225.104.62/";
+			$server = "http://104.140.100.141/";
 		}
 		if ($setting_helper->server_automation == "AA2(automation-2)") {
-			$server = "http://185.206.83.2/";
+			$server = "http://104.140.100.144/";
 		}
 		if ($setting_helper->server_automation == "AA3(automation-3)") {
-			$server = "http://185.225.104.57/";
+			$server = "http://104.140.100.147/";
 		}
 		if ($setting_helper->server_automation == "AA4(automation-4)") {
-			$server = "http://185.206.83.5/";
+			$server = "http://104.140.100.150/";
 		}
 		if ($setting_helper->server_automation == "AA5(automation-5)") {
-			$server = "http://185.225.104.54/";
+			$server = "http://104.140.100.153/";
 		}
 		if ($setting_helper->server_automation == "AA6(automation-6)") {
-			$server = "http://185.206.82.66/";
+			$server = "http://104.140.100.156/";
 		}
 		if ($setting_helper->server_automation == "AA7(automation-7)") {
-			$server = "http://185.225.104.51/";
+			$server = "http://170.130.127.226/";
 		}
 		if ($setting_helper->server_automation == "AA8(automation-8)") {
-			$server = "http://185.206.82.69/";
+			$server = "http://170.130.127.229/";
 		}
 		if ($setting_helper->server_automation == "AA9(automation-9)") {
-			$server = "http://185.225.104.49/";
-		}
-		if ($setting_helper->server_automation == "AA10(automation-10)") {
-			$server = "http://185.206.83.8/";
-		}
-		if ($setting_helper->server_automation == "AA12(automation-12)") {
-			$server = "http://185.225.104.45/";
+			$server = "http://170.130.127.232/";
 		}
 		if ($setting_helper->server_automation == "AA16(automation-16)") {
 			$server = "http://185.225.105.210/";
@@ -918,45 +900,40 @@ class SettingController extends Controller {
 		}
 			
     foreach ($settings as $setting) {					
-			if ($setting->server_automation == "AA1(automation-1)") {
-				$server = "http://185.225.104.62/";
-			}
-			if ($setting->server_automation == "AA2(automation-2)") {
-				$server = "http://185.206.83.2/";
-			}
-			if ($setting->server_automation == "AA3(automation-3)") {
-				$server = "http://185.225.104.57/";
-			}
-			if ($setting->server_automation == "AA4(automation-4)") {
-				$server = "http://185.206.83.5/";
-			}
-			if ($setting->server_automation == "AA5(automation-5)") {
-				$server = "http://185.225.104.54/";
-			}
-			if ($setting->server_automation == "AA6(automation-6)") {
-				$server = "http://185.206.82.66/";
-			}
-			if ($setting->server_automation == "AA7(automation-7)") {
-				$server = "http://185.225.104.51/";
-			}
-			if ($setting->server_automation == "AA8(automation-8)") {
-				$server = "http://185.206.82.69/";
-			}
-			if ($setting->server_automation == "AA9(automation-9)") {
-				$server = "http://185.225.104.49/";
-			}
-			if ($setting->server_automation == "AA10(automation-10)") {
-				$server = "http://185.206.83.8/";
-			}
-			if ($setting->server_automation == "AA12(automation-12)") {
-				$file_server = "http://185.225.104.45/";
-			}
-			if ($setting_helper->server_automation == "AA16(automation-16)") {
-				$file_server = "http://185.225.105.210/";
-			}
-			if ($setting_helper->server_automation == "AA13(automation-13)") {
-				$file_server = "http://185.225.105.226/";
-			}
+		if ($setting_helper->server_automation == "AA1(automation-1)") {
+			$server = "http://104.140.100.141/";
+		}
+		if ($setting_helper->server_automation == "AA2(automation-2)") {
+			$server = "http://104.140.100.144/";
+		}
+		if ($setting_helper->server_automation == "AA3(automation-3)") {
+			$server = "http://104.140.100.147/";
+		}
+		if ($setting_helper->server_automation == "AA4(automation-4)") {
+			$server = "http://104.140.100.150/";
+		}
+		if ($setting_helper->server_automation == "AA5(automation-5)") {
+			$server = "http://104.140.100.153/";
+		}
+		if ($setting_helper->server_automation == "AA6(automation-6)") {
+			$server = "http://104.140.100.156/";
+		}
+		if ($setting_helper->server_automation == "AA7(automation-7)") {
+			$server = "http://170.130.127.226/";
+		}
+		if ($setting_helper->server_automation == "AA8(automation-8)") {
+			$server = "http://170.130.127.229/";
+		}
+		if ($setting_helper->server_automation == "AA9(automation-9)") {
+			$server = "http://170.130.127.232/";
+		}
+		if ($setting_helper->server_automation == "AA16(automation-16)") {
+			$server = "http://185.225.105.210/";
+		}
+		if ($setting_helper->server_automation == "AA13(automation-13)") {
+			$server = "http://185.225.105.226/";
+		}
+
 			
 			$unfollow_counter = 0; $follow_counter = 0; $like_counter = 0; $comment_counter = 0;
 

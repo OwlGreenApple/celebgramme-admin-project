@@ -1,6 +1,7 @@
 @extends('layout.main')
 
 @section('content')
+<?php use Celebgramme\Models\Meta; ?>
   <script type="text/javascript">
     var table;
   </script>
@@ -18,7 +19,12 @@
       </div>
       <div class="input-group fl">
         <input type="text" id="to" class="form-control"> 
+      </div>
+
+      <div align="right">
+        <?php echo 'Total Reflink Click = '.Meta::getMeta('reflink_click'); ?>
       </div> 
+      
     </div>
     <br>
     <div class="row">
