@@ -35,10 +35,13 @@
 			$server = "http://170.130.127.232/";
 		}
 		if ($data_arr->server_automation == "AA16(automation-16)") {
-			$server = "http://185.225.105.210/";
+			$server = "http://23.90.63.26/";
 		}
 		if ($data_arr->server_automation == "AA13(automation-13)") {
-			$server = "http://185.225.105.226/";
+			$server = "http://23.90.63.18/";
+		}
+		if ($data_arr->server_automation == "AA17(automation-17)") {
+			$server = "http://170.130.0.154/";
 		}
 		
 ?>

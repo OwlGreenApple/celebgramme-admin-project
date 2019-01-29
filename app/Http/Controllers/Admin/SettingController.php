@@ -609,10 +609,13 @@ class SettingController extends Controller {
 			$file_server = "http://170.130.127.232/";
 		}
 		if ($setting_helper->server_automation == "AA16(automation-16)") {
-			$file_server = "http://185.225.105.210/";
+			$file_server = "http://23.90.63.26/";
 		}
 		if ($setting_helper->server_automation == "AA13(automation-13)") {
-			$file_server = "http://185.225.105.226/";
+			$file_server = "http://23.90.63.18/";
+		}
+		if ($setting_helper->server_automation == "AA17(automation-17)") {
+			$file_server = "http://170.130.0.154/";
 		}
 
 		$file_server .= "logs-IG-account/".$setting->insta_username.".txt";
@@ -668,10 +671,13 @@ class SettingController extends Controller {
 			$server = "http://170.130.127.232/";
 		}
 		if ($setting_helper->server_automation == "AA16(automation-16)") {
-			$server = "http://185.225.105.210/";
+			$server = "http://23.90.63.26/";
 		}
 		if ($setting_helper->server_automation == "AA13(automation-13)") {
-			$server = "http://185.225.105.226/";
+			$server = "http://23.90.63.18/";
+		}
+		if ($setting_helper->server_automation == "AA17(automation-17)") {
+			$server = "http://170.130.0.154/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -791,10 +797,13 @@ class SettingController extends Controller {
 			$server = "http://170.130.127.232/";
 		}
 		if ($setting_helper->server_automation == "AA16(automation-16)") {
-			$server = "http://185.225.105.210/";
+			$server = "http://23.90.63.26/";
 		}
 		if ($setting_helper->server_automation == "AA13(automation-13)") {
-			$server = "http://185.225.105.226/";
+			$server = "http://23.90.63.18/";
+		}
+		if ($setting_helper->server_automation == "AA17(automation-17)") {
+			$server = "http://170.130.0.154/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -928,10 +937,13 @@ class SettingController extends Controller {
 			$server = "http://170.130.127.232/";
 		}
 		if ($setting_helper->server_automation == "AA16(automation-16)") {
-			$server = "http://185.225.105.210/";
+			$server = "http://23.90.63.26/";
 		}
 		if ($setting_helper->server_automation == "AA13(automation-13)") {
-			$server = "http://185.225.105.226/";
+			$server = "http://23.90.63.18/";
+		}
+		if ($setting_helper->server_automation == "AA17(automation-17)") {
+			$server = "http://170.130.0.154/";
 		}
 
 			
