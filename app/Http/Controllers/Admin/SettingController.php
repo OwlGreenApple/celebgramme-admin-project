@@ -615,7 +615,7 @@ class SettingController extends Controller {
 			$file_server = "http://23.90.63.18/";
 		}
 		if ($setting_helper->server_automation == "AA17(automation-17)") {
-			$file_server = "http://170.130.0.154/";
+			$file_server = "http://23.90.63.50/";
 		}
 
 		$file_server .= "logs-IG-account/".$setting->insta_username.".txt";
@@ -677,7 +677,7 @@ class SettingController extends Controller {
 			$server = "http://23.90.63.18/";
 		}
 		if ($setting_helper->server_automation == "AA17(automation-17)") {
-			$server = "http://170.130.0.154/";
+			$server = "http://23.90.63.50/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -803,7 +803,7 @@ class SettingController extends Controller {
 			$server = "http://23.90.63.18/";
 		}
 		if ($setting_helper->server_automation == "AA17(automation-17)") {
-			$server = "http://170.130.0.154/";
+			$server = "http://23.90.63.50/";
 		}
 
 		$dt = Carbon::now()->setTimezone('Asia/Jakarta');		
@@ -943,7 +943,7 @@ class SettingController extends Controller {
 			$server = "http://23.90.63.18/";
 		}
 		if ($setting_helper->server_automation == "AA17(automation-17)") {
-			$server = "http://170.130.0.154/";
+			$server = "http://23.90.63.50/";
 		}
 
 			

@@ -41,7 +41,7 @@
 			$server = "http://23.90.63.18/";
 		}
 		if ($data_arr->server_automation == "AA17(automation-17)") {
-			$server = "http://170.130.0.154/";
+			$server = "http://23.90.63.50/";
 		}
 		
 ?>
