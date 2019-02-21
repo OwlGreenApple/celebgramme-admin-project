@@ -478,8 +478,8 @@ class ProxyController extends Controller {
             $proxy_new = Proxies::
                       where("proxy",$arr_proxy[0])
                       ->where("port",$arr_proxy[1])
-                      ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
-                      ->where("auth",1)
+                      // ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
+                      // ->where("auth",1)
                       ->first();
             if (is_null($proxy_new)) {
 							$proxy_new = new Proxies;
@@ -497,8 +497,8 @@ class ProxyController extends Controller {
             $proxy_old = Proxies::
                       where("proxy",$arr_proxy[0])
                       ->where("port",$arr_proxy[1])
-                      // ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
-                      // ->where("auth",1)
+                      ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
+                      ->where("auth",1)
                       ->first();
             if (!is_null($proxy_old)) {
               $celebgramme_proxies = SettingHelper::where("proxy_id","=",$proxy_old->id)->get();
