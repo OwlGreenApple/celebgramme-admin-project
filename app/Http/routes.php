@@ -28,6 +28,7 @@ Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallb
 
 /* Global refresh */
 Route::get('refresh-global', 'Admin\SettingController@refresh_global');
+Route::get('press-proxy', 'Admin\SettingController@press_proxy');
 
 /*--------- Must Login Routes ---------*/
 Route::group(['middleware' => 'auth'], function()

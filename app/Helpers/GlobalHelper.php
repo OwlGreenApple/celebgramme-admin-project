@@ -91,6 +91,15 @@ class GlobalHelper {
 			$array_clp[] = $data->proxy_id;
 		}
 
+		//data id yang diblacklist
+		$array_bl = array();
+    $proxies = Proxies::where(DB::raw("cast(port as signed)"),">=",9388)
+                ->where(DB::raw("cast(port as signed)"),"<=",13388)
+                ->get();
+    foreach ($proxies as $proxy) {
+			$array_bl[] = $proxy->id;
+		}
+
 		//carikan proxy baru, yang available 
 		/*error migration $availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(	"sum(count_proxy) as countP"))
 											->groupBy("id","proxy","cred","port","auth")
@@ -101,6 +110,7 @@ class GlobalHelper {
 											select('id')
 											->whereNotIn('id',$array_clb)
 											->whereNotIn('id',$array_clp)
+											->whereNotIn('id',$array_bl)
 											->get();
 		$arrAvailableProxy = array();
 		foreach($availableProxy as $data) {
@@ -138,17 +148,16 @@ class GlobalHelper {
 		if (!is_null($setting_helper)) {
 			$setting_helper->proxy_id = $proxy_id;
 			$setting_helper->save();
-
-			//kasi tanda yang di celebpost klo ada.
-			$account = Account::where("username","=",$setting->insta_username)
-									->first();
-			if (!is_null($account)){
-				$account->is_on_celebgramme = 1;
-				$account->proxy_id = $proxy_id;
-				$account->save();
-			}
-			
 		}
+    
+    //kasi tanda yang di celebpost klo ada.
+    $account = Account::where("username","=",$setting->insta_username)
+                ->first();
+    if (!is_null($account)){
+      $account->is_on_celebgramme = 1;
+      $account->proxy_id = $proxy_id;
+      $account->save();
+    }
 		
 		$arr["proxy_id"] = $proxy_id;
 		$full_proxy =  Proxies::find($proxy_id);

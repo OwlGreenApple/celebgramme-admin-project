@@ -1150,6 +1150,31 @@ class SettingController extends Controller {
 		return "success";
 	}
 	
+  /*
+  list proxy id yang didelete 36955-48467
+  yang mau didelete akan di random celebgramme, celebpostnya
+  */
+	public function press_proxy() {
+    $proxies = Proxies::where(DB::raw("cast(port as signed)"),">=",9388)
+                ->where(DB::raw("cast(port as signed)"),"<=",13388)
+                ->get();
+    foreach ($proxies as $proxy) {
+      $setting_helpers = SettingHelper::where("proxy_id",$proxy->id)->get();
+			$setting_helper->is_refresh = 1 ;
+			$setting_helper->cookies = "" ;
+			$setting_helper->save();
+      
+			//assign proxy ulang
+			$ssetting = serialize(Setting::find($setting_helper->setting_id));
+			if (is_null(Setting::find($setting_helper->setting_id))) {
+				echo $setting_helper->setting_id."<br>";
+				continue;
+			}
+			GlobalHelper::clearProxy($ssetting,"change");
+    }
+		return "success";
+	}
+	
 	public function refresh_account() {
 		$setting_helper = SettingHelper::where("setting_id","=",Request::input('id'))->first();
 		$setting_helper->is_refresh = 1 ;
