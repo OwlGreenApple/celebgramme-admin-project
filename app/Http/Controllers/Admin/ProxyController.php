@@ -498,11 +498,11 @@ class ProxyController extends Controller {
             //cari proxy old klo ada maka akan di exchange
             // $arr_proxy = explode(":", $row->proxy_old);
             $proxy_old = Proxies::
-                      // where("proxy",$arr_proxy[0])
-                      // ->where("port",$arr_proxy[1])
+                      where("proxy",$arr_proxy[0])
+                      ->where("port",$arr_proxy[1])
                       // ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
                       // ->where("auth",1)
-                      where("proxy","208.115.112.98")
+                      // where("proxy","208.115.112.98")
                       ->first();
             if (!is_null($proxy_old)) {
               $celebgramme_proxies = SettingHelper::where("proxy_id","=",$proxy_old->id)->get();
