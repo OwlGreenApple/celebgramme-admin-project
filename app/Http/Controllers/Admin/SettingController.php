@@ -1159,18 +1159,20 @@ class SettingController extends Controller {
                 ->where(DB::raw("cast(port as signed)"),"<=",13388)
                 ->get();
     foreach ($proxies as $proxy) {
-      $setting_helpers = SettingHelper::where("proxy_id",$proxy->id)->get();
-			$setting_helper->is_refresh = 1 ;
-			$setting_helper->cookies = "" ;
-			$setting_helper->save();
-      
-			//assign proxy ulang
-			$ssetting = serialize(Setting::find($setting_helper->setting_id));
-			if (is_null(Setting::find($setting_helper->setting_id))) {
-				echo $setting_helper->setting_id."<br>";
-				continue;
-			}
-			GlobalHelper::clearProxy($ssetting,"change");
+      $setting_helper = SettingHelper::where("proxy_id",$proxy->id)->first();
+      if (!is_null($setting_helper)) {
+        $setting_helper->is_refresh = 1 ;
+        $setting_helper->cookies = "" ;
+        $setting_helper->save();
+        
+        //assign proxy ulang
+        $ssetting = serialize(Setting::find($setting_helper->setting_id));
+        if (is_null(Setting::find($setting_helper->setting_id))) {
+          echo $setting_helper->setting_id."<br>";
+          continue;
+        }
+        GlobalHelper::clearProxy($ssetting,"change");
+      }
     }
 		return "success";
 	}
