@@ -468,8 +468,8 @@ class ProxyController extends Controller {
 				if ($sheet->getTitle()=='Sheet1') {
 					foreach($sheet as $row)
 					{
-						// if ( ($row->proxy_old=="") || ($row->proxy_new=="") ) {
-						if ($row->proxy_new=="") {
+						if ( ($row->proxy_old=="") || ($row->proxy_new=="") ) {
+						// if ($row->proxy_new=="") {
 							continue;
 						}
 						/* 
@@ -496,7 +496,7 @@ class ProxyController extends Controller {
 						}
 						
             //cari proxy old klo ada maka akan di exchange
-            // $arr_proxy = explode(":", $row->proxy_old);
+            $arr_proxy = explode(":", $row->proxy_old);
             $proxy_old = Proxies::
                       where("proxy",$arr_proxy[0])
                       ->where("port",$arr_proxy[1])
