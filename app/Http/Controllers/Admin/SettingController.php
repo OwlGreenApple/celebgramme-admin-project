@@ -1157,6 +1157,7 @@ class SettingController extends Controller {
 	public function press_proxy() {
     $proxies = Proxies::where(DB::raw("cast(port as signed)"),">=",9388)
                 ->where(DB::raw("cast(port as signed)"),"<=",13388)
+                ->where("proxy","216.176.181.226")
                 ->get();
     foreach ($proxies as $proxy) {
       $setting_helper = SettingHelper::where("proxy_id",$proxy->id)->first();

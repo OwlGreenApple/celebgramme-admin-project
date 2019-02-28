@@ -92,13 +92,13 @@ class GlobalHelper {
 		}
 
 		//data id yang diblacklist
-		$array_bl = array();
+		/*$array_bl = array();
     $proxies = Proxies::where(DB::raw("cast(port as signed)"),">=",9388)
                 ->where(DB::raw("cast(port as signed)"),"<=",13388)
                 ->get();
     foreach ($proxies as $proxy) {
 			$array_bl[] = $proxy->id;
-		}
+		}*/
 
 		//carikan proxy baru, yang available 
 		/*error migration $availableProxy = ViewProxyUses::select("id","proxy","cred","port","auth",DB::raw(	"sum(count_proxy) as countP"))
@@ -110,7 +110,7 @@ class GlobalHelper {
 											select('id')
 											->whereNotIn('id',$array_clb)
 											->whereNotIn('id',$array_clp)
-											->whereNotIn('id',$array_bl)
+											// ->whereNotIn('id',$array_bl)
 											->get();
 		$arrAvailableProxy = array();
 		foreach($availableProxy as $data) {
