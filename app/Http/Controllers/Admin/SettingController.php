@@ -1133,19 +1133,41 @@ class SettingController extends Controller {
   }
   
 	public function refresh_global() {
-		$setting_helpers = SettingHelper::where("proxy_id","<>",0)->get();
+		/*$setting_helpers = SettingHelper::where("proxy_id","<>",0)->get();
 		foreach ($setting_helpers as $setting_helper) {
 			$setting_helper->is_refresh = 1 ;
 			$setting_helper->cookies = "" ;
 			$setting_helper->save();
 			
-			//assign proxy ulang
+			// assign proxy ulang
 			$ssetting = serialize(Setting::find($setting_helper->setting_id));
 			if (is_null(Setting::find($setting_helper->setting_id))) {
 				echo $setting_helper->setting_id."<br>";
 				continue;
 			}
 			GlobalHelper::clearProxy($ssetting,"change");
+		}*/
+		$accounts = Account::where("proxy_id","<>",0)->get();
+		foreach ($accounts as $account) {
+      
+      $ssetting = Setting::where("insta_username",$account->username)->first();
+      if (!is_null($ssetting)){
+      
+        $setting_helper = Setting::find($setting_helper->setting_id);
+        if (is_null($setting_helper)) {
+          echo $setting_helper->setting_id."<br>";
+          continue;
+        } 
+        else {
+          $setting_helper->is_refresh = 1 ;
+          $setting_helper->cookies = "" ;
+          $setting_helper->save();
+        }
+        
+        //assign proxy ulang
+        $ssetting = serialize($ssetting);
+        GlobalHelper::clearProxy($ssetting,"change");
+      }
 		}
 		return "success";
 	}
