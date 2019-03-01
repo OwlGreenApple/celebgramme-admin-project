@@ -1153,7 +1153,7 @@ class SettingController extends Controller {
       $ssetting = Setting::where("insta_username",$account->username)->first();
       if (!is_null($ssetting)){
       
-        $setting_helper = Setting::find($setting_helper->setting_id);
+        $setting_helper = SettingHelper::where("setting_id",$ssetting->id)->first();
         if (is_null($setting_helper)) {
           echo $setting_helper->setting_id."<br>";
           continue;
