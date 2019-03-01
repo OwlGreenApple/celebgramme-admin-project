@@ -1133,9 +1133,8 @@ class SettingController extends Controller {
   }
   
 	public function refresh_global() {
-		// $setting_helpers = SettingHelper::where("proxy_id","<>",0)->get();
-    $accounts = Account::where("proxy_id","<>",0)->get();
-		foreach ($accounts as $account) {
+		$setting_helpers = SettingHelper::where("proxy_id","<>",0)->get();
+		foreach ($setting_helpers as $setting_helper) {
 			$setting_helper->is_refresh = 1 ;
 			$setting_helper->cookies = "" ;
 			$setting_helper->save();
