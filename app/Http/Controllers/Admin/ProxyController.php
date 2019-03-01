@@ -337,16 +337,16 @@ class ProxyController extends Controller {
             $proxy_new = Proxies::
                       where("proxy",$arr_proxy[0])
                       ->where("port",$arr_proxy[1])
-                      ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
-                      ->where("auth",1)
+                      // ->where("cred",$arr_proxy[2].":".$arr_proxy[3])
+                      // ->where("auth",1)
                       ->first();
             if (is_null($proxy_new)) {
 							$proxy_new = new Proxies;
 							$proxy_new->proxy = $arr_proxy[0];
 							$proxy_new->port = $arr_proxy[1];
-							// $proxy_new->cred = "";
-							// $proxy_new->auth = 0;
-							$proxy_new->cred = $arr_proxy[2].":".$arr_proxy[3];
+							$proxy_new->cred = "";
+							$proxy_new->auth = 0;
+							// $proxy_new->cred = $arr_proxy[2].":".$arr_proxy[3];
 							$proxy_new->auth = 1;
 							$proxy_new->is_local_proxy = 1;
 							$proxy_new->created = $dt->toDateTimeString();
