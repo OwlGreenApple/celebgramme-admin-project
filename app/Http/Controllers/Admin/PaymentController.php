@@ -649,6 +649,7 @@ class PaymentController extends Controller {
 
   public function success_order(){
     $user = Auth::user();
+    // if ($user->email == "celebgramme.dev@gmail.com" ) {
     if ($user->email == "celebgramme.dev@gmail.com" || $user->email == "admin@admin.com") {
       return view('admin.success-order.index')->with('user',$user);
     }
@@ -657,7 +658,8 @@ class PaymentController extends Controller {
 
   public function load_success_order(){
     $user = Auth::user();
-    if ($user->email == "celebgramme.dev@gmail.com" || $user->email == "admin@admin.com") {
+    // if ($user->email == "celebgramme.dev@gmail.com" || $user->email == "admin@admin.com") {
+    if ($user->email == "celebgramme.dev@gmail.com" ) {
     }
     else{
       return "not authorized";
@@ -914,7 +916,7 @@ class PaymentController extends Controller {
   public function order_chart(){
     $user = Auth::user();
 
-    if($user->email == "celebgramme.dev@gmail.com" || $user->email == "admin@admin.com"){
+    if($user->email == "celebgramme.dev@gmail.com" ){
       return view('admin.order-chart.index')->with('user',$user);
     } else {
       echo 'Not authorized';
@@ -924,7 +926,7 @@ class PaymentController extends Controller {
   public function load_chart(){
     $user = Auth::user();
 
-    if($user->email == "celebgramme.dev@gmail.com" || $user->email == "admin@admin.com"){
+    if($user->email == "celebgramme.dev@gmail.com"){
       
     } else {
       return 'Not authorized';
@@ -1147,7 +1149,7 @@ class PaymentController extends Controller {
   public function price_chart(){
     $user = Auth::user();
 
-    if($user->email == "celebgramme.dev@gmail.com" || $user->email == "admin@admin.com"){
+    if($user->email == "celebgramme.dev@gmail.com"){
       return view('admin.price-chart.index')->with('user',$user);
     } else {
       echo 'Not authorized';
@@ -1157,7 +1159,7 @@ class PaymentController extends Controller {
   public function load_price_chart(){
     $user = Auth::user();
 
-    if($user->email == "celebgramme.dev@gmail.com" || $user->email == "admin@admin.com"){
+    if($user->email == "celebgramme.dev@gmail.com"){
       
     } else {
       return 'Not authorized';
