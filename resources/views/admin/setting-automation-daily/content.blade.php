@@ -29,7 +29,7 @@
 			$server = "http://170.130.127.226/";
 		}
 		if ($data_arr->server_automation == "AA8(automation-8)") {
-			$server = "http://170.130.127.229/";
+			$server = "http://192.186.161.146/";
 		}
 		if ($data_arr->server_automation == "AA9(automation-9)") {
 			$server = "http://170.130.127.232/";

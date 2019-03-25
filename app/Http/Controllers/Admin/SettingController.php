@@ -603,7 +603,7 @@ class SettingController extends Controller {
 			$file_server = "http://170.130.127.226/";
 		}
 		if ($setting_helper->server_automation == "AA8(automation-8)") {
-			$file_server = "http://170.130.127.229/";
+			$file_server = "http://192.186.161.146/";
 		}
 		if ($setting_helper->server_automation == "AA9(automation-9)") {
 			$file_server = "http://170.130.127.232/";
@@ -665,7 +665,7 @@ class SettingController extends Controller {
 			$server = "http://170.130.127.226/";
 		}
 		if ($setting_helper->server_automation == "AA8(automation-8)") {
-			$server = "http://170.130.127.229/";
+			$server = "http://192.186.161.146/";
 		}
 		if ($setting_helper->server_automation == "AA9(automation-9)") {
 			$server = "http://170.130.127.232/";
@@ -791,7 +791,7 @@ class SettingController extends Controller {
 			$server = "http://170.130.127.226/";
 		}
 		if ($setting_helper->server_automation == "AA8(automation-8)") {
-			$server = "http://170.130.127.229/";
+			$server = "http://192.186.161.146/";
 		}
 		if ($setting_helper->server_automation == "AA9(automation-9)") {
 			$server = "http://170.130.127.232/";
@@ -931,7 +931,7 @@ class SettingController extends Controller {
 			$server = "http://170.130.127.226/";
 		}
 		if ($setting_helper->server_automation == "AA8(automation-8)") {
-			$server = "http://170.130.127.229/";
+			$server = "http://192.186.161.146/";
 		}
 		if ($setting_helper->server_automation == "AA9(automation-9)") {
 			$server = "http://170.130.127.232/";
