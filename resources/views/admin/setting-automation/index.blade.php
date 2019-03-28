@@ -261,6 +261,7 @@
 				<option value="AA13(automation-13)">AA16(automation-13)</option>
 				<option value="AA16(automation-16)">AA16(automation-16)</option>
 				<option value="AA16(automation-16)">AA17(automation-17)</option>
+				<option value="DAA1(automation-1)">DAA1(automation-1)</option>
 			</select>
     </div>  
 		<?php } ?>
