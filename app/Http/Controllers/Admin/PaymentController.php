@@ -295,6 +295,9 @@ class PaymentController extends Controller {
 				$packageuser->save();
 
 				$user->active_auto_manage += $package->active_days * 86400;
+        if ($order->is_upsell) {
+          $user->active_auto_manage += 30 * 86400;
+        }
 				if ($user->max_account<=$package->max_account) {
 					$user->max_account = $package->max_account;
 				}
