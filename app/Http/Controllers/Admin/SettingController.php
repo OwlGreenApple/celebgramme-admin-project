@@ -1404,7 +1404,7 @@ class SettingController extends Controller {
 		$setting_temp = Setting::find(Request::input("id"));
 		
 		$user = User::find($setting_temp->last_user);
-    if ( ($user->active_auto_manage==0) && ((Request::input('action')=='start')) ) {
+    if ($user->active_auto_manage==0) {
       $arr["message"]= "Anda tidak dapat menjalankan program, silahkan upgrade waktu anda";
       $arr["type"]= "error";
       return $arr;
