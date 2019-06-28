@@ -57,7 +57,11 @@ class ProxyController extends Controller {
   {
 		$user = Auth::user();
 		if (Request::input('search')=="") {
-			$collection1 = Proxies::all();
+			// $collection1 = Proxies::all();
+			$collection1 = Proxies::
+                      where("proxy","<>","216.176.181.226")
+                      ->where("proxy","<>","208.115.112.100")
+                      ->get();
 		} else {
 			$collection1 = Proxies::
 							where("proxy","like","%".Request::input('search')."%")
@@ -84,7 +88,11 @@ class ProxyController extends Controller {
 	public function pagination_proxy_manager()
   {
 		if (Request::input('search')=="") {
-			$collection1 = Proxies::all();
+			// $collection1 = Proxies::all();
+			$collection1 = Proxies::
+                      where("proxy","<>","216.176.181.226")
+                      ->where("proxy","<>","208.115.112.100")
+                      ->get();
 		} else {
 			$collection1 = Proxies::
 							where("proxy","like","%".Request::input('search')."%")

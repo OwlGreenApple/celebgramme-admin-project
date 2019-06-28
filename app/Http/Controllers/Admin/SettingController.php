@@ -154,6 +154,9 @@ class SettingController extends Controller {
 			$availableProxy = Proxies::
 											whereNotIn('id',$array_clb)
 											->whereNotIn('id',$array_clp)
+                      ->where("proxy","<>","216.176.181.226")
+                      ->where("proxy","<>","208.115.112.100")
+                      
 											->get();
       foreach($availableProxy as $data) {
         /*error migration $check_proxy = Proxies::find($data->id);
@@ -202,7 +205,8 @@ class SettingController extends Controller {
 							 ->select("settings.*","users.email","users.fullname")
 							 ->where("settings.type","=","temp")
 							 ->where("last_user","<>",1267)
-							 ->orderBy('id', 'desc')
+							 // ->orderBy('id', 'desc')
+							 ->orderBy('status')
 							 ->paginate(15);
 			} else if (Request::input('keyword')=="update") {
 				$arr = Setting::leftJoin("users","users.id","=","settings.user_id")
@@ -231,7 +235,8 @@ class SettingController extends Controller {
 								 ->orWhere("users.email","like","%".Request::input('keyword')."%");
 							 })
 							 ->groupBy("settings.id")
-							 ->orderBy('id', 'asc')
+							 // ->orderBy('id', 'asc')
+               ->orderBy('status')
 							 ->paginate(15);
 			}
 			/*
@@ -298,7 +303,8 @@ class SettingController extends Controller {
 							 ->where("activity","=","follow")
 							 ->where("status","=","started")
 							 ->where("follow_source","=","hashtags")
-							 ->orderBy('id', 'asc')
+							 // ->orderBy('id', 'asc')
+               ->orderBy('status')
 							 ->paginate(15);
 			} else {
 				$arr = Setting::
@@ -315,7 +321,8 @@ class SettingController extends Controller {
 								 ->orWhere("users.email","like","%".Request::input('keyword')."%");
 							 })
 							 ->groupBy("settings.id")
-							 ->orderBy('id', 'asc')
+							 // ->orderBy('id', 'asc')
+               ->orderBy('status')
 							 ->paginate(15);
 			}
 			/*
