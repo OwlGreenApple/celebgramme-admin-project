@@ -156,6 +156,7 @@ class SettingController extends Controller {
 											->whereNotIn('id',$array_clp)
                       ->where("proxy","<>","216.176.181.226")
                       ->where("proxy","<>","208.115.112.100")
+                      ->where("proxy","<>","216.176.176.138")
                       
 											->get();
       foreach($availableProxy as $data) {

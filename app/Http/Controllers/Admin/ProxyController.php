@@ -61,6 +61,7 @@ class ProxyController extends Controller {
 			$collection1 = Proxies::
                       where("proxy","<>","216.176.181.226")
                       ->where("proxy","<>","208.115.112.100")
+                      ->where("proxy","<>","216.176.176.138")
                       ->get();
 		} else {
 			$collection1 = Proxies::
@@ -92,6 +93,7 @@ class ProxyController extends Controller {
 			$collection1 = Proxies::
                       where("proxy","<>","216.176.181.226")
                       ->where("proxy","<>","208.115.112.100")
+                      ->where("proxy","<>","216.176.176.138")
                       ->get();
 		} else {
 			$collection1 = Proxies::
